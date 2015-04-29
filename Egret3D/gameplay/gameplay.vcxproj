@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="flash\display\Stage3D.cpp" />
     <ClCompile Include="src\AbsoluteLayout.cpp" />
     <ClCompile Include="src\AIAgent.cpp" />
     <ClCompile Include="src\AIController.cpp" />
@@ -264,6 +265,7 @@
     <ClCompile Include="src\VerticalLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="flash\display\Stage3D.h" />
     <ClInclude Include="src\AbsoluteLayout.h" />
     <ClInclude Include="src\AIAgent.h" />
     <ClInclude Include="src\AIController.h" />

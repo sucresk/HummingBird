@@ -19,6 +19,18 @@
     <Filter Include="res\ui">
       <UniqueIdentifier>{eb377577-593a-469f-9361-b6950a99e431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="flash">
+      <UniqueIdentifier>{71d9fde1-c945-4fb7-831f-91e4c179694d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="flash\display3D">
+      <UniqueIdentifier>{5f8ee0b9-59ed-4ded-91ae-bf373896d47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="flash\display3D\textures">
+      <UniqueIdentifier>{045041df-fa46-4132-892a-0c9f0e1bfcb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="flash\display">
+      <UniqueIdentifier>{2c8431b7-7e3f-42bc-bb5a-68b209c1892c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Plane.cpp">
@@ -761,6 +773,9 @@
     </ClCompile>
     <ClCompile Include="src\lua\lua_VerticalLayout.cpp">
       <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="flash\display\Stage3D.cpp">
+      <Filter>flash\display</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1510,6 +1525,9 @@
     </ClInclude>
     <ClInclude Include="src\lua\lua_VerticalLayout.h">
       <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="flash\display\Stage3D.h">
+      <Filter>flash\display</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
