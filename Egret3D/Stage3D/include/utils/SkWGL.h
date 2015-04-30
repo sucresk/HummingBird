@@ -56,7 +56,8 @@
 #define SK_ERROR_INVALID_VERSION                    0x2095
 #define SK_ERROR_INVALID_PROFILE                    0x2096
 
-class SkWGLExtensions {
+class SkWGLExtensions 
+{
 public:
     SkWGLExtensions();
     /**
@@ -66,6 +67,7 @@ public:
      * functions.
      */
     bool hasExtension(HDC dc, const char* ext) const;
+	bool Init();
 
     const char* getExtensionsString(HDC hdc) const;
     BOOL choosePixelFormat(HDC hdc, const int*, const FLOAT*, UINT, int*, UINT*) const;
