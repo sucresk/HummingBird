@@ -15,7 +15,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="flash\display\Stage3D.cpp" />
     <ClCompile Include="src\AbsoluteLayout.cpp" />
     <ClCompile Include="src\AIAgent.cpp" />
     <ClCompile Include="src\AIController.cpp" />
@@ -265,7 +264,6 @@
     <ClCompile Include="src\VerticalLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="flash\display\Stage3D.h" />
     <ClInclude Include="src\AbsoluteLayout.h" />
     <ClInclude Include="src\AIAgent.h" />
     <ClInclude Include="src\AIController.h" />
@@ -570,7 +568,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMem|x64'" Label="Configuration">
@@ -618,7 +616,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;GP_USE_GAMEPAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)Stage3D\include\gpu;$(ProjectDir)Stage3D\include\core;$(ProjectDir)Stage3D\include\config;$(ProjectDir)Stage3D\src\gpu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
