@@ -2,7 +2,7 @@
 #include "FileSystem.h"
 #include "Image.h"
 
-namespace gameplay
+namespace Egret3D
 {
 // Callback for reading a png image using Stream
 static void readStream(png_structp png, png_bytep data, png_size_t length)

@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "PhysicsCollisionShape.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Node;

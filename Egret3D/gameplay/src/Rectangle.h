@@ -2,7 +2,7 @@
 #define RECTANGLE_H_
 
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

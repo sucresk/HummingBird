@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class MaterialParameter;
@@ -652,7 +652,7 @@ private:
 protected:
 
     /**
-     * Collection of MaterialParameter's to be applied to the gameplay::Effect.
+     * Collection of MaterialParameter's to be applied to the Egret3D::Effect.
      */
     mutable std::vector<MaterialParameter*> _parameters;
 

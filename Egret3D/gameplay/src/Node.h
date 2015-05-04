@@ -16,7 +16,7 @@
 #include "BoundingBox.h"
 #include "AIAgent.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Scene;

@@ -4,7 +4,7 @@
 #include <string>
 #include "Label.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

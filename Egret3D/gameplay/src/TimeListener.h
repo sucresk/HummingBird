@@ -1,7 +1,7 @@
 #ifndef TIMELISTENER_H_
 #define TIMELISTENER_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

@@ -2,7 +2,7 @@
 #define CHARACTERGAME_H_
 
 #include "gameplay.h"
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * This is a mesh demo game for rendering Mesh.

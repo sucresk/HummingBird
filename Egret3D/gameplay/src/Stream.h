@@ -1,7 +1,7 @@
 #ifndef Stream_H_
 #define Stream_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

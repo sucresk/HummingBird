@@ -1,6 +1,6 @@
 #include "PhysicsGenericConstraint.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline const Quaternion& PhysicsGenericConstraint::getRotationOffsetA() const

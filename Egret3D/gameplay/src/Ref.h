@@ -1,7 +1,7 @@
 #ifndef REF_H_
 #define REF_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

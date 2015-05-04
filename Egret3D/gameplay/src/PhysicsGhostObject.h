@@ -5,7 +5,7 @@
 #include "PhysicsRigidBody.h"
 #include "Transform.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

@@ -3,7 +3,7 @@
 
 #include "gameplay.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * FirstPersonCamera controls a camera like a first person shooter game.

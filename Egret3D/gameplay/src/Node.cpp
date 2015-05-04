@@ -20,7 +20,7 @@
 #define NODE_DIRTY_HIERARCHY 4
 #define NODE_DIRTY_ALL (NODE_DIRTY_WORLD | NODE_DIRTY_BOUNDS | NODE_DIRTY_HIERARCHY)
 
-namespace gameplay
+namespace Egret3D
 {
 
 Node::Node(const char* id)

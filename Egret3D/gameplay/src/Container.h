@@ -5,7 +5,7 @@
 #include "Layout.h"
 #include "TimeListener.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

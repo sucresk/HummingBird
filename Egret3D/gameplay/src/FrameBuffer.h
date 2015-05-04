@@ -6,7 +6,7 @@
 #include "DepthStencilTarget.h"
 #include "Image.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

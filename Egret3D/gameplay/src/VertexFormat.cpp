@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "VertexFormat.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 VertexFormat::VertexFormat(const Element* elements, unsigned int elementCount)

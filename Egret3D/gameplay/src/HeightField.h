@@ -3,7 +3,7 @@
 
 #include "Ref.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
     /**

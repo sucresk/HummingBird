@@ -11,7 +11,7 @@
 #include "Properties.h"
 #include "Drawable.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Node;

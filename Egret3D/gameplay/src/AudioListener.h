@@ -5,7 +5,7 @@
 #include "Transform.h"
 #include "Camera.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

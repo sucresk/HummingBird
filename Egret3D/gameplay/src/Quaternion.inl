@@ -1,6 +1,6 @@
 #include "Quaternion.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline const Quaternion Quaternion::operator*(const Quaternion& q) const

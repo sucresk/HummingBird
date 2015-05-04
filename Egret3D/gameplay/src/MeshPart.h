@@ -3,7 +3,7 @@
 
 #include "Mesh.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

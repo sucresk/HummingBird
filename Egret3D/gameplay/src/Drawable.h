@@ -1,7 +1,7 @@
 #ifndef DRAWABLE_H_
 #define DRAWABLE_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Node;

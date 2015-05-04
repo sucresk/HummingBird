@@ -10,7 +10,7 @@
 #include "TileSet.h"
 #include "Light.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 // Utility functions (shared with Properties).

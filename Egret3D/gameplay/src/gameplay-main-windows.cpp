@@ -3,7 +3,7 @@
 
 #include "gameplay.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 #ifndef _WINDOWS_
     #define WIN32_LEAN_AND_MEAN

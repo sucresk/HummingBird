@@ -1,6 +1,6 @@
 #include "Image.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline unsigned char* Image::getData() const

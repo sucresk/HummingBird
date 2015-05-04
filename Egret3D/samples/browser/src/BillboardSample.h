@@ -5,7 +5,7 @@
 #include "Sample.h"
 #include "FirstPersonCamera.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * Sample for 3D billboarding with cloud sprites

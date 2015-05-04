@@ -10,7 +10,7 @@
 #define FONT_VSH "res/shaders/font.vert"
 #define FONT_FSH "res/shaders/font.frag"
 
-namespace gameplay
+namespace Egret3D
 {
 
 static std::vector<Font*> __fontCache;

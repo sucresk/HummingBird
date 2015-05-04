@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "MeshSkin.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

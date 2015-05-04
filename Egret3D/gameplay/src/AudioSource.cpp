@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 AudioSource::AudioSource(AudioBuffer* buffer, ALuint source) 

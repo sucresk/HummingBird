@@ -2,7 +2,7 @@
 #include "Vector3.h"
 #include "MathUtil.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Vector3::Vector3()

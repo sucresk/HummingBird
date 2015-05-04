@@ -1,6 +1,6 @@
 #include "Ray.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline Ray& Ray::operator*=(const Matrix& matrix)

@@ -3,7 +3,7 @@
 #include "FileSystem.h"
 #include "Quaternion.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

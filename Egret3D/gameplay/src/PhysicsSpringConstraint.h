@@ -3,7 +3,7 @@
 
 #include "PhysicsGenericConstraint.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

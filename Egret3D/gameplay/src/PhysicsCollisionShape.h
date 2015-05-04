@@ -5,7 +5,7 @@
 #include "Mesh.h"
 #include "HeightField.h"
 
-namespace gameplay
+namespace Egret3D
 {
     class Node;
     class Properties;

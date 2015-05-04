@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "JoystickControl.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 JoystickControl::JoystickControl() : _radiusPixels(1.0f), _relative(true), _innerSizePixels(NULL), _outerSizePixels(NULL), _index(0),

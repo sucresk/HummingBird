@@ -3,7 +3,7 @@
 #include "BoundingSphere.h"
 #include "BoundingBox.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Frustum::Frustum()

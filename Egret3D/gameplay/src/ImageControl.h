@@ -7,7 +7,7 @@
 #include "SpriteBatch.h"
 #include "Rectangle.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

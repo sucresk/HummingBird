@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "Effect.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 static GLuint __maxVertexAttribs = 0;
@@ -144,7 +144,7 @@ VertexAttributeBinding* VertexAttributeBinding::create(Mesh* mesh, const VertexF
     for (size_t i = 0, count = vertexFormat.getElementCount(); i < count; ++i)
     {
         const VertexFormat::Element& e = vertexFormat.getElement(i);
-        gameplay::VertexAttribute attrib;
+        Egret3D::VertexAttribute attrib;
 
         // Constructor vertex attribute name expected in shader.
         switch (e.usage)

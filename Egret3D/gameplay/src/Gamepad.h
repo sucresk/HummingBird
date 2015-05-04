@@ -3,7 +3,7 @@
 
 #include "Vector2.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Button;

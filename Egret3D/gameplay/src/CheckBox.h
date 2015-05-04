@@ -6,7 +6,7 @@
 #include "Touch.h"
 #include "Button.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

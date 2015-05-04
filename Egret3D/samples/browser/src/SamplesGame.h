@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * Macro for adding a sample. The purpose is to put the code that adds the sample in the class's cpp file.

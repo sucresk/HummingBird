@@ -80,7 +80,7 @@ static inline float lerpInl(float s, float from, float to)
     return from + (to - from) * s;
 }
 
-namespace gameplay
+namespace Egret3D
 {
 
 Curve* Curve::create(unsigned int pointCount, unsigned int componentCount)

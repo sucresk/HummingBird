@@ -4,7 +4,7 @@
 
 #define FRAMEBUFFER_ID_DEFAULT "org.gameplay3d.framebuffer.default"
 
-namespace gameplay
+namespace Egret3D
 {
 
 unsigned int FrameBuffer::_maxRenderTargets = 0;

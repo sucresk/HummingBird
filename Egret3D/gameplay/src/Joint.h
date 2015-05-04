@@ -3,7 +3,7 @@
 
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class MeshSkin;

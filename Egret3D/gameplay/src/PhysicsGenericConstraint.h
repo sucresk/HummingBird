@@ -5,7 +5,7 @@
 #include "Quaternion.h"
 #include "Vector3.h"
 
-namespace gameplay
+namespace Egret3D
 {
     class PhysicsRigidBody;
 

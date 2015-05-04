@@ -4,7 +4,7 @@
 #include "PhysicsCollisionObject.h"
 #include "PhysicsRigidBody.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class PhysicsVehicleWheel;

@@ -5,7 +5,7 @@
 #include "Properties.h"
 #include "Curve.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class AnimationTarget;

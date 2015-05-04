@@ -19,7 +19,7 @@
 #define SPRITE_VSH "res/shaders/sprite.vert"
 #define SPRITE_FSH "res/shaders/sprite.frag"
 
-namespace gameplay
+namespace Egret3D
 {
 
 static Effect* __spriteEffect = NULL;

@@ -7,7 +7,7 @@
 #include "Properties.h"
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Material::Material() :

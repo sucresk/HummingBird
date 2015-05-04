@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * Sample the creating and drawing with textures with different modes.

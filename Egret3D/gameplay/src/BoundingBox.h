@@ -3,7 +3,7 @@
 
 #include "Frustum.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

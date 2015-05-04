@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 /**
  * Sample loading a physics scene from .scene file with .physics bindings

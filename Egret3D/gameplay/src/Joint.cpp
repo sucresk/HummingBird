@@ -3,7 +3,7 @@
 #include "MeshSkin.h"
 #include "Model.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Joint::Joint(const char* id)

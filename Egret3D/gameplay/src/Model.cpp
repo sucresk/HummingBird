@@ -6,7 +6,7 @@
 #include "Pass.h"
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Model::Model() : Drawable(),

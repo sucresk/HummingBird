@@ -4,7 +4,7 @@
 #include "Material.h"
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Pass::Pass(const char* id, Technique* technique) :

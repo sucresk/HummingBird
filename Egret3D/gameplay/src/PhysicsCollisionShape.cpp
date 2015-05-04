@@ -7,7 +7,7 @@
 #include "HeightField.h"
 #include "Terrain.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 PhysicsCollisionShape::PhysicsCollisionShape(Type type, btCollisionShape* shape, btStridingMeshInterface* meshInterface)

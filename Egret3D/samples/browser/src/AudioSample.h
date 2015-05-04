@@ -3,7 +3,7 @@
 
 #include "SamplesGame.h"
 
-using namespace gameplay;
+using namespace Egret3D;
 
 class AudioSample : public Sample, Control::Listener
 {

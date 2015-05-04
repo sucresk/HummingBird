@@ -10,7 +10,7 @@
 #include "Effect.h"
 #include "Drawable.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

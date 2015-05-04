@@ -7,7 +7,7 @@
 #include "Properties.h"
 #include "Scene.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

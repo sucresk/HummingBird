@@ -5,7 +5,7 @@
 #include "AIStateMachine.h"
 #include "AIMessage.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Node;

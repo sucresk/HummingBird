@@ -12,7 +12,7 @@
 #define ANIMATION_ROTATE_OFFSET 0
 #define ANIMATION_SRT_OFFSET 3
 
-namespace gameplay
+namespace Egret3D
 {
 
 Animation::Animation(const char* id, AnimationTarget* target, int propertyId, unsigned int keyCount, unsigned int* keyTimes, float* keyValues, unsigned int type)

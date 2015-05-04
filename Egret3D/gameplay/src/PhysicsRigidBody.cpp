@@ -7,7 +7,7 @@
 #include "Node.h"
 #include "Terrain.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Definition& shape, const Parameters& parameters, int group, int mask)

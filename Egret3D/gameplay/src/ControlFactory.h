@@ -3,7 +3,7 @@
 
 #include "Theme.h"
 
-namespace gameplay 
+namespace Egret3D 
 {	
 
 class Properties;

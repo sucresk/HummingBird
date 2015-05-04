@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "MathUtil.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 void MathUtil::smooth(float* x, float target, float elapsedTime, float responseTime)

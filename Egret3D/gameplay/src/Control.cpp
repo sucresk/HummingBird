@@ -4,7 +4,7 @@
 #include "Form.h"
 #include "Theme.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Control::Control()

@@ -1,7 +1,7 @@
 #ifndef TOUCH_H_
 #define TOUCH_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

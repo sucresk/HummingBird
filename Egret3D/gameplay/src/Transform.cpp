@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Node.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 int Transform::_suspendTransformChanged(0);

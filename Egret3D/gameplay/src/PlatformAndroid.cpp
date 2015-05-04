@@ -82,7 +82,7 @@ struct TouchPointerData
 TouchPointerData __pointer0;
 TouchPointerData __pointer1;
 
-namespace gameplay
+namespace Egret3D
 {
 
 
@@ -777,46 +777,46 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
             float yaxis = AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_HAT_Y, 0);        
             if (xaxis == -1.0f)
             {
-                gameplay::Platform::gamepadButtonPressedEventInternal(deviceId, gameplay::Gamepad::BUTTON_LEFT);
+                Egret3D::Platform::gamepadButtonPressedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_LEFT);
             }
             else if(xaxis == 1.0f)
             {
-                gameplay::Platform::gamepadButtonPressedEventInternal(deviceId, gameplay::Gamepad::BUTTON_RIGHT);
+                Egret3D::Platform::gamepadButtonPressedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_RIGHT);
             }
             else if (xaxis == 0.0f)
             {
-                gameplay::Platform::gamepadButtonReleasedEventInternal(deviceId, gameplay::Gamepad::BUTTON_LEFT);
-                gameplay::Platform::gamepadButtonReleasedEventInternal(deviceId, gameplay::Gamepad::BUTTON_RIGHT);
+                Egret3D::Platform::gamepadButtonReleasedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_LEFT);
+                Egret3D::Platform::gamepadButtonReleasedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_RIGHT);
             }
 
             if(yaxis == -1.0f)
             {
-                gameplay::Platform::gamepadButtonPressedEventInternal(deviceId, gameplay::Gamepad::BUTTON_UP);
+                Egret3D::Platform::gamepadButtonPressedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_UP);
             }
             else if(yaxis == 1.0f)
             {
-                gameplay::Platform::gamepadButtonPressedEventInternal(deviceId, gameplay::Gamepad::BUTTON_DOWN);
+                Egret3D::Platform::gamepadButtonPressedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_DOWN);
             }
             else if (yaxis == 0.0f)
             {
-                gameplay::Platform::gamepadButtonReleasedEventInternal(deviceId, gameplay::Gamepad::BUTTON_UP);
-                gameplay::Platform::gamepadButtonReleasedEventInternal(deviceId, gameplay::Gamepad::BUTTON_DOWN);
+                Egret3D::Platform::gamepadButtonReleasedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_UP);
+                Egret3D::Platform::gamepadButtonReleasedEventInternal(deviceId, Egret3D::Gamepad::BUTTON_DOWN);
             }
 
             // Trigger handling
             float leftTrigger = AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_BRAKE, 0);
-            gameplay::Platform::gamepadTriggerChangedEventInternal(deviceId, 0, leftTrigger);
+            Egret3D::Platform::gamepadTriggerChangedEventInternal(deviceId, 0, leftTrigger);
             float rightTrigger = AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_GAS, 0);
-            gameplay::Platform::gamepadTriggerChangedEventInternal(deviceId, 1, rightTrigger);
+            Egret3D::Platform::gamepadTriggerChangedEventInternal(deviceId, 1, rightTrigger);
 
             // Joystick handling
             float fuzz = 0.15f;
             float x = AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_X, 0);
             float y = -AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_Y, 0);
-            gameplay::Platform::gamepadJoystickChangedEventInternal(deviceId, 0, clampFuzz(x, fuzz), clampFuzz(y, fuzz));
+            Egret3D::Platform::gamepadJoystickChangedEventInternal(deviceId, 0, clampFuzz(x, fuzz), clampFuzz(y, fuzz));
             float z = AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_Z, 0);
             float rz = -AMotionEvent_getAxisValue(event, AMOTION_EVENT_AXIS_RZ, 0);
-            gameplay::Platform::gamepadJoystickChangedEventInternal(deviceId, 1, clampFuzz(z, fuzz), clampFuzz(rz, fuzz));
+            Egret3D::Platform::gamepadJoystickChangedEventInternal(deviceId, 1, clampFuzz(z, fuzz), clampFuzz(rz, fuzz));
         }
         else
         {
@@ -845,7 +845,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
                         }
 
                         // Primary pointer down.
-                        gameplay::Platform::touchEventInternal(Touch::TOUCH_PRESS, x, y, pointerId);
+                        Egret3D::Platform::touchEventInternal(Touch::TOUCH_PRESS, x, y, pointerId);
                         __primaryTouchId = pointerId;
                     }
                     break;
@@ -873,46 +873,46 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
                             {
                                 if (__gestureEventsProcessed.test(Gesture::GESTURE_DROP))
                                 {
-                                    gameplay::Platform::gestureDropEventInternal(x, y);
+                                    Egret3D::Platform::gestureDropEventInternal(x, y);
                                     gestureDetected = true;
                                 }
                                 __gestureDraging = false;
                             }
                             // Test for swipe
                             else if (__gestureEventsProcessed.test(Gesture::GESTURE_SWIPE) &&
-                                gameplay::Game::getInstance()->getAbsoluteTime() - __pointer0.time < GESTURE_SWIPE_DURATION_MAX && 
+                                Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer0.time < GESTURE_SWIPE_DURATION_MAX && 
                                 (abs(deltaX) > GESTURE_SWIPE_DISTANCE_MIN || abs(deltaY) > GESTURE_SWIPE_DISTANCE_MIN) )
                             {
                                 int direction = 0;
                                 if ( abs(deltaX) > abs(deltaY) )
                                 {
                                     if (deltaX > 0)
-                                        direction = gameplay::Gesture::SWIPE_DIRECTION_RIGHT;
+                                        direction = Egret3D::Gesture::SWIPE_DIRECTION_RIGHT;
                                     else if (deltaX < 0)
-                                        direction = gameplay::Gesture::SWIPE_DIRECTION_LEFT;
+                                        direction = Egret3D::Gesture::SWIPE_DIRECTION_LEFT;
                                 }
                                 else
                                 {
                                     if (deltaY > 0)
-                                        direction = gameplay::Gesture::SWIPE_DIRECTION_DOWN;
+                                        direction = Egret3D::Gesture::SWIPE_DIRECTION_DOWN;
                                     else if (deltaY < 0)
-                                        direction = gameplay::Gesture::SWIPE_DIRECTION_UP;
+                                        direction = Egret3D::Gesture::SWIPE_DIRECTION_UP;
                                 }
-                                gameplay::Platform::gestureSwipeEventInternal(x, y, direction);
+                                Egret3D::Platform::gestureSwipeEventInternal(x, y, direction);
                                 gestureDetected = true;
                             }
                             // Test for tap
                             else if(__gestureEventsProcessed.test(Gesture::GESTURE_TAP) &&
-                                   gameplay::Game::getInstance()->getAbsoluteTime() - __pointer0.time < GESTURE_TAP_DURATION_MAX)
+                                   Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer0.time < GESTURE_TAP_DURATION_MAX)
                             {
-                                gameplay::Platform::gestureTapEventInternal(x, y);
+                                Egret3D::Platform::gestureTapEventInternal(x, y);
                                 gestureDetected = true;
                             }
                             // Test for long tap
                             else if(__gestureEventsProcessed.test(Gesture::GESTURE_LONG_TAP) &&
-                                   gameplay::Game::getInstance()->getAbsoluteTime() - __pointer0.time >= GESTURE_LONG_TAP_DURATION_MIN)
+                                   Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer0.time >= GESTURE_LONG_TAP_DURATION_MIN)
                             {
-                                gameplay::Platform::gestureLongTapEventInternal(x, y, gameplay::Game::getInstance()->getAbsoluteTime() - __pointer0.time);
+                                Egret3D::Platform::gestureLongTapEventInternal(x, y, Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer0.time);
                                 gestureDetected = true;
                             }    
                         }
@@ -920,7 +920,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 
                         if (!gestureDetected && (__multiTouch || __primaryTouchId == pointerId) )
                         {
-                            gameplay::Platform::touchEventInternal(Touch::TOUCH_RELEASE, x, y, pointerId);
+                            Egret3D::Platform::touchEventInternal(Touch::TOUCH_RELEASE, x, y, pointerId);
                         }
                         __primaryTouchId = -1;
                     }
@@ -952,7 +952,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
                         // Non-primary pointer down.
                         if (__multiTouch)
                         {
-                            gameplay::Platform::touchEventInternal(Touch::TOUCH_PRESS, 
+                            Egret3D::Platform::touchEventInternal(Touch::TOUCH_PRESS, 
                                                                    AMotionEvent_getX(event, pointerIndex), 
                                                                    AMotionEvent_getY(event, pointerIndex), pointerId);
                         }
@@ -979,33 +979,33 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 						    }
 						    // Test for swipe
 						    else if (__gestureEventsProcessed.test(Gesture::GESTURE_SWIPE) &&
-                                gameplay::Game::getInstance()->getAbsoluteTime() - __pointer1.time < GESTURE_SWIPE_DURATION_MAX && 
+                                Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer1.time < GESTURE_SWIPE_DURATION_MAX && 
                                 (abs(deltaX) > GESTURE_SWIPE_DISTANCE_MIN || abs(deltaY) > GESTURE_SWIPE_DISTANCE_MIN) )
                             {
                                 int direction = 0;
                                 if (deltaX > 0)
-                                    direction |= gameplay::Gesture::SWIPE_DIRECTION_RIGHT;
+                                    direction |= Egret3D::Gesture::SWIPE_DIRECTION_RIGHT;
                                 else if (deltaX < 0)
-                                    direction |= gameplay::Gesture::SWIPE_DIRECTION_LEFT;
+                                    direction |= Egret3D::Gesture::SWIPE_DIRECTION_LEFT;
                                 
                                 if (deltaY > 0)
-                                    direction |= gameplay::Gesture::SWIPE_DIRECTION_DOWN;
+                                    direction |= Egret3D::Gesture::SWIPE_DIRECTION_DOWN;
                                 else if (deltaY < 0)
-                                    direction |= gameplay::Gesture::SWIPE_DIRECTION_UP;
+                                    direction |= Egret3D::Gesture::SWIPE_DIRECTION_UP;
 
-                                gameplay::Platform::gestureSwipeEventInternal(x, y, direction);
+                                Egret3D::Platform::gestureSwipeEventInternal(x, y, direction);
                                 gestureDetected = true;
                             }
                             else if(__gestureEventsProcessed.test(Gesture::GESTURE_TAP) &&
-                                   gameplay::Game::getInstance()->getAbsoluteTime() - __pointer1.time < GESTURE_TAP_DURATION_MAX)
+                                   Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer1.time < GESTURE_TAP_DURATION_MAX)
                             {
-                                gameplay::Platform::gestureTapEventInternal(x, y);
+                                Egret3D::Platform::gestureTapEventInternal(x, y);
                                 gestureDetected = true;
                             }
                             else if(__gestureEventsProcessed.test(Gesture::GESTURE_LONG_TAP) &&
-                                   gameplay::Game::getInstance()->getAbsoluteTime() - __pointer1.time >= GESTURE_LONG_TAP_DURATION_MIN)
+                                   Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer1.time >= GESTURE_LONG_TAP_DURATION_MIN)
                             {
-                                gameplay::Platform::gestureLongTapEventInternal(x, y, gameplay::Game::getInstance()->getAbsoluteTime() - __pointer1.time);
+                                Egret3D::Platform::gestureLongTapEventInternal(x, y, Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer1.time);
                                 gestureDetected = true;
                             }    
                         }
@@ -1013,7 +1013,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 
                         if (!gestureDetected && (__multiTouch || __primaryTouchId == pointerId) )
                         {
-                            gameplay::Platform::touchEventInternal(Touch::TOUCH_RELEASE, 
+                            Egret3D::Platform::touchEventInternal(Touch::TOUCH_RELEASE, 
                                                                    AMotionEvent_getX(event, pointerIndex), 
                                                                    AMotionEvent_getY(event, pointerIndex), pointerId);
                         }
@@ -1091,7 +1091,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 										    if (((currentDistancePointer0 >= lastDistancePointer0) && (currentDistancePointer1 >= lastDistancePointer1)) ||
 											    ((currentDistancePointer0 <= lastDistancePointer0) && (currentDistancePointer1 <= lastDistancePointer1)))
 										    {
-											    gameplay::Platform::gesturePinchEventInternal(__gesturePinchCentroid.first, __gesturePinchCentroid.second, scale);	
+											    Egret3D::Platform::gesturePinchEventInternal(__gesturePinchCentroid.first, __gesturePinchCentroid.second, scale);	
 											    gestureDetected = true;
 										    }
 										    else
@@ -1109,10 +1109,10 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 													    pow(static_cast<float>(y - __pointer0.y), 2));
                                 
                                 		if ((__gestureDraging || __gestureEventsProcessed.test(Gesture::GESTURE_DRAG)) &&
-                                     		(gameplay::Game::getInstance()->getAbsoluteTime() - __pointer0.time >= GESTURE_DRAG_START_DURATION_MIN) &&
+                                     		(Egret3D::Game::getInstance()->getAbsoluteTime() - __pointer0.time >= GESTURE_DRAG_START_DURATION_MIN) &&
                                     		(delta >= GESTURE_DRAG_DISTANCE_MIN))
                                 		{
-                                    		gameplay::Platform::gestureDragEventInternal(x, y);
+                                    		Egret3D::Platform::gestureDragEventInternal(x, y);
                                     		__gestureDraging = true;
                                     		gestureDetected = true;
                                 		}
@@ -1122,7 +1122,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 
                             if (!gestureDetected && (__multiTouch || __primaryTouchId == pointerId))
                             {
-                                gameplay::Platform::touchEventInternal(Touch::TOUCH_MOVE, AMotionEvent_getX(event, i), AMotionEvent_getY(event, i), pointerId);
+                                Egret3D::Platform::touchEventInternal(Touch::TOUCH_MOVE, AMotionEvent_getX(event, i), AMotionEvent_getY(event, i), pointerId);
                             }
                        }
                    }
@@ -1146,24 +1146,24 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
             case AKEY_EVENT_ACTION_DOWN:
                 if (((source & AINPUT_SOURCE_GAMEPAD) == AINPUT_SOURCE_GAMEPAD) || ((source & AINPUT_SOURCE_JOYSTICK) == AINPUT_SOURCE_JOYSTICK))
                 {
-                    gameplay::Platform::gamepadButtonPressedEventInternal(deviceId, gameplay::getGamepadButtonMapping(keycode));
+                    Egret3D::Platform::gamepadButtonPressedEventInternal(deviceId, Egret3D::getGamepadButtonMapping(keycode));
                 }
                 else
                 {
-                    gameplay::Platform::keyEventInternal(Keyboard::KEY_PRESS, getKey(keycode, metastate));
+                    Egret3D::Platform::keyEventInternal(Keyboard::KEY_PRESS, getKey(keycode, metastate));
                     if (int character = getUnicode(keycode, metastate))
-                        gameplay::Platform::keyEventInternal(Keyboard::KEY_CHAR, character);
+                        Egret3D::Platform::keyEventInternal(Keyboard::KEY_CHAR, character);
                 }
                 break;
                     
             case AKEY_EVENT_ACTION_UP:
                 if (((source & AINPUT_SOURCE_GAMEPAD) == AINPUT_SOURCE_GAMEPAD) || ((source & AINPUT_SOURCE_JOYSTICK) == AINPUT_SOURCE_JOYSTICK))
                 {
-                    gameplay::Platform::gamepadButtonReleasedEventInternal(deviceId, gameplay::getGamepadButtonMapping(keycode));
+                    Egret3D::Platform::gamepadButtonReleasedEventInternal(deviceId, Egret3D::getGamepadButtonMapping(keycode));
                 }
                 else
                 {
-                    gameplay::Platform::keyEventInternal(Keyboard::KEY_RELEASE, getKey(keycode, metastate));
+                    Egret3D::Platform::keyEventInternal(Keyboard::KEY_RELEASE, getKey(keycode, metastate));
                 }
                 break;
         }
@@ -1402,7 +1402,7 @@ int Platform::enterMessagePump()
         }
             
         // Display the keyboard.
-        gameplay::displayKeyboard(__state, __displayKeyboard);
+        Egret3D::displayKeyboard(__state, __displayKeyboard);
     }
     return 0;
 }
@@ -1618,8 +1618,8 @@ void Platform::shutdownInternal()
 bool Platform::isGestureSupported(Gesture::GestureEvent evt)
 {
     // Pinch currently not implemented
-    return evt == gameplay::Gesture::GESTURE_SWIPE || evt == gameplay::Gesture::GESTURE_TAP || evt == gameplay::Gesture::GESTURE_LONG_TAP ||
-        evt == gameplay::Gesture::GESTURE_DRAG || evt == gameplay::Gesture::GESTURE_DROP || evt == gameplay::Gesture::GESTURE_PINCH;
+    return evt == Egret3D::Gesture::GESTURE_SWIPE || evt == Egret3D::Gesture::GESTURE_TAP || evt == Egret3D::Gesture::GESTURE_LONG_TAP ||
+        evt == Egret3D::Gesture::GESTURE_DRAG || evt == Egret3D::Gesture::GESTURE_DROP || evt == Egret3D::Gesture::GESTURE_PINCH;
 }
 
 void Platform::registerGesture(Gesture::GestureEvent evt)
@@ -1770,14 +1770,14 @@ JNIEXPORT void JNICALL Java_org_gameplay3d_GamePlayNativeActivity_gamepadEventCo
 {
     const char* name = env->GetStringUTFChars(deviceName, JNI_FALSE);
     
-	gameplay::Platform::gamepadEventConnectedInternal(deviceId, buttonCount, joystickCount, triggerCount, name);
+	Egret3D::Platform::gamepadEventConnectedInternal(deviceId, buttonCount, joystickCount, triggerCount, name);
     
     env->ReleaseStringUTFChars(deviceName, name);
 }
 
 JNIEXPORT void JNICALL Java_org_gameplay3d_GamePlayNativeActivity_gamepadEventDisconnectedImpl(JNIEnv* env, jclass clazz, jint deviceId)
 {
-	gameplay::Platform::gamepadEventDisconnectedInternal(deviceId);
+	Egret3D::Platform::gamepadEventDisconnectedInternal(deviceId);
 }
 
 JNIEXPORT void JNICALL Java_org_gameplay3d_GamePlayNativeActivity_screenOrientationChanged(JNIEnv* env, jclass clazz, jint orientation)

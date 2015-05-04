@@ -1,7 +1,7 @@
 #include "PhysicsRigidBody.h"
 #include "Base.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline float PhysicsRigidBody::getMass() const

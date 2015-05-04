@@ -7,7 +7,7 @@
 #include "Light.h"
 #include "Model.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

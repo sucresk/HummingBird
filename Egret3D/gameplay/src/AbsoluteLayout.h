@@ -3,7 +3,7 @@
 
 #include "Layout.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

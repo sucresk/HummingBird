@@ -4,7 +4,7 @@
 #include "Container.h"
 #include "Game.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 bool Layout::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

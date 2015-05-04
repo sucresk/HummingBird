@@ -6,7 +6,7 @@
 #include "Vector2.h"
 #include "Stream.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Properties;

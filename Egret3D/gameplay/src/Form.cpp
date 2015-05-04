@@ -21,7 +21,7 @@ static const float GAMEPAD_FOCUS_REPEAT_DELAY = 300.0f;
 #define FORM_VSH "res/shaders/sprite.vert"
 #define FORM_FSH "res/shaders/sprite.frag"
 
-namespace gameplay
+namespace Egret3D
 {
 
 static std::vector<Form*> __forms;

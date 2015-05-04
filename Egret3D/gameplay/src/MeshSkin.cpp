@@ -6,7 +6,7 @@
 // The number of rows in each palette matrix.
 #define PALETTE_ROWS 3
 
-namespace gameplay
+namespace Egret3D
 {
 
 MeshSkin::MeshSkin()

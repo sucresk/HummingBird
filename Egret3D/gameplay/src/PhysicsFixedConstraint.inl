@@ -1,6 +1,6 @@
 #include "PhysicsFixedConstraint.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 inline void PhysicsFixedConstraint::setAngularLowerLimit(const Vector3& limit)

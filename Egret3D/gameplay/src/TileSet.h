@@ -9,7 +9,7 @@
 #include "SpriteBatch.h"
 #include "Effect.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

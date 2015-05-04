@@ -2,7 +2,7 @@
 #include "Sprite.h"
 #include "Scene.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 Sprite::Sprite() : Drawable(),

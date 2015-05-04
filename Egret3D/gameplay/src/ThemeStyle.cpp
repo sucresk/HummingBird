@@ -1,6 +1,6 @@
 #include "ThemeStyle.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /****************

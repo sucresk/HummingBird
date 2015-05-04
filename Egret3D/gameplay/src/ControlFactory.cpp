@@ -10,7 +10,7 @@
 #include "JoystickControl.h"
 #include "ImageControl.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 static ControlFactory* __controlFactory = NULL;

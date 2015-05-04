@@ -9,7 +9,7 @@
 #include "Gamepad.h"
 #include "FileSystem.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Game;

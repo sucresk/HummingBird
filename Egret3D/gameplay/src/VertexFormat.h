@@ -1,7 +1,7 @@
 #ifndef VERTEXFORMAT_H_
 #define VERTEXFORMAT_H_
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**

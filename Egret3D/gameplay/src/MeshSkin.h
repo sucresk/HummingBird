@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include "Transform.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 class Bundle;

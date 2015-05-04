@@ -3,7 +3,7 @@
 
 #include "Script.h"
 
-namespace gameplay
+namespace Egret3D
 {
 
 /**
