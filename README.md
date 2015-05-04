@@ -1,3 +1,9 @@
+Egret3D 结构设置
+引擎层--------------Stage----gpu  
+    |-粒子系统        |-opengl  
+    |-碰撞检测        |-matel  
+    |-etc  
+
 Egret3D 
 需要实现类定义
 display
