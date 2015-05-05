@@ -28,6 +28,12 @@
     <Filter Include="stage\include\gl">
       <UniqueIdentifier>{a849f6f5-4728-4934-bb75-f71a9244ceb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{0da317a8-b635-4677-ae64-9ada95bd0ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{e6445c7d-51de-42ff-90b9-cfce2272edc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Plane.cpp">
@@ -60,15 +66,6 @@
     <ClCompile Include="src\Transform.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector2.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vector3.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vector4.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\VertexAttributeBinding.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -85,30 +82,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderState.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsController.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsRigidBody.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsHingeConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsFixedConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsGenericConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsSocketConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsSpringConstraint.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneLoader.cpp">
@@ -138,18 +111,6 @@
     <ClCompile Include="src\TextBox.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\PhysicsCharacter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsCollisionObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsGhostObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsCollisionShape.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\ThemeStyle.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -172,12 +133,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\PlatformLinux.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsVehicle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsVehicleWheel.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Terrain.cpp">
@@ -321,12 +276,6 @@
     <ClCompile Include="src\MaterialParameter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\MathUtil.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Matrix.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Mesh.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -372,6 +321,63 @@
     <ClCompile Include="stage\src\glew.c">
       <Filter>stage\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\MathUtil.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsCharacter.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsCollisionObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsCollisionShape.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsController.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsFixedConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsGenericConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsGhostObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsHingeConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsRigidBody.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsSocketConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsSpringConstraint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsVehicle.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsVehicleWheel.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
@@ -404,15 +410,6 @@
     <ClInclude Include="src\Transform.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vector2.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vector3.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vector4.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\VertexAttributeBinding.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -432,30 +429,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderState.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsController.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsRigidBody.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsSpringConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsFixedConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsGenericConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsHingeConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsSocketConstraint.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneLoader.h">
@@ -485,19 +458,7 @@
     <ClInclude Include="src\TextBox.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\PhysicsCharacter.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsCollisionObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\TimeListener.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsGhostObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsCollisionShape.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ScreenDisplayer.h">
@@ -516,12 +477,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ScriptTarget.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsVehicleWheel.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsVehicle.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Stream.h">
@@ -671,12 +626,6 @@
     <ClInclude Include="src\MaterialParameter.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\MathUtil.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Matrix.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Mesh.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -719,6 +668,63 @@
     <ClInclude Include="src\Drawable.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Math\MathUtil.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsCharacter.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsCollisionObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsCollisionShape.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsController.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsFixedConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsGenericConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsGhostObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsHingeConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsRigidBody.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsSocketConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsSpringConstraint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsVehicle.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsVehicleWheel.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ScriptController.inl">
@@ -734,15 +740,6 @@
       <Filter>src</Filter>
     </None>
     <None Include="src\Image.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\MathUtil.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\MathUtilNeon.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\Matrix.inl">
       <Filter>src</Filter>
     </None>
     <None Include="src\MeshBatch.inl">
@@ -802,20 +799,41 @@
     <None Include="res\ui\default.theme">
       <Filter>res\ui</Filter>
     </None>
+    <None Include="src\Math\MathUtil.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Math\MathUtilNeon.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Math\Matrix.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Math\Vector2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Math\Vector3.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Math\Vector4.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="src\Physics\PhysicsConstraint.inl">
+      <Filter>Physics</Filter>
+    </None>
+    <None Include="src\Physics\PhysicsFixedConstraint.inl">
+      <Filter>Physics</Filter>
+    </None>
+    <None Include="src\Physics\PhysicsGenericConstraint.inl">
+      <Filter>Physics</Filter>
+    </None>
+    <None Include="src\Physics\PhysicsRigidBody.inl">
+      <Filter>Physics</Filter>
+    </None>
+    <None Include="src\Physics\PhysicsSpringConstraint.inl">
+      <Filter>Physics</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\PhysicsFixedConstraint.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\PhysicsGenericConstraint.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\PhysicsSpringConstraint.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\PhysicsRigidBody.inl">
-      <Filter>src</Filter>
-    </None>
     <None Include="src\Plane.inl">
       <Filter>src</Filter>
     </None>
@@ -823,18 +841,6 @@
       <Filter>src</Filter>
     </None>
     <None Include="src\Ray.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\Vector2.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\Vector3.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\Vector4.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\PhysicsConstraint.inl">
       <Filter>src</Filter>
     </None>
   </ItemGroup>

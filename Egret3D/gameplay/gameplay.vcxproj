@@ -64,11 +64,14 @@
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\MathUtil.cpp" />
+    <ClCompile Include="src\Math\MathUtil.cpp" />
+    <ClCompile Include="src\Math\Matrix.cpp" />
+    <ClCompile Include="src\Math\Vector2.cpp" />
+    <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Math\Vector4.cpp" />
     <ClCompile Include="src\MeshBatch.cpp" />
     <ClCompile Include="src\Pass.cpp" />
     <ClCompile Include="src\MaterialParameter.cpp" />
-    <ClCompile Include="src\Matrix.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\MeshPart.cpp" />
     <ClCompile Include="src\MeshSkin.cpp" />
@@ -76,20 +79,20 @@
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Bundle.cpp" />
     <ClCompile Include="src\ParticleEmitter.cpp" />
-    <ClCompile Include="src\PhysicsCharacter.cpp" />
-    <ClCompile Include="src\PhysicsCollisionObject.cpp" />
-    <ClCompile Include="src\PhysicsCollisionShape.cpp" />
-    <ClCompile Include="src\PhysicsConstraint.cpp" />
-    <ClCompile Include="src\PhysicsController.cpp" />
-    <ClCompile Include="src\PhysicsFixedConstraint.cpp" />
-    <ClCompile Include="src\PhysicsGenericConstraint.cpp" />
-    <ClCompile Include="src\PhysicsGhostObject.cpp" />
-    <ClCompile Include="src\PhysicsHingeConstraint.cpp" />
-    <ClCompile Include="src\PhysicsRigidBody.cpp" />
-    <ClCompile Include="src\PhysicsSocketConstraint.cpp" />
-    <ClCompile Include="src\PhysicsSpringConstraint.cpp" />
-    <ClCompile Include="src\PhysicsVehicle.cpp" />
-    <ClCompile Include="src\PhysicsVehicleWheel.cpp" />
+    <ClCompile Include="src\Physics\PhysicsCharacter.cpp" />
+    <ClCompile Include="src\Physics\PhysicsCollisionObject.cpp" />
+    <ClCompile Include="src\Physics\PhysicsCollisionShape.cpp" />
+    <ClCompile Include="src\Physics\PhysicsConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsController.cpp" />
+    <ClCompile Include="src\Physics\PhysicsFixedConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsGenericConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsGhostObject.cpp" />
+    <ClCompile Include="src\Physics\PhysicsHingeConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsRigidBody.cpp" />
+    <ClCompile Include="src\Physics\PhysicsSocketConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsSpringConstraint.cpp" />
+    <ClCompile Include="src\Physics\PhysicsVehicle.cpp" />
+    <ClCompile Include="src\Physics\PhysicsVehicleWheel.cpp" />
     <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Platform.cpp" />
     <ClCompile Include="src\PlatformAndroid.cpp" />
@@ -122,9 +125,6 @@
     <ClCompile Include="src\ThemeStyle.cpp" />
     <ClCompile Include="src\TileSet.cpp" />
     <ClCompile Include="src\Transform.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\Vector3.cpp" />
-    <ClCompile Include="src\Vector4.cpp" />
     <ClCompile Include="src\VertexAttributeBinding.cpp" />
     <ClCompile Include="src\VertexFormat.cpp" />
     <ClCompile Include="src\VerticalLayout.cpp" />
@@ -181,12 +181,15 @@
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Material.h" />
-    <ClInclude Include="src\MathUtil.h" />
+    <ClInclude Include="src\Math\MathUtil.h" />
+    <ClInclude Include="src\Math\Matrix.h" />
+    <ClInclude Include="src\Math\Vector2.h" />
+    <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Math\Vector4.h" />
     <ClInclude Include="src\MeshBatch.h" />
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\Pass.h" />
     <ClInclude Include="src\MaterialParameter.h" />
-    <ClInclude Include="src\Matrix.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\MeshPart.h" />
     <ClInclude Include="src\MeshSkin.h" />
@@ -194,20 +197,20 @@
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Bundle.h" />
     <ClInclude Include="src\ParticleEmitter.h" />
-    <ClInclude Include="src\PhysicsCharacter.h" />
-    <ClInclude Include="src\PhysicsCollisionObject.h" />
-    <ClInclude Include="src\PhysicsCollisionShape.h" />
-    <ClInclude Include="src\PhysicsConstraint.h" />
-    <ClInclude Include="src\PhysicsController.h" />
-    <ClInclude Include="src\PhysicsFixedConstraint.h" />
-    <ClInclude Include="src\PhysicsGenericConstraint.h" />
-    <ClInclude Include="src\PhysicsGhostObject.h" />
-    <ClInclude Include="src\PhysicsHingeConstraint.h" />
-    <ClInclude Include="src\PhysicsRigidBody.h" />
-    <ClInclude Include="src\PhysicsSocketConstraint.h" />
-    <ClInclude Include="src\PhysicsSpringConstraint.h" />
-    <ClInclude Include="src\PhysicsVehicle.h" />
-    <ClInclude Include="src\PhysicsVehicleWheel.h" />
+    <ClInclude Include="src\Physics\PhysicsCharacter.h" />
+    <ClInclude Include="src\Physics\PhysicsCollisionObject.h" />
+    <ClInclude Include="src\Physics\PhysicsCollisionShape.h" />
+    <ClInclude Include="src\Physics\PhysicsConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsController.h" />
+    <ClInclude Include="src\Physics\PhysicsFixedConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsGenericConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsGhostObject.h" />
+    <ClInclude Include="src\Physics\PhysicsHingeConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsRigidBody.h" />
+    <ClInclude Include="src\Physics\PhysicsSocketConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsSpringConstraint.h" />
+    <ClInclude Include="src\Physics\PhysicsVehicle.h" />
+    <ClInclude Include="src\Physics\PhysicsVehicleWheel.h" />
     <ClInclude Include="src\Plane.h" />
     <ClInclude Include="src\Platform.h" />
     <ClInclude Include="src\Properties.h" />
@@ -240,9 +243,6 @@
     <ClInclude Include="src\TimeListener.h" />
     <ClInclude Include="src\Touch.h" />
     <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\Vector3.h" />
-    <ClInclude Include="src\Vector4.h" />
     <ClInclude Include="src\VertexAttributeBinding.h" />
     <ClInclude Include="src\VertexFormat.h" />
     <ClInclude Include="src\VerticalLayout.h" />
@@ -270,24 +270,22 @@
     <None Include="src\BoundingSphere.inl" />
     <None Include="src\Game.inl" />
     <None Include="src\Image.inl" />
-    <None Include="src\MathUtil.inl" />
-    <None Include="src\MathUtilNeon.inl" />
-    <None Include="src\Matrix.inl" />
+    <None Include="src\Math\MathUtil.inl" />
+    <None Include="src\Math\MathUtilNeon.inl" />
+    <None Include="src\Math\Matrix.inl" />
+    <None Include="src\Math\Vector2.inl" />
+    <None Include="src\Math\Vector3.inl" />
+    <None Include="src\Math\Vector4.inl" />
     <None Include="src\MeshBatch.inl" />
+    <None Include="src\Physics\PhysicsConstraint.inl" />
+    <None Include="src\Physics\PhysicsFixedConstraint.inl" />
+    <None Include="src\Physics\PhysicsGenericConstraint.inl" />
+    <None Include="src\Physics\PhysicsRigidBody.inl" />
+    <None Include="src\Physics\PhysicsSpringConstraint.inl" />
     <None Include="src\Plane.inl" />
     <None Include="src\Quaternion.inl" />
     <None Include="src\Ray.inl" />
     <None Include="src\ScriptController.inl" />
-    <None Include="src\Vector2.inl" />
-    <None Include="src\Vector3.inl" />
-    <None Include="src\Vector4.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\PhysicsConstraint.inl" />
-    <None Include="src\PhysicsFixedConstraint.inl" />
-    <None Include="src\PhysicsGenericConstraint.inl" />
-    <None Include="src\PhysicsRigidBody.inl" />
-    <None Include="src\PhysicsSpringConstraint.inl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ui\default-theme.png" />
@@ -349,7 +347,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;GP_USE_GAMEPAD;GP_NO_LUA_BINDINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;$(ProjectDir)src\Math;$(ProjectDir)src\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
