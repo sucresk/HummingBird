@@ -2,7 +2,7 @@
 #define __CONTEXT3D_H__
 
 #include "Stage3D.h"
-#include "GL/glew.h"
+#include "gldef.h"
 
 class STAGE3D_API Context3D
 {

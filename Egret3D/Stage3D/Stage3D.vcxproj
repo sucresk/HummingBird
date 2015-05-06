@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Context3D.h" />
+    <ClInclude Include="gldef.h" />
     <ClInclude Include="glew\include\GL\glew.h" />
     <ClInclude Include="Stage3D.h" />
   </ItemGroup>

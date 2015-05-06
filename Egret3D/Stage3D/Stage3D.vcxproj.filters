@@ -26,5 +26,6 @@
       <Filter>glew\include\GL</Filter>
     </ClInclude>
     <ClInclude Include="Context3D.h" />
+    <ClInclude Include="gldef.h" />
   </ItemGroup>
 </Project>

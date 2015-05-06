@@ -1,4 +1,5 @@
 #include "Context3D.h"
+#include "GL/glew.h"
 
 Context3D gContext3D;
 
