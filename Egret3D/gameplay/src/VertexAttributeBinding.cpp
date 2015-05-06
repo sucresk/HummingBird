@@ -29,7 +29,7 @@ VertexAttributeBinding::~VertexAttributeBinding()
 
     if (_handle)
     {
-        GL_ASSERT( glDeleteVertexArrays(1, &_handle) );
+		GL_ASSERT( gContext3D.EgDeleteVertexArrays(1, &_handle));
         _handle = 0;
     }
 }
@@ -76,7 +76,7 @@ VertexAttributeBinding* VertexAttributeBinding::create(Mesh* mesh, const VertexF
     if (__maxVertexAttribs == 0)
     {
         GLint temp;
-        GL_ASSERT( glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &temp) );
+        GL_ASSERT( gContext3D.EgGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &temp) );
 
         __maxVertexAttribs = temp;
         if (__maxVertexAttribs <= 0)
@@ -90,13 +90,13 @@ VertexAttributeBinding* VertexAttributeBinding::create(Mesh* mesh, const VertexF
     VertexAttributeBinding* b = new VertexAttributeBinding();
 
 #ifdef GP_USE_VAO
-    if (mesh && glGenVertexArrays)
+    if (mesh && true /*glGenVertexArrays*/)
     {
-        GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-        GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
+		GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, 0));
+		GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
         // Use hardware VAOs.
-        GL_ASSERT( glGenVertexArrays(1, &b->_handle) );
+		GL_ASSERT( gContext3D.EgGenVertexArrays(1, &b->_handle));
 
         if (b->_handle == 0)
         {
@@ -106,10 +106,10 @@ VertexAttributeBinding* VertexAttributeBinding::create(Mesh* mesh, const VertexF
         }
 
         // Bind the new VAO.
-        GL_ASSERT( glBindVertexArray(b->_handle) );
+		GL_ASSERT( gContext3D.EgBindVertexArray(b->_handle));
 
         // Bind the Mesh VBO so our glVertexAttribPointer calls use it.
-        GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, mesh->getVertexBuffer()) );
+		GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, mesh->getVertexBuffer()));
     }
     else
 #endif
@@ -206,7 +206,7 @@ VertexAttributeBinding* VertexAttributeBinding::create(Mesh* mesh, const VertexF
 
     if (b->_handle)
     {
-        GL_ASSERT( glBindVertexArray(0) );
+        GL_ASSERT( gContext3D.EgBindVertexArray(0) );
     }
 
     return b;
@@ -219,8 +219,8 @@ void VertexAttributeBinding::setVertexAttribPointer(GLuint indx, GLint size, GLe
     if (_handle)
     {
         // Hardware mode.
-        GL_ASSERT( glVertexAttribPointer(indx, size, type, normalize, stride, pointer) );
-        GL_ASSERT( glEnableVertexAttribArray(indx) );
+        GL_ASSERT( gContext3D.EgVertexAttribPointer(indx, size, type, normalize, stride, pointer) );
+        GL_ASSERT( gContext3D.EgEnableVertexAttribArray(indx) );
     }
     else
     {
@@ -240,18 +240,18 @@ void VertexAttributeBinding::bind()
     if (_handle)
     {
         // Hardware mode
-        GL_ASSERT( glBindVertexArray(_handle) );
+        GL_ASSERT( gContext3D.EgBindVertexArray(_handle) );
     }
     else
     {
         // Software mode
         if (_mesh)
         {
-            GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _mesh->getVertexBuffer()) );
+            GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, _mesh->getVertexBuffer()) );
         }
         else
         {
-            GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+            GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, 0) );
         }
 
         GP_ASSERT(_attributes);
@@ -260,8 +260,8 @@ void VertexAttributeBinding::bind()
             VertexAttribute& a = _attributes[i];
             if (a.enabled)
             {
-                GL_ASSERT( glVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
-                GL_ASSERT( glEnableVertexAttribArray(i) );
+                GL_ASSERT( gContext3D.EgVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
+                GL_ASSERT( gContext3D.EgEnableVertexAttribArray(i) );
             }
         }
     }
@@ -272,14 +272,14 @@ void VertexAttributeBinding::unbind()
     if (_handle)
     {
         // Hardware mode
-        GL_ASSERT( glBindVertexArray(0) );
+        GL_ASSERT( gContext3D.EgBindVertexArray(0) );
     }
     else
     {
         // Software mode
         if (_mesh)
         {
-            GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+            GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, 0) );
         }
 
         GP_ASSERT(_attributes);
@@ -287,7 +287,7 @@ void VertexAttributeBinding::unbind()
         {
             if (_attributes[i].enabled)
             {
-                GL_ASSERT( glDisableVertexAttribArray(i) );
+                GL_ASSERT( gContext3D.EgDisableVertexAttribArray(i) );
             }
         }
     }

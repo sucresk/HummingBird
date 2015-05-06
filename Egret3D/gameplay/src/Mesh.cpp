@@ -27,7 +27,7 @@ Mesh::~Mesh()
 
     if (_vertexBuffer)
     {
-        glDeleteBuffers(1, &_vertexBuffer);
+        gContext3D.EgDeleteBuffers(1, &_vertexBuffer);
         _vertexBuffer = 0;
     }
 }
@@ -35,9 +35,9 @@ Mesh::~Mesh()
 Mesh* Mesh::createMesh(const VertexFormat& vertexFormat, unsigned int vertexCount, bool dynamic)
 {
     GLuint vbo;
-    GL_ASSERT( glGenBuffers(1, &vbo) );
-    GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, vbo) );
-    GL_ASSERT( glBufferData(GL_ARRAY_BUFFER, vertexFormat.getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
+    GL_ASSERT( gContext3D.EgGenBuffers(1, &vbo) );
+    GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, vbo) );
+    GL_ASSERT( gContext3D.EgBufferData(GL_ARRAY_BUFFER, vertexFormat.getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
 
     Mesh* mesh = new Mesh(vertexFormat);
     mesh->_vertexCount = vertexCount;
@@ -264,11 +264,11 @@ void Mesh::setPrimitiveType(PrimitiveType type)
 
 void Mesh::setVertexData(const float* vertexData, unsigned int vertexStart, unsigned int vertexCount)
 {
-    GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
+    GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
 
     if (vertexStart == 0 && vertexCount == 0)
     {
-        GL_ASSERT( glBufferData(GL_ARRAY_BUFFER, _vertexFormat.getVertexSize() * _vertexCount, vertexData, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
+        GL_ASSERT( gContext3D.EgBufferData(GL_ARRAY_BUFFER, _vertexFormat.getVertexSize() * _vertexCount, vertexData, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
     }
     else
     {
@@ -277,7 +277,7 @@ void Mesh::setVertexData(const float* vertexData, unsigned int vertexStart, unsi
             vertexCount = _vertexCount - vertexStart;
         }
 
-        GL_ASSERT( glBufferSubData(GL_ARRAY_BUFFER, vertexStart * _vertexFormat.getVertexSize(), vertexCount * _vertexFormat.getVertexSize(), vertexData) );
+        GL_ASSERT( gContext3D.EgBufferSubData(GL_ARRAY_BUFFER, vertexStart * _vertexFormat.getVertexSize(), vertexCount * _vertexFormat.getVertexSize(), vertexData) );
     }
 }
 

@@ -221,7 +221,8 @@ using std::va_list;
 #elif WIN32
         #define WIN32_LEAN_AND_MEAN
         #define GLEW_STATIC
-        #include <GL/glew.h>
+        //#include <GL/glew.h>
+		#include "Context3D.h"
         #define GP_USE_VAO
 #elif __linux__
         #define GLEW_STATIC
@@ -301,7 +302,7 @@ typedef unsigned long GamepadHandle;
 #define GL_ASSERT( gl_code ) do \
     { \
         gl_code; \
-        __gl_error_code = glGetError(); \
+        __gl_error_code =gContext3D.EgGetError(); \
         GP_ASSERT(__gl_error_code == GL_NO_ERROR); \
     } while(0)
 #endif

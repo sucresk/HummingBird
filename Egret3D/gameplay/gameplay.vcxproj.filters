@@ -16,18 +16,6 @@
     <Filter Include="res\ui">
       <UniqueIdentifier>{eb377577-593a-469f-9361-b6950a99e431}</UniqueIdentifier>
     </Filter>
-    <Filter Include="stage">
-      <UniqueIdentifier>{74e057f1-f701-4103-a74c-8a1a89de81bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="stage\include">
-      <UniqueIdentifier>{739abe39-7072-44bf-936e-d29d577ed2af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="stage\src">
-      <UniqueIdentifier>{7ca31742-a618-4bb1-a8fd-82d9e4d7be84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="stage\include\gl">
-      <UniqueIdentifier>{a849f6f5-4728-4934-bb75-f71a9244ceb9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{0da317a8-b635-4677-ae64-9ada95bd0ac3}</UniqueIdentifier>
     </Filter>
@@ -317,9 +305,6 @@
     </ClCompile>
     <ClCompile Include="src\Drawable.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="stage\src\glew.c">
-      <Filter>stage\src</Filter>
     </ClCompile>
     <ClCompile Include="src\Math\MathUtil.cpp">
       <Filter>Math</Filter>
