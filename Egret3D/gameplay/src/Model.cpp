@@ -259,7 +259,7 @@ static bool drawWireframe(Mesh* mesh)
             unsigned int vertexCount = mesh->getVertexCount();
             for (unsigned int i = 0; i < vertexCount; i += 3)
             {
-                GL_ASSERT( glDrawArrays(GL_LINE_LOOP, i, 3) );
+                GL_ASSERT( gContext3D.EgDrawArrays(GL_LINE_LOOP, i, 3) );
             }
         }
         return true;

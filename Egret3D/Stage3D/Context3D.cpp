@@ -697,3 +697,17 @@ void Context3D::EgViewport(GLint x, GLint y, GLsizei width, GLsizei height)
 	return glViewport(x, y, width, height);
 }
 
+void Context3D::EgGenVertexArrays(GLsizei n, GLuint *arrays)
+{
+	return glGenVertexArrays(n, arrays);
+}
+
+void Context3D::EgBindVertexArray(GLuint array)
+{
+	return glBindVertexArray(array);
+}
+
+void Context3D::EgDeleteVertexArrays(GLsizei n, const GLuint *arrays)
+{
+	return glDeleteVertexArrays(n, arrays);
+}

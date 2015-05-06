@@ -153,6 +153,10 @@ public:
 	void EgVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr);
 	void EgViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
+	void EgGenVertexArrays(GLsizei n, GLuint *arrays);
+	void EgBindVertexArray(GLuint array);
+	void EgDeleteVertexArrays(GLsizei n, const GLuint *arrays);
+
 
 };
 

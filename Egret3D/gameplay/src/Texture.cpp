@@ -169,21 +169,21 @@ Texture* Texture::create(Format format, unsigned int width, unsigned int height,
 
     // Create the texture.
     GLuint textureId;
-    GL_ASSERT( glGenTextures(1, &textureId) );
-    GL_ASSERT( glBindTexture(target, textureId) );
-    GL_ASSERT( glPixelStorei(GL_UNPACK_ALIGNMENT, 1) );
+    GL_ASSERT( gContext3D.EgGenTextures(1, &textureId) );
+    GL_ASSERT( gContext3D.EgBindTexture(target, textureId) );
+    GL_ASSERT( gContext3D.EgPixelStorei(GL_UNPACK_ALIGNMENT, 1) );
 #ifndef OPENGL_ES
     // glGenerateMipmap is new in OpenGL 3.0. For OpenGL 2.0 we must fallback to use glTexParameteri
     // with GL_GENERATE_MIPMAP prior to actual texture creation (glTexImage2D)
-    if ( generateMipmaps && !std::addressof(glGenerateMipmap) )
-        GL_ASSERT( glTexParameteri(target, GL_GENERATE_MIPMAP, GL_TRUE) );
+    //if ( generateMipmaps && !std::addressof( gContext3D.EgGenerateMipmap) )
+        GL_ASSERT( gContext3D.EgTexParameteri(target, GL_GENERATE_MIPMAP, GL_TRUE) );
 #endif
 
     // Load the texture
     if (type == Texture::TEXTURE_2D)
     {
         // Texture 2D
-        GL_ASSERT( glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)format, width, height, 0, (GLenum)format, GL_UNSIGNED_BYTE, data) );
+        GL_ASSERT( gContext3D.EgTexImage2D(GL_TEXTURE_2D, 0, (GLenum)format, width, height, 0, (GLenum)format, GL_UNSIGNED_BYTE, data) );
     }
     else
     {
@@ -202,7 +202,7 @@ Texture* Texture::create(Format format, unsigned int width, unsigned int height,
             case Texture::UNKNOWN:
                 if (data)
                 {
-                    glDeleteTextures(1, &textureId);
+                    gContext3D.EgDeleteTextures(1, &textureId);
                     GP_ERROR("Failed to determine texture size because format is UNKNOWN.");
                     return NULL;
                 }
@@ -212,13 +212,13 @@ Texture* Texture::create(Format format, unsigned int width, unsigned int height,
         for (unsigned int i = 0; i < 6; i++)
         {
             const unsigned char* texturePtr = (data == NULL) ? NULL : &data[i * textureSize];
-            GL_ASSERT( glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, (GLenum)format, width, height, 0, (GLenum)format, GL_UNSIGNED_BYTE, texturePtr) );
+            GL_ASSERT( gContext3D.EgTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, (GLenum)format, width, height, 0, (GLenum)format, GL_UNSIGNED_BYTE, texturePtr) );
         }
     }
 
     // Set initial minification filter based on whether or not mipmaping was enabled.
     Filter minFilter = generateMipmaps ? NEAREST_MIPMAP_LINEAR : LINEAR;
-    GL_ASSERT( glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter) );
+    GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter) );
 
     Texture* texture = new Texture();
     texture->_handle = textureId;
@@ -233,7 +233,7 @@ Texture* Texture::create(Format format, unsigned int width, unsigned int height,
     }
 
     // Restore the texture id
-    GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+    GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
 
     return texture;
 }
@@ -243,11 +243,11 @@ Texture* Texture::create(TextureHandle handle, int width, int height, Format for
     GP_ASSERT( handle );
 
     Texture* texture = new Texture();
-    if (glIsTexture(handle))
+    if (gContext3D.EgIsTexture(handle))
     {
         // There is no real way to query for texture type, but an error will be returned if a cube texture is bound to a 2D texture... so check for that
-        glBindTexture(GL_TEXTURE_CUBE_MAP, handle);
-        if (glGetError() == GL_NO_ERROR)
+        gContext3D.EgBindTexture(GL_TEXTURE_CUBE_MAP, handle);
+        if (gContext3D.EgGetError() == GL_NO_ERROR)
         {
             texture->_type = TEXTURE_CUBE;
         }
@@ -258,7 +258,7 @@ Texture* Texture::create(TextureHandle handle, int width, int height, Format for
         }
 
         // Restore the texture id
-        GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+        GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
     }
     texture->_handle = handle;
     texture->_format = format;
@@ -275,11 +275,11 @@ void Texture::setData(const unsigned char* data)
     GP_ASSERT( (!_compressed) );
     GP_ASSERT( (!_cached) );
 
-    GL_ASSERT( glBindTexture((GLenum)_type, _handle) );
+    GL_ASSERT( gContext3D.EgBindTexture((GLenum)_type, _handle) );
 
     if (_type == Texture::TEXTURE_2D)
     {
-        GL_ASSERT( glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, (GLenum)_format, GL_UNSIGNED_BYTE, data) );
+        GL_ASSERT( gContext3D.EgTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, (GLenum)_format, GL_UNSIGNED_BYTE, data) );
     }
     else
     {
@@ -299,7 +299,7 @@ void Texture::setData(const unsigned char* data)
         // Texture Cube
         for (unsigned int i = 0; i < 6; i++)
         {
-            GL_ASSERT( glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, 0, 0, _width, _height, (GLenum)_format, GL_UNSIGNED_BYTE, &data[i * textureSize]) );
+            GL_ASSERT( gContext3D.EgTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, 0, 0, _width, _height, (GLenum)_format, GL_UNSIGNED_BYTE, &data[i * textureSize]) );
         }
     }
 
@@ -309,7 +309,7 @@ void Texture::setData(const unsigned char* data)
     }
 
     // Restore the texture id
-    GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+    GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
 }
 
 // Computes the size of a PVRTC data chunk for a mipmap level of the given size.
@@ -391,11 +391,11 @@ Texture* Texture::createCompressedPVRTC(const char* path)
     // Generate our texture.
     GLenum target = faceCount > 1 ? GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
     GLuint textureId;
-    GL_ASSERT( glGenTextures(1, &textureId) );
-    GL_ASSERT( glBindTexture(target, textureId) );
+    GL_ASSERT( gContext3D.EgGenTextures(1, &textureId) );
+    GL_ASSERT( gContext3D.EgBindTexture(target, textureId) );
 
     Filter minFilter = mipMapCount > 1 ? NEAREST_MIPMAP_LINEAR : LINEAR;
-    GL_ASSERT( glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter) );
+    GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter) );
 
     Texture* texture = new Texture();
     texture->_handle = textureId;
@@ -415,7 +415,7 @@ Texture* Texture::createCompressedPVRTC(const char* path)
         for (unsigned int face = 0; face < faceCount; ++face)
         {
             // Upload data to GL.
-            GL_ASSERT(glCompressedTexImage2D(faces[face], level, format, width, height, 0, dataSize, &ptr[face * dataSize]));
+            GL_ASSERT( gContext3D.EgCompressedTexImage2D(faces[face], level, format, width, height, 0, dataSize, &ptr[face * dataSize]));
         }
 
         width = std::max(width >> 1, 1);
@@ -427,7 +427,7 @@ Texture* Texture::createCompressedPVRTC(const char* path)
     SAFE_DELETE_ARRAY(data);
 
     // Restore the texture id
-    GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+    GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
 
     return texture;
 }
@@ -1033,11 +1033,11 @@ Texture* Texture::createCompressedDDS(const char* path)
 
     // Generate GL texture.
     GLuint textureId;
-    GL_ASSERT( glGenTextures(1, &textureId) );
-    GL_ASSERT( glBindTexture(target, textureId) );
+    GL_ASSERT( gContext3D.EgGenTextures(1, &textureId) );
+    GL_ASSERT( gContext3D.EgBindTexture(target, textureId) );
 
     Filter minFilter = header.dwMipMapCount > 1 ? NEAREST_MIPMAP_LINEAR : LINEAR;
-    GL_ASSERT( glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter ) );
+    GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter ) );
 
     // Create gameplay texture.
     texture = new Texture();
@@ -1058,11 +1058,11 @@ Texture* Texture::createCompressedDDS(const char* path)
             dds_mip_level& level = mipLevels[i + face * header.dwMipMapCount];
             if (compressed)
             {
-                GL_ASSERT(glCompressedTexImage2D(texImageTarget, i, format, level.width, level.height, 0, level.size, level.data));
+                GL_ASSERT( gContext3D.EgCompressedTexImage2D(texImageTarget, i, format, level.width, level.height, 0, level.size, level.data));
             }
             else
             {
-                GL_ASSERT(glTexImage2D(texImageTarget, i, internalFormat, level.width, level.height, 0, format, GL_UNSIGNED_BYTE, level.data));
+                GL_ASSERT( gContext3D.EgTexImage2D(texImageTarget, i, internalFormat, level.width, level.height, 0, format, GL_UNSIGNED_BYTE, level.data));
             }
 
             // Clean up the texture data.
@@ -1074,7 +1074,7 @@ Texture* Texture::createCompressedDDS(const char* path)
     SAFE_DELETE_ARRAY(mipLevels);
 
     // Restore the texture id
-    GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+    GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
 
     return texture;
 }
@@ -1114,15 +1114,15 @@ void Texture::generateMipmaps()
     if (!_mipmapped)
     {
         GLenum target = (GLenum)_type;
-        GL_ASSERT( glBindTexture(target, _handle) );
-        GL_ASSERT( glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST) );
-        if( std::addressof(glGenerateMipmap) )
-            GL_ASSERT( glGenerateMipmap(target) );
+        GL_ASSERT( gContext3D.EgBindTexture(target, _handle) );
+        GL_ASSERT( gContext3D.EgHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST) );
+        //if( std::addressof(glGenerateMipmap) )
+        //    GL_ASSERT( gContext3D.EgGenerateMipmap(target) );
 
         _mipmapped = true;
 
         // Restore the texture id
-        GL_ASSERT( glBindTexture((GLenum)__currentTextureType, __currentTextureId) );
+        GL_ASSERT( gContext3D.EgBindTexture((GLenum)__currentTextureType, __currentTextureId) );
     }
 }
 
@@ -1188,7 +1188,7 @@ void Texture::Sampler::bind()
     GLenum target = (GLenum)_texture->_type;
     if (__currentTextureId != _texture->_handle)
     {
-        GL_ASSERT( glBindTexture(target, _texture->_handle) );
+        GL_ASSERT( gContext3D.EgBindTexture(target, _texture->_handle) );
         __currentTextureId = _texture->_handle;
         __currentTextureType = _texture->_type;
     }
@@ -1196,25 +1196,25 @@ void Texture::Sampler::bind()
     if (_texture->_minFilter != _minFilter)
     {
         _texture->_minFilter = _minFilter;
-        GL_ASSERT( glTexParameteri(target, GL_TEXTURE_MIN_FILTER, (GLenum)_minFilter) );
+        GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_MIN_FILTER, (GLenum)_minFilter) );
     }
 
     if (_texture->_magFilter != _magFilter)
     {
         _texture->_magFilter = _magFilter;
-        GL_ASSERT( glTexParameteri(target, GL_TEXTURE_MAG_FILTER, (GLenum)_magFilter) );
+        GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_MAG_FILTER, (GLenum)_magFilter) );
     }
 
     if (_texture->_wrapS != _wrapS)
     {
         _texture->_wrapS = _wrapS;
-        GL_ASSERT( glTexParameteri(target, GL_TEXTURE_WRAP_S, (GLenum)_wrapS) );
+		GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_WRAP_S, (GLenum)_wrapS));
     }
 
     if (_texture->_wrapT != _wrapT)
     {
         _texture->_wrapT = _wrapT;
-        GL_ASSERT( glTexParameteri(target, GL_TEXTURE_WRAP_T, (GLenum)_wrapT) );
+		GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_WRAP_T, (GLenum)_wrapT));
     }
 
 #if defined(GL_TEXTURE_WRAP_R) // OpenGL ES 3.x and up, OpenGL 1.2 and up
@@ -1222,7 +1222,7 @@ void Texture::Sampler::bind()
     {
         _texture->_wrapR = _wrapR;
         if (target == GL_TEXTURE_CUBE_MAP) // We don't want to run this on something that we know will fail
-            GL_ASSERT( glTexParameteri(target, GL_TEXTURE_WRAP_R, (GLenum)_wrapR) );
+			GL_ASSERT( gContext3D.EgTexParameteri(target, GL_TEXTURE_WRAP_R, (GLenum)_wrapR));
     }
 #endif
 }
