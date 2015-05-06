@@ -378,6 +378,9 @@
     <ClCompile Include="src\Physics\PhysicsVehicleWheel.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Stage\Context3D.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
@@ -724,6 +727,9 @@
     </ClInclude>
     <ClInclude Include="src\Physics\PhysicsVehicleWheel.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\Context3D.h">
+      <Filter>stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
