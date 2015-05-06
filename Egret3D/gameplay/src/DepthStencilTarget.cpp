@@ -22,9 +22,9 @@ DepthStencilTarget::~DepthStencilTarget()
 {
     // Destroy GL resources.
     if (_depthBuffer)
-        GL_ASSERT( glDeleteRenderbuffers(1, &_depthBuffer) );
+        GL_ASSERT( gContext3D.EgDeleteRenderbuffers(1, &_depthBuffer) );
     if (_stencilBuffer)
-        GL_ASSERT( glDeleteRenderbuffers(1, &_stencilBuffer) );
+        GL_ASSERT( gContext3D.EgDeleteRenderbuffers(1, &_stencilBuffer) );
 
     // Remove from vector.
     std::vector<DepthStencilTarget*>::iterator it = std::find(__depthStencilTargets.begin(), __depthStencilTargets.end(), this);

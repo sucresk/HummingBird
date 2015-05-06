@@ -13,7 +13,7 @@ MeshPart::~MeshPart()
 {
     if (_indexBuffer)
     {
-        glDeleteBuffers(1, &_indexBuffer);
+        gContext3D.EgDeleteBuffers(1, &_indexBuffer);
     }
 }
 

@@ -12098,7 +12098,7 @@ static GLboolean _glewInit_WGL_OML_sync_control (WGLEW_CONTEXT_ARG_DEF_INIT)
 static PFNWGLGETEXTENSIONSSTRINGARBPROC _wglewGetExtensionsStringARB = NULL;
 static PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglewGetExtensionsStringEXT = NULL;
 
-GLboolean GLEWAPIENTRY wglewGetExtension (const char* name)
+GLboolean /*GLEWAPIENTRY */wglewGetExtension (const char* name)
 {    
   const GLubyte* start;
   const GLubyte* end;
@@ -17209,7 +17209,7 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
 #if defined(GLEW_MX)
 GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext* ctx, const char* name)
 #else
-GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
+GLboolean /*GLEWAPIENTRY*/ wglewIsSupported (const char* name)
 #endif
 {
   GLubyte* pos = (GLubyte*)name;

@@ -1174,8 +1174,8 @@ typedef BOOL (WINAPI * PFNWGLWAITFORSBCOMLPROC) (HDC hdc, INT64 target_sbc, INT6
 #define WGLEW_FUN_EXPORT
 #define WGLEW_VAR_EXPORT
 #else
-#define WGLEW_FUN_EXPORT GLEW_FUN_EXPORT
-#define WGLEW_VAR_EXPORT GLEW_VAR_EXPORT
+#define WGLEW_FUN_EXPORT /*GLEW_FUN_EXPORT*/
+#define WGLEW_VAR_EXPORT /*GLEW_VAR_EXPORT*/
 #endif /* GLEW_MX */
 
 #ifdef GLEW_MX
@@ -1406,11 +1406,11 @@ GLEWAPI GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext *ctx,
 #define WGLEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define WGLEW_GET_FUN(x) x
 
-GLEWAPI GLboolean GLEWAPIENTRY wglewIsSupported (const char *name);
+/*GLEWAPI*/ GLboolean /*GLEWAPIENTRY */wglewIsSupported (const char *name);
 
 #endif /* GLEW_MX */
 
-GLEWAPI GLboolean GLEWAPIENTRY wglewGetExtension (const char *name);
+/*GLEWAPI*/ GLboolean /*GLEWAPIENTRY */wglewGetExtension (const char *name);
 
 #ifdef __cplusplus
 }

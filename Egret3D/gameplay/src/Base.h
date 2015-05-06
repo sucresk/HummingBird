@@ -302,7 +302,7 @@ typedef unsigned long GamepadHandle;
 #define GL_ASSERT( gl_code ) do \
     { \
         gl_code; \
-        __gl_error_code = glGetError(); \
+        __gl_error_code =gContext3D.EgGetError(); \
         GP_ASSERT(__gl_error_code == GL_NO_ERROR); \
     } while(0)
 #endif
