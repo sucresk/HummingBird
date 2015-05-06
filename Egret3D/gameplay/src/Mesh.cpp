@@ -27,7 +27,7 @@ Mesh::~Mesh()
 
     if (_vertexBuffer)
     {
-        glDeleteBuffers(1, &_vertexBuffer);
+        gContext3D.EgDeleteBuffers(1, &_vertexBuffer);
         _vertexBuffer = 0;
     }
 }
@@ -35,9 +35,9 @@ Mesh::~Mesh()
 Mesh* Mesh::createMesh(const VertexFormat& vertexFormat, unsigned int vertexCount, bool dynamic)
 {
     GLuint vbo;
-    GL_ASSERT( glGenBuffers(1, &vbo) );
-    GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, vbo) );
-    GL_ASSERT( glBufferData(GL_ARRAY_BUFFER, vertexFormat.getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
+    GL_ASSERT( gContext3D.EgGenBuffers(1, &vbo) );
+    GL_ASSERT( gContext3D.EgBindBuffer(GL_ARRAY_BUFFER, vbo) );
+    GL_ASSERT( gContext3D.EgBufferData(GL_ARRAY_BUFFER, vertexFormat.getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
 
     Mesh* mesh = new Mesh(vertexFormat);
     mesh->_vertexCount = vertexCount;

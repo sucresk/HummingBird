@@ -40,38 +40,38 @@ DepthStencilTarget* DepthStencilTarget::create(const char* id, Format format, un
     DepthStencilTarget* depthStencilTarget = new DepthStencilTarget(id, format, width, height);
 
     // Create a render buffer for this new depth+stencil target
-    GL_ASSERT( glGenRenderbuffers(1, &depthStencilTarget->_depthBuffer) );
-    GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, depthStencilTarget->_depthBuffer) );
+    GL_ASSERT( gContext3D.EgGenRenderbuffers(1, &depthStencilTarget->_depthBuffer) );
+    GL_ASSERT( gContext3D.EgBindRenderbuffer(GL_RENDERBUFFER, depthStencilTarget->_depthBuffer) );
 
     // First try to add storage for the most common standard GL_DEPTH24_STENCIL8 
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    gContext3D.EgRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 
     // Fall back to less common GLES2 extension combination for seperate depth24 + stencil8 or depth16 + stencil8
-    __gl_error_code = glGetError();
+    __gl_error_code = gContext3D.EgGetError();
     if ( __gl_error_code != GL_NO_ERROR)
     {
-        const char* extString = (const char*)glGetString(GL_EXTENSIONS);
+        const char* extString = (const char*)gContext3D.EgGetString(GL_EXTENSIONS);
 
         if (strstr(extString, "GL_OES_packed_depth_stencil") != 0)
         {
-            GL_ASSERT( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, width, height) );
+            GL_ASSERT( gContext3D.EgRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, width, height) );
             depthStencilTarget->_packed = true;
         }
         else
         {
             if (strstr(extString, "GL_OES_depth24") != 0)
             {
-                GL_ASSERT( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height) );
+                GL_ASSERT( gContext3D.EgRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height) );
             }
             else
             {
-                GL_ASSERT( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height) );
+                GL_ASSERT( gContext3D.EgRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height) );
             }
             if (format == DepthStencilTarget::DEPTH_STENCIL)
             {
-                GL_ASSERT( glGenRenderbuffers(1, &depthStencilTarget->_stencilBuffer) );
-                GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, depthStencilTarget->_stencilBuffer) );
-                GL_ASSERT( glRenderbufferStorage(GL_RENDERBUFFER, GL_STENCIL_INDEX8, width, height) );
+                GL_ASSERT( gContext3D.EgGenRenderbuffers(1, &depthStencilTarget->_stencilBuffer) );
+                GL_ASSERT( gContext3D.EgBindRenderbuffer(GL_RENDERBUFFER, depthStencilTarget->_stencilBuffer) );
+                GL_ASSERT( gContext3D.EgRenderbufferStorage(GL_RENDERBUFFER, GL_STENCIL_INDEX8, width, height) );
             }
         }
     }

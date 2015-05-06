@@ -60,7 +60,7 @@ Texture::~Texture()
 {
     if (_handle)
     {
-        GL_ASSERT( glDeleteTextures(1, &_handle) );
+        GL_ASSERT( gContext3D.EgDeleteTextures(1, &_handle) );
         _handle = 0;
     }
 

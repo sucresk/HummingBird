@@ -22,8 +22,8 @@ MeshPart* MeshPart::create(Mesh* mesh, unsigned int meshIndex, Mesh::PrimitiveTy
 {
     // Create a VBO for our index buffer.
     GLuint vbo;
-    GL_ASSERT( glGenBuffers(1, &vbo) );
-    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo) );
+    GL_ASSERT( gContext3D.EgGenBuffers(1, &vbo) );
+    GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo) );
 
     unsigned int indexSize = 0;
     switch (indexFormat)
@@ -39,11 +39,11 @@ MeshPart* MeshPart::create(Mesh* mesh, unsigned int meshIndex, Mesh::PrimitiveTy
         break;
     default:
         GP_ERROR("Unsupported index format (%d).", indexFormat);
-        glDeleteBuffers(1, &vbo);
+        gContext3D.EgDeleteBuffers(1, &vbo);
         return NULL;
     }
 
-    GL_ASSERT( glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * indexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
+    GL_ASSERT( gContext3D.EgBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * indexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
 
     MeshPart* part = new MeshPart();
     part->_mesh = mesh;
@@ -89,7 +89,7 @@ bool MeshPart::isDynamic() const
 
 void MeshPart::setIndexData(const void* indexData, unsigned int indexStart, unsigned int indexCount)
 {
-    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer) );
+    GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer) );
 
     unsigned int indexSize = 0;
     switch (_indexFormat)
@@ -110,7 +110,7 @@ void MeshPart::setIndexData(const void* indexData, unsigned int indexStart, unsi
 
     if (indexStart == 0 && indexCount == 0)
     {
-        GL_ASSERT( glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * _indexCount, indexData, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
+        GL_ASSERT( gContext3D.EgBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * _indexCount, indexData, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
     }
     else
     {
@@ -119,7 +119,7 @@ void MeshPart::setIndexData(const void* indexData, unsigned int indexStart, unsi
             indexCount = _indexCount - indexStart;
         }
 
-        GL_ASSERT( glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, indexStart * indexSize, indexCount * indexSize, indexData) );
+        GL_ASSERT( gContext3D.EgBufferSubData(GL_ELEMENT_ARRAY_BUFFER, indexStart * indexSize, indexCount * indexSize, indexData) );
     }
 }
 
