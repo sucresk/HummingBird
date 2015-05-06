@@ -22,6 +22,18 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{e6445c7d-51de-42ff-90b9-cfce2272edc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stage3d">
+      <UniqueIdentifier>{c5515e77-903c-4c83-8a58-3b9bb5b9c42b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage3d\glew">
+      <UniqueIdentifier>{5f3298c5-b46f-429f-a7bb-2110c2185892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage3d\glew\src">
+      <UniqueIdentifier>{b3d774a4-748b-4c2b-9219-009fd5cbd0f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage3d\glew\include">
+      <UniqueIdentifier>{b0a51121-66fa-47df-9145-d1cb4d2a8f7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Plane.cpp">
@@ -362,6 +374,12 @@
     </ClCompile>
     <ClCompile Include="src\Physics\PhysicsVehicleWheel.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage3D\Context3D.cpp">
+      <Filter>stage3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage3D\glew\src\glew.c">
+      <Filter>stage3d\glew\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -709,6 +727,12 @@
     </ClInclude>
     <ClInclude Include="src\Physics\PhysicsVehicleWheel.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage3D\Context3D.h">
+      <Filter>stage3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage3D\glew\include\GL\glew.h">
+      <Filter>stage3d\glew\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -221,7 +221,7 @@ using std::va_list;
 #elif WIN32
         #define WIN32_LEAN_AND_MEAN
         #define GLEW_STATIC
-        //#include <GL/glew.h>
+        #include <GL/glew.h>
 		#include "Context3D.h"
         #define GP_USE_VAO
 #elif __linux__
