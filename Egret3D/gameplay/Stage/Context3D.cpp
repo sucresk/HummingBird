@@ -176,7 +176,7 @@ namespace Egret3D
 	{
 		return glDeleteShader(shader);
 	}
-	void EgDeleteTextures(GLsizei n, const GLuint* textures)
+	void Context3D::EgDeleteTextures(GLsizei n, const GLuint* textures)
 	{
 		return glDeleteTextures(n, textures);
 	}
@@ -186,12 +186,12 @@ namespace Egret3D
 		return glDepthFunc(func);
 	}
 
-	void EgDepthMask(GLboolean flag)
+	void Context3D::EgDepthMask(GLboolean flag)
 	{
 		return glDepthMask(flag);
 	}
 
-	void EgDepthRangef(GLclampf zNear, GLclampf zFar)
+	void Context3D::EgDepthRangef(GLclampf zNear, GLclampf zFar)
 	{
 		return glDepthRangef(zNear, zFar);
 	}
@@ -205,7 +205,7 @@ namespace Egret3D
 		return glDisable(cap);
 	}
 
-	void EgDisableVertexAttribArray(GLuint index)
+	void Context3D::EgDisableVertexAttribArray(GLuint index)
 	{
 		return glDisableVertexAttribArray(index);
 	}
