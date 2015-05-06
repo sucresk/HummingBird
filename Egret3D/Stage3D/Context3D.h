@@ -10,6 +10,8 @@ public:
 	Context3D();
 	~Context3D();
 
+	GLenum init();
+
 	void EgActiveTexture(GLenum texture);
 	void EgAttachShader(GLuint program, GLuint shader);
 	void EgBindAttribLocation(GLuint program, GLuint index, const GLchar* name);
@@ -27,7 +29,7 @@ public:
 	GLenum EgCheckFramebufferStatus(GLenum target);
 	void EgClear(GLbitfield mask);
 	void EgClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
-	void EgClearDepthf(GLclampf depth);
+	void EgClearDepth(GLclampf depth);
 	void EgClearStencil(GLint s);
 	void EgColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
 	void EgCompileShader(GLuint shader);

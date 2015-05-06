@@ -11,6 +11,11 @@ Context3D::~Context3D()
 {
 }
 
+GLenum Context3D::init()
+{
+	return glewInit();
+}
+
 void Context3D::EgActiveTexture(GLenum texture)
 {
 	glActiveTexture(texture);
@@ -93,7 +98,7 @@ void Context3D::EgClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclam
 	return glClearColor(red, green, blue, alpha);
 }
 
-void Context3D::EgClearDepthf(GLclampf depth)
+void Context3D::EgClearDepth(GLclampf depth)
 {
 	return glClearDepth(depth);
 }
