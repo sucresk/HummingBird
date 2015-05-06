@@ -1406,11 +1406,11 @@ GLEWAPI GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext *ctx,
 #define WGLEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define WGLEW_GET_FUN(x) x
 
-/*GLEWAPI*/ GLboolean /*GLEWAPIENTRY */wglewIsSupported (const char *name);
+GLEWAPI GLboolean GLEWAPIENTRY wglewIsSupported (const char *name);
 
 #endif /* GLEW_MX */
 
-/*GLEWAPI*/ GLboolean /*GLEWAPIENTRY */wglewGetExtension (const char *name);
+GLEWAPI GLboolean GLEWAPIENTRY wglewGetExtension (const char *name);
 
 #ifdef __cplusplus
 }
