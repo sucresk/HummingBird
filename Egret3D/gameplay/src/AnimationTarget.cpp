@@ -533,9 +533,12 @@ void AnimationTarget::convertByValues(unsigned int propertyId, unsigned int comp
 
 void AnimationTarget::convertQuaternionByValues(float* from, float* by)
 {
-    Quaternion qFrom(from);
-    Quaternion qBy(by);
-    qBy.multiply(qFrom);
+    kmQuaternion qFrom;
+	kmQuaternionSet(&qFrom, from[0], from[1], from[2], from[3]);
+    kmQuaternion qBy;
+	kmQuaternionSet(&qBy, by[0], by[1], by[2], by[3]);
+    //qBy.multiply(qFrom);
+	kmQuaternionMultiply(&qBy, &qBy, &qFrom);
     memcpy(by, (float*)&qBy, sizeof(float) * 4);
 }
 

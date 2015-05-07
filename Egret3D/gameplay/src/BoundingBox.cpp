@@ -41,23 +41,32 @@ void BoundingBox::getCorners(kmVec3* dst) const
 
     // Near face, specified counter-clockwise looking towards the origin from the positive z-axis.
     // Left-top-front.
-    dst[0].set(min.x, max.y, max.z);
+    //dst[0].set(min.x, max.y, max.z);
+	kmVec3Fill( &dst[0], min.x, max.y, max.z);
     // Left-bottom-front.
-    dst[1].set(min.x, min.y, max.z);
+    //dst[1].set(min.x, min.y, max.z);
+	kmVec3Fill(&dst[1], min.x, min.y, max.z);
     // Right-bottom-front.
-    dst[2].set(max.x, min.y, max.z);
+    //dst[2].set(max.x, min.y, max.z);
+	kmVec3Fill(&dst[2], max.x, min.y, max.z);
     // Right-top-front.
-    dst[3].set(max.x, max.y, max.z);
+    //dst[3].set(max.x, max.y, max.z);
+	kmVec3Fill(&dst[3], max.x, max.y, max.z);
 
     // Far face, specified counter-clockwise looking towards the origin from the negative z-axis.
     // Right-top-back.
-    dst[4].set(max.x, max.y, min.z);
+    //dst[4].set(max.x, max.y, min.z);
+	kmVec3Fill(&dst[4], max.x, max.y, min.z);
     // Right-bottom-back.
-    dst[5].set(max.x, min.y, min.z);
+    //dst[5].set(max.x, min.y, min.z);
+	kmVec3Fill(&dst[5], max.x, min.y, min.z);
     // Left-bottom-back.
-    dst[6].set(min.x, min.y, min.z);
+    //dst[6].set(min.x, min.y, min.z);
+	kmVec3Fill(&dst[6], min.x, min.y, min.z);
     // Left-top-back.
-    dst[7].set(min.x, max.y, min.z);
+    //dst[7].set(min.x, max.y, min.z);
+	kmVec3Fill(&dst[7], min.x, max.y, min.z);
+	return;
 }
 
 kmVec3 BoundingBox::getCenter() const
@@ -70,10 +79,13 @@ kmVec3 BoundingBox::getCenter() const
 void BoundingBox::getCenter(kmVec3* dst) const
 {
     GP_ASSERT(dst);
-
-    dst->set(min, max);
-    dst->scale(0.5f);
-    dst->add(min);
+	kmVec3Subtract(dst, &max, &min);
+    //dst->set(min, max);
+    //dst->scale(0.5f);
+	kmVec3Scale(dst, dst, 0.5f);
+    //dst->add(min);
+	kmVec3Add(dst, dst, &min);
+	return;
 }
 
 bool BoundingBox::intersects(const BoundingSphere& sphere) const

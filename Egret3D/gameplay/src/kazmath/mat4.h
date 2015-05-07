@@ -53,21 +53,13 @@ typedef struct kmMat4 {
 extern kmMat4 gkmMat4;
 
  kmMat4* const kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
-
-
  kmMat4* const kmMat4Identity(kmMat4* pOut);
-
  kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
-
-
  const int kmMat4IsIdentity(const kmMat4* pIn);
-
  kmMat4* const kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
  kmMat4* const kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
-
  kmMat4* const kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
  const int kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
-
  kmMat4* const kmMat4RotationX(kmMat4* pOut, const kmScalar radians);
  kmMat4* const kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
  kmMat4* const kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);
