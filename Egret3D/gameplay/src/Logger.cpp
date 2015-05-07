@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "ScriptController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Logger::State Logger::_state[3];
@@ -70,7 +70,7 @@ void Logger::log(Level level, const char* message, ...)
     else
     {
         // Log to the default output
-        Egret3D::print("%s", str);
+        egret::print("%s", str);
     }
 }
 

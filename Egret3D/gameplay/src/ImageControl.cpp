@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "ImageControl.h"
 
-namespace Egret3D
+namespace egret
 {
 
 ImageControl::ImageControl() :

@@ -4,7 +4,7 @@
 #include "Ref.h"
 #include "VertexFormat.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Mesh;

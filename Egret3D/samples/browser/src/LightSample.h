@@ -6,7 +6,7 @@
 #include "Material.h"
 #include "Model.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 /**
  * Sample for lights.

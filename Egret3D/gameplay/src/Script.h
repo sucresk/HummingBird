@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Ref.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

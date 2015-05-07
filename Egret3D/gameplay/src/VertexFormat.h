@@ -1,7 +1,7 @@
 #ifndef VERTEXFORMAT_H_
 #define VERTEXFORMAT_H_
 
-namespace Egret3D
+namespace egret
 {
 
 /**

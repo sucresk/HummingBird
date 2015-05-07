@@ -1,6 +1,6 @@
 #include "ThemeStyle.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /****************

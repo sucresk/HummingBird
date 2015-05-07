@@ -33,9 +33,6 @@
     <ClCompile Include="src\PlatformWindows.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Quaternion.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Ray.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -372,15 +369,15 @@
     <ClCompile Include="Stage\Context3D.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Quaternion.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Ray.h">
@@ -722,6 +719,9 @@
     <ClInclude Include="Stage\Context3D.h">
       <Filter>stage</Filter>
     </ClInclude>
+    <ClInclude Include="src\Math\Quaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ScriptController.inl">
@@ -829,12 +829,12 @@
     <None Include="src\Physics\PhysicsSpringConstraint.inl">
       <Filter>Physics</Filter>
     </None>
+    <None Include="src\Math\Quaternion.inl">
+      <Filter>Math</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Plane.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="src\Quaternion.inl">
       <Filter>src</Filter>
     </None>
     <None Include="src\Ray.inl">

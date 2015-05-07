@@ -6,7 +6,7 @@
 #include "Animation.h"
 #include "ScriptTarget.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Animation;

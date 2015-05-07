@@ -3,7 +3,7 @@
 
 #include "Matrix.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class BoundingSphere;

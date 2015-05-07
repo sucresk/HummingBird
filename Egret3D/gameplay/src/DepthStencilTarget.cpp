@@ -8,7 +8,7 @@
 #define GL_DEPTH_COMPONENT24 GL_DEPTH_COMPONENT24_OES
 #endif
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<DepthStencilTarget*> __depthStencilTargets;

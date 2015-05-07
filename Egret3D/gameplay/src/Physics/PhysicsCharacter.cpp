@@ -10,7 +10,7 @@
 #include "Game.h"
 #include "PhysicsController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

@@ -14,7 +14,7 @@ GLenum __gl_error_code = GL_NO_ERROR;
 /** @script{ignore} */
 ALenum __al_error_code = AL_NO_ERROR;
 
-namespace Egret3D
+namespace egret
 {
 
 static Game* __gameInstance = NULL;

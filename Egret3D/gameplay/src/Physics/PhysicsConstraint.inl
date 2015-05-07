@@ -1,6 +1,6 @@
 #include "PhysicsConstraint.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline float PhysicsConstraint::getBreakingImpulse() const

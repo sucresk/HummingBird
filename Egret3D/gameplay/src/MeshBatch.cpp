@@ -2,7 +2,7 @@
 #include "MeshBatch.h"
 #include "Material.h"
 
-namespace Egret3D
+namespace egret
 {
 
 MeshBatch::MeshBatch(const VertexFormat& vertexFormat, Mesh::PrimitiveType primitiveType, Material* material, bool indexed, unsigned int initialCapacity, unsigned int growSize)

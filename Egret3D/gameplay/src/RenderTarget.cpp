@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "RenderTarget.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<RenderTarget*> __renderTargets;

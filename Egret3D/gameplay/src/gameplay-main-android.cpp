@@ -4,7 +4,7 @@
 #include <android_native_app_glue.h>
 #include "gameplay.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 extern struct android_app* __state;
 

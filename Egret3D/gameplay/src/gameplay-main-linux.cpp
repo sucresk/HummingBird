@@ -3,7 +3,7 @@
 
 #include "gameplay.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 extern int __argc;
 extern char** __argv;

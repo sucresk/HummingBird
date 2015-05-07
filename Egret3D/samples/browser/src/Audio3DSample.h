@@ -5,7 +5,7 @@
 #include "Sample.h"
 #include "FirstPersonCamera.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 /**
  * Sample 3D audio within multiple sources and a listener bound to Nodes.

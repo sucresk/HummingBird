@@ -7,7 +7,7 @@
 #include "Terrain.h"
 #include "Bundle.h"
 
-namespace Egret3D
+namespace egret
 {
 
 // Global list of active scenes

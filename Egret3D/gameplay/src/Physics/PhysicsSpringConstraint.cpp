@@ -3,7 +3,7 @@
 #include "Node.h"
 #include "PhysicsRigidBody.h"
 
-namespace Egret3D
+namespace egret
 {
 
 PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, PhysicsRigidBody* b)

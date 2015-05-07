@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Platform.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**
@@ -68,14 +68,14 @@ template <typename T> void ScreenDisplayer::run(T* instance, void (T::*method) (
 }
 
 /**
- * Displays a screen using the {@link Egret3D::Game::renderOnce} mechanism for at least the given amount
+ * Displays a screen using the {@link egret::Game::renderOnce} mechanism for at least the given amount
  * of time. This function is intended to be called at the beginning of a block of code that is be 
  * executed while the screen is displayed (i.e. Game#initialize). This function will block 
  * at the end of the block of code in which it is called for the amount of time that has not yet elapsed.
  * 
- * @param instance See {@link Egret3D::Game::renderOnce}.
- * @param method See {@link Egret3D::Game::renderOnce}.
- * @param cookie See {@link Egret3D::Game::renderOnce}.
+ * @param instance See {@link egret::Game::renderOnce}.
+ * @param method See {@link egret::Game::renderOnce}.
+ * @param cookie See {@link egret::Game::renderOnce}.
  * @param time The minimum amount of time to display the screen (in milliseconds).
  */
 #define displayScreen(instance, method, cookie, time) \

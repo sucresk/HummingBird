@@ -7,7 +7,7 @@
 #include "Matrix.h"
 #include "AnimationTarget.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class BoundingBox;

@@ -3,7 +3,7 @@
 #include "FlowLayout.h"
 #include "Container.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static FlowLayout* __instance;

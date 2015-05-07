@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Label.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Label::Label() : _text(""), _font(NULL)

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsFixedConstraint.h"
 
-namespace Egret3D
+namespace egret
 {
 
 PhysicsFixedConstraint::PhysicsFixedConstraint(PhysicsRigidBody* a, PhysicsRigidBody* b)

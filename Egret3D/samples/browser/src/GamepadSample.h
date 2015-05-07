@@ -4,7 +4,7 @@
 #include "SamplesGame.h"
 #include "Gamepad.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 class GamepadSample : public Sample
 {

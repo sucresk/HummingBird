@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "MeshPart.h"
 
-namespace Egret3D
+namespace egret
 {
 
 MeshPart::MeshPart() :

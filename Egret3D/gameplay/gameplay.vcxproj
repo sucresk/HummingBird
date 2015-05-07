@@ -66,6 +66,7 @@
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Math\MathUtil.cpp" />
     <ClCompile Include="src\Math\Matrix.cpp" />
+    <ClCompile Include="src\Math\Quaternion.cpp" />
     <ClCompile Include="src\Math\Vector2.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
     <ClCompile Include="src\Math\Vector4.cpp" />
@@ -99,7 +100,6 @@
     <ClCompile Include="src\PlatformLinux.cpp" />
     <ClCompile Include="src\PlatformWindows.cpp" />
     <ClCompile Include="src\Properties.cpp" />
-    <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\RadioButton.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
@@ -184,6 +184,7 @@
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Math\MathUtil.h" />
     <ClInclude Include="src\Math\Matrix.h" />
+    <ClInclude Include="src\Math\Quaternion.h" />
     <ClInclude Include="src\Math\Vector2.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Math\Vector4.h" />
@@ -215,7 +216,6 @@
     <ClInclude Include="src\Plane.h" />
     <ClInclude Include="src\Platform.h" />
     <ClInclude Include="src\Properties.h" />
-    <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\RadioButton.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\Rectangle.h" />
@@ -275,6 +275,7 @@
     <None Include="src\Math\MathUtil.inl" />
     <None Include="src\Math\MathUtilNeon.inl" />
     <None Include="src\Math\Matrix.inl" />
+    <None Include="src\Math\Quaternion.inl" />
     <None Include="src\Math\Vector2.inl" />
     <None Include="src\Math\Vector3.inl" />
     <None Include="src\Math\Vector4.inl" />
@@ -285,7 +286,6 @@
     <None Include="src\Physics\PhysicsRigidBody.inl" />
     <None Include="src\Physics\PhysicsSpringConstraint.inl" />
     <None Include="src\Plane.inl" />
-    <None Include="src\Quaternion.inl" />
     <None Include="src\Ray.inl" />
     <None Include="src\ScriptController.inl" />
   </ItemGroup>

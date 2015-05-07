@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "RadioButton.h"
 
-namespace Egret3D
+namespace egret
 {
 static std::vector<RadioButton*> __radioButtons;
 

@@ -1,7 +1,7 @@
 #include "Context3D.h"
 //#include "GL/glew.h"
 
-namespace Egret3D
+namespace egret
 {
 
 	Context3D gContext3D;

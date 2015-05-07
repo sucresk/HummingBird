@@ -9,7 +9,7 @@
 #include "Properties.h"
 #include "Theme.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

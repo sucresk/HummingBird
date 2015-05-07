@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AIMessage.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AIMessage::AIMessage()

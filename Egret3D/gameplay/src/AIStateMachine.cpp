@@ -4,7 +4,7 @@
 #include "AIMessage.h"
 #include "Game.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AIStateMachine::AIStateMachine(AIAgent* agent)

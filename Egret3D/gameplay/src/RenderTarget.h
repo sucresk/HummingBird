@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Texture.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

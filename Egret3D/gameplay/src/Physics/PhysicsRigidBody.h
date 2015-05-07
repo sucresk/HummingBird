@@ -7,7 +7,7 @@
 #include "Vector3.h"
 #include "PhysicsCollisionObject.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Node;

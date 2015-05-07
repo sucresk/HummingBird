@@ -1,7 +1,7 @@
 #include "Script.h"
 #include "ScriptController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Script::Script() : _scope(GLOBAL), _env(0)

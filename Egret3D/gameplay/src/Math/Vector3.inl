@@ -1,7 +1,7 @@
 #include "Vector3.h"
 #include "Matrix.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline const Vector3 Vector3::operator+(const Vector3& v) const

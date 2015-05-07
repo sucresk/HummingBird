@@ -9,7 +9,7 @@
 #include "RenderState.h"
 #include "MeshBatch.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

@@ -3,7 +3,7 @@
 
 #include "Mesh.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Material;

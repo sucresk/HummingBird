@@ -4,7 +4,7 @@
 #include "Stream.h"
 #include <string>
 
-namespace Egret3D
+namespace egret
 {
 
 class Properties;

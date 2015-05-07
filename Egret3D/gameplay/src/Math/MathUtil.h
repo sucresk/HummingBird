@@ -1,7 +1,7 @@
 #ifndef MATHUTIL_H_
 #define MATHUTIL_H_
 
-namespace Egret3D
+namespace egret
 {
 /**
  * Defines a math utility class.

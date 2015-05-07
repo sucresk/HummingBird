@@ -4,7 +4,7 @@
 #include "RenderState.h"
 #include "VertexAttributeBinding.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Technique;

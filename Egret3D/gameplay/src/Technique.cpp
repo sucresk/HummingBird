@@ -3,7 +3,7 @@
 #include "Material.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Technique::Technique(const char* id, Material* material)

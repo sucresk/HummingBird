@@ -1,13 +1,13 @@
 #ifndef LOGGER_H_
 #define LOGGER_H_
 
-namespace Egret3D
+namespace egret
 {
 
 /**
  * Defines a class providing a basic logging system for a game.
  *
- * By default, this class logs messages using the Egret3D::print function, which
+ * By default, this class logs messages using the egret::print function, which
  * is implemented in a platform dependent manner and typically prints to stderr
  * as well as to other possibly platform specific locations. Logging behavior
  * can be modified for a specific log level by passing a custom C or Lua logging

@@ -1,6 +1,6 @@
 #include "BoundingSphere.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline BoundingSphere& BoundingSphere::operator*=(const Matrix& matrix)

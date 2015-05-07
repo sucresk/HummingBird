@@ -4,7 +4,7 @@
 #include "AudioBuffer.h"
 #include "AudioSource.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AudioController::AudioController() 

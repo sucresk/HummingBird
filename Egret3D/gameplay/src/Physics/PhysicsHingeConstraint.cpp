@@ -2,7 +2,7 @@
 #include "PhysicsHingeConstraint.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 void PhysicsHingeConstraint::setLimits(float minAngle, float maxAngle, float bounciness)

@@ -5,7 +5,7 @@
 
 #define OPENGL_ES_DEFINE  "OPENGL_ES"
 
-namespace Egret3D
+namespace egret
 {
 
 // Cache of unique effects.

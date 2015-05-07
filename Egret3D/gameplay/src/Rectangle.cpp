@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Rectangle.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Rectangle::Rectangle()

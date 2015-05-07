@@ -6,7 +6,7 @@
 #include "Quaternion.h"
 #include "ScriptController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 extern void splitURL(const std::string& url, std::string* file, std::string* id);

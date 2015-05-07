@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline Plane& Plane::operator*=(const Matrix& matrix)

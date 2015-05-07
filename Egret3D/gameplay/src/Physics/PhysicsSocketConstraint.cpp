@@ -2,7 +2,7 @@
 #include "PhysicsSocketConstraint.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 PhysicsSocketConstraint::PhysicsSocketConstraint(PhysicsRigidBody* a, PhysicsRigidBody* b)

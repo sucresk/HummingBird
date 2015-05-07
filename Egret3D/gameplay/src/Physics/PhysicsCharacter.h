@@ -5,7 +5,7 @@
 #include "PhysicsGhostObject.h"
 #include "Properties.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

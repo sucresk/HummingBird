@@ -7,7 +7,7 @@
 #include "BoundingBox.h"
 #include "BoundingSphere.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class MeshPart;

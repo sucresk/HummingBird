@@ -3,7 +3,7 @@
 
 #include "SpriteBatch.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

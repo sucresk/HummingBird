@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 class TerrainSample : public Sample, public Control::Listener, private RenderState::AutoBindingResolver
 {

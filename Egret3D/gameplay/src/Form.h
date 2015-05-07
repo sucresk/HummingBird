@@ -12,7 +12,7 @@
 #include "FrameBuffer.h"
 #include "Drawable.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Theme;

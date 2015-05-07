@@ -2,7 +2,7 @@
 #define RECTANGLE_H_
 
 
-namespace Egret3D
+namespace egret
 {
 
 /**

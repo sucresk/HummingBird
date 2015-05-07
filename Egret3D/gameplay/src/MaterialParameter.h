@@ -9,7 +9,7 @@
 #include "Texture.h"
 #include "Effect.h"
 
-namespace Egret3D
+namespace egret
 {
     class Node;
 

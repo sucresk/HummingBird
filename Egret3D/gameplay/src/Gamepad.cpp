@@ -6,7 +6,7 @@
 #include "Form.h"
 #include "JoystickControl.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<Gamepad*> __gamepads;

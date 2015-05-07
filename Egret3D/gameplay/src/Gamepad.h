@@ -3,7 +3,7 @@
 
 #include "Vector2.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Button;

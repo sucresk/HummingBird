@@ -30,7 +30,7 @@
 #define BUNDLE_VERSION_MAJOR_FONT_FORMAT  1
 #define BUNDLE_VERSION_MINOR_FONT_FORMAT  5
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<Bundle*> __bundleCache;

@@ -2,7 +2,7 @@
 #include "Light.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Light::Light(Light::Type type, const Vector3& color) :

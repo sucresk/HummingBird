@@ -17,7 +17,7 @@
 // Other misc camera bits
 #define CAMERA_CUSTOM_PROJECTION 64
 
-namespace Egret3D
+namespace egret
 {
 
 Camera::Camera(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)

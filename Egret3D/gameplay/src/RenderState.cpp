@@ -22,7 +22,7 @@
 
 #define RS_ALL_ONES 0xFFFFFFFF
 
-namespace Egret3D
+namespace egret
 {
 
 RenderState::StateBlock* RenderState::StateBlock::_defaultState = NULL;

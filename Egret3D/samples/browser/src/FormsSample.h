@@ -3,7 +3,7 @@
 
 #include "SamplesGame.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 class FormsSample : public Sample, Control::Listener
 {

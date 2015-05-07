@@ -12,7 +12,7 @@
 #include "ScriptTarget.h"
 #include "Gamepad.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Container;

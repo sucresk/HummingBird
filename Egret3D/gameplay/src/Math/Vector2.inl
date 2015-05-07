@@ -1,6 +1,6 @@
 #include "Vector2.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline const Vector2 Vector2::operator+(const Vector2& v) const

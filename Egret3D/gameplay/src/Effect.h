@@ -8,7 +8,7 @@
 #include "Matrix.h"
 #include "Texture.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Uniform;

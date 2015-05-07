@@ -53,7 +53,7 @@
 #define POP_NESTED_VARIABLE() \
     lua_settop(_lua, top)
 
-namespace Egret3D
+namespace egret
 {
 
 extern void splitURL(const std::string& url, std::string* file, std::string* id);
@@ -641,12 +641,12 @@ Script* ScriptController::getCurrentScript() const
 
 void ScriptController::print(const char* str)
 {
-    Egret3D::print("%s", str);
+    egret::print("%s", str);
 }
 
 void ScriptController::print(const char* str1, const char* str2)
 {
-    Egret3D::print("%s%s", str1, str2);
+    egret::print("%s%s", str1, str2);
 }
 
 ScriptController::ScriptController() : _lua(NULL)
@@ -724,7 +724,7 @@ void ScriptController::initialize()
     // Append to the LUA_PATH to allow scripts to be found in the resource folder on all platforms
     appendLuaPath(_lua, FileSystem::getResourcePath());
 
-    // Create our own print() function that uses Egret3D::print.
+    // Create our own print() function that uses egret::print.
     if (luaL_dostring(_lua, lua_print_function))
         GP_ERROR("Failed to load custom print() function with error: '%s'.", lua_tostring(_lua, -1));
 

@@ -118,7 +118,7 @@ void SamplesGame::render(float elapsedTime)
 
 void SamplesGame::resizeEvent(unsigned int width, unsigned int height)
 {
-    setViewport(Egret3D::Rectangle(width, height));
+    setViewport(egret::Rectangle(width, height));
 }
 
 void SamplesGame::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

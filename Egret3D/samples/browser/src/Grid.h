@@ -3,7 +3,7 @@
 
 #include "gameplay.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 static const unsigned int DEFAULT_LINE_COUNT = 81;
 

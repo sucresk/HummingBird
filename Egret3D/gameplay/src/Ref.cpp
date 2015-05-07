@@ -2,7 +2,7 @@
 #include "Ref.h"
 #include "Game.h"
 
-namespace Egret3D
+namespace egret
 {
 
 #ifdef GP_USE_MEM_LEAK_DETECTION

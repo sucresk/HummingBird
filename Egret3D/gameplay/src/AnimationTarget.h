@@ -4,7 +4,7 @@
 #include "Curve.h"
 #include "AnimationController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Animation;

@@ -1,7 +1,7 @@
 #ifndef AUDIOCONTROLLER_H_
 #define AUDIOCONTROLLER_H_
 
-namespace Egret3D
+namespace egret
 {
 
 class AudioListener;

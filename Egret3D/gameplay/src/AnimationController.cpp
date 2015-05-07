@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Curve.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AnimationController::AnimationController()

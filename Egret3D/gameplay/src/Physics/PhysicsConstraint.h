@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Vector3.h"
 
-namespace Egret3D
+namespace egret
 {
     class PhysicsRigidBody;
     class Node;

@@ -4,7 +4,7 @@
 #include "Quaternion.h"
 #include "MathUtil.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static const float MATRIX_IDENTITY[16] =

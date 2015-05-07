@@ -1,6 +1,6 @@
 #include "ScriptController.h"
 
-namespace Egret3D
+namespace egret
 {
 
 template <typename T>

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Quaternion.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Quaternion::Quaternion()

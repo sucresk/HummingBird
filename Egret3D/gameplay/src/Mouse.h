@@ -1,7 +1,7 @@
 #ifndef MOUSE_H_
 #define MOUSE_H_
 
-namespace Egret3D
+namespace egret
 {
 
 /**

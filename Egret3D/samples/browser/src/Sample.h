@@ -3,7 +3,7 @@
 
 #include "gameplay.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 /**
  * Base class for all of the samples. 

@@ -2,7 +2,7 @@
 #include "AudioBuffer.h"
 #include "FileSystem.h"
 
-namespace Egret3D
+namespace egret
 {
 
 // Audio buffer cache

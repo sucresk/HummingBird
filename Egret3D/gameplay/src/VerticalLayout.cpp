@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "VerticalLayout.h"
 
-namespace Egret3D
+namespace egret
 {
 
 VerticalLayout::VerticalLayout() : _bottomToTop(false), _spacing(0)

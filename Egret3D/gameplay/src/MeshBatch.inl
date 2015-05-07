@@ -1,6 +1,6 @@
 #include "MeshBatch.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Material* MeshBatch::getMaterial() const

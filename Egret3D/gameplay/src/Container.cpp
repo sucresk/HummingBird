@@ -16,7 +16,7 @@
 #include "Game.h"
 #include "ControlFactory.h"
 
-namespace Egret3D
+namespace egret
 {
 
 // If the user stops scrolling for this amount of time (in millis) before touch/click release, don't apply inertia.

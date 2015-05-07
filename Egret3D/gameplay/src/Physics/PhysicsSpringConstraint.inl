@@ -1,6 +1,6 @@
 #include "PhysicsSpringConstraint.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline void PhysicsSpringConstraint::setAngularDampingX(float damping)

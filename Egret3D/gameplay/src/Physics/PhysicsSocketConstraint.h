@@ -5,7 +5,7 @@
 #include "PhysicsRigidBody.h"
 #include "Vector3.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

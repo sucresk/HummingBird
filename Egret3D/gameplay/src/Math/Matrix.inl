@@ -1,6 +1,6 @@
 #include "Matrix.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline const Matrix Matrix::operator+(const Matrix& m) const

@@ -10,7 +10,7 @@
 #include "BoundingBox.h"
 #include "TerrainPatch.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class TerrainPatch;

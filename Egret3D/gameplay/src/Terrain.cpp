@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "FileSystem.h"
 
-namespace Egret3D
+namespace egret
 {
 
 // Default terrain material path

@@ -3,7 +3,7 @@
 #include "AudioListener.h"
 #include "Game.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AudioListener::AudioListener()

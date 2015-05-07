@@ -4,7 +4,7 @@
 #include "Ref.h"
 #include "Stream.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class AudioSource;

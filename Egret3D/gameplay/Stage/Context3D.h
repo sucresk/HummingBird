@@ -3,7 +3,7 @@
 
 #include "GL/glew.h"
 
-namespace Egret3D
+namespace egret
 {
 
 	class Context3D

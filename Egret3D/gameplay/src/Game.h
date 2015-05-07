@@ -15,7 +15,7 @@
 #include "Vector4.h"
 #include "TimeListener.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class ScriptController;

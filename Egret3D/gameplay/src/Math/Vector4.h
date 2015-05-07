@@ -1,7 +1,7 @@
 #ifndef VECTOR4_H_
 #define VECTOR4_H_
 
-namespace Egret3D
+namespace egret
 {
 
 class Matrix;

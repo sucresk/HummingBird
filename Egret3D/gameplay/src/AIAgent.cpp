@@ -2,7 +2,7 @@
 #include "AIAgent.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AIAgent::AIAgent()

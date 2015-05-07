@@ -3,7 +3,7 @@
 #include "FileSystem.h"
 #include "Quaternion.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

@@ -55,7 +55,7 @@ using std::atoi;
 #define NULL     0
 #endif
 
-namespace Egret3D
+namespace egret
 {
 /**
  * Print logging (implemented per platform).
@@ -93,9 +93,9 @@ extern int strcmpnocase(const char* s1, const char* s2);
 #else
 #define GP_ERROR(...) do \
     { \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_ERROR, "%s -- ", __current__func__); \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_ERROR, __VA_ARGS__); \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_ERROR, "\n"); \
+        egret::Logger::log(egret::Logger::LEVEL_ERROR, "%s -- ", __current__func__); \
+        egret::Logger::log(egret::Logger::LEVEL_ERROR, __VA_ARGS__); \
+        egret::Logger::log(egret::Logger::LEVEL_ERROR, "\n"); \
         DEBUG_BREAK(); \
         assert(0); \
         std::exit(-1); \
@@ -105,9 +105,9 @@ extern int strcmpnocase(const char* s1, const char* s2);
 // Warning macro.
 #define GP_WARN(...) do \
     { \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_WARN, "%s -- ", __current__func__); \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_WARN, __VA_ARGS__); \
-        Egret3D::Logger::log(Egret3D::Logger::LEVEL_WARN, "\n"); \
+        egret::Logger::log(egret::Logger::LEVEL_WARN, "%s -- ", __current__func__); \
+        egret::Logger::log(egret::Logger::LEVEL_WARN, __VA_ARGS__); \
+        egret::Logger::log(egret::Logger::LEVEL_WARN, "\n"); \
     } while (0)
 
 #if defined(WIN32)
@@ -265,7 +265,7 @@ using std::va_list;
 #define VERTEX_ATTRIBUTE_TEXCOORD_PREFIX_NAME       "a_texCoord"
 
 // Hardware buffer
-namespace Egret3D
+namespace egret
 {
 /** Vertex attribute. */
 typedef GLint VertexAttribute;

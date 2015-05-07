@@ -27,7 +27,7 @@
 extern AAssetManager* __assetManager;
 #endif
 
-namespace Egret3D
+namespace egret
 {
 
 #ifdef __ANDROID__

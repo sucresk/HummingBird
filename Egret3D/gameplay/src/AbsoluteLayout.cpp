@@ -3,7 +3,7 @@
 #include "AbsoluteLayout.h"
 #include "Container.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static AbsoluteLayout* __instance;

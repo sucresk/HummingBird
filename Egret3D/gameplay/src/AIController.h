@@ -4,7 +4,7 @@
 #include "AIAgent.h"
 #include "AIMessage.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

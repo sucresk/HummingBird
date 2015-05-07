@@ -2,7 +2,7 @@
 #include "BoundingSphere.h"
 #include "BoundingBox.h"
 
-namespace Egret3D
+namespace egret
 {
 
 BoundingSphere::BoundingSphere()

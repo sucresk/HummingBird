@@ -5,7 +5,7 @@
 #include "PhysicsRigidBody.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class PhysicsVehicle;

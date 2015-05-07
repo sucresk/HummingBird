@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Vector4.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Vector4::Vector4()

@@ -1,7 +1,7 @@
 #ifndef AIMESSAGE_H_
 #define AIMESSAGE_H_
 
-namespace Egret3D
+namespace egret
 {
 
 /**

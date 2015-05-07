@@ -2,7 +2,7 @@
 #include "MaterialParameter.h"
 #include "Node.h"
 
-namespace Egret3D
+namespace egret
 {
 
 MaterialParameter::MaterialParameter(const char* name) :

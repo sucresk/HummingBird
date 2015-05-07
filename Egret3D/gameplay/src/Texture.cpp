@@ -44,7 +44,7 @@
 #define ETC1_RGB8 0x8D64
 #endif
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<Texture*> __textureCache;

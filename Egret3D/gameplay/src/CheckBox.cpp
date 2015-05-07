@@ -2,7 +2,7 @@
 #include "CheckBox.h"
 #include "Game.h"
 
-namespace Egret3D
+namespace egret
 {
 
 CheckBox::CheckBox() : _checked(false), _image(NULL)

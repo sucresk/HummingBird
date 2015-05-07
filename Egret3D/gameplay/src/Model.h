@@ -6,7 +6,7 @@
 #include "Material.h"
 #include "Drawable.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Bundle;

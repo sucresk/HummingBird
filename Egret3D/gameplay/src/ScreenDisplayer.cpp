@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "ScreenDisplayer.h"
 
-namespace Egret3D
+namespace egret
 {
 
 ScreenDisplayer* ScreenDisplayer::__scriptInstance = NULL;

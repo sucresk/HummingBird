@@ -75,7 +75,7 @@ struct GamepadInfoEntry
 struct ConnectedGamepadDevInfo
 {
     dev_t deviceId;
-    Egret3D::GamepadHandle fd;
+    egret::GamepadHandle fd;
     const GamepadInfoEntry& gamepadInfo;
 };
 
@@ -95,438 +95,438 @@ static GLXContext __context;
 static Atom __atomWmDeleteWindow;
 static list<ConnectedGamepadDevInfo> __connectedGamepads;
 
-// Gets the Egret3D::Keyboard::Key enumeration constant that corresponds to the given X11 key symbol.
-static Egret3D::Keyboard::Key getKey(KeySym sym)
+// Gets the egret::Keyboard::Key enumeration constant that corresponds to the given X11 key symbol.
+static egret::Keyboard::Key getKey(KeySym sym)
 {
     switch (sym)
     {
         case XK_Sys_Req:
-            return Egret3D::Keyboard::KEY_SYSREQ;
+            return egret::Keyboard::KEY_SYSREQ;
         case XK_Break:
-            return Egret3D::Keyboard::KEY_BREAK;
+            return egret::Keyboard::KEY_BREAK;
         case XK_Menu :
-            return Egret3D::Keyboard::KEY_MENU;
+            return egret::Keyboard::KEY_MENU;
         case XK_KP_Enter:
-            return Egret3D::Keyboard::KEY_KP_ENTER;
+            return egret::Keyboard::KEY_KP_ENTER;
         case XK_Pause:
-            return Egret3D::Keyboard::KEY_PAUSE;
+            return egret::Keyboard::KEY_PAUSE;
         case XK_Scroll_Lock:
-            return Egret3D::Keyboard::KEY_SCROLL_LOCK;
+            return egret::Keyboard::KEY_SCROLL_LOCK;
         case XK_Print:
-            return Egret3D::Keyboard::KEY_PRINT;
+            return egret::Keyboard::KEY_PRINT;
         case XK_Escape:
-            return Egret3D::Keyboard::KEY_ESCAPE;
+            return egret::Keyboard::KEY_ESCAPE;
         case XK_BackSpace:
-            return Egret3D::Keyboard::KEY_BACKSPACE;
+            return egret::Keyboard::KEY_BACKSPACE;
         case XK_Tab:
-            return Egret3D::Keyboard::KEY_TAB;
+            return egret::Keyboard::KEY_TAB;
         case XK_Return:
-            return Egret3D::Keyboard::KEY_RETURN;
+            return egret::Keyboard::KEY_RETURN;
         case XK_Caps_Lock:
-            return Egret3D::Keyboard::KEY_CAPS_LOCK;
+            return egret::Keyboard::KEY_CAPS_LOCK;
         case XK_Shift_L:
         case XK_Shift_R:
-            return Egret3D::Keyboard::KEY_SHIFT;
+            return egret::Keyboard::KEY_SHIFT;
         case XK_Control_L:
         case XK_Control_R:
-            return Egret3D::Keyboard::KEY_CTRL;
+            return egret::Keyboard::KEY_CTRL;
         case XK_Alt_L:
         case XK_Alt_R:
-            return Egret3D::Keyboard::KEY_ALT;
+            return egret::Keyboard::KEY_ALT;
         case XK_Hyper_L:
         case XK_Hyper_R:
-            return Egret3D::Keyboard::KEY_HYPER;
+            return egret::Keyboard::KEY_HYPER;
         case XK_Insert:
-            return Egret3D::Keyboard::KEY_INSERT;
+            return egret::Keyboard::KEY_INSERT;
         case XK_Home:
-            return Egret3D::Keyboard::KEY_HOME;
+            return egret::Keyboard::KEY_HOME;
         case XK_Page_Up:
-            return Egret3D::Keyboard::KEY_PG_UP;
+            return egret::Keyboard::KEY_PG_UP;
         case XK_Delete:
-            return Egret3D::Keyboard::KEY_DELETE;
+            return egret::Keyboard::KEY_DELETE;
         case XK_End:
-            return Egret3D::Keyboard::KEY_END;
+            return egret::Keyboard::KEY_END;
         case XK_Page_Down:
-            return Egret3D::Keyboard::KEY_PG_DOWN;
+            return egret::Keyboard::KEY_PG_DOWN;
         case XK_Left:
-            return Egret3D::Keyboard::KEY_LEFT_ARROW;
+            return egret::Keyboard::KEY_LEFT_ARROW;
         case XK_Right:
-            return Egret3D::Keyboard::KEY_RIGHT_ARROW;
+            return egret::Keyboard::KEY_RIGHT_ARROW;
         case XK_Up:
-            return Egret3D::Keyboard::KEY_UP_ARROW;
+            return egret::Keyboard::KEY_UP_ARROW;
         case XK_Down:
-            return Egret3D::Keyboard::KEY_DOWN_ARROW;
+            return egret::Keyboard::KEY_DOWN_ARROW;
         case XK_Num_Lock:
-            return Egret3D::Keyboard::KEY_NUM_LOCK;
+            return egret::Keyboard::KEY_NUM_LOCK;
         case XK_KP_Add:
-            return Egret3D::Keyboard::KEY_KP_PLUS;
+            return egret::Keyboard::KEY_KP_PLUS;
         case XK_KP_Subtract:
-            return Egret3D::Keyboard::KEY_KP_MINUS;
+            return egret::Keyboard::KEY_KP_MINUS;
         case XK_KP_Multiply:
-            return Egret3D::Keyboard::KEY_KP_MULTIPLY;
+            return egret::Keyboard::KEY_KP_MULTIPLY;
         case XK_KP_Divide:
-            return Egret3D::Keyboard::KEY_KP_DIVIDE;
+            return egret::Keyboard::KEY_KP_DIVIDE;
         case XK_KP_Home:
-            return Egret3D::Keyboard::KEY_KP_HOME;
+            return egret::Keyboard::KEY_KP_HOME;
         case XK_KP_Up:
-            return Egret3D::Keyboard::KEY_KP_UP;
+            return egret::Keyboard::KEY_KP_UP;
         case XK_KP_Page_Up:
-            return Egret3D::Keyboard::KEY_KP_PG_UP;
+            return egret::Keyboard::KEY_KP_PG_UP;
         case XK_KP_Left:
-            return Egret3D::Keyboard::KEY_KP_LEFT;
+            return egret::Keyboard::KEY_KP_LEFT;
         case XK_KP_5:
-            return Egret3D::Keyboard::KEY_KP_FIVE;
+            return egret::Keyboard::KEY_KP_FIVE;
         case XK_KP_Right:
-            return Egret3D::Keyboard::KEY_KP_RIGHT;
+            return egret::Keyboard::KEY_KP_RIGHT;
         case XK_KP_End:
-            return Egret3D::Keyboard::KEY_KP_END;
+            return egret::Keyboard::KEY_KP_END;
         case XK_KP_Down:
-            return Egret3D::Keyboard::KEY_KP_DOWN;
+            return egret::Keyboard::KEY_KP_DOWN;
         case XK_KP_Page_Down:
-            return Egret3D::Keyboard::KEY_KP_PG_DOWN;
+            return egret::Keyboard::KEY_KP_PG_DOWN;
         case XK_KP_Insert:
-            return Egret3D::Keyboard::KEY_KP_INSERT;
+            return egret::Keyboard::KEY_KP_INSERT;
         case XK_KP_Delete:
-            return Egret3D::Keyboard::KEY_KP_DELETE;
+            return egret::Keyboard::KEY_KP_DELETE;
         case XK_F1:
-            return Egret3D::Keyboard::KEY_F1;
+            return egret::Keyboard::KEY_F1;
         case XK_F2:
-            return Egret3D::Keyboard::KEY_F2;
+            return egret::Keyboard::KEY_F2;
         case XK_F3:
-            return Egret3D::Keyboard::KEY_F3;
+            return egret::Keyboard::KEY_F3;
         case XK_F4:
-            return Egret3D::Keyboard::KEY_F4;
+            return egret::Keyboard::KEY_F4;
         case XK_F5:
-            return Egret3D::Keyboard::KEY_F5;
+            return egret::Keyboard::KEY_F5;
         case XK_F6:
-            return Egret3D::Keyboard::KEY_F6;
+            return egret::Keyboard::KEY_F6;
         case XK_F7:
-            return Egret3D::Keyboard::KEY_F7;
+            return egret::Keyboard::KEY_F7;
         case XK_F8:
-            return Egret3D::Keyboard::KEY_F8;
+            return egret::Keyboard::KEY_F8;
         case XK_F9:
-            return Egret3D::Keyboard::KEY_F9;
+            return egret::Keyboard::KEY_F9;
         case XK_F10:
-            return Egret3D::Keyboard::KEY_F10;
+            return egret::Keyboard::KEY_F10;
         case XK_F11:
-            return Egret3D::Keyboard::KEY_F11;
+            return egret::Keyboard::KEY_F11;
         case XK_F12:
-            return Egret3D::Keyboard::KEY_F12;
+            return egret::Keyboard::KEY_F12;
         case XK_KP_Space:
         case XK_space:
-            return Egret3D::Keyboard::KEY_SPACE;
+            return egret::Keyboard::KEY_SPACE;
         case XK_parenright:
-            return Egret3D::Keyboard::KEY_RIGHT_PARENTHESIS;
+            return egret::Keyboard::KEY_RIGHT_PARENTHESIS;
         case XK_0:
-            return Egret3D::Keyboard::KEY_ZERO;
+            return egret::Keyboard::KEY_ZERO;
         case XK_exclam:
-            return Egret3D::Keyboard::KEY_EXCLAM;
+            return egret::Keyboard::KEY_EXCLAM;
         case XK_1:
-            return Egret3D::Keyboard::KEY_ONE;
+            return egret::Keyboard::KEY_ONE;
         case XK_at:
-            return Egret3D::Keyboard::KEY_AT;
+            return egret::Keyboard::KEY_AT;
         case XK_2:
-            return Egret3D::Keyboard::KEY_TWO;
+            return egret::Keyboard::KEY_TWO;
         case XK_numbersign:
-            return Egret3D::Keyboard::KEY_NUMBER;
+            return egret::Keyboard::KEY_NUMBER;
         case XK_3:
-            return Egret3D::Keyboard::KEY_THREE;
+            return egret::Keyboard::KEY_THREE;
         case XK_dollar:
-            return Egret3D::Keyboard::KEY_DOLLAR;
+            return egret::Keyboard::KEY_DOLLAR;
         case XK_4:
-            return Egret3D::Keyboard::KEY_FOUR;
+            return egret::Keyboard::KEY_FOUR;
         case XK_percent:
         case XK_asciicircum :
-            return Egret3D::Keyboard::KEY_CIRCUMFLEX;
-            return Egret3D::Keyboard::KEY_PERCENT;
+            return egret::Keyboard::KEY_CIRCUMFLEX;
+            return egret::Keyboard::KEY_PERCENT;
         case XK_5:
-            return Egret3D::Keyboard::KEY_FIVE;
+            return egret::Keyboard::KEY_FIVE;
         case XK_6:
-            return Egret3D::Keyboard::KEY_SIX;
+            return egret::Keyboard::KEY_SIX;
         case XK_ampersand:
-            return Egret3D::Keyboard::KEY_AMPERSAND;
+            return egret::Keyboard::KEY_AMPERSAND;
         case XK_7:
-            return Egret3D::Keyboard::KEY_SEVEN;
+            return egret::Keyboard::KEY_SEVEN;
         case XK_asterisk:
-            return Egret3D::Keyboard::KEY_ASTERISK;
+            return egret::Keyboard::KEY_ASTERISK;
         case XK_8:
-            return Egret3D::Keyboard::KEY_EIGHT;
+            return egret::Keyboard::KEY_EIGHT;
         case XK_parenleft:
-            return Egret3D::Keyboard::KEY_LEFT_PARENTHESIS;
+            return egret::Keyboard::KEY_LEFT_PARENTHESIS;
         case XK_9:
-            return Egret3D::Keyboard::KEY_NINE;
+            return egret::Keyboard::KEY_NINE;
         case XK_equal:
-            return Egret3D::Keyboard::KEY_EQUAL;
+            return egret::Keyboard::KEY_EQUAL;
         case XK_plus:
-            return Egret3D::Keyboard::KEY_PLUS;
+            return egret::Keyboard::KEY_PLUS;
         case XK_less:
-            return Egret3D::Keyboard::KEY_LESS_THAN;
+            return egret::Keyboard::KEY_LESS_THAN;
         case XK_comma:
-            return Egret3D::Keyboard::KEY_COMMA;
+            return egret::Keyboard::KEY_COMMA;
         case XK_underscore:
-            return Egret3D::Keyboard::KEY_UNDERSCORE;
+            return egret::Keyboard::KEY_UNDERSCORE;
         case XK_minus:
-            return Egret3D::Keyboard::KEY_MINUS;
+            return egret::Keyboard::KEY_MINUS;
         case XK_greater:
-            return Egret3D::Keyboard::KEY_GREATER_THAN;
+            return egret::Keyboard::KEY_GREATER_THAN;
         case XK_period:
-            return Egret3D::Keyboard::KEY_PERIOD;
+            return egret::Keyboard::KEY_PERIOD;
         case XK_colon:
-            return Egret3D::Keyboard::KEY_COLON;
+            return egret::Keyboard::KEY_COLON;
         case XK_semicolon:
-            return Egret3D::Keyboard::KEY_SEMICOLON;
+            return egret::Keyboard::KEY_SEMICOLON;
         case XK_question:
-            return Egret3D::Keyboard::KEY_QUESTION;
+            return egret::Keyboard::KEY_QUESTION;
         case XK_slash:
-            return Egret3D::Keyboard::KEY_SLASH;
+            return egret::Keyboard::KEY_SLASH;
         case XK_grave:
-            return Egret3D::Keyboard::KEY_GRAVE;
+            return egret::Keyboard::KEY_GRAVE;
         case XK_asciitilde:
-            return Egret3D::Keyboard::KEY_TILDE;
+            return egret::Keyboard::KEY_TILDE;
         case XK_braceleft:
-            return Egret3D::Keyboard::KEY_LEFT_BRACE;
+            return egret::Keyboard::KEY_LEFT_BRACE;
         case XK_bracketleft:
-            return Egret3D::Keyboard::KEY_LEFT_BRACKET;
+            return egret::Keyboard::KEY_LEFT_BRACKET;
         case XK_bar:
-            return Egret3D::Keyboard::KEY_BAR;
+            return egret::Keyboard::KEY_BAR;
         case XK_backslash:
-            return Egret3D::Keyboard::KEY_BACK_SLASH;
+            return egret::Keyboard::KEY_BACK_SLASH;
         case XK_braceright:
-            return Egret3D::Keyboard::KEY_RIGHT_BRACE;
+            return egret::Keyboard::KEY_RIGHT_BRACE;
         case XK_bracketright:
-            return Egret3D::Keyboard::KEY_RIGHT_BRACKET;
+            return egret::Keyboard::KEY_RIGHT_BRACKET;
         case XK_quotedbl:
-            return Egret3D::Keyboard::KEY_QUOTE;
+            return egret::Keyboard::KEY_QUOTE;
         case XK_apostrophe:
-            return Egret3D::Keyboard::KEY_APOSTROPHE;
+            return egret::Keyboard::KEY_APOSTROPHE;
         case XK_EuroSign:
-            return Egret3D::Keyboard::KEY_EURO;
+            return egret::Keyboard::KEY_EURO;
         case XK_sterling:
-            return Egret3D::Keyboard::KEY_POUND;
+            return egret::Keyboard::KEY_POUND;
         case XK_yen:
-            return Egret3D::Keyboard::KEY_YEN;
+            return egret::Keyboard::KEY_YEN;
         case XK_periodcentered:
-            return Egret3D::Keyboard::KEY_MIDDLE_DOT;
+            return egret::Keyboard::KEY_MIDDLE_DOT;
         case XK_A:
-            return Egret3D::Keyboard::KEY_CAPITAL_A;
+            return egret::Keyboard::KEY_CAPITAL_A;
         case XK_a:
-            return Egret3D::Keyboard::KEY_A;
+            return egret::Keyboard::KEY_A;
         case XK_B:
-            return Egret3D::Keyboard::KEY_CAPITAL_B;
+            return egret::Keyboard::KEY_CAPITAL_B;
         case XK_b:
-            return Egret3D::Keyboard::KEY_B;
+            return egret::Keyboard::KEY_B;
         case XK_C:
-            return Egret3D::Keyboard::KEY_CAPITAL_C;
+            return egret::Keyboard::KEY_CAPITAL_C;
         case XK_c:
-            return Egret3D::Keyboard::KEY_C;
+            return egret::Keyboard::KEY_C;
         case XK_D:
-            return Egret3D::Keyboard::KEY_CAPITAL_D;
+            return egret::Keyboard::KEY_CAPITAL_D;
         case XK_d:
-            return Egret3D::Keyboard::KEY_D;
+            return egret::Keyboard::KEY_D;
         case XK_E:
-            return Egret3D::Keyboard::KEY_CAPITAL_E;
+            return egret::Keyboard::KEY_CAPITAL_E;
         case XK_e:
-            return Egret3D::Keyboard::KEY_E;
+            return egret::Keyboard::KEY_E;
         case XK_F:
-            return Egret3D::Keyboard::KEY_CAPITAL_F;
+            return egret::Keyboard::KEY_CAPITAL_F;
         case XK_f:
-            return Egret3D::Keyboard::KEY_F;
+            return egret::Keyboard::KEY_F;
         case XK_G:
-            return Egret3D::Keyboard::KEY_CAPITAL_G;
+            return egret::Keyboard::KEY_CAPITAL_G;
         case XK_g:
-            return Egret3D::Keyboard::KEY_G;
+            return egret::Keyboard::KEY_G;
         case XK_H:
-            return Egret3D::Keyboard::KEY_CAPITAL_H;
+            return egret::Keyboard::KEY_CAPITAL_H;
         case XK_h:
-            return Egret3D::Keyboard::KEY_H;
+            return egret::Keyboard::KEY_H;
         case XK_I:
-            return Egret3D::Keyboard::KEY_CAPITAL_I;
+            return egret::Keyboard::KEY_CAPITAL_I;
         case XK_i:
-            return Egret3D::Keyboard::KEY_I;
+            return egret::Keyboard::KEY_I;
         case XK_J:
-            return Egret3D::Keyboard::KEY_CAPITAL_J;
+            return egret::Keyboard::KEY_CAPITAL_J;
         case XK_j:
-            return Egret3D::Keyboard::KEY_J;
+            return egret::Keyboard::KEY_J;
         case XK_K:
-            return Egret3D::Keyboard::KEY_CAPITAL_K;
+            return egret::Keyboard::KEY_CAPITAL_K;
         case XK_k:
-            return Egret3D::Keyboard::KEY_K;
+            return egret::Keyboard::KEY_K;
         case XK_L:
-            return Egret3D::Keyboard::KEY_CAPITAL_L;
+            return egret::Keyboard::KEY_CAPITAL_L;
         case XK_l:
-            return Egret3D::Keyboard::KEY_L;
+            return egret::Keyboard::KEY_L;
         case XK_M:
-            return Egret3D::Keyboard::KEY_CAPITAL_M;
+            return egret::Keyboard::KEY_CAPITAL_M;
         case XK_m:
-            return Egret3D::Keyboard::KEY_M;
+            return egret::Keyboard::KEY_M;
         case XK_N:
-            return Egret3D::Keyboard::KEY_CAPITAL_N;
+            return egret::Keyboard::KEY_CAPITAL_N;
         case XK_n:
-            return Egret3D::Keyboard::KEY_N;
+            return egret::Keyboard::KEY_N;
         case XK_O:
-            return Egret3D::Keyboard::KEY_CAPITAL_O;
+            return egret::Keyboard::KEY_CAPITAL_O;
         case XK_o:
-            return Egret3D::Keyboard::KEY_O;
+            return egret::Keyboard::KEY_O;
         case XK_P:
-            return Egret3D::Keyboard::KEY_CAPITAL_P;
+            return egret::Keyboard::KEY_CAPITAL_P;
         case XK_p:
-            return Egret3D::Keyboard::KEY_P;
+            return egret::Keyboard::KEY_P;
         case XK_Q:
-            return Egret3D::Keyboard::KEY_CAPITAL_Q;
+            return egret::Keyboard::KEY_CAPITAL_Q;
         case XK_q:
-            return Egret3D::Keyboard::KEY_Q;
+            return egret::Keyboard::KEY_Q;
         case XK_R:
-            return Egret3D::Keyboard::KEY_CAPITAL_R;
+            return egret::Keyboard::KEY_CAPITAL_R;
         case XK_r:
-            return Egret3D::Keyboard::KEY_R;
+            return egret::Keyboard::KEY_R;
         case XK_S:
-            return Egret3D::Keyboard::KEY_CAPITAL_S;
+            return egret::Keyboard::KEY_CAPITAL_S;
         case XK_s:
-            return Egret3D::Keyboard::KEY_S;
+            return egret::Keyboard::KEY_S;
         case XK_T:
-            return Egret3D::Keyboard::KEY_CAPITAL_T;
+            return egret::Keyboard::KEY_CAPITAL_T;
         case XK_t:
-            return Egret3D::Keyboard::KEY_T;
+            return egret::Keyboard::KEY_T;
         case XK_U:
-            return Egret3D::Keyboard::KEY_CAPITAL_U;
+            return egret::Keyboard::KEY_CAPITAL_U;
         case XK_u:
-            return Egret3D::Keyboard::KEY_U;
+            return egret::Keyboard::KEY_U;
         case XK_V:
-            return Egret3D::Keyboard::KEY_CAPITAL_V;
+            return egret::Keyboard::KEY_CAPITAL_V;
         case XK_v:
-            return Egret3D::Keyboard::KEY_V;
+            return egret::Keyboard::KEY_V;
         case XK_W:
-            return Egret3D::Keyboard::KEY_CAPITAL_W;
+            return egret::Keyboard::KEY_CAPITAL_W;
         case XK_w:
-            return Egret3D::Keyboard::KEY_W;
+            return egret::Keyboard::KEY_W;
         case XK_X:
-            return Egret3D::Keyboard::KEY_CAPITAL_X;
+            return egret::Keyboard::KEY_CAPITAL_X;
         case XK_x:
-            return Egret3D::Keyboard::KEY_X;
+            return egret::Keyboard::KEY_X;
         case XK_Y:
-            return Egret3D::Keyboard::KEY_CAPITAL_Y;
+            return egret::Keyboard::KEY_CAPITAL_Y;
         case XK_y:
-            return Egret3D::Keyboard::KEY_Y;
+            return egret::Keyboard::KEY_Y;
         case XK_Z:
-            return Egret3D::Keyboard::KEY_CAPITAL_Z;
+            return egret::Keyboard::KEY_CAPITAL_Z;
         case XK_z:
-            return Egret3D::Keyboard::KEY_Z;
+            return egret::Keyboard::KEY_Z;
         default:
-            return Egret3D::Keyboard::KEY_NONE;
+            return egret::Keyboard::KEY_NONE;
     }
 }
 
 /**
  * Returns the unicode value for the given keycode or zero if the key is not a valid printable character.
  */
-static int getUnicode(Egret3D::Keyboard::Key key)
+static int getUnicode(egret::Keyboard::Key key)
 {
     switch (key)
     {
-        case Egret3D::Keyboard::KEY_BACKSPACE:
+        case egret::Keyboard::KEY_BACKSPACE:
             return 0x0008;
-        case Egret3D::Keyboard::KEY_TAB:
+        case egret::Keyboard::KEY_TAB:
             return 0x0009;
-        case Egret3D::Keyboard::KEY_RETURN:
-        case Egret3D::Keyboard::KEY_KP_ENTER:
+        case egret::Keyboard::KEY_RETURN:
+        case egret::Keyboard::KEY_KP_ENTER:
             return 0x000A;
-        case Egret3D::Keyboard::KEY_ESCAPE:
+        case egret::Keyboard::KEY_ESCAPE:
             return 0x001B;
-        case Egret3D::Keyboard::KEY_SPACE:
-        case Egret3D::Keyboard::KEY_EXCLAM:
-        case Egret3D::Keyboard::KEY_QUOTE:
-        case Egret3D::Keyboard::KEY_NUMBER:
-        case Egret3D::Keyboard::KEY_DOLLAR:
-        case Egret3D::Keyboard::KEY_PERCENT:
-        case Egret3D::Keyboard::KEY_CIRCUMFLEX:
-        case Egret3D::Keyboard::KEY_AMPERSAND:
-        case Egret3D::Keyboard::KEY_APOSTROPHE:
-        case Egret3D::Keyboard::KEY_LEFT_PARENTHESIS:
-        case Egret3D::Keyboard::KEY_RIGHT_PARENTHESIS:
-        case Egret3D::Keyboard::KEY_ASTERISK:
-        case Egret3D::Keyboard::KEY_PLUS:
-        case Egret3D::Keyboard::KEY_COMMA:
-        case Egret3D::Keyboard::KEY_MINUS:
-        case Egret3D::Keyboard::KEY_PERIOD:
-        case Egret3D::Keyboard::KEY_SLASH:
-        case Egret3D::Keyboard::KEY_ZERO:
-        case Egret3D::Keyboard::KEY_ONE:
-        case Egret3D::Keyboard::KEY_TWO:
-        case Egret3D::Keyboard::KEY_THREE:
-        case Egret3D::Keyboard::KEY_FOUR:
-        case Egret3D::Keyboard::KEY_FIVE:
-        case Egret3D::Keyboard::KEY_SIX:
-        case Egret3D::Keyboard::KEY_SEVEN:
-        case Egret3D::Keyboard::KEY_EIGHT:
-        case Egret3D::Keyboard::KEY_NINE:
-        case Egret3D::Keyboard::KEY_COLON:
-        case Egret3D::Keyboard::KEY_SEMICOLON:
-        case Egret3D::Keyboard::KEY_LESS_THAN:
-        case Egret3D::Keyboard::KEY_EQUAL:
-        case Egret3D::Keyboard::KEY_GREATER_THAN:
-        case Egret3D::Keyboard::KEY_QUESTION:
-        case Egret3D::Keyboard::KEY_AT:
-        case Egret3D::Keyboard::KEY_CAPITAL_A:
-        case Egret3D::Keyboard::KEY_CAPITAL_B:
-        case Egret3D::Keyboard::KEY_CAPITAL_C:
-        case Egret3D::Keyboard::KEY_CAPITAL_D:
-        case Egret3D::Keyboard::KEY_CAPITAL_E:
-        case Egret3D::Keyboard::KEY_CAPITAL_F:
-        case Egret3D::Keyboard::KEY_CAPITAL_G:
-        case Egret3D::Keyboard::KEY_CAPITAL_H:
-        case Egret3D::Keyboard::KEY_CAPITAL_I:
-        case Egret3D::Keyboard::KEY_CAPITAL_J:
-        case Egret3D::Keyboard::KEY_CAPITAL_K:
-        case Egret3D::Keyboard::KEY_CAPITAL_L:
-        case Egret3D::Keyboard::KEY_CAPITAL_M:
-        case Egret3D::Keyboard::KEY_CAPITAL_N:
-        case Egret3D::Keyboard::KEY_CAPITAL_O:
-        case Egret3D::Keyboard::KEY_CAPITAL_P:
-        case Egret3D::Keyboard::KEY_CAPITAL_Q:
-        case Egret3D::Keyboard::KEY_CAPITAL_R:
-        case Egret3D::Keyboard::KEY_CAPITAL_S:
-        case Egret3D::Keyboard::KEY_CAPITAL_T:
-        case Egret3D::Keyboard::KEY_CAPITAL_U:
-        case Egret3D::Keyboard::KEY_CAPITAL_V:
-        case Egret3D::Keyboard::KEY_CAPITAL_W:
-        case Egret3D::Keyboard::KEY_CAPITAL_X:
-        case Egret3D::Keyboard::KEY_CAPITAL_Y:
-        case Egret3D::Keyboard::KEY_CAPITAL_Z:
-        case Egret3D::Keyboard::KEY_LEFT_BRACKET:
-        case Egret3D::Keyboard::KEY_BACK_SLASH:
-        case Egret3D::Keyboard::KEY_RIGHT_BRACKET:
-        case Egret3D::Keyboard::KEY_UNDERSCORE:
-        case Egret3D::Keyboard::KEY_GRAVE:
-        case Egret3D::Keyboard::KEY_A:
-        case Egret3D::Keyboard::KEY_B:
-        case Egret3D::Keyboard::KEY_C:
-        case Egret3D::Keyboard::KEY_D:
-        case Egret3D::Keyboard::KEY_E:
-        case Egret3D::Keyboard::KEY_F:
-        case Egret3D::Keyboard::KEY_G:
-        case Egret3D::Keyboard::KEY_H:
-        case Egret3D::Keyboard::KEY_I:
-        case Egret3D::Keyboard::KEY_J:
-        case Egret3D::Keyboard::KEY_K:
-        case Egret3D::Keyboard::KEY_L:
-        case Egret3D::Keyboard::KEY_M:
-        case Egret3D::Keyboard::KEY_N:
-        case Egret3D::Keyboard::KEY_O:
-        case Egret3D::Keyboard::KEY_P:
-        case Egret3D::Keyboard::KEY_Q:
-        case Egret3D::Keyboard::KEY_R:
-        case Egret3D::Keyboard::KEY_S:
-        case Egret3D::Keyboard::KEY_T:
-        case Egret3D::Keyboard::KEY_U:
-        case Egret3D::Keyboard::KEY_V:
-        case Egret3D::Keyboard::KEY_W:
-        case Egret3D::Keyboard::KEY_X:
-        case Egret3D::Keyboard::KEY_Y:
-        case Egret3D::Keyboard::KEY_Z:
-        case Egret3D::Keyboard::KEY_LEFT_BRACE:
-        case Egret3D::Keyboard::KEY_BAR:
-        case Egret3D::Keyboard::KEY_RIGHT_BRACE:
-        case Egret3D::Keyboard::KEY_TILDE:
+        case egret::Keyboard::KEY_SPACE:
+        case egret::Keyboard::KEY_EXCLAM:
+        case egret::Keyboard::KEY_QUOTE:
+        case egret::Keyboard::KEY_NUMBER:
+        case egret::Keyboard::KEY_DOLLAR:
+        case egret::Keyboard::KEY_PERCENT:
+        case egret::Keyboard::KEY_CIRCUMFLEX:
+        case egret::Keyboard::KEY_AMPERSAND:
+        case egret::Keyboard::KEY_APOSTROPHE:
+        case egret::Keyboard::KEY_LEFT_PARENTHESIS:
+        case egret::Keyboard::KEY_RIGHT_PARENTHESIS:
+        case egret::Keyboard::KEY_ASTERISK:
+        case egret::Keyboard::KEY_PLUS:
+        case egret::Keyboard::KEY_COMMA:
+        case egret::Keyboard::KEY_MINUS:
+        case egret::Keyboard::KEY_PERIOD:
+        case egret::Keyboard::KEY_SLASH:
+        case egret::Keyboard::KEY_ZERO:
+        case egret::Keyboard::KEY_ONE:
+        case egret::Keyboard::KEY_TWO:
+        case egret::Keyboard::KEY_THREE:
+        case egret::Keyboard::KEY_FOUR:
+        case egret::Keyboard::KEY_FIVE:
+        case egret::Keyboard::KEY_SIX:
+        case egret::Keyboard::KEY_SEVEN:
+        case egret::Keyboard::KEY_EIGHT:
+        case egret::Keyboard::KEY_NINE:
+        case egret::Keyboard::KEY_COLON:
+        case egret::Keyboard::KEY_SEMICOLON:
+        case egret::Keyboard::KEY_LESS_THAN:
+        case egret::Keyboard::KEY_EQUAL:
+        case egret::Keyboard::KEY_GREATER_THAN:
+        case egret::Keyboard::KEY_QUESTION:
+        case egret::Keyboard::KEY_AT:
+        case egret::Keyboard::KEY_CAPITAL_A:
+        case egret::Keyboard::KEY_CAPITAL_B:
+        case egret::Keyboard::KEY_CAPITAL_C:
+        case egret::Keyboard::KEY_CAPITAL_D:
+        case egret::Keyboard::KEY_CAPITAL_E:
+        case egret::Keyboard::KEY_CAPITAL_F:
+        case egret::Keyboard::KEY_CAPITAL_G:
+        case egret::Keyboard::KEY_CAPITAL_H:
+        case egret::Keyboard::KEY_CAPITAL_I:
+        case egret::Keyboard::KEY_CAPITAL_J:
+        case egret::Keyboard::KEY_CAPITAL_K:
+        case egret::Keyboard::KEY_CAPITAL_L:
+        case egret::Keyboard::KEY_CAPITAL_M:
+        case egret::Keyboard::KEY_CAPITAL_N:
+        case egret::Keyboard::KEY_CAPITAL_O:
+        case egret::Keyboard::KEY_CAPITAL_P:
+        case egret::Keyboard::KEY_CAPITAL_Q:
+        case egret::Keyboard::KEY_CAPITAL_R:
+        case egret::Keyboard::KEY_CAPITAL_S:
+        case egret::Keyboard::KEY_CAPITAL_T:
+        case egret::Keyboard::KEY_CAPITAL_U:
+        case egret::Keyboard::KEY_CAPITAL_V:
+        case egret::Keyboard::KEY_CAPITAL_W:
+        case egret::Keyboard::KEY_CAPITAL_X:
+        case egret::Keyboard::KEY_CAPITAL_Y:
+        case egret::Keyboard::KEY_CAPITAL_Z:
+        case egret::Keyboard::KEY_LEFT_BRACKET:
+        case egret::Keyboard::KEY_BACK_SLASH:
+        case egret::Keyboard::KEY_RIGHT_BRACKET:
+        case egret::Keyboard::KEY_UNDERSCORE:
+        case egret::Keyboard::KEY_GRAVE:
+        case egret::Keyboard::KEY_A:
+        case egret::Keyboard::KEY_B:
+        case egret::Keyboard::KEY_C:
+        case egret::Keyboard::KEY_D:
+        case egret::Keyboard::KEY_E:
+        case egret::Keyboard::KEY_F:
+        case egret::Keyboard::KEY_G:
+        case egret::Keyboard::KEY_H:
+        case egret::Keyboard::KEY_I:
+        case egret::Keyboard::KEY_J:
+        case egret::Keyboard::KEY_K:
+        case egret::Keyboard::KEY_L:
+        case egret::Keyboard::KEY_M:
+        case egret::Keyboard::KEY_N:
+        case egret::Keyboard::KEY_O:
+        case egret::Keyboard::KEY_P:
+        case egret::Keyboard::KEY_Q:
+        case egret::Keyboard::KEY_R:
+        case egret::Keyboard::KEY_S:
+        case egret::Keyboard::KEY_T:
+        case egret::Keyboard::KEY_U:
+        case egret::Keyboard::KEY_V:
+        case egret::Keyboard::KEY_W:
+        case egret::Keyboard::KEY_X:
+        case egret::Keyboard::KEY_Y:
+        case egret::Keyboard::KEY_Z:
+        case egret::Keyboard::KEY_LEFT_BRACE:
+        case egret::Keyboard::KEY_BAR:
+        case egret::Keyboard::KEY_RIGHT_BRACE:
+        case egret::Keyboard::KEY_TILDE:
             return key;
         default:
             return 0;
@@ -536,7 +536,7 @@ static int getUnicode(Egret3D::Keyboard::Key key)
 // Included here to avoid the naming conflict between KEY_* defined in input.h and the ones defined in gameplay/Keyboard.h 
 #include <linux/joystick.h> 
 
-namespace Egret3D
+namespace egret
 {
 
 extern void print(const char* format, ...)
@@ -1173,7 +1173,7 @@ int Platform::enterMessagePump()
                 case ConfigureNotify:
                     {
                         updateWindowSize();
-                        Egret3D::Platform::resizeEventInternal(evt.xconfigure.width, evt.xconfigure.height);
+                        egret::Platform::resizeEventInternal(evt.xconfigure.width, evt.xconfigure.height);
                     }
                     break;
 
@@ -1195,7 +1195,7 @@ int Platform::enterMessagePump()
                             XConvertCase(sym,  &tempSym, &sym);
 
                         Keyboard::Key key = getKey(sym);
-                        Egret3D::Platform::keyEventInternal(Egret3D::Keyboard::KEY_PRESS, key);
+                        egret::Platform::keyEventInternal(egret::Keyboard::KEY_PRESS, key);
 
                         if (key == Keyboard::KEY_CAPS_LOCK)
                             capsOn = !capsOn;
@@ -1203,7 +1203,7 @@ int Platform::enterMessagePump()
                             shiftDown = true;
 
                         if (int character = getUnicode(key))
-                            Egret3D::Platform::keyEventInternal(Egret3D::Keyboard::KEY_CHAR, character);
+                            egret::Platform::keyEventInternal(egret::Keyboard::KEY_CHAR, character);
 
                     }
                     break;
@@ -1226,7 +1226,7 @@ int Platform::enterMessagePump()
 
                         KeySym sym = XLookupKeysym(&evt.xkey, 0);
                         Keyboard::Key key = getKey(sym);
-                        Egret3D::Platform::keyEventInternal(Egret3D::Keyboard::KEY_RELEASE, key);
+                        egret::Platform::keyEventInternal(egret::Keyboard::KEY_RELEASE, key);
 
                         if (key == Keyboard::KEY_SHIFT)
                             shiftDown = false;
@@ -1235,20 +1235,20 @@ int Platform::enterMessagePump()
 
                 case ButtonPress:
                     {
-                        Egret3D::Mouse::MouseEvent mouseEvt;
+                        egret::Mouse::MouseEvent mouseEvt;
 
                         if (evt.xbutton.button >= 1 && evt.xbutton.button <= 3)
                         {
                             if (evt.xbutton.button == 1)
-                                mouseEvt = Egret3D::Mouse::MOUSE_PRESS_LEFT_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_PRESS_LEFT_BUTTON;
                             else if (evt.xbutton.button == 2)
-                                mouseEvt = Egret3D::Mouse::MOUSE_PRESS_MIDDLE_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_PRESS_MIDDLE_BUTTON;
                             else if (evt.xbutton.button == 3)
-                                mouseEvt = Egret3D::Mouse::MOUSE_PRESS_RIGHT_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_PRESS_RIGHT_BUTTON;
 
-                            if (!Egret3D::Platform::mouseEventInternal(mouseEvt, evt.xbutton.x, evt.xbutton.y, 0))
+                            if (!egret::Platform::mouseEventInternal(mouseEvt, evt.xbutton.x, evt.xbutton.y, 0))
                             {
-                                Egret3D::Platform::touchEventInternal(Egret3D::Touch::TOUCH_PRESS, evt.xbutton.x, evt.xbutton.y, 0, true);
+                                egret::Platform::touchEventInternal(egret::Touch::TOUCH_PRESS, evt.xbutton.x, evt.xbutton.y, 0, true);
                             }
                         }
                         else if (evt.xbutton.button >= 4 && evt.xbutton.button <= 5)
@@ -1261,27 +1261,27 @@ int Platform::enterMessagePump()
                             else
                                 wheelDelta = 0;
 
-                            Egret3D::Platform::mouseEventInternal(Egret3D::Mouse::MOUSE_WHEEL, evt.xbutton.x, evt.xbutton.y, wheelDelta);
+                            egret::Platform::mouseEventInternal(egret::Mouse::MOUSE_WHEEL, evt.xbutton.x, evt.xbutton.y, wheelDelta);
                         }
                     }
                     break;
 
                 case ButtonRelease:
                     {
-                        Egret3D::Mouse::MouseEvent mouseEvt;
+                        egret::Mouse::MouseEvent mouseEvt;
 
                         if (evt.xbutton.button >= 1 && evt.xbutton.button <= 3)
                         {
                             if (evt.xbutton.button == 1)
-                                mouseEvt = Egret3D::Mouse::MOUSE_RELEASE_LEFT_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_RELEASE_LEFT_BUTTON;
                             else if (evt.xbutton.button == 2)
-                                mouseEvt = Egret3D::Mouse::MOUSE_RELEASE_MIDDLE_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_RELEASE_MIDDLE_BUTTON;
                             else if (evt.xbutton.button == 3)
-                                mouseEvt = Egret3D::Mouse::MOUSE_RELEASE_RIGHT_BUTTON;
+                                mouseEvt = egret::Mouse::MOUSE_RELEASE_RIGHT_BUTTON;
 
-                            if (!Egret3D::Platform::mouseEventInternal(mouseEvt, evt.xbutton.x, evt.xbutton.y, 0))
+                            if (!egret::Platform::mouseEventInternal(mouseEvt, evt.xbutton.x, evt.xbutton.y, 0))
                             {
-                                Egret3D::Platform::touchEventInternal(Egret3D::Touch::TOUCH_RELEASE, evt.xbutton.x, evt.xbutton.y, 0, true);
+                                egret::Platform::touchEventInternal(egret::Touch::TOUCH_RELEASE, evt.xbutton.x, evt.xbutton.y, 0, true);
                             }
                         }
                     }
@@ -1307,11 +1307,11 @@ int Platform::enterMessagePump()
                             XWarpPointer(__display, None, __window, 0, 0, 0, 0, __mouseCapturePointX, __mouseCapturePointY);
                         }
 
-                        if (!Egret3D::Platform::mouseEventInternal(Egret3D::Mouse::MOUSE_MOVE, x, y, 0))
+                        if (!egret::Platform::mouseEventInternal(egret::Mouse::MOUSE_MOVE, x, y, 0))
                         {
                             if (evt.xmotion.state & Button1Mask)
                             {
-                                Egret3D::Platform::touchEventInternal(Egret3D::Touch::TOUCH_MOVE, x, y, 0, true);
+                                egret::Platform::touchEventInternal(egret::Touch::TOUCH_MOVE, x, y, 0, true);
                             }
                         }
                     }

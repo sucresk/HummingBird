@@ -5,7 +5,7 @@
 #include "Technique.h"
 #include "Properties.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class NodeCloneContext;

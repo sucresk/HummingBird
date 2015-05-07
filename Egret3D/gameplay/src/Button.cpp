@@ -2,7 +2,7 @@
 #include "Button.h"
 #include "Gamepad.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Button::Button() : _dataBinding(0)

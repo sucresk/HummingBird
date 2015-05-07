@@ -1,6 +1,6 @@
 #include "BoundingBox.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline BoundingBox& BoundingBox::operator*=(const Matrix& matrix)

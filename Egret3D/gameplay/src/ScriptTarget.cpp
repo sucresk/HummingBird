@@ -2,7 +2,7 @@
 #include "ScriptController.h"
 #include "ScriptTarget.h"
 
-namespace Egret3D
+namespace egret
 {
 
 // TODO: Handle reloading scripts and then case where EventRegistries have events added AFTER a script has been loaded (i.e. need to reload callbacks for the script).

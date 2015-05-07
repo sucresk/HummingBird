@@ -7,7 +7,7 @@
 
 #define ANIMATION_TARGET_INDEFINITE_STR "INDEFINITE"
 
-namespace Egret3D
+namespace egret
 {
 
 AnimationTarget::AnimationTarget()

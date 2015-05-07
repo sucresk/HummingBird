@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Platform.h"
 
-namespace Egret3D
+namespace egret
 {
 
 inline Game::State Game::getState() const

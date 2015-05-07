@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 /**
  * Sample programmatically creating and drawing the supported mesh primitives.

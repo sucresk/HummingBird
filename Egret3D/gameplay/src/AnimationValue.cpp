@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AnimationValue.h"
 
-namespace Egret3D
+namespace egret
 {
 
 AnimationValue::AnimationValue(unsigned int componentCount)

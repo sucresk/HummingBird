@@ -3,7 +3,7 @@
 #include "Matrix.h"
 #include "Scene.h"
 
-namespace Egret3D
+namespace egret
 {
   
 TileSet::TileSet() : Drawable(),

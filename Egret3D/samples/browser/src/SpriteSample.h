@@ -4,7 +4,7 @@
 #include "gameplay.h"
 #include "Sample.h"
 
-using namespace Egret3D;
+using namespace egret;
 
 /**
  * Sample drawing sprites in a scene with the Sprite class.

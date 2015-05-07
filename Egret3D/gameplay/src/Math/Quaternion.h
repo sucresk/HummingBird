@@ -5,7 +5,7 @@
 #include "Matrix.h"
 #include "Plane.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Matrix;

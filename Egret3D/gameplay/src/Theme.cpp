@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "FileSystem.h"
 
-namespace Egret3D
+namespace egret
 {
 
 static std::vector<Theme*> __themeCache;

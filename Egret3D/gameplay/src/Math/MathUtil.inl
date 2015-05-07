@@ -1,4 +1,4 @@
-namespace Egret3D
+namespace egret
 {
 
 inline void MathUtil::addMatrix(const float* m, float scalar, float* dst)

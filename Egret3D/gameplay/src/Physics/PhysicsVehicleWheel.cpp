@@ -3,7 +3,7 @@
 #include "PhysicsVehicle.h"
 #include "PhysicsVehicleWheel.h"
 
-namespace Egret3D
+namespace egret
 {
 
 PhysicsVehicleWheel::PhysicsVehicleWheel(Node* node, const PhysicsCollisionShape::Definition& shape, const PhysicsRigidBody::Parameters& parameters)

@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Camera.h"
 
-namespace Egret3D
+namespace egret
 {
 
 class Terrain;

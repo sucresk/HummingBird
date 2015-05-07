@@ -1,7 +1,7 @@
 #ifndef GESTURE_H_
 #define GESTURE_H_
 
-namespace Egret3D
+namespace egret
 {
 
 /**

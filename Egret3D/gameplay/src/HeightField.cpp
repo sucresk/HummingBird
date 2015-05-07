@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "FileSystem.h"
 
-namespace Egret3D
+namespace egret
 {
 
 HeightField::HeightField(unsigned int columns, unsigned int rows)

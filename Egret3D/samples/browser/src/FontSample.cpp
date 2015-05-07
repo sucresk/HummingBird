@@ -123,7 +123,7 @@ void FontSample::render(float elapsedTime)
     else
     {
         // Sample viewport versions.
-        Egret3D::Rectangle area;
+        egret::Rectangle area;
         _font->measureText(_sampleString.c_str(), _viewport, _size, &area, _alignment, _wrap, _ignoreClip);
         _font->drawText(_sampleString.c_str(), _useViewport? _viewport : area, Vector4::fromColor(0xffffffff), _size, _alignment, _wrap, _rightToLeft);
     

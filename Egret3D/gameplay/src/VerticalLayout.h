@@ -4,7 +4,7 @@
 #include "Layout.h"
 #include "Container.h"
 
-namespace Egret3D
+namespace egret
 {
 
 /**

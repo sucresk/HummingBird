@@ -5,7 +5,7 @@
 #include "Model.h"
 #include "Material.h"
 
-namespace Egret3D
+namespace egret
 {
 
 Mesh::Mesh(const VertexFormat& vertexFormat) 

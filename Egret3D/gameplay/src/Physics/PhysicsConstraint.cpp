@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "PhysicsRigidBody.h"
 
-namespace Egret3D
+namespace egret
 {
 
 PhysicsConstraint::PhysicsConstraint(PhysicsRigidBody* a, PhysicsRigidBody* b)

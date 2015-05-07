@@ -8,7 +8,7 @@
 #define AIR_DENSITY (1.2f)
 #define KPH_TO_MPS (1.0f / 3.6f)
 
-namespace Egret3D
+namespace egret
 {
 
 /**

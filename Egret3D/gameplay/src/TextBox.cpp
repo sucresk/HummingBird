@@ -1,7 +1,7 @@
 #include "TextBox.h"
 #include "Game.h"
 
-namespace Egret3D
+namespace egret
 {
 
 TextBox::TextBox() : _caretLocation(0), _lastKeypress(0), _fontSize(0), _caretImage(NULL), _passwordChar('*'), _inputMode(TEXT), _ctrlPressed(false), _shiftPressed(false)
