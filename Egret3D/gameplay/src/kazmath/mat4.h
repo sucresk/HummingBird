@@ -72,6 +72,8 @@ extern kmMat4 gkmMat4;
  struct kmVec3* const kmMat4GetUpVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat4GetRightVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat3Transform(struct kmVec3* pOut, const kmMat4* pIn, float x, float y, float z, float w);
+ const int kmMat4Decompose( const kmMat4* pIn, struct kmVec3* scale, struct kmQuaternion* rotation, struct kmVec3* translation);
 
  kmMat4* const kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar);
  kmMat4* const kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal);

@@ -114,7 +114,7 @@ bool BoundingBox::intersects(const Frustum& frustum) const
 float BoundingBox::intersects(const Plane& plane) const
 {
     // Calculate the distance from the center of the box to the plane.
-    kmVec3 center((min.x + max.x) * 0.5f, (min.y + max.y) * 0.5f, (min.z + max.z) * 0.5f);
+	kmVec3 center = { (min.x + max.x) * 0.5f, (min.y + max.y) * 0.5f, (min.z + max.z) * 0.5f };
     float distance = plane.distance(center);
 
     // Get the extents of the box from its center along each axis.
@@ -266,8 +266,10 @@ void BoundingBox::set(const kmVec3& min, const kmVec3& max)
 
 void BoundingBox::set(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
 {
-    min.set(minX, minY, minZ);
-    max.set(maxX, maxY, maxZ);
+    //min.set(minX, minY, minZ);
+	kmVec3Fill(&min, minX, minY, minZ);
+    //max.set(maxX, maxY, maxZ);
+	kmVec3Fill( &max, maxX, maxY, maxZ );
 }
 
 static void updateMinMax(kmVec3* point, kmVec3* min, kmVec3* max)
@@ -342,12 +344,14 @@ void BoundingBox::transform(const kmMat4& matrix)
     getCorners(corners);
 
     // Transform the corners, recalculating the min and max points along the way.
-    matrix.transformPoint(&corners[0]);
+    //matrix.transformPoint(&corners[0]);
+	kmMat3Transform(&corners[0], &matrix, corners[0].x, corners[0].y, corners[0].z, 1.0f);
     kmVec3 newMin = corners[0];
     kmVec3 newMax = corners[0];
     for (int i = 1; i < 8; i++)
     {
-        matrix.transformPoint(&corners[i]);
+        //matrix.transformPoint(&corners[i]);
+		kmMat3Transform(&corners[i], &matrix, corners[i].x, corners[i].y, corners[i].z, 1.0f);
         updateMinMax(&corners[i], &newMin, &newMax);
     }
     this->min.x = newMin.x;

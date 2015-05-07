@@ -285,13 +285,15 @@ void BoundingSphere::set(const BoundingBox& box)
     center.x = (box.min.x + box.max.x) * 0.5f;
     center.y = (box.min.y + box.max.y) * 0.5f;
     center.z = (box.min.z + box.max.z) * 0.5f;
-    radius = center.distance(box.max);
+    //radius = center.distance(box.max);
+	radius = kmVecDistance(&center, &box.max);
 }
 
 void BoundingSphere::transform(const kmMat4& matrix)
 {
     // Translate the center point.
-    matrix.transformPoint(center, &center);
+    //matrix.transformPoint(center, &center);
+	kmMat3Transform(&center, &matrix, center.x, center.y, center.z, 1.0f);
 
     // Scale the sphere's radius by the scale fo the matrix
     kmVec3 scale;
