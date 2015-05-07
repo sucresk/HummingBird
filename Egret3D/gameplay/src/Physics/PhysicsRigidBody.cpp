@@ -27,7 +27,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     // If the mass is non-zero, then the object is dynamic so we calculate the local 
     // inertia. However, if the collision shape is a triangle mesh, we don't calculate 
     // inertia since Bullet doesn't currently support this.
-    btkmVec3 localInertia(0.0, 0.0, 0.0);
+    btVector3 localInertia(0.0, 0.0, 0.0);
     if (parameters.mass != 0.0)
         _collisionShape->getShape()->calculateLocalInertia(parameters.mass, localInertia);
 

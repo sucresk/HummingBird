@@ -152,7 +152,7 @@ kmVec3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
 kmVec3 PhysicsConstraint::offsetByCenterOfMass(const Node* node, const kmVec3& v)
 {
     GP_ASSERT(node && node->getCollisionObject() && node->getCollisionObject()->_motionState);
-    btkmVec3 centerOfMassOffset = node->getCollisionObject()->_motionState->_centerOfMassOffset.getOrigin();
+    btVector3 centerOfMassOffset = node->getCollisionObject()->_motionState->_centerOfMassOffset.getOrigin();
     return Vector3(v.x + centerOfMassOffset.x(), v.y + centerOfMassOffset.y(), v.z + centerOfMassOffset.z());
 }
 

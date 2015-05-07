@@ -208,7 +208,7 @@ public:
      * @return Pointer to the created PhysicsGenericConstraint object.
      */
     PhysicsGenericConstraint* createGenericConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA, 
-                                                      PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
+		PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = { 0.0f, 0.0f, 0.0f, 1.0f }, const kmVec3& translationOffsetB = { 0.0f, 0.0f, 0.0f });
 
     /**
      * Creates a hinge constraint.
@@ -227,7 +227,7 @@ public:
      * @return Pointer to the created PhysicsHingeConstraint object.
      */
     PhysicsHingeConstraint* createHingeConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                                                  PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
+		PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = { 0.0f, 0.0f, 0.0f, 1.0f }, const kmVec3& translationOffsetB = { 0.0f, 0.0f, 0.0f });
 
     /**
      * Creates a socket constraint so that the rigid body (or bodies) is
@@ -254,7 +254,7 @@ public:
      * @return Pointer to the created PhysicsSocketConstraint object.
      */
     PhysicsSocketConstraint* createSocketConstraint(PhysicsRigidBody* a, const kmVec3& translationOffsetA,
-                                                    PhysicsRigidBody* b = NULL, const kmVec3& translationOffsetB = Vector3());
+		PhysicsRigidBody* b = NULL, const kmVec3& translationOffsetB = { 0.0f, 0.0f, 0.0f });
 
     /**
      * Creates a spring constraint so that the rigid body (or bodies) is
@@ -490,11 +490,11 @@ private:
         void end();
 
         // Overridden Bullet functions from btIDebugDraw.
-        void drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& fromColor, const btkmVec3& toColor);        
-        void drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& color);        
-        void drawContactPoint(const btkmVec3& pointOnB, const btkmVec3& normalOnB, btScalar distance, int lifeTime, const btkmVec3& color);        
+        void drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor);        
+        void drawLine(const btVector3& from, const btVector3& to, const btVector3& color);        
+        void drawContactPoint(const btVector3& pointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color);        
         void reportErrorWarning(const char* warningString);
-        void draw3dText(const btkmVec3& location, const char* textString);        
+        void draw3dText(const btVector3& location, const char* textString);        
         void setDebugMode(int mode);        
         int getDebugMode() const;
         

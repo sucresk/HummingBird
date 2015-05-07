@@ -181,7 +181,7 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
 
     public:
 
-        RayTestCallback(const btkmVec3& rayFromWorld, const btkmVec3& rayToWorld, PhysicsController::HitFilter* filter)
+        RayTestCallback(const btVector3& rayFromWorld, const btVector3& rayToWorld, PhysicsController::HitFilter* filter)
             : btCollisionWorld::ClosestRayResultCallback(rayFromWorld, rayToWorld), filter(filter)
         {
         }
@@ -223,8 +223,8 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
 
     GP_ASSERT(_world);
 
-    btkmVec3 rayFromWorld(BV(ray.getOrigin()));
-    btkmVec3 rayToWorld(rayFromWorld + BV(ray.getDirection() * distance));
+    btVector3 rayFromWorld(BV(ray.getOrigin()));
+    btVector3 rayToWorld(rayFromWorld + BV(ray.getDirection() * distance));
 
     RayTestCallback callback(rayFromWorld, rayToWorld, filter);
     _world->rayTest(rayFromWorld, rayToWorld, callback);
@@ -919,7 +919,7 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
 
 PhysicsCollisionShape* PhysicsController::createBox(const kmVec3& extents, const kmVec3& scale)
 {
-    btkmVec3 halfExtents(scale.x * 0.5 * extents.x, scale.y * 0.5 * extents.y, scale.z * 0.5 * extents.z);
+    btVector3 halfExtents(scale.x * 0.5 * extents.x, scale.y * 0.5 * extents.y, scale.z * 0.5 * extents.z);
 
     PhysicsCollisionShape* shape;
 
@@ -1394,7 +1394,7 @@ void PhysicsController::DebugDrawer::end()
     _lineCount = 0;
 }
 
-void PhysicsController::DebugDrawer::drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& fromColor, const btkmVec3& toColor)
+void PhysicsController::DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 {
     GP_ASSERT(_meshBatch);
 
@@ -1427,12 +1427,12 @@ void PhysicsController::DebugDrawer::drawLine(const btkmVec3& from, const btkmVe
     }
 }
 
-void PhysicsController::DebugDrawer::drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& color)
+void PhysicsController::DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 {
     drawLine(from, to, color, color);
 }
 
-void PhysicsController::DebugDrawer::drawContactPoint(const btkmVec3& pointOnB, const btkmVec3& normalOnB, btScalar distance, int lifeTime, const btkmVec3& color)
+void PhysicsController::DebugDrawer::drawContactPoint(const btVector3& pointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 {
     drawLine(pointOnB, pointOnB + normalOnB, color);
 }
@@ -1442,7 +1442,7 @@ void PhysicsController::DebugDrawer::reportErrorWarning(const char* warningStrin
     GP_WARN(warningString);
 }
 
-void PhysicsController::DebugDrawer::draw3dText(const btkmVec3& location, const char* textString)
+void PhysicsController::DebugDrawer::draw3dText(const btVector3& location, const char* textString)
 {
     GP_WARN("Physics debug drawing: 3D text is not supported.");
 }

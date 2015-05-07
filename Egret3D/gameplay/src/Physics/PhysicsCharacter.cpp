@@ -23,7 +23,7 @@ public:
     /**
      * @see btCollisionWorld::ClosestConvexResultCallback::ClosestConvexResultCallback
      */
-    ClosestNotMeConvexResultCallback(PhysicsCollisionObject* me, const btkmVec3& up, btScalar minSlopeDot)
+    ClosestNotMeConvexResultCallback(PhysicsCollisionObject* me, const btVector3& up, btScalar minSlopeDot)
         : btCollisionWorld::ClosestConvexResultCallback(btVector3(0.0, 0.0, 0.0), btVector3(0.0, 0.0, 0.0)), _me(me), _up(up), _minSlopeDot(minSlopeDot)
     {
     }
@@ -45,7 +45,7 @@ public:
 protected:
 
     PhysicsCollisionObject* _me;
-    const btkmVec3 _up;
+    const btVector3 _up;
     btScalar _minSlopeDot;
 };
 
@@ -314,7 +314,7 @@ void PhysicsCharacter::updateCurrentVelocity()
 
 void PhysicsCharacter::stepUp(btCollisionWorld* collisionWorld, btScalar time)
 {
-    btkmVec3 targetPosition(_currentPosition);
+    btVector3 targetPosition(_currentPosition);
 
     if (_verticalVelocity.isZero())
     {
@@ -333,7 +333,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
     updateCurrentVelocity();
 
     // Calculate final velocity
-    btkmVec3 velocity(_currentVelocity);
+    btVector3 velocity(_currentVelocity);
     velocity *= time; // since velocity is in meters per second
 
     if (velocity.isZero())
@@ -343,7 +343,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
     }
 
     // Translate the target position by the velocity vector (already scaled by t)
-    btkmVec3 targetPosition = _currentPosition + velocity;
+    btVector3 targetPosition = _currentPosition + velocity;
 
     // If physics is disabled, simply update current position without checking collisions
     if (!_physicsEnabled)
@@ -377,7 +377,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
         start.setOrigin(_currentPosition);
         end.setOrigin(targetPosition);
 
-        btkmVec3 sweepDirNegative(_currentPosition - targetPosition);
+        btVector3 sweepDirNegative(_currentPosition - targetPosition);
 
         ClosestNotMeConvexResultCallback callback(this, sweepDirNegative, btScalar(0.0));
         callback.m_collisionFilterGroup = _ghostObject->getBroadphaseHandle()->m_collisionFilterGroup;
@@ -402,7 +402,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
 
             updateTargetPositionFromCollision(targetPosition, callback.m_hitNormalWorld);
 
-            btkmVec3 currentDir = targetPosition - _currentPosition;
+            btVector3 currentDir = targetPosition - _currentPosition;
             distance2 = currentDir.length2();
             if (distance2 > FLT_EPSILON)
             {
@@ -433,11 +433,11 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
     GP_ASSERT(collisionWorld);
 
     // Contribute gravity to vertical velocity.
-    btkmVec3 gravity = Game::getInstance()->getPhysicsController()->_world->getGravity();
+    btVector3 gravity = Game::getInstance()->getPhysicsController()->_world->getGravity();
     _verticalVelocity += (gravity * time);
 
     // Compute new position from vertical velocity.
-    btkmVec3 targetPosition = _currentPosition + (_verticalVelocity * time);
+    btVector3 targetPosition = _currentPosition + (_verticalVelocity * time);
     targetPosition -= btVector3(0, _stepHeight, 0);
 
     // Perform a convex sweep test between current and target position.
@@ -453,7 +453,7 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
         start.setOrigin(_currentPosition);
         end.setOrigin(targetPosition);
 
-        btkmVec3 sweepDirNegative(_currentPosition - targetPosition);
+        btVector3 sweepDirNegative(_currentPosition - targetPosition);
 
         ClosestNotMeConvexResultCallback callback(this, sweepDirNegative, 0.0);
         callback.m_collisionFilterGroup = _ghostObject->getBroadphaseHandle()->m_collisionFilterGroup;
@@ -515,7 +515,7 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
 /*
  * Returns the reflection direction of a ray going 'direction' hitting a surface with normal 'normal'.
  */
-static btkmVec3 computeReflectionDirection(const btkmVec3& direction, const btkmVec3& normal)
+static btVector3 computeReflectionDirection(const btVector3& direction, const btVector3& normal)
 {
     return direction - (btScalar(2.0) * direction.dot(normal)) * normal;
 }
@@ -523,7 +523,7 @@ static btkmVec3 computeReflectionDirection(const btkmVec3& direction, const btkm
 /*
  * Returns the portion of 'direction' that is parallel to 'normal'.
  */
-static btkmVec3 parallelComponent(const btkmVec3& direction, const btkmVec3& normal)
+static btVector3 parallelComponent(const btVector3& direction, const btVector3& normal)
 {
     btScalar magnitude = direction.dot(normal);
     return normal * magnitude;
@@ -532,24 +532,24 @@ static btkmVec3 parallelComponent(const btkmVec3& direction, const btkmVec3& nor
 /*
  * Returns the portion of 'direction' that is perpendicular to 'normal'.
  */
-static btkmVec3 perpindicularComponent(const btkmVec3& direction, const btkmVec3& normal)
+static btVector3 perpindicularComponent(const btVector3& direction, const btVector3& normal)
 {
     return direction - parallelComponent(direction, normal);
 }
 
-void PhysicsCharacter::updateTargetPositionFromCollision(btkmVec3& targetPosition, const btkmVec3& collisionNormal)
+void PhysicsCharacter::updateTargetPositionFromCollision(btVector3& targetPosition, const btVector3& collisionNormal)
 {
-    btkmVec3 movementDirection = targetPosition - _currentPosition;
+    btVector3 movementDirection = targetPosition - _currentPosition;
     btScalar movementLength = movementDirection.length();
 
     if (movementLength > FLT_EPSILON)
     {
         movementDirection.normalize();
 
-        btkmVec3 reflectDir = computeReflectionDirection(movementDirection, collisionNormal);
+        btVector3 reflectDir = computeReflectionDirection(movementDirection, collisionNormal);
         reflectDir.normalize();
 
-        btkmVec3 perpindicularDir = perpindicularComponent(reflectDir, collisionNormal);
+        btVector3 perpindicularDir = perpindicularComponent(reflectDir, collisionNormal);
         targetPosition = _currentPosition;
 
         // Disallow the character from moving up during collision recovery (using an arbitrary reasonable epsilon).
@@ -559,7 +559,7 @@ void PhysicsCharacter::updateTargetPositionFromCollision(btkmVec3& targetPositio
         bool forceTrue = true;
         if (forceTrue || perpindicularDir.y() < _stepHeight + 0.001 || collisionNormal.y() > _cosSlopeAngle - MATH_EPSILON)
         {
-            btkmVec3 perpComponent = perpindicularDir * movementLength;
+            btVector3 perpComponent = perpindicularDir * movementLength;
             targetPosition += perpComponent;
         }
     }
@@ -582,7 +582,7 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
     // Store our current world position.
     kmVec3 startPosition;
     _node->getWorldMatrix().getTranslation(&startPosition);
-    btkmVec3 currentPosition = BV(startPosition);
+    btVector3 currentPosition = BV(startPosition);
 
     // Handle all collisions/overlapping pairs.
     btScalar maxPenetration = btScalar(0.0);
@@ -689,7 +689,7 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
     }
 
     // Update current and target world positions.
-    btkmVec3 startPosition = _ghostObject->getWorldTransform().getOrigin();
+    btVector3 startPosition = _ghostObject->getWorldTransform().getOrigin();
     _currentPosition = startPosition;
 
     // Process movement in the up direction.
@@ -704,7 +704,7 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
         stepDown(collisionWorld, deltaTimeStep);
 
     // Set new position.
-    btkmVec3 newPosition = _currentPosition - startPosition;
+    btVector3 newPosition = _currentPosition - startPosition;
     kmVec3 translation = Vector3(newPosition.x(), newPosition.y(), newPosition.z());
     if (translation !=  Vector3::zero())
         _node->translate(translation);

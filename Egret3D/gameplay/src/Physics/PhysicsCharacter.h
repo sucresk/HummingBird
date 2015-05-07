@@ -235,7 +235,7 @@ private:
 
     void stepForwardAndStrafe(btCollisionWorld* collisionWorld, float time);
 
-    void updateTargetPositionFromCollision(btkmVec3& targetPosition, const btkmVec3& collisionNormal);
+    void updateTargetPositionFromCollision(btVector3& targetPosition, const btVector3& collisionNormal);
 
     bool fixCollision(btCollisionWorld* world);
 
@@ -258,15 +258,15 @@ private:
 
     void updateAction(btCollisionWorld* collisionWorld, btScalar deltaTimeStep);
 
-    btkmVec3 _moveVelocity;
+    btVector3 _moveVelocity;
     float _forwardVelocity;
     float _rightVelocity;
-    btkmVec3 _verticalVelocity;
-    btkmVec3 _currentVelocity;
-    btkmVec3 _normalizedVelocity;
+    btVector3 _verticalVelocity;
+    btVector3 _currentVelocity;
+    btVector3 _normalizedVelocity;
     bool _colliding;
-    btkmVec3 _collisionNormal;
-    btkmVec3 _currentPosition;
+    btVector3 _collisionNormal;
+    btVector3 _currentPosition;
     btManifoldArray _manifoldArray;
     float _stepHeight;
     float _slopeAngle;

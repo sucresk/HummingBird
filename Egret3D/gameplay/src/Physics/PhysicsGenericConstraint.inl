@@ -21,29 +21,31 @@ inline const kmQuaternion& PhysicsGenericConstraint::getRotationOffsetB() const
 
     GP_ASSERT(_constraint);
     btQuaternion ro = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetB().getRotation();
-    _rotationOffsetB->set(ro.x(), ro.y(), ro.z(), ro.w());
+	_rotationOffsetB = kmQuaternionSet(_rotationOffsetB, ro.x(), ro.y(), ro.z(), ro.w());
     return *_rotationOffsetB;
 }
 
 inline const kmVec3& PhysicsGenericConstraint::getTranslationOffsetA() const
 {
     if (!_translationOffsetA)
-        _translationOffsetA = new Vector3();
+        _translationOffsetA = new kmVec3();
 
     GP_ASSERT(_constraint);
-    btkmVec3 to = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetA().getOrigin();
-    _translationOffsetA->set(to.x(), to.y(), to.z());
+    btVector3 to = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetA().getOrigin();
+    //_translationOffsetA->set(to.x(), to.y(), to.z());
+	kmVec3Fill(_translationOffsetA, to.x(), to.y(), to.z());
     return *_translationOffsetA;
 }
 
 inline const kmVec3& PhysicsGenericConstraint::getTranslationOffsetB() const
 {
     if (!_translationOffsetB)
-        _translationOffsetB = new Vector3();
+        _translationOffsetB = new kmVec3();
 
     GP_ASSERT(_constraint);
-    btkmVec3 to = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetB().getOrigin();
-    _translationOffsetB->set(to.x(), to.y(), to.z());
+    btVector3 to = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetB().getOrigin();
+    //_translationOffsetB->set(to.x(), to.y(), to.z());
+	kmVec3Fill(_translationOffsetB, to.x(), to.y(), to.z());
     return *_translationOffsetB;
 }
 

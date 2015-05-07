@@ -244,7 +244,7 @@ void PhysicsCollisionObject::PhysicsMotionState::setWorldTransform(const btTrans
     _worldTransform = transform * _centerOfMassOffset;
         
     const btkmQuaternion& rot = _worldTransform.getRotation();
-    const btkmVec3& pos = _worldTransform.getOrigin();
+    const btVector3& pos = _worldTransform.getOrigin();
 
     _node->setRotation(rot.x(), rot.y(), rot.z(), rot.w());
     _node->setTranslation(pos.x(), pos.y(), pos.z());
@@ -265,7 +265,7 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
         // so that when physics is initially applied, the object is in the correct location.
         btTransform offset = btTransform(BQ(rotation), btVector3(0.0f, 0.0f, 0.0f)) * _centerOfMassOffset.inverse();
 
-        btkmVec3 origin(m.m[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
+        btVector3 origin(m.m[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
                          m.m[13] + _centerOfMassOffset.getOrigin().getY() + offset.getOrigin().getY(), 
                          m.m[14] + _centerOfMassOffset.getOrigin().getZ() + offset.getOrigin().getZ());
         _worldTransform = btTransform(BQ(rotation), origin);

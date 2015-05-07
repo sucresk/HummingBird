@@ -212,7 +212,7 @@ void PhysicsVehicleWheel::update(float elapsedTime)
 
     const btTransform& trans = _host->_vehicle->getWheelInfo(_indexInHost).m_worldTransform;
     const btkmQuaternion& rot = trans.getRotation();
-    const btkmVec3& pos = trans.getOrigin();
+    const btVector3& pos = trans.getOrigin();
     _orientation.set(rot.x(), rot.y(), rot.z(), rot.w());
 
     kmVec3 commandedPosition(pos.x(), pos.y(), pos.z());
@@ -276,7 +276,7 @@ void PhysicsVehicleWheel::getWheelDirection(kmVec3* wheelDirection) const
     GP_ASSERT(_host);
     GP_ASSERT(_host->_vehicle);
 
-    const btkmVec3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelDirectionCS;
+    const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelDirectionCS;
     wheelDirection->set(v.x(), v.y(), v.z());
 }
 
@@ -293,7 +293,7 @@ void PhysicsVehicleWheel::getWheelAxle(kmVec3* wheelAxle) const
     GP_ASSERT(_host);
     GP_ASSERT(_host->_vehicle);
 
-    const btkmVec3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelAxleCS;
+    const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelAxleCS;
     wheelAxle->set(v.x(), v.y(), v.z());
 }
 
@@ -310,7 +310,7 @@ void PhysicsVehicleWheel::getStrutConnectionOffset(kmVec3* strutConnectionOffset
     GP_ASSERT(_host);
     GP_ASSERT(_host->_vehicle);
 
-    const btkmVec3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_chassisConnectionPointCS;
+    const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_chassisConnectionPointCS;
     strutConnectionOffset->set(v.x(), v.y(), v.z());
     kmVec3 strutConnectionDefault;
     getConnectionDefault(&strutConnectionDefault);

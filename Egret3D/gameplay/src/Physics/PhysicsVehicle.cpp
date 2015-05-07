@@ -22,7 +22,7 @@ class ClosestNotMeRayResultCallback : public btCollisionWorld::ClosestRayResultC
 {
 public:
 
-    ClosestNotMeRayResultCallback(const btkmVec3& from, const btkmVec3& to, btCollisionObject* me)
+    ClosestNotMeRayResultCallback(const btVector3& from, const btVector3& to, btCollisionObject* me)
         : btCollisionWorld::ClosestRayResultCallback(from, to), _me(me)
     {
     }
@@ -53,7 +53,7 @@ public:
     {
     }
 
-    void* castRay(const btkmVec3& from, const btkmVec3& to, btVehicleRaycasterResult& result)
+    void* castRay(const btVector3& from, const btVector3& to, btVehicleRaycasterResult& result)
     {
         ClosestNotMeRayResultCallback rayCallback(from, to, _me);
         _dynamicsWorld->rayTest(from, to, rayCallback);
