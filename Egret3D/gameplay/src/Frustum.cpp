@@ -11,7 +11,7 @@ Frustum::Frustum()
     set(Matrix::identity());
 }
 
-Frustum::Frustum(const Matrix& matrix)
+Frustum::Frustum(const kmMat4& matrix)
 {
     set(matrix);
 }
@@ -55,19 +55,19 @@ const Plane& Frustum::getTop() const
     return _top;
 }
 
-void Frustum::getMatrix(Matrix* dst) const
+void Frustum::getMatrix(kmMat4* dst) const
 {
     GP_ASSERT(dst);
     dst->set(_matrix);
 }
 
-void Frustum::getCorners(Vector3* corners) const
+void Frustum::getCorners(kmVec3* corners) const
 {
     getNearCorners(corners);
     getFarCorners(corners + 4);
 }
 
-void Frustum::getNearCorners(Vector3* corners) const
+void Frustum::getNearCorners(kmVec3* corners) const
 {
     GP_ASSERT(corners);
 
@@ -77,7 +77,7 @@ void Frustum::getNearCorners(Vector3* corners) const
     Plane::intersection(_near, _right, _top, &corners[3]);
 }
 
-void Frustum::getFarCorners(Vector3* corners) const
+void Frustum::getFarCorners(kmVec3* corners) const
 {
     GP_ASSERT(corners);
 
@@ -87,7 +87,7 @@ void Frustum::getFarCorners(Vector3* corners) const
     Plane::intersection(_far, _left, _top, &corners[3]);
 }
 
-bool Frustum::intersects(const Vector3& point) const
+bool Frustum::intersects(const kmVec3& point) const
 {
     if (_near.distance(point) <= 0)
         return false;
@@ -151,7 +151,7 @@ void Frustum::updatePlanes()
     _right.set(Vector3(_matrix.m[3] - _matrix.m[0], _matrix.m[7] - _matrix.m[4], _matrix.m[11] - _matrix.m[8]), _matrix.m[15] - _matrix.m[12]);
 }
 
-void Frustum::set(const Matrix& matrix)
+void Frustum::set(const kmMat4& matrix)
 {
     _matrix.set(matrix);
 

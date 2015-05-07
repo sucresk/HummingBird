@@ -23,7 +23,7 @@ public:
     /**
      * @see btCollisionWorld::ClosestConvexResultCallback::ClosestConvexResultCallback
      */
-    ClosestNotMeConvexResultCallback(PhysicsCollisionObject* me, const btVector3& up, btScalar minSlopeDot)
+    ClosestNotMeConvexResultCallback(PhysicsCollisionObject* me, const btkmVec3& up, btScalar minSlopeDot)
         : btCollisionWorld::ClosestConvexResultCallback(btVector3(0.0, 0.0, 0.0), btVector3(0.0, 0.0, 0.0)), _me(me), _up(up), _minSlopeDot(minSlopeDot)
     {
     }
@@ -45,7 +45,7 @@ public:
 protected:
 
     PhysicsCollisionObject* _me;
-    const btVector3 _up;
+    const btkmVec3 _up;
     btScalar _minSlopeDot;
 };
 
@@ -181,7 +181,7 @@ void PhysicsCharacter::setMaxSlopeAngle(float angle)
     _cosSlopeAngle = std::cos(MATH_DEG_TO_RAD(angle));
 }
 
-void PhysicsCharacter::setVelocity(const Vector3& velocity)
+void PhysicsCharacter::setVelocity(const kmVec3& velocity)
 {
     _moveVelocity.setValue(velocity.x, velocity.y, velocity.z);
 }
@@ -201,7 +201,7 @@ void PhysicsCharacter::resetVelocityState()
     _moveVelocity.setZero();
 }
 
-void PhysicsCharacter::rotate(const Vector3& axis, float angle)
+void PhysicsCharacter::rotate(const kmVec3& axis, float angle)
 {
     GP_ASSERT(_node);
     _node->rotate(axis, angle);
@@ -213,7 +213,7 @@ void PhysicsCharacter::rotate(const Quaternion& rotation)
     _node->rotate(rotation);
 }
 
-void PhysicsCharacter::setRotation(const Vector3& axis, float angle)
+void PhysicsCharacter::setRotation(const kmVec3& axis, float angle)
 {
     GP_ASSERT(_node);
     _node->setRotation(axis, angle);
@@ -235,9 +235,9 @@ void PhysicsCharacter::setRightVelocity(float velocity)
     _rightVelocity = velocity;
 }
 
-Vector3 PhysicsCharacter::getCurrentVelocity() const
+kmVec3 PhysicsCharacter::getCurrentVelocity() const
 {
-    Vector3 v(_currentVelocity.x(), _currentVelocity.y(), _currentVelocity.z());
+    kmVec3 v(_currentVelocity.x(), _currentVelocity.y(), _currentVelocity.z());
     v.x += _verticalVelocity.x();
     v.y += _verticalVelocity.y();
     v.z += _verticalVelocity.z();
@@ -255,7 +255,7 @@ void PhysicsCharacter::jump(float height, bool force)
     //  a == acceleration (inverse gravity)
     //  s == linear displacement (height)
     GP_ASSERT(Game::getInstance()->getPhysicsController());
-    Vector3 jumpVelocity = Game::getInstance()->getPhysicsController()->getGravity() * height * 2.0f;
+    kmVec3 jumpVelocity = Game::getInstance()->getPhysicsController()->getGravity() * height * 2.0f;
     jumpVelocity.set(
         jumpVelocity.x == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.x)) * (jumpVelocity.x > 0 ? 1.0f : -1.0f),
         jumpVelocity.y == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.y)) * (jumpVelocity.y < 0 ? 1.0f : -1.0f),
@@ -267,7 +267,7 @@ void PhysicsCharacter::updateCurrentVelocity()
 {
     GP_ASSERT(_node);
     
-    Vector3 temp;
+    kmVec3 temp;
     btScalar velocity2 = 0;
 
     // Reset velocity vector.
@@ -314,7 +314,7 @@ void PhysicsCharacter::updateCurrentVelocity()
 
 void PhysicsCharacter::stepUp(btCollisionWorld* collisionWorld, btScalar time)
 {
-    btVector3 targetPosition(_currentPosition);
+    btkmVec3 targetPosition(_currentPosition);
 
     if (_verticalVelocity.isZero())
     {
@@ -333,7 +333,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
     updateCurrentVelocity();
 
     // Calculate final velocity
-    btVector3 velocity(_currentVelocity);
+    btkmVec3 velocity(_currentVelocity);
     velocity *= time; // since velocity is in meters per second
 
     if (velocity.isZero())
@@ -343,7 +343,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
     }
 
     // Translate the target position by the velocity vector (already scaled by t)
-    btVector3 targetPosition = _currentPosition + velocity;
+    btkmVec3 targetPosition = _currentPosition + velocity;
 
     // If physics is disabled, simply update current position without checking collisions
     if (!_physicsEnabled)
@@ -377,7 +377,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
         start.setOrigin(_currentPosition);
         end.setOrigin(targetPosition);
 
-        btVector3 sweepDirNegative(_currentPosition - targetPosition);
+        btkmVec3 sweepDirNegative(_currentPosition - targetPosition);
 
         ClosestNotMeConvexResultCallback callback(this, sweepDirNegative, btScalar(0.0));
         callback.m_collisionFilterGroup = _ghostObject->getBroadphaseHandle()->m_collisionFilterGroup;
@@ -389,7 +389,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
 
         if (callback.hasHit())
         {
-            Vector3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
+            kmVec3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
             PhysicsCollisionObject* o = Game::getInstance()->getPhysicsController()->getCollisionObject(callback.m_hitCollisionObject);
             GP_ASSERT(o);
             if (o->getType() == PhysicsCollisionObject::RIGID_BODY && o->isDynamic())
@@ -402,7 +402,7 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
 
             updateTargetPositionFromCollision(targetPosition, callback.m_hitNormalWorld);
 
-            btVector3 currentDir = targetPosition - _currentPosition;
+            btkmVec3 currentDir = targetPosition - _currentPosition;
             distance2 = currentDir.length2();
             if (distance2 > FLT_EPSILON)
             {
@@ -433,11 +433,11 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
     GP_ASSERT(collisionWorld);
 
     // Contribute gravity to vertical velocity.
-    btVector3 gravity = Game::getInstance()->getPhysicsController()->_world->getGravity();
+    btkmVec3 gravity = Game::getInstance()->getPhysicsController()->_world->getGravity();
     _verticalVelocity += (gravity * time);
 
     // Compute new position from vertical velocity.
-    btVector3 targetPosition = _currentPosition + (_verticalVelocity * time);
+    btkmVec3 targetPosition = _currentPosition + (_verticalVelocity * time);
     targetPosition -= btVector3(0, _stepHeight, 0);
 
     // Perform a convex sweep test between current and target position.
@@ -453,7 +453,7 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
         start.setOrigin(_currentPosition);
         end.setOrigin(targetPosition);
 
-        btVector3 sweepDirNegative(_currentPosition - targetPosition);
+        btkmVec3 sweepDirNegative(_currentPosition - targetPosition);
 
         ClosestNotMeConvexResultCallback callback(this, sweepDirNegative, 0.0);
         callback.m_collisionFilterGroup = _ghostObject->getBroadphaseHandle()->m_collisionFilterGroup;
@@ -466,7 +466,7 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
         if (callback.hasHit())
         {
             // Collision detected, fix it.
-            Vector3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
+            kmVec3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
             normal.normalize();
 
             float dot = normal.dot(Vector3::unitY());
@@ -515,7 +515,7 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
 /*
  * Returns the reflection direction of a ray going 'direction' hitting a surface with normal 'normal'.
  */
-static btVector3 computeReflectionDirection(const btVector3& direction, const btVector3& normal)
+static btkmVec3 computeReflectionDirection(const btkmVec3& direction, const btkmVec3& normal)
 {
     return direction - (btScalar(2.0) * direction.dot(normal)) * normal;
 }
@@ -523,7 +523,7 @@ static btVector3 computeReflectionDirection(const btVector3& direction, const bt
 /*
  * Returns the portion of 'direction' that is parallel to 'normal'.
  */
-static btVector3 parallelComponent(const btVector3& direction, const btVector3& normal)
+static btkmVec3 parallelComponent(const btkmVec3& direction, const btkmVec3& normal)
 {
     btScalar magnitude = direction.dot(normal);
     return normal * magnitude;
@@ -532,24 +532,24 @@ static btVector3 parallelComponent(const btVector3& direction, const btVector3& 
 /*
  * Returns the portion of 'direction' that is perpendicular to 'normal'.
  */
-static btVector3 perpindicularComponent(const btVector3& direction, const btVector3& normal)
+static btkmVec3 perpindicularComponent(const btkmVec3& direction, const btkmVec3& normal)
 {
     return direction - parallelComponent(direction, normal);
 }
 
-void PhysicsCharacter::updateTargetPositionFromCollision(btVector3& targetPosition, const btVector3& collisionNormal)
+void PhysicsCharacter::updateTargetPositionFromCollision(btkmVec3& targetPosition, const btkmVec3& collisionNormal)
 {
-    btVector3 movementDirection = targetPosition - _currentPosition;
+    btkmVec3 movementDirection = targetPosition - _currentPosition;
     btScalar movementLength = movementDirection.length();
 
     if (movementLength > FLT_EPSILON)
     {
         movementDirection.normalize();
 
-        btVector3 reflectDir = computeReflectionDirection(movementDirection, collisionNormal);
+        btkmVec3 reflectDir = computeReflectionDirection(movementDirection, collisionNormal);
         reflectDir.normalize();
 
-        btVector3 perpindicularDir = perpindicularComponent(reflectDir, collisionNormal);
+        btkmVec3 perpindicularDir = perpindicularComponent(reflectDir, collisionNormal);
         targetPosition = _currentPosition;
 
         // Disallow the character from moving up during collision recovery (using an arbitrary reasonable epsilon).
@@ -559,7 +559,7 @@ void PhysicsCharacter::updateTargetPositionFromCollision(btVector3& targetPositi
         bool forceTrue = true;
         if (forceTrue || perpindicularDir.y() < _stepHeight + 0.001 || collisionNormal.y() > _cosSlopeAngle - MATH_EPSILON)
         {
-            btVector3 perpComponent = perpindicularDir * movementLength;
+            btkmVec3 perpComponent = perpindicularDir * movementLength;
             targetPosition += perpComponent;
         }
     }
@@ -580,9 +580,9 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
     world->getDispatcher()->dispatchAllCollisionPairs(pairCache, world->getDispatchInfo(), world->getDispatcher());
 
     // Store our current world position.
-    Vector3 startPosition;
+    kmVec3 startPosition;
     _node->getWorldMatrix().getTranslation(&startPosition);
-    btVector3 currentPosition = BV(startPosition);
+    btkmVec3 currentPosition = BV(startPosition);
 
     // Handle all collisions/overlapping pairs.
     btScalar maxPenetration = btScalar(0.0);
@@ -637,7 +637,7 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
     }
 
     // Set the new world transformation to apply to fix the collision.
-    Vector3 newPosition = Vector3(currentPosition.x(), currentPosition.y(), currentPosition.z()) - startPosition;
+    kmVec3 newPosition = Vector3(currentPosition.x(), currentPosition.y(), currentPosition.z()) - startPosition;
     if (newPosition != Vector3::zero())
         _node->translate(newPosition);
 
@@ -689,7 +689,7 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
     }
 
     // Update current and target world positions.
-    btVector3 startPosition = _ghostObject->getWorldTransform().getOrigin();
+    btkmVec3 startPosition = _ghostObject->getWorldTransform().getOrigin();
     _currentPosition = startPosition;
 
     // Process movement in the up direction.
@@ -704,8 +704,8 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
         stepDown(collisionWorld, deltaTimeStep);
 
     // Set new position.
-    btVector3 newPosition = _currentPosition - startPosition;
-    Vector3 translation = Vector3(newPosition.x(), newPosition.y(), newPosition.z());
+    btkmVec3 newPosition = _currentPosition - startPosition;
+    kmVec3 translation = Vector3(newPosition.x(), newPosition.y(), newPosition.z());
     if (translation !=  Vector3::zero())
         _node->translate(translation);
 }

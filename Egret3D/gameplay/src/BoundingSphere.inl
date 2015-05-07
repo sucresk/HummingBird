@@ -3,13 +3,13 @@
 namespace egret
 {
 
-inline BoundingSphere& BoundingSphere::operator*=(const Matrix& matrix)
+inline BoundingSphere& BoundingSphere::operator*=(const kmMat4& matrix)
 {
     transform(matrix);
     return *this;
 }
 
-inline const BoundingSphere operator*(const Matrix& matrix, const BoundingSphere& sphere)
+inline const BoundingSphere operator*(const kmMat4& matrix, const BoundingSphere& sphere)
 {
     BoundingSphere s(sphere);
     s.transform(matrix);

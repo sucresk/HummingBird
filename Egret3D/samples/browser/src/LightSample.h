@@ -45,7 +45,7 @@ private:
 
     void setUnlitMaterialTexture(Model* model, const char* texturePath, bool mipmap = true);
 
-	void setColorValue(const Vector3& value);
+	void setColorValue(const kmVec3& value);
 
 	void setSpecularValue(float);
 

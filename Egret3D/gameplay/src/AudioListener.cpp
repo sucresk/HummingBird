@@ -33,12 +33,12 @@ void AudioListener::setGain(float gain)
     _gain = gain;
 }
 
-const Vector3& AudioListener::getPosition() const 
+const kmVec3& AudioListener::getPosition() const 
 { 
     return _position; 
 }
 
-void AudioListener::setPosition(const Vector3& position)
+void AudioListener::setPosition(const kmVec3& position)
 {
     _position = position;
 }
@@ -48,12 +48,12 @@ void AudioListener::setPosition(float x, float y, float z)
     _position.set(x, y, z);
 }
 
-const Vector3& AudioListener::getVelocity() const 
+const kmVec3& AudioListener::getVelocity() const 
 { 
     return _velocity; 
 }
 
-void AudioListener::setVelocity(const Vector3& velocity)
+void AudioListener::setVelocity(const kmVec3& velocity)
 {
     _velocity = velocity;
 }
@@ -68,17 +68,17 @@ const float* AudioListener::getOrientation() const
     return (const float*)&_orientation[0];
 }
 
-const Vector3& AudioListener::getOrientationForward() const 
+const kmVec3& AudioListener::getOrientationForward() const 
 { 
     return _orientation[0]; 
 }
 
-const Vector3& AudioListener::getOrientationUp() const 
+const kmVec3& AudioListener::getOrientationUp() const 
 { 
     return _orientation[1]; 
 }
 
-void AudioListener::setOrientation(const Vector3& forward, const Vector3& up)
+void AudioListener::setOrientation(const kmVec3& forward, const kmVec3& up)
 {
     _orientation[0].x = forward.x;
     _orientation[0].y = forward.y;
@@ -132,7 +132,7 @@ void AudioListener::cameraChanged(Camera* camera)
         if (node)
         {
             setPosition(node->getTranslationWorld());
-            Vector3 up;
+            kmVec3 up;
             node->getWorldMatrix().getUpVector(&up);
             setOrientation(node->getForwardVectorWorld(), up);
         }

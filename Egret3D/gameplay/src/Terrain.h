@@ -172,7 +172,7 @@ public:
      * @return A new Terrain.
      * @script{create}
      */
-    static Terrain* create(HeightField* heightfield, const Vector3& scale = Vector3::one(), unsigned int patchSize = 32,
+    static Terrain* create(HeightField* heightfield, const kmVec3& scale = Vector3::one(), unsigned int patchSize = 32,
                            unsigned int detailLevels = 1, float skirtScale = 0.0f, const char* normalMapPath = NULL,
                            const char* materialPath = NULL);
 
@@ -304,7 +304,7 @@ private:
     /**
      * Internal method for creating terrain.
      */
-    static Terrain* create(HeightField* heightfield, const Vector3& scale, 
+    static Terrain* create(HeightField* heightfield, const kmVec3& scale, 
         unsigned int patchSize, unsigned int detailLevels, float skirtScale, 
         const char* normalMapPath, const char* materialPath, Properties* properties);
 
@@ -322,7 +322,7 @@ private:
      * Returns the terrain's inverse world matrix, used for transforming world-space positions
      * to local positions for height lookups.
      */
-    const Matrix& getInverseWorldMatrix() const;
+    const kmMat4& getInverseWorldMatrix() const;
 
     /**
      * Returns the local bounding box for this patch, at the base LOD level.
@@ -331,7 +331,7 @@ private:
 
     std::string _materialPath;
     HeightField* _heightfield;
-    Vector3 _localScale;
+    kmVec3 _localScale;
     std::vector<TerrainPatch*> _patches;
     Texture::Sampler* _normalMap;
     unsigned int _flags;

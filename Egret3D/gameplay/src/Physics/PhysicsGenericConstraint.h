@@ -41,14 +41,14 @@ public:
      * 
      * @return The translation offset.
      */
-    inline const Vector3& getTranslationOffsetA() const;
+    inline const kmVec3& getTranslationOffsetA() const;
 
     /**
      * Gets the translation offset for the second rigid body in the constraint.
      * 
      * @return The translation offset.
      */
-    inline const Vector3& getTranslationOffsetB() const;
+    inline const kmVec3& getTranslationOffsetB() const;
 
     /**
      * Sets the lower angular limits (as Euler angle limits) along the constraint's local
@@ -56,7 +56,7 @@ public:
      * 
      * @param limits The lower angular limits (as Euler angle limits) along the local X, Y, and Z axes.
      */
-    inline void setAngularLowerLimit(const Vector3& limits);
+    inline void setAngularLowerLimit(const kmVec3& limits);
 
     /**
      * Sets the upper angular limits (as Euler angle limits) along the constraint's local
@@ -64,7 +64,7 @@ public:
      * 
      * @param limits The upper angular limits (as Euler angle limits) along the local X, Y, and Z axes.
      */
-    inline void setAngularUpperLimit(const Vector3& limits);
+    inline void setAngularUpperLimit(const kmVec3& limits);
     
     /**
      * Sets the lower linear limits along the constraint's local
@@ -72,7 +72,7 @@ public:
      * 
      * @param limits The lower linear limits along the local X, Y, and Z axes.
      */
-    inline void setLinearLowerLimit(const Vector3& limits);
+    inline void setLinearLowerLimit(const kmVec3& limits);
     
     /**
      * Sets the upper linear limits along the constraint's local
@@ -80,7 +80,7 @@ public:
      * 
      * @param limits The upper linear limits along the local X, Y, and Z axes.
      */
-    inline void setLinearUpperLimit(const Vector3& limits);
+    inline void setLinearUpperLimit(const kmVec3& limits);
 
     /**
      * Sets the rotation offset for the first rigid body in the constraint.
@@ -101,14 +101,14 @@ public:
      * 
      * @param translationOffset The translation offset.
      */
-    inline void setTranslationOffsetA(const Vector3& translationOffset);
+    inline void setTranslationOffsetA(const kmVec3& translationOffset);
 
     /**
      * Sets the translation offset for the second rigid body in the constraint.
      * 
      * @param translationOffset The translation offset.
      */
-    inline void setTranslationOffsetB(const Vector3& translationOffset);
+    inline void setTranslationOffsetB(const kmVec3& translationOffset);
 
 protected:
 
@@ -145,8 +145,8 @@ protected:
      * @param translationOffsetB The translation offset for the second rigid body
      *      (in its local space) with respect to the constraint joint (optional).
      */
-    PhysicsGenericConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const Vector3& translationOffsetA,
-                             PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const Vector3& translationOffsetB);
+    PhysicsGenericConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                             PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB);
 
     /**
      * Destructor.
@@ -157,8 +157,8 @@ private:
 
     mutable Quaternion* _rotationOffsetA;
     mutable Quaternion* _rotationOffsetB;
-    mutable Vector3* _translationOffsetA;
-    mutable Vector3* _translationOffsetB;
+    mutable kmVec3* _translationOffsetA;
+    mutable kmVec3* _translationOffsetB;
 };
 
 }

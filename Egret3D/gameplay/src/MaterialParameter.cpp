@@ -147,7 +147,7 @@ void MaterialParameter::setValue(const Vector2* values, unsigned int count)
     _type = MaterialParameter::VECTOR2;
 }
 
-void MaterialParameter::setValue(const Vector3& value)
+void MaterialParameter::setValue(const kmVec3& value)
 {
     clearValue();
 
@@ -161,7 +161,7 @@ void MaterialParameter::setValue(const Vector3& value)
     _type = MaterialParameter::VECTOR3;
 }
 
-void MaterialParameter::setValue(const Vector3* values, unsigned int count)
+void MaterialParameter::setValue(const kmVec3* values, unsigned int count)
 {
     GP_ASSERT(values);
     clearValue();
@@ -171,7 +171,7 @@ void MaterialParameter::setValue(const Vector3* values, unsigned int count)
     _type = MaterialParameter::VECTOR3;
 }
 
-void MaterialParameter::setValue(const Vector4& value)
+void MaterialParameter::setValue(const kmVec4& value)
 {
     clearValue();
 
@@ -185,7 +185,7 @@ void MaterialParameter::setValue(const Vector4& value)
     _type = MaterialParameter::VECTOR4;
 }
 
-void MaterialParameter::setValue(const Vector4* values, unsigned int count)
+void MaterialParameter::setValue(const kmVec4* values, unsigned int count)
 {
     GP_ASSERT(values);
     clearValue();
@@ -195,7 +195,7 @@ void MaterialParameter::setValue(const Vector4* values, unsigned int count)
     _type = MaterialParameter::VECTOR4;
 }
 
-void MaterialParameter::setValue(const Matrix& value)
+void MaterialParameter::setValue(const kmMat4& value)
 {
     // If this parameter is already storing a single dynamic matrix, no need to clear it.
     if (!(_dynamic && _count == 1 && _type == MaterialParameter::MATRIX && _value.floatPtrValue != NULL))
@@ -213,12 +213,12 @@ void MaterialParameter::setValue(const Matrix& value)
     _type = MaterialParameter::MATRIX;
 }
 
-void MaterialParameter::setValue(const Matrix* values, unsigned int count)
+void MaterialParameter::setValue(const kmMat4* values, unsigned int count)
 {
     GP_ASSERT(values);
     clearValue();
 
-    _value.floatPtrValue = const_cast<Matrix&> (values[0]).m;
+    _value.floatPtrValue = const_cast<kmMat4&> (values[0]).m;
     _count = count;
     _type = MaterialParameter::MATRIX;
 }
@@ -336,12 +336,12 @@ void MaterialParameter::setVector2Array(const Vector2* values, unsigned int coun
     _type = MaterialParameter::VECTOR2;
 }
 
-void MaterialParameter::setVector3(const Vector3& value)
+void MaterialParameter::setVector3(const kmVec3& value)
 {
     setValue(value);
 }
 
-void MaterialParameter::setVector3Array(const Vector3* values, unsigned int count, bool copy)
+void MaterialParameter::setVector3Array(const kmVec3* values, unsigned int count, bool copy)
 {
     GP_ASSERT(values);
     clearValue();
@@ -361,12 +361,12 @@ void MaterialParameter::setVector3Array(const Vector3* values, unsigned int coun
     _type = MaterialParameter::VECTOR3;
 }
 
-void MaterialParameter::setVector4(const Vector4& value)
+void MaterialParameter::setVector4(const kmVec4& value)
 {
     setValue(value);
 }
 
-void MaterialParameter::setVector4Array(const Vector4* values, unsigned int count, bool copy)
+void MaterialParameter::setVector4Array(const kmVec4* values, unsigned int count, bool copy)
 {
     GP_ASSERT(values);
     clearValue();
@@ -386,12 +386,12 @@ void MaterialParameter::setVector4Array(const Vector4* values, unsigned int coun
     _type = MaterialParameter::VECTOR4;
 }
 
-void MaterialParameter::setMatrix(const Matrix& value)
+void MaterialParameter::setMatrix(const kmMat4& value)
 {
     setValue(value);
 }
 
-void MaterialParameter::setMatrixArray(const Matrix* values, unsigned int count, bool copy)
+void MaterialParameter::setMatrixArray(const kmMat4* values, unsigned int count, bool copy)
 {
     GP_ASSERT(values);
     clearValue();
@@ -399,12 +399,12 @@ void MaterialParameter::setMatrixArray(const Matrix* values, unsigned int count,
     if (copy)
     {
         _value.floatPtrValue = new float[16 * count];
-        memcpy(_value.floatPtrValue, const_cast<Matrix&> (values[0]).m, sizeof(float) * 16 * count);
+        memcpy(_value.floatPtrValue, const_cast<kmMat4&> (values[0]).m, sizeof(float) * 16 * count);
         _dynamic = true;
     }
     else
     {
-        _value.floatPtrValue = const_cast<Matrix&> (values[0]).m;
+        _value.floatPtrValue = const_cast<kmMat4&> (values[0]).m;
     }
 
     _count = count;
@@ -486,13 +486,13 @@ void MaterialParameter::bind(Effect* effect)
         effect->setValue(_uniform, reinterpret_cast<Vector2*>(_value.floatPtrValue), _count);
         break;
     case MaterialParameter::VECTOR3:
-        effect->setValue(_uniform, reinterpret_cast<Vector3*>(_value.floatPtrValue), _count);
+        effect->setValue(_uniform, reinterpret_cast<kmVec3*>(_value.floatPtrValue), _count);
         break;
     case MaterialParameter::VECTOR4:
-        effect->setValue(_uniform, reinterpret_cast<Vector4*>(_value.floatPtrValue), _count);
+        effect->setValue(_uniform, reinterpret_cast<kmVec4*>(_value.floatPtrValue), _count);
         break;
     case MaterialParameter::MATRIX:
-        effect->setValue(_uniform, reinterpret_cast<Matrix*>(_value.floatPtrValue), _count);
+        effect->setValue(_uniform, reinterpret_cast<kmMat4*>(_value.floatPtrValue), _count);
         break;
     case MaterialParameter::SAMPLER:
         effect->setValue(_uniform, _value.samplerValue);
@@ -793,7 +793,7 @@ void MaterialParameter::cloneInto(MaterialParameter* materialParameter) const
     }   
     case VECTOR3:
     {
-        Vector3* value = reinterpret_cast<Vector3*>(_value.floatPtrValue);
+        kmVec3* value = reinterpret_cast<kmVec3*>(_value.floatPtrValue);
         if (_count == 1)
         {
             GP_ASSERT(value);
@@ -807,7 +807,7 @@ void MaterialParameter::cloneInto(MaterialParameter* materialParameter) const
     }
     case VECTOR4:
     {
-        Vector4* value = reinterpret_cast<Vector4*>(_value.floatPtrValue);
+        kmVec4* value = reinterpret_cast<kmVec4*>(_value.floatPtrValue);
         if (_count == 1)
         {
             GP_ASSERT(value);
@@ -821,7 +821,7 @@ void MaterialParameter::cloneInto(MaterialParameter* materialParameter) const
     }
     case MATRIX:
     {
-        Matrix* value = reinterpret_cast<Matrix*>(_value.floatPtrValue);
+        kmMat4* value = reinterpret_cast<kmMat4*>(_value.floatPtrValue);
         if (_count == 1)
         {
             GP_ASSERT(value);

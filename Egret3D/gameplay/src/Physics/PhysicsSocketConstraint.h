@@ -43,8 +43,8 @@ private:
      * @param translationOffsetB The translation offset for the second rigid body
      *      (in its local space) with respect to the constraint joint (optional).
      */
-    PhysicsSocketConstraint(PhysicsRigidBody* a, const Vector3& translationOffsetA, 
-                            PhysicsRigidBody* b, const Vector3& translationOffsetB);
+    PhysicsSocketConstraint(PhysicsRigidBody* a, const kmVec3& translationOffsetA, 
+                            PhysicsRigidBody* b, const kmVec3& translationOffsetB);
 
     /**
      * Destructor.

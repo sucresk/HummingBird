@@ -134,8 +134,8 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     unsigned int vertexElements = _terrain->_normalMap ? 5 : 8; //<x,y,z>[i,j,k]<u,v>
     float* vertices = new float[vertexCount * vertexElements];
     unsigned int index = 0;
-    Vector3 min(FLT_MAX, FLT_MAX, FLT_MAX);
-    Vector3 max(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+    kmVec3 min(FLT_MAX, FLT_MAX, FLT_MAX);
+    kmVec3 max(-FLT_MAX, -FLT_MAX, -FLT_MAX);
     float stepXScaled = step * _terrain->_localScale.x;
     float stepZScaled = step * _terrain->_localScale.z;
     bool zskirt = verticalSkirtSize > 0 ? true : false;
@@ -176,17 +176,17 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
             // Compute normal
             if (!_terrain->_normalMap)
             {
-                Vector3 p(v[0], computeHeight(heights, width, x, z), v[2]);
-                Vector3 w(Vector3(x>=step ? v[0]-stepXScaled : v[0], computeHeight(heights, width, x>=step ? x-step : x, z), v[2]), p);
-                Vector3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
-                Vector3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
-                Vector3 n(Vector3(v[0], computeHeight(heights, width, x, z<height-step ? z+step : z), z<height-step ? v[2]+stepZScaled : v[2]), p);
-                Vector3 normals[4];
+                kmVec3 p(v[0], computeHeight(heights, width, x, z), v[2]);
+                kmVec3 w(Vector3(x>=step ? v[0]-stepXScaled : v[0], computeHeight(heights, width, x>=step ? x-step : x, z), v[2]), p);
+                kmVec3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
+                kmVec3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
+                kmVec3 n(Vector3(v[0], computeHeight(heights, width, x, z<height-step ? z+step : z), z<height-step ? v[2]+stepZScaled : v[2]), p);
+                kmVec3 normals[4];
                 Vector3::cross(n, w, &normals[0]);
                 Vector3::cross(w, s, &normals[1]);
                 Vector3::cross(e, n, &normals[2]);
                 Vector3::cross(s, e, &normals[3]);
-                Vector3 normal = -(normals[0] + normals[1] + normals[2] + normals[3]);
+                kmVec3 normal = -(normals[0] + normals[1] + normals[2] + normals[3]);
                 normal.normalize();
                 v[3] = normal.x;
                 v[4] = normal.y;
@@ -245,7 +245,7 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     }
     GP_ASSERT(index == vertexCount);
 
-    Vector3 center(min + ((max - min) * 0.5f));
+    kmVec3 center(min + ((max - min) * 0.5f));
 
     // Create mesh
     VertexFormat::Element elements[3];
@@ -638,13 +638,13 @@ unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBo
     // Compute LOD to use based on very simple distance metric. TODO: Optimize me.
     Game* game = Game::getInstance();
     Rectangle vp(0, 0, game->getWidth(), game->getHeight());
-    Vector3 corners[8];
+    kmVec3 corners[8];
     Vector2 min(FLT_MAX, FLT_MAX);
     Vector2 max(-FLT_MAX, -FLT_MAX);
     worldBounds.getCorners(corners);
     for (unsigned int i = 0; i < 8; ++i)
     {
-        const Vector3& corner = corners[i];
+        const kmVec3& corner = corners[i];
         float x, y;
         camera->project(vp, corners[i], &x, &y);
         if (x < min.x)
@@ -670,7 +670,7 @@ unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBo
     return _level;
 }
 
-const Vector3& TerrainPatch::getAmbientColor() const
+const kmVec3& TerrainPatch::getAmbientColor() const
 {
     Scene* scene = _terrain->_node ? _terrain->_node->getScene() : NULL;
     return scene ? scene->getAmbientColor() : Vector3::zero();

@@ -48,7 +48,7 @@ void Audio3DSample::initialize()
     loadGrid(_scene);
 
     // Initialize cameraa
-    Vector3 cameraPosition(5, 5, 1);
+    kmVec3 cameraPosition(5, 5, 1);
     if (Camera* camera = _scene->getActiveCamera())
     {
         camera->getNode()->getTranslation(&cameraPosition);
@@ -303,7 +303,7 @@ void Audio3DSample::addSound(const std::string& file)
     Node* cameraNode = _scene->getActiveCamera()->getNode();
     // Position the sound infront of the user
     node->setTranslation(cameraNode->getTranslationWorld());
-    Vector3 dir = cameraNode->getForwardVectorWorld().normalize();
+    kmVec3 dir = cameraNode->getForwardVectorWorld().normalize();
     dir.scale(2);
     node->translate(dir);
     _scene->addNode(node);
@@ -323,7 +323,7 @@ void Audio3DSample::drawDebugText(int x, int y, unsigned int fontSize)
     _font->finish();
 }
 
-void Audio3DSample::drawVector3(const char* str, const Vector3& vector, int x, int y)
+void Audio3DSample::drawVector3(const char* str, const kmVec3& vector, int x, int y)
 {
     char buffer[255];
     sprintf(buffer, "%s: (%.3f, %.3f, %.3f)", str, vector.x, vector.y, vector.z);

@@ -32,7 +32,7 @@ void WaterSample::initialize()
     _waterHeight = _scene->findNode("Water")->getTranslationY();
 
     // Set up a first person style camera
-    const Vector3 camStartPosition(0.f, 10.f, -30.f);
+    const kmVec3 camStartPosition(0.f, 10.f, -30.f);
     _cameraNode = Node::create("cameraNode");
     _cameraNode->setTranslation(camStartPosition);
 
@@ -124,7 +124,7 @@ void WaterSample::update(float elapsedTime)
         _gamepad->getJoystickValues(0, &axis);
     
     // Move the camera by applying a force
-    Vector3 force;
+    kmVec3 force;
     if ((_inputMask & MOVE_FORWARD) || axis.y > minVal)
         force += _cameraNode->getFirstChild()->getForwardVectorWorld();
     if (_inputMask & MOVE_BACKWARD || axis.y < -minVal)
@@ -142,7 +142,7 @@ void WaterSample::update(float elapsedTime)
     _cameraNode->translate(_cameraAcceleration * SPEED * (elapsedTime / 1000.f));
     
     // Make sure the reflection camera follows
-    Vector3 position = _cameraNode->getTranslation();
+    kmVec3 position = _cameraNode->getTranslation();
     position.y = -position.y + _waterHeight * 2.f;
     _reflectCameraNode->setTranslation(position);
 }

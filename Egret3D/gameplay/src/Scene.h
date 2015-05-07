@@ -164,7 +164,7 @@ public:
      *
      * @return The scene's ambient color.
      */
-    const Vector3& getAmbientColor() const;
+    const kmVec3& getAmbientColor() const;
 
     /**
      * Sets the ambient color of the scene.
@@ -304,7 +304,7 @@ private:
     Node* _firstNode;
     Node* _lastNode;
     unsigned int _nodeCount;
-    Vector3 _ambientColor;
+    kmVec3 _ambientColor;
     bool _bindAudioListenerToCamera;
     Node* _nextItr;
     bool _nextReset;

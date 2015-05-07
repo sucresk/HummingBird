@@ -16,12 +16,12 @@ public:
     /**
      * The minimum point.
      */
-    Vector3 min;
+    kmVec3 min;
 
     /**
      * The maximum point.
      */
-    Vector3 max;
+    kmVec3 max;
 
     /**
      * Constructs an empty bounding box at the origin.
@@ -34,7 +34,7 @@ public:
      * @param min The minimum point of the bounding box.
      * @param max The maximum point of the bounding box.
      */
-    BoundingBox(const Vector3& min, const Vector3& max);
+    BoundingBox(const kmVec3& min, const kmVec3& max);
 
     /**
      * Constructs a new bounding box from the specified values.
@@ -72,7 +72,7 @@ public:
      *
      * @return The center point of the bounding box.
      */
-    Vector3 getCenter() const;
+    kmVec3 getCenter() const;
 
     /**
      * Gets the center point of the bounding box.
@@ -82,7 +82,7 @@ public:
      *
      * @param dst The vector to store the result in.
      */
-    void getCenter(Vector3* dst) const;
+    void getCenter(kmVec3* dst) const;
 
     /**
      * Gets the corners of the bounding box in the specified array.
@@ -94,7 +94,7 @@ public:
      *
      * @param dst The array to store the corners in. Must be size 8.
      */
-    void getCorners(Vector3* dst) const;
+    void getCorners(kmVec3* dst) const;
 
     /**
      * Tests whether this bounding box intersects the specified bounding object.
@@ -173,7 +173,7 @@ public:
      * @param min The minimum point of the bounding box.
      * @param max The maximum point of the bounding box.
      */
-    void set(const Vector3& min, const Vector3& max);
+    void set(const kmVec3& min, const kmVec3& max);
 
     /**
      * Sets this bounding box to the specified values.
@@ -206,7 +206,7 @@ public:
      *
      * @param matrix The transformation matrix to transform by.
      */
-    void transform(const Matrix& matrix);
+    void transform(const kmMat4& matrix);
 
     /**
      * Transforms this bounding box by the given matrix.
@@ -214,7 +214,7 @@ public:
      * @param matrix The matrix to transform by.
      * @return This bounding box, after the transformation occurs.
      */
-    inline BoundingBox& operator*=(const Matrix& matrix);
+    inline BoundingBox& operator*=(const kmMat4& matrix);
 };
 
 /**
@@ -224,7 +224,7 @@ public:
  * @param box The bounding box to transform.
  * @return The resulting transformed bounding box.
  */
-inline const BoundingBox operator*(const Matrix& matrix, const BoundingBox& box);
+inline const BoundingBox operator*(const kmMat4& matrix, const BoundingBox& box);
 
 }
 

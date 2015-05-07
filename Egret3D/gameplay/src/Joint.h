@@ -39,7 +39,7 @@ public:
      * 
      * @return Inverse bind pose matrix.
      */
-    const Matrix& getInverseBindPose() const;
+    const kmMat4& getInverseBindPose() const;
 
 protected:
 
@@ -77,7 +77,7 @@ protected:
      * 
      * @param m Matrix representing the inverse bind pose for this Joint.
      */
-    void setInverseBindPose(const Matrix& m);
+    void setInverseBindPose(const kmMat4& m);
 
     /**
      * Updates the joint matrix.
@@ -85,7 +85,7 @@ protected:
      * @param bindShape The bind shape matrix.
      * @param matrixPalette The matrix palette to update.
      */
-    void updateJointMatrix(const Matrix& bindShape, Vector4* matrixPalette);
+    void updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette);
 
     /**
      * Called when this Joint's transform changes.

@@ -363,35 +363,35 @@ public:
      * @param end The base end color of emitted particles.
      * @param endVariance The variance of end color of emitted particles.
      */
-    void setColor(const Vector4& start, const Vector4& startVariance, const Vector4& end, const Vector4& endVariance);
+    void setColor(const kmVec4& start, const kmVec4& startVariance, const kmVec4& end, const kmVec4& endVariance);
     
     /**
      * Gets the base start color of emitted particles.
      *
      * @return The base start color of emitted particles.
      */
-    const Vector4& getColorStart() const;
+    const kmVec4& getColorStart() const;
 
     /**
      * Gets the variance of start color of emitted particles.
      *
      * @return The variance of start color of emitted particles.
      */
-    const Vector4& getColorStartVariance() const;
+    const kmVec4& getColorStartVariance() const;
 
     /**
      * Gets the base end color of emitted particles.
      *
      * @return The base end color of emitted particles.
      */
-    const Vector4& getColorEnd() const;
+    const kmVec4& getColorEnd() const;
 
     /**
      * Gets the variance of end color of emitted particles.
      *
      * @return The variance of end color of emitted particles.
      */
-    const Vector4& getColorEndVariance() const;
+    const kmVec4& getColorEndVariance() const;
 
     /**
      * Sets the minimum and maximum lifetime of emitted particles, measured in milliseconds.
@@ -421,21 +421,21 @@ public:
      * @param position The initial position of new particles.
      * @param positionVariance The amount of variance allowed in the initial position of new particles.
      */
-    void setPosition(const Vector3& position, const Vector3& positionVariance);
+    void setPosition(const kmVec3& position, const kmVec3& positionVariance);
 
     /**
      * Gets the position of new particles, relative to the emitter's transform.
      *
      * @return The position of new particles, relative to the emitter's transform.
      */
-    const Vector3& getPosition() const;
+    const kmVec3& getPosition() const;
 
     /**
      * Gets the position variance of new particles.
      *
      * @return The position variance of new particles.
      */
-    const Vector3& getPositionVariance() const;
+    const kmVec3& getPositionVariance() const;
 
     /**
      * Sets the base velocity of new particles and its variance.
@@ -443,28 +443,28 @@ public:
      * @param velocity The initial velocity of new particles.
      * @param velocityVariance The amount of variance allowed in the initial velocity of new particles.
      */
-    void setVelocity(const Vector3& velocity, const Vector3& velocityVariance);
+    void setVelocity(const kmVec3& velocity, const kmVec3& velocityVariance);
 
     /**
      * Gets the initial velocity of new particles.
      *
      * @return The initial velocity of new particles.
      */
-    const Vector3& getVelocity() const;
+    const kmVec3& getVelocity() const;
 
     /**
      * Gets the initial velocity variance of new particles.
      *
      * @return The initial velocity variance of new particles.
      */
-    const Vector3& getVelocityVariance() const;
+    const kmVec3& getVelocityVariance() const;
 
     /**
      * Gets the base acceleration vector of particles.
      * 
      * @return The base acceleration vector of particles.
      */
-    const Vector3& getAcceleration() const;
+    const kmVec3& getAcceleration() const;
 
     /**
      * Sets the base acceleration vector and its allowed variance for this ParticleEmitter.
@@ -472,14 +472,14 @@ public:
      * @param acceleration The base acceleration vector of emitted particles.
      * @param accelerationVariance The variance allowed in the acceleration of emitted particles.
      */
-    void setAcceleration(const Vector3& acceleration, const Vector3& accelerationVariance);
+    void setAcceleration(const kmVec3& acceleration, const kmVec3& accelerationVariance);
 
     /**
      * Gets the variance of acceleration of particles.
      * 
      * @return The variance of acceleration of particles.
      */
-    const Vector3& getAccelerationVariance() const;
+    const kmVec3& getAccelerationVariance() const;
 
     /**
      * Gets the maximum rotation speed of each emitted particle.
@@ -514,7 +514,7 @@ public:
      * @param speedMin The minimum rotation speed of emitted particles.
      * @param speedMax The maximum rotation speed of emitted particles.
      */
-   void setRotation(float speedMin, float speedMax, const Vector3& axis, const Vector3& axisVariance);
+   void setRotation(float speedMin, float speedMax, const kmVec3& axis, const kmVec3& axisVariance);
 
     /**
      * Gets the minimum rotation speed of emitted particles.
@@ -535,14 +535,14 @@ public:
      *
      * @return The base rotation axis of emitted particles.
      */
-    const Vector3& getRotationAxis() const;
+    const kmVec3& getRotationAxis() const;
 
     /**
      * Gets the variance of the rotation axis of emitted particles.
      *
      * @return The variance of the rotation axis of emitted particles.
      */
-    const Vector3& getRotationAxisVariance() const;
+    const kmVec3& getRotationAxisVariance() const;
 
     /**
      * Sets whether particles cycle through the sprite frames.
@@ -752,15 +752,15 @@ private:
     long generateScalar(long min, long max);
 
     // Generates a vector within the domain defined by a base vector and its variance.
-    void generateVectorInRect(const Vector3& base, const Vector3& variance, Vector3* dst);
+    void generateVectorInRect(const kmVec3& base, const kmVec3& variance, kmVec3* dst);
 
     // Generates a vector within the ellipsoidal domain defined by a center point and scale vector.
-    void generateVectorInEllipsoid(const Vector3& center, const Vector3& scale, Vector3* dst);
+    void generateVectorInEllipsoid(const kmVec3& center, const kmVec3& scale, kmVec3* dst);
 
-    void generateVector(const Vector3& base, const Vector3& variance, Vector3* dst, bool ellipsoid);
+    void generateVector(const kmVec3& base, const kmVec3& variance, kmVec3* dst, bool ellipsoid);
 
     // Generates a color within the domain defined by a base vector and its variance.
-    void generateColor(const Vector4& base, const Vector4& variance, Vector4* dst);
+    void generateColor(const kmVec4& base, const kmVec4& variance, kmVec4* dst);
 
     // Gets the blend mode from string.
     static ParticleEmitter::BlendMode getBlendModeFromString(const char* src);
@@ -772,14 +772,14 @@ private:
     {
 
     public:
-        Vector3 _position;
-        Vector3 _velocity;
-        Vector3 _acceleration;
+        kmVec3 _position;
+        kmVec3 _velocity;
+        kmVec3 _acceleration;
         Vector4 _colorStart;
         Vector4 _colorEnd;
         Vector4 _color;
         float _rotationPerParticleSpeed;
-        Vector3 _rotationAxis;
+        kmVec3 _rotationAxis;
         float _rotationSpeed;
         float _angle;
         long _energyStart;
@@ -807,18 +807,18 @@ private:
     Vector4 _colorStartVar;
     Vector4 _colorEnd;
     Vector4 _colorEndVar;
-    Vector3 _position;
-    Vector3 _positionVar;
-    Vector3 _velocity;
-    Vector3 _velocityVar;
-    Vector3 _acceleration;
-    Vector3 _accelerationVar;
+    kmVec3 _position;
+    kmVec3 _positionVar;
+    kmVec3 _velocity;
+    kmVec3 _velocityVar;
+    kmVec3 _acceleration;
+    kmVec3 _accelerationVar;
     float _rotationPerParticleSpeedMin;
     float _rotationPerParticleSpeedMax;
     float _rotationSpeedMin;
     float _rotationSpeedMax;
-    Vector3 _rotationAxis;
-    Vector3 _rotationAxisVar;
+    kmVec3 _rotationAxis;
+    kmVec3 _rotationAxisVar;
     Matrix _rotation;
     SpriteBatch* _spriteBatch;
     BlendMode _spriteBlendMode;

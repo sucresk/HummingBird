@@ -10,7 +10,7 @@ BoundingBox::BoundingBox()
 {
 }
 
-BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
+BoundingBox::BoundingBox(const kmVec3& min, const kmVec3& max)
 {
     set(min, max);
 }
@@ -35,7 +35,7 @@ const BoundingBox& BoundingBox::empty()
     return b;
 }
 
-void BoundingBox::getCorners(Vector3* dst) const
+void BoundingBox::getCorners(kmVec3* dst) const
 {
     GP_ASSERT(dst);
 
@@ -60,14 +60,14 @@ void BoundingBox::getCorners(Vector3* dst) const
     dst[7].set(min.x, max.y, min.z);
 }
 
-Vector3 BoundingBox::getCenter() const
+kmVec3 BoundingBox::getCenter() const
 {
-    Vector3 center;
+    kmVec3 center;
     getCenter(&center);
     return center;
 }
 
-void BoundingBox::getCenter(Vector3* dst) const
+void BoundingBox::getCenter(kmVec3* dst) const
 {
     GP_ASSERT(dst);
 
@@ -102,7 +102,7 @@ bool BoundingBox::intersects(const Frustum& frustum) const
 float BoundingBox::intersects(const Plane& plane) const
 {
     // Calculate the distance from the center of the box to the plane.
-    Vector3 center((min.x + max.x) * 0.5f, (min.y + max.y) * 0.5f, (min.z + max.z) * 0.5f);
+    kmVec3 center((min.x + max.x) * 0.5f, (min.y + max.y) * 0.5f, (min.z + max.z) * 0.5f);
     float distance = plane.distance(center);
 
     // Get the extents of the box from its center along each axis.
@@ -110,7 +110,7 @@ float BoundingBox::intersects(const Plane& plane) const
     float extentY = (max.y - min.y) * 0.5f;
     float extentZ = (max.z - min.z) * 0.5f;
 
-    const Vector3& planeNormal = plane.getNormal();
+    const kmVec3& planeNormal = plane.getNormal();
     if (fabsf(distance) <= (fabsf(extentX * planeNormal.x) + fabsf(extentY * planeNormal.y) + fabsf(
         extentZ * planeNormal.z)))
     {
@@ -128,8 +128,8 @@ float BoundingBox::intersects(const Ray& ray) const
     float tmin = 0.0f;
     float tmax = 0.0f;
 
-    const Vector3& origin = ray.getOrigin();
-    const Vector3& direction = ray.getDirection();
+    const kmVec3& origin = ray.getOrigin();
+    const kmVec3& direction = ray.getDirection();
 
     // X direction.
     float div = 1.0f / direction.x;
@@ -232,7 +232,7 @@ void BoundingBox::merge(const BoundingBox& box)
 
 void BoundingBox::merge(const BoundingSphere& sphere)
 {
-    const Vector3& center = sphere.center;
+    const kmVec3& center = sphere.center;
     float radius = sphere.radius;
 
     // Calculate the new minimum point for the merged bounding box.
@@ -246,7 +246,7 @@ void BoundingBox::merge(const BoundingSphere& sphere)
     max.z = std::max(max.z, center.z + radius);
 }
 
-void BoundingBox::set(const Vector3& min, const Vector3& max)
+void BoundingBox::set(const kmVec3& min, const kmVec3& max)
 {
     this->min = min;
     this->max = max;
@@ -258,7 +258,7 @@ void BoundingBox::set(float minX, float minY, float minZ, float maxX, float maxY
     max.set(maxX, maxY, maxZ);
 }
 
-static void updateMinMax(Vector3* point, Vector3* min, Vector3* max)
+static void updateMinMax(kmVec3* point, kmVec3* min, kmVec3* max)
 {
     GP_ASSERT(point);
     GP_ASSERT(min);
@@ -309,7 +309,7 @@ void BoundingBox::set(const BoundingBox& box)
 
 void BoundingBox::set(const BoundingSphere& sphere)
 {
-    const Vector3& center = sphere.center;
+    const kmVec3& center = sphere.center;
     float radius = sphere.radius;
 
     // Calculate the minimum point for the box.
@@ -323,16 +323,16 @@ void BoundingBox::set(const BoundingSphere& sphere)
     max.z = center.z + radius;
 }
 
-void BoundingBox::transform(const Matrix& matrix)
+void BoundingBox::transform(const kmMat4& matrix)
 {
     // Calculate the corners.
-    Vector3 corners[8];
+    kmVec3 corners[8];
     getCorners(corners);
 
     // Transform the corners, recalculating the min and max points along the way.
     matrix.transformPoint(&corners[0]);
-    Vector3 newMin = corners[0];
-    Vector3 newMax = corners[0];
+    kmVec3 newMin = corners[0];
+    kmVec3 newMax = corners[0];
     for (int i = 1; i < 8; i++)
     {
         matrix.transformPoint(&corners[i]);

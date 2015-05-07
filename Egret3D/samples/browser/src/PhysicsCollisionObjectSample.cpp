@@ -166,7 +166,7 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
         float distance = ray.intersects(Plane(0, 1, 0, -0.5f));
         if (distance != Ray::INTERSECTS_NONE)
         {
-            Vector3 position((ray.getDirection() * distance) + ray.getOrigin());
+            kmVec3 position((ray.getDirection() * distance) + ray.getOrigin());
             position.y += 8.0f;
             clone->setTranslation(position);
         }
@@ -178,7 +178,7 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     if (_throw)
     {
         PhysicsRigidBody* rigidBody = static_cast<PhysicsRigidBody*>(collisionObject);
-        Vector3 impulse(ray.getDirection());
+        kmVec3 impulse(ray.getDirection());
         impulse.normalize();
         impulse.scale(50.0f * rigidBody->getMass());
         rigidBody->applyImpulse(impulse);

@@ -94,8 +94,8 @@ PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigi
 }
 
 PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigidBody* a,
-    const Quaternion& rotationOffsetA, const Vector3& translationOffsetA, PhysicsRigidBody* b,
-    const Quaternion& rotationOffsetB, const Vector3& translationOffsetB)
+    const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b,
+    const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsGenericConstraint* constraint = new PhysicsGenericConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -104,8 +104,8 @@ PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigi
 }
 
 PhysicsHingeConstraint* PhysicsController::createHingeConstraint(PhysicsRigidBody* a,
-    const Quaternion& rotationOffsetA, const Vector3& translationOffsetA, PhysicsRigidBody* b, 
-    const Quaternion& rotationOffsetB, const Vector3& translationOffsetB)
+    const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b, 
+    const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsHingeConstraint* constraint = new PhysicsHingeConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -122,7 +122,7 @@ PhysicsSocketConstraint* PhysicsController::createSocketConstraint(PhysicsRigidB
 }
 
 PhysicsSocketConstraint* PhysicsController::createSocketConstraint(PhysicsRigidBody* a,
-    const Vector3& translationOffsetA, PhysicsRigidBody* b, const Vector3& translationOffsetB)
+    const kmVec3& translationOffsetA, PhysicsRigidBody* b, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsSocketConstraint* constraint = new PhysicsSocketConstraint(a,translationOffsetA, b, translationOffsetB);
@@ -138,8 +138,8 @@ PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidB
     return constraint;
 }
 
-PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const Vector3& translationOffsetA,           
-                                                                   PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const Vector3& translationOffsetB)
+PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,           
+                                                                   PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsSpringConstraint* constraint = new PhysicsSpringConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -147,12 +147,12 @@ PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidB
     return constraint;
 }
 
-const Vector3& PhysicsController::getGravity() const
+const kmVec3& PhysicsController::getGravity() const
 {
     return _gravity;
 }
 
-void PhysicsController::setGravity(const Vector3& gravity)
+void PhysicsController::setGravity(const kmVec3& gravity)
 {
     _gravity = gravity;
 
@@ -160,7 +160,7 @@ void PhysicsController::setGravity(const Vector3& gravity)
         _world->setGravity(BV(_gravity));
 }
 
-void PhysicsController::drawDebug(const Matrix& viewProjection)
+void PhysicsController::drawDebug(const kmMat4& viewProjection)
 {
     GP_ASSERT(_debugDrawer);
     GP_ASSERT(_world);
@@ -181,7 +181,7 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
 
     public:
 
-        RayTestCallback(const btVector3& rayFromWorld, const btVector3& rayToWorld, PhysicsController::HitFilter* filter)
+        RayTestCallback(const btkmVec3& rayFromWorld, const btkmVec3& rayToWorld, PhysicsController::HitFilter* filter)
             : btCollisionWorld::ClosestRayResultCallback(rayFromWorld, rayToWorld), filter(filter)
         {
         }
@@ -223,8 +223,8 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
 
     GP_ASSERT(_world);
 
-    btVector3 rayFromWorld(BV(ray.getOrigin()));
-    btVector3 rayToWorld(rayFromWorld + BV(ray.getDirection() * distance));
+    btkmVec3 rayFromWorld(BV(ray.getOrigin()));
+    btkmVec3 rayToWorld(rayFromWorld + BV(ray.getDirection() * distance));
 
     RayTestCallback callback(rayFromWorld, rayToWorld, filter);
     _world->rayTest(rayFromWorld, rayToWorld, callback);
@@ -244,7 +244,7 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
     return false;
 }
 
-bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const Vector3& endPosition, PhysicsController::HitResult* result, PhysicsController::HitFilter* filter)
+bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& endPosition, PhysicsController::HitResult* result, PhysicsController::HitFilter* filter)
 {
     class SweepTestCallback : public btCollisionWorld::ClosestConvexResultCallback
     {
@@ -307,9 +307,9 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const Vector3&
     start.setIdentity();
     if (object->getNode())
     {
-        Vector3 translation;
+        kmVec3 translation;
         Quaternion rotation;
-        const Matrix& m = object->getNode()->getWorldMatrix();
+        const kmMat4& m = object->getNode()->getWorldMatrix();
         m.getTranslation(&translation);
         m.getRotation(&rotation);
 
@@ -768,7 +768,7 @@ static void getBoundingSphere(Node* node, BoundingSphere* out, bool merge = fals
     }
 }
 
-static void computeCenterOfMass(const Vector3& center, const Vector3& scale, Vector3* centerOfMassOffset)
+static void computeCenterOfMass(const kmVec3& center, const kmVec3& scale, kmVec3* centerOfMassOffset)
 {
     GP_ASSERT(centerOfMassOffset);
 
@@ -780,14 +780,14 @@ static void computeCenterOfMass(const Vector3& center, const Vector3& scale, Vec
     centerOfMassOffset->negate();
 }
 
-PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsCollisionShape::Definition& shape, Vector3* centerOfMassOffset, bool dynamic)
+PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsCollisionShape::Definition& shape, kmVec3* centerOfMassOffset, bool dynamic)
 {
     GP_ASSERT(node);
 
     PhysicsCollisionShape* collisionShape = NULL;
 
     // Get the node's world scale (we need to apply this during creation since rigid bodies don't scale dynamically).
-    Vector3 scale;
+    kmVec3 scale;
     node->getWorldMatrix().getScale(&scale);
 
     switch (shape.type)
@@ -917,9 +917,9 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
     return collisionShape;
 }
 
-PhysicsCollisionShape* PhysicsController::createBox(const Vector3& extents, const Vector3& scale)
+PhysicsCollisionShape* PhysicsController::createBox(const kmVec3& extents, const kmVec3& scale)
 {
-    btVector3 halfExtents(scale.x * 0.5 * extents.x, scale.y * 0.5 * extents.y, scale.z * 0.5 * extents.z);
+    btkmVec3 halfExtents(scale.x * 0.5 * extents.x, scale.y * 0.5 * extents.y, scale.z * 0.5 * extents.z);
 
     PhysicsCollisionShape* shape;
 
@@ -946,7 +946,7 @@ PhysicsCollisionShape* PhysicsController::createBox(const Vector3& extents, cons
     return shape;
 }
 
-PhysicsCollisionShape* PhysicsController::createSphere(float radius, const Vector3& scale)
+PhysicsCollisionShape* PhysicsController::createSphere(float radius, const kmVec3& scale)
 {
     // Since sphere shapes depend only on the radius, the best we can do is take
     // the largest dimension and apply that as the uniform scale to the rigid body.
@@ -983,7 +983,7 @@ PhysicsCollisionShape* PhysicsController::createSphere(float radius, const Vecto
     return shape;
 }
 
-PhysicsCollisionShape* PhysicsController::createCapsule(float radius, float height, const Vector3& scale)
+PhysicsCollisionShape* PhysicsController::createCapsule(float radius, float height, const kmVec3& scale)
 {
     float girthScale = scale.x;
     if (girthScale < scale.z)
@@ -1016,7 +1016,7 @@ PhysicsCollisionShape* PhysicsController::createCapsule(float radius, float heig
     return shape;
 }
 
-PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightField* heightfield, Vector3* centerOfMassOffset)
+PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightField* heightfield, kmVec3* centerOfMassOffset)
 {
     GP_ASSERT(node);
     GP_ASSERT(heightfield);
@@ -1035,14 +1035,14 @@ PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightFi
     }
 
     // Compute initial heightfield scale by pulling the current world scale out of the node
-    Vector3 scale;
+    kmVec3 scale;
     node->getWorldMatrix().getScale(&scale);
 
     // If the node has a terrain, apply the terrain's local scale to the world scale
     Terrain* terrain = dynamic_cast<Terrain*>(node->getDrawable());
     if (terrain != NULL)
     {
-        const Vector3& tScale = terrain->_localScale;
+        const kmVec3& tScale = terrain->_localScale;
         scale.set(scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z);
     }
 
@@ -1074,7 +1074,7 @@ PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightFi
     return shape;
 }
 
-PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const Vector3& scale, bool dynamic)
+PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const kmVec3& scale, bool dynamic)
 {
     GP_ASSERT(mesh);
 
@@ -1132,7 +1132,7 @@ PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const Vector3& 
     Matrix::createScale(scale, &m);
     unsigned int vertexCount = data->vertexCount;
     shapeMeshData->vertexData = new float[vertexCount * 3];
-    Vector3 v;
+    kmVec3 v;
     int vertexStride = data->vertexFormat.getVertexSize();
     for (unsigned int i = 0; i < data->vertexCount; i++)
     {
@@ -1379,7 +1379,7 @@ PhysicsController::DebugDrawer::~DebugDrawer()
     SAFE_DELETE(_meshBatch);
 }
 
-void PhysicsController::DebugDrawer::begin(const Matrix& viewProjection)
+void PhysicsController::DebugDrawer::begin(const kmMat4& viewProjection)
 {
     GP_ASSERT(_meshBatch);
     _meshBatch->start();
@@ -1394,7 +1394,7 @@ void PhysicsController::DebugDrawer::end()
     _lineCount = 0;
 }
 
-void PhysicsController::DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
+void PhysicsController::DebugDrawer::drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& fromColor, const btkmVec3& toColor)
 {
     GP_ASSERT(_meshBatch);
 
@@ -1427,12 +1427,12 @@ void PhysicsController::DebugDrawer::drawLine(const btVector3& from, const btVec
     }
 }
 
-void PhysicsController::DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
+void PhysicsController::DebugDrawer::drawLine(const btkmVec3& from, const btkmVec3& to, const btkmVec3& color)
 {
     drawLine(from, to, color, color);
 }
 
-void PhysicsController::DebugDrawer::drawContactPoint(const btVector3& pointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
+void PhysicsController::DebugDrawer::drawContactPoint(const btkmVec3& pointOnB, const btkmVec3& normalOnB, btScalar distance, int lifeTime, const btkmVec3& color)
 {
     drawLine(pointOnB, pointOnB + normalOnB, color);
 }
@@ -1442,7 +1442,7 @@ void PhysicsController::DebugDrawer::reportErrorWarning(const char* warningStrin
     GP_WARN(warningString);
 }
 
-void PhysicsController::DebugDrawer::draw3dText(const btVector3& location, const char* textString)
+void PhysicsController::DebugDrawer::draw3dText(const btkmVec3& location, const char* textString)
 {
     GP_WARN("Physics debug drawing: 3D text is not supported.");
 }

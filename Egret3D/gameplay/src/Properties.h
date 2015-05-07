@@ -2,8 +2,8 @@
 #define PROPERTIES_H_
 
 #include "Base.h"
-#include "Matrix.h"
-#include "Vector2.h"
+#include "mat4.h"
+#include "vec2.h"
 #include "Stream.h"
 
 namespace egret
@@ -317,7 +317,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getMatrix(const char* name, Matrix* out) const;
+    bool getMatrix(const char* name, kmMat4* out) const;
 
     /**
      * Interpret the value of the given property as a Vector2.
@@ -343,7 +343,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getVector3(const char* name, Vector3* out) const;
+    bool getVector3(const char* name, kmVec3* out) const;
 
     /**
      * Interpret the value of the given property as a Vector4.
@@ -356,7 +356,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getVector4(const char* name, Vector4* out) const;
+    bool getVector4(const char* name, kmVec4* out) const;
 
     /**
      * Interpret the value of the given property as a Quaternion specified as an axis angle.
@@ -383,7 +383,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getColor(const char* name, Vector3* out) const;
+    bool getColor(const char* name, kmVec3* out) const;
 
     /**
      * Interpret the value of the given property as an RGBA color in hex and write this color to a Vector4.
@@ -397,7 +397,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getColor(const char* name, Vector4* out) const;
+    bool getColor(const char* name, kmVec4* out) const;
 
     /**
      * Gets the file path for the given property if the file exists.
@@ -447,16 +447,16 @@ public:
     static bool parseVector2(const char* str, Vector2* out);
 
     /**
-     * Attempts to parse the specified string as a Vector3 value.
+     * Attempts to parse the specified string as a kmVec3 value.
      *
      * On error, false is returned and the output is set to all zero values.
      *
      * @param str The string to parse.
      * @param out The value to populate if successful.
      *
-     * @return True if a valid Vector3 was parsed, false otherwise.
+     * @return True if a valid kmVec3 was parsed, false otherwise.
      */
-    static bool parseVector3(const char* str, Vector3* out);
+    static bool parseVector3(const char* str, kmVec3* out);
     
     /**
      * Attempts to parse the specified string as a Vector4 value.
@@ -468,7 +468,7 @@ public:
      *
      * @return True if a valid Vector4 was parsed, false otherwise.
      */
-    static bool parseVector4(const char* str, Vector4* out);
+    static bool parseVector4(const char* str, kmVec4* out);
 
     /**
      * Attempts to parse the specified string as an axis-angle value.
@@ -494,7 +494,7 @@ public:
      *
      * @return True if a valid RGB color was parsed, false otherwise.
      */
-    static bool parseColor(const char* str, Vector3* out);
+    static bool parseColor(const char* str, kmVec3* out);
 
     /**
      * Atempts to parse the specified string as an RGBA color value.
@@ -504,7 +504,7 @@ public:
      *
      * @return True if a valid RGBA color was parsed, false otherwise.
      */
-    static bool parseColor(const char* str, Vector4* out);
+    static bool parseColor(const char* str, kmVec4* out);
 
 private:
     

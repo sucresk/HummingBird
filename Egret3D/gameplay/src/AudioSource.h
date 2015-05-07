@@ -144,14 +144,14 @@ public:
      *
      * @return The velocity as a vector.
      */
-    const Vector3& getVelocity() const;
+    const kmVec3& getVelocity() const;
 
     /**
      * Sets the velocity of the audio source.
      *
      * @param velocity A vector representing the velocity.
      */
-    void setVelocity(const Vector3& velocity);
+    void setVelocity(const kmVec3& velocity);
 
     /**
      * Sets the velocity of the audio source.
@@ -211,7 +211,7 @@ private:
     bool _looped;
     float _gain;
     float _pitch;
-    Vector3 _velocity;
+    kmVec3 _velocity;
     Node* _node;
 };
 

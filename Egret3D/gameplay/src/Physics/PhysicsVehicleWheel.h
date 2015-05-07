@@ -63,28 +63,28 @@ public:
      *
      * @param wheelDirection address of where to store the result.
      */
-    void getWheelDirection(Vector3* wheelDirection) const;
+    void getWheelDirection(kmVec3* wheelDirection) const;
 
     /**
      * Sets direction of strut extension, in chassis space.
      *
      * @param wheelDirection direction of strut extension.
      */
-    void setWheelDirection(const Vector3& wheelDirection);
+    void setWheelDirection(const kmVec3& wheelDirection);
 
     /**
      * Gets direction of axle (the spin axis), in chassis space.
      *
      * @param wheelAxle address of where to store the result.
      */
-    void getWheelAxle(Vector3* wheelAxle) const;
+    void getWheelAxle(kmVec3* wheelAxle) const;
 
     /**
      * Sets direction of axle (the spin axis), in chassis space.
      *
      * @param wheelAxle direction of axle (the spin axis).
      */
-    void setWheelAxle(const Vector3& wheelAxle);
+    void setWheelAxle(const kmVec3& wheelAxle);
 
     /**
      * Gets offset from the default strut connection point.
@@ -98,7 +98,7 @@ public:
      *
      * @param strutConnectionOffset address of where to store the result.
      */
-    void getStrutConnectionOffset(Vector3* strutConnectionOffset) const;
+    void getStrutConnectionOffset(kmVec3* strutConnectionOffset) const;
 
     /**
      * Sets offset from the default strut connection point.
@@ -113,7 +113,7 @@ public:
      * @param strutConnectionOffset offset from the default strut connection
      *     point.
      */
-    void setStrutConnectionOffset(const Vector3& strutConnectionOffset);
+    void setStrutConnectionOffset(const kmVec3& strutConnectionOffset);
 
     /**
      * Gets the strut rest length.
@@ -348,19 +348,19 @@ private:
      *
      * @param result where to store the result.
      */
-    void getConnectionDefault(Vector3* result) const;
+    void getConnectionDefault(kmVec3* result) const;
 
     /**
      * Get wheel position at bind time relative to chassis.
      *
      * @param result where to store the result.
      */
-    void getWheelPos(Vector3* result) const;
+    void getWheelPos(kmVec3* result) const;
 
     PhysicsVehicle* _host;
     unsigned int _indexInHost;
-    Vector3 _initialOffset;
-    Vector3 _positionDelta;
+    kmVec3 _initialOffset;
+    kmVec3 _positionDelta;
     Quaternion _orientation;
 };
 

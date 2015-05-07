@@ -140,7 +140,7 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::Definition::create(Node
 
     // Set values to their defaults.
     PhysicsCollisionShape::Type type = PhysicsCollisionShape::SHAPE_BOX;
-    Vector3 extents, center;
+    kmVec3 extents, center;
     bool extentsSpecified = false;
     bool centerSpecified = false;
     float radius = -1.0f;
@@ -362,7 +362,7 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::box()
     return d;
 }
 
-PhysicsCollisionShape::Definition PhysicsCollisionShape::box(const Vector3& extents, const Vector3& center, bool absolute)
+PhysicsCollisionShape::Definition PhysicsCollisionShape::box(const kmVec3& extents, const kmVec3& center, bool absolute)
 {
     Definition d;
     d.type = SHAPE_BOX;
@@ -382,7 +382,7 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::sphere()
     return d;
 }
 
-PhysicsCollisionShape::Definition PhysicsCollisionShape::sphere(float radius, const Vector3& center, bool absolute)
+PhysicsCollisionShape::Definition PhysicsCollisionShape::sphere(float radius, const kmVec3& center, bool absolute)
 {
     Definition d;
     d.type = SHAPE_SPHERE;
@@ -402,7 +402,7 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::capsule()
     return d;
 }
 
-PhysicsCollisionShape::Definition PhysicsCollisionShape::capsule(float radius, float height, const Vector3& center, bool absolute)
+PhysicsCollisionShape::Definition PhysicsCollisionShape::capsule(float radius, float height, const kmVec3& center, bool absolute)
 {
     Definition d;
     d.type = SHAPE_CAPSULE;

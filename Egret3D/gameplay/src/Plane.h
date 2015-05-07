@@ -228,7 +228,7 @@ private:
      */
     void normalize();
 
-    Vector3 _normal;    // The normal vector of the Plane.
+    kmVec3 _normal;    // The normal vector of the Plane.
     float _distance;    // The distance of the Plane along its normal from the origin.
 };
 
@@ -239,7 +239,7 @@ private:
  * @param plane The plane to transform.
  * @return The resulting transformed plane.
  */
-inline const Plane operator*(const Matrix& matrix, const Plane& plane);
+inline const Plane operator*(const kmMat4& matrix, const Plane& plane);
 
 }
 

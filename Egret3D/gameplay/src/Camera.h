@@ -192,21 +192,21 @@ public:
      *
      * @return The camera view matrix.
      */
-    const Matrix& getViewMatrix() const;
+    const kmMat4& getViewMatrix() const;
 
     /**
      * Gets the camera's inverse view matrix.
      *
      * @return The camera inverse view matrix.
      */
-    const Matrix& getInverseViewMatrix() const;
+    const kmMat4& getInverseViewMatrix() const;
 
     /**
      * Gets the camera's projection matrix.
      *
      * @return The camera projection matrix.
      */
-    const Matrix& getProjectionMatrix() const;
+    const kmMat4& getProjectionMatrix() const;
 
     /**
      * Sets a custom projection matrix to be used by the camera.
@@ -220,7 +220,7 @@ public:
      *
      * @param matrix Custom projection matrix.
      */
-    void setProjectionMatrix(const Matrix& matrix);
+    void setProjectionMatrix(const kmMat4& matrix);
 
     /**
      * Resets the camera to use the internally computed projection matrix
@@ -233,14 +233,14 @@ public:
      *
      * @return The camera view * projection matrix.
      */
-    const Matrix& getViewProjectionMatrix() const;
+    const kmMat4& getViewProjectionMatrix() const;
 
     /**
      * Gets the camera's inverse view * projection matrix.
      *
      * @return The camera inverse view * projection matrix.
      */
-    const Matrix& getInverseViewProjectionMatrix() const;
+    const kmMat4& getInverseViewProjectionMatrix() const;
 
     /**
      * Gets the view bounding frustum.
@@ -260,7 +260,7 @@ public:
      *
      * @script{ignore}
      */
-    void project(const Rectangle& viewport, const Vector3& position, float* x, float* y, float* depth = NULL) const;
+    void project(const Rectangle& viewport, const kmVec3& position, float* x, float* y, float* depth = NULL) const;
 
     /**
      * Projects the specified world position into the viewport coordinates.
@@ -269,7 +269,7 @@ public:
      * @param position The world space position.
      * @param out Populated with the resulting screen-space position.
      */
-    void project(const Rectangle& viewport, const Vector3& position, Vector2* out) const;
+    void project(const Rectangle& viewport, const kmVec3& position, Vector2* out) const;
 
     /**
      * Projects the specified world position into the viewport coordinates.
@@ -278,7 +278,7 @@ public:
      * @param position The world space position.
      * @param out Populated with the resulting screen-space position, with the pixel depth in the Z coordinate.
      */
-    void project(const Rectangle& viewport, const Vector3& position, Vector3* out) const;
+    void project(const Rectangle& viewport, const kmVec3& position, kmVec3* out) const;
 
     /**
      * Converts a viewport-space coordinate to a world-space position for the given depth value.
@@ -292,7 +292,7 @@ public:
      * @param depth The depth range.
      * @param dst The world space position.
      */
-    void unproject(const Rectangle& viewport, float x, float y, float depth, Vector3* dst) const;
+    void unproject(const Rectangle& viewport, float x, float y, float depth, kmVec3* dst) const;
 
     /**
      * Picks a ray that can be used for picking given the specified viewport-space coordinates.

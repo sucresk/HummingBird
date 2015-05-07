@@ -74,7 +74,7 @@ public:
      * @return The created mesh.
      * @script{create}
      */
-    static Mesh* createQuad(const Vector3& p1, const Vector3& p2, const Vector3& p3, const Vector3& p4);
+    static Mesh* createQuad(const kmVec3& p1, const kmVec3& p2, const kmVec3& p3, const kmVec3& p4);
 
     /**
      * Constructs a new textured 2D quad.
@@ -108,7 +108,7 @@ public:
     static Mesh* createQuadFullscreen();
 
     /**
-     * Creates lines between 2 or more points passed in as a Vector3 array.
+     * Creates lines between 2 or more points passed in as a kmVec3 array.
      *
      * The mesh contains only position data using lines to connect the vertices.
      * This is useful for drawing basic color elements into a scene.
@@ -119,7 +119,7 @@ public:
      * @return The newly created mesh.
      * @script{create}
      */
-    static Mesh* createLines(Vector3* points, unsigned int pointCount);
+    static Mesh* createLines(kmVec3* points, unsigned int pointCount);
 
     /**
      * Creates a bounding box mesh when passed a BoundingBox.

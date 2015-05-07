@@ -214,7 +214,7 @@ public:
      * @param clearDepth The depth value to clear to when the flags includes the color buffer.
      * @param clearStencil The stencil value to clear to when the flags includes the color buffer.
      */
-    void clear(ClearFlags flags, const Vector4& clearColor, float clearDepth, int clearStencil);
+    void clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, int clearStencil);
 
     /**
      * Clears the specified resource buffers to the specified clear values. 

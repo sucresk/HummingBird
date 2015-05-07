@@ -21,7 +21,7 @@ MeshSkin::~MeshSkin()
     SAFE_DELETE_ARRAY(_matrixPalette);
 }
 
-const Matrix& MeshSkin::getBindShape() const
+const kmMat4& MeshSkin::getBindShape() const
 {
     return _bindShape;
 }
@@ -155,7 +155,7 @@ void MeshSkin::setJoint(Joint* joint, unsigned int index)
     }
 }
 
-Vector4* MeshSkin::getMatrixPalette() const
+kmVec4* MeshSkin::getMatrixPalette() const
 {
     GP_ASSERT(_matrixPalette);
 

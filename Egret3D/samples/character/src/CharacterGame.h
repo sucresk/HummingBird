@@ -46,8 +46,8 @@ public:
      */
     void collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
                                     const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const Vector3& contactPointA = Vector3::zero(),
-                                    const Vector3& contactPointB = Vector3::zero());
+                                    const kmVec3& contactPointA = Vector3::zero(),
+                                    const kmVec3& contactPointB = Vector3::zero());
 protected:
 
     /**
@@ -103,7 +103,7 @@ private:
     unsigned int _keyFlags;
     bool _physicsDebug;
     bool _wireframe;
-    Vector3 _oldBallPosition;
+    kmVec3 _oldBallPosition;
     bool _hasBall;
     bool _applyKick;
     bool _kicking;

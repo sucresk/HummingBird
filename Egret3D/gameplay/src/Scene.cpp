@@ -375,7 +375,7 @@ void Scene::bindAudioListenerToCamera(bool bind)
     }
 }
 
-const Vector3& Scene::getAmbientColor() const
+const kmVec3& Scene::getAmbientColor() const
 {
     return _ambientColor;
 }

@@ -33,12 +33,12 @@ private:
 
     struct Vertex
     {
-        Vector3 position;
-        Vector3 color;
+        kmVec3 position;
+        kmVec3 color;
 
         Vertex() { }
 
-        Vertex(const Vector3& position, const Vector3& color) : position(position), color(color) { }
+        Vertex(const kmVec3& position, const kmVec3& color) : position(position), color(color) { }
     };
 
     Font* _font;

@@ -296,14 +296,14 @@ std::string ParticlesSample::toString(unsigned int i)
     return buf;
 }
 
-std::string ParticlesSample::toString(const Vector3& v)
+std::string ParticlesSample::toString(const kmVec3& v)
 {
     std::ostringstream s;
     s << v.x << ", " << v.y << ", " << v.z;
     return s.str();
 }
 
-std::string ParticlesSample::toString(const Vector4& v)
+std::string ParticlesSample::toString(const kmVec4& v)
 {
     std::ostringstream s;
     s << v.x << ", " << v.y << ", " << v.z << ", " << v.w;
@@ -355,7 +355,7 @@ void ParticlesSample::saveFile()
     texturePath = texturePath.substr(textureDir.length());
 
     // Get camera rotation as axis-angle
-    Vector3 cameraAxis;
+    kmVec3 cameraAxis;
     float cameraAngle = MATH_RAD_TO_DEG(_cameraParent->getRotation().toAxisAngle(&cameraAxis));
 
     // Write out a properties file
@@ -505,109 +505,109 @@ void ParticlesSample::controlEvent(Control* control, EventType evt)
         }
         else if (id == "posX")
         {
-            Vector3 pos(emitter->getPosition());
+            kmVec3 pos(emitter->getPosition());
             pos.x = ((Slider*)control)->getValue();
             emitter->setPosition(pos, emitter->getPositionVariance());
         }
         else if (id == "posY")
         {
-            Vector3 pos(emitter->getPosition());
+            kmVec3 pos(emitter->getPosition());
             pos.y = ((Slider*)control)->getValue();
             emitter->setPosition(pos, emitter->getPositionVariance());
         }
         else if (id == "posZ")
         {
-            Vector3 pos(emitter->getPosition());
+            kmVec3 pos(emitter->getPosition());
             pos.z = ((Slider*)control)->getValue();
             emitter->setPosition(pos, emitter->getPositionVariance());
         }
         else if (control == _posVarX)
         {
-            Vector3 posVar = emitter->getPositionVariance();
+            kmVec3 posVar = emitter->getPositionVariance();
             posVar.x = _posVarX->getValue();
             emitter->setPosition(emitter->getPosition(), posVar);
         }
         else if (control == _posVarY)
         {
-            Vector3 posVar = emitter->getPositionVariance();
+            kmVec3 posVar = emitter->getPositionVariance();
             posVar.y = _posVarY->getValue();
             emitter->setPosition(emitter->getPosition(), posVar);
         }
         else if (control == _posVarZ)
         {
-            Vector3 posVar = emitter->getPositionVariance();
+            kmVec3 posVar = emitter->getPositionVariance();
             posVar.z = _posVarZ->getValue();
             emitter->setPosition(emitter->getPosition(), posVar);
         }
         else if (control == _velX)
         {
-            Vector3 vel = emitter->getVelocity();
+            kmVec3 vel = emitter->getVelocity();
             vel.x = _velX->getValue();
             emitter->setVelocity(vel, emitter->getVelocityVariance());
         }
         else if (control == _velY)
         {
-            Vector3 vel = emitter->getVelocity();
+            kmVec3 vel = emitter->getVelocity();
             vel.y = _velY->getValue();
             emitter->setVelocity(vel, emitter->getVelocityVariance());
         }
         else if (control == _velZ)
         {
-            Vector3 vel = emitter->getVelocity();
+            kmVec3 vel = emitter->getVelocity();
             vel.z = _velZ->getValue();
             emitter->setVelocity(vel, emitter->getVelocityVariance());
         }
         else if (control == _velVarX)
         {
-            Vector3 velVar = emitter->getVelocityVariance();
+            kmVec3 velVar = emitter->getVelocityVariance();
             velVar.x = _velVarX->getValue();
             emitter->setVelocity(emitter->getVelocity(), velVar);
         }
         else if (control == _velVarY)
         {
-            Vector3 velVar = emitter->getVelocityVariance();
+            kmVec3 velVar = emitter->getVelocityVariance();
             velVar.y = _velVarY->getValue();
             emitter->setVelocity(emitter->getVelocity(), velVar);
         }
         else if (control == _velVarZ)
         {
-            Vector3 velVar = emitter->getVelocityVariance();
+            kmVec3 velVar = emitter->getVelocityVariance();
             velVar.z = _velVarZ->getValue();
             emitter->setVelocity(emitter->getVelocity(), velVar);
         }
         else if (control == _accelX)
         {
-            Vector3 accel = emitter->getAcceleration();
+            kmVec3 accel = emitter->getAcceleration();
             accel.x = _accelX->getValue();
             emitter->setAcceleration(accel, emitter->getAccelerationVariance());
         }
         else if (control == _accelY)
         {
-            Vector3 accel = emitter->getAcceleration();
+            kmVec3 accel = emitter->getAcceleration();
             accel.y = _accelY->getValue();
             emitter->setAcceleration(accel, emitter->getAccelerationVariance());
         }
         else if (control == _accelZ)
         {
-            Vector3 accel = emitter->getAcceleration();
+            kmVec3 accel = emitter->getAcceleration();
             accel.z = _accelZ->getValue();
             emitter->setAcceleration(accel, emitter->getAccelerationVariance());
         }
         else if (control == _accelVarX)
         {
-            Vector3 accelVar = emitter->getAccelerationVariance();
+            kmVec3 accelVar = emitter->getAccelerationVariance();
             accelVar.x = _accelVarX->getValue();
             emitter->setAcceleration(emitter->getAcceleration(), accelVar);
         }
         else if (control == _accelVarY)
         {
-            Vector3 accelVar = emitter->getAccelerationVariance();
+            kmVec3 accelVar = emitter->getAccelerationVariance();
             accelVar.y = _accelVarY->getValue();
             emitter->setAcceleration(emitter->getAcceleration(), accelVar);
         }
         else if (control == _accelVarZ)
         {
-            Vector3 accelVar = emitter->getAccelerationVariance();
+            kmVec3 accelVar = emitter->getAccelerationVariance();
             accelVar.z = _accelVarZ->getValue();
             emitter->setAcceleration(emitter->getAcceleration(), accelVar);
         }
@@ -621,37 +621,37 @@ void ParticlesSample::controlEvent(Control* control, EventType evt)
         }
         else if (control == _axisX)
         {
-            Vector3 axis = emitter->getRotationAxis();
+            kmVec3 axis = emitter->getRotationAxis();
             axis.x = _axisX->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), axis, emitter->getRotationAxisVariance());
         }
         else if (control == _axisY)
         {
-            Vector3 axis = emitter->getRotationAxis();
+            kmVec3 axis = emitter->getRotationAxis();
             axis.y = _axisY->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), axis, emitter->getRotationAxisVariance());
         }
         else if (control == _axisZ)
         {
-            Vector3 axis = emitter->getRotationAxis();
+            kmVec3 axis = emitter->getRotationAxis();
             axis.z = _axisZ->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), axis, emitter->getRotationAxisVariance());
         }
         else if (control == _axisVarX)
         {
-            Vector3 axisVar = emitter->getRotationAxisVariance();
+            kmVec3 axisVar = emitter->getRotationAxisVariance();
             axisVar.x = _axisVarX->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), emitter->getRotationAxis(), axisVar);
         }
         else if (control == _axisVarY)
         {
-            Vector3 axisVar = emitter->getRotationAxisVariance();
+            kmVec3 axisVar = emitter->getRotationAxisVariance();
             axisVar.y = _axisVarY->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), emitter->getRotationAxis(), axisVar);
         }
         else if (control == _axisVarZ)
         {
-            Vector3 axisVar = emitter->getRotationAxisVariance();
+            kmVec3 axisVar = emitter->getRotationAxisVariance();
             axisVar.z = _axisVarZ->getValue();
             emitter->setRotation(emitter->getRotationSpeedMin(), emitter->getRotationSpeedMax(), emitter->getRotationAxis(), axisVar);
         }
@@ -794,28 +794,28 @@ void ParticlesSample::update(float elapsedTime)
     // Update camera movement
     if (_wDown)
     {
-        Vector3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
+        kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
         v.normalize();
         v.scale(INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_aDown)
     {
-        Vector3 v = _scene->getActiveCamera()->getNode()->getLeftVector();
+        kmVec3 v = _scene->getActiveCamera()->getNode()->getLeftVector();
         v.normalize();
         v.scale(INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_sDown)
     {
-        Vector3 v = _scene->getActiveCamera()->getNode()->getBackVector();
+        kmVec3 v = _scene->getActiveCamera()->getNode()->getBackVector();
         v.normalize();
         v.scale(INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_dDown)
     {
-        Vector3 v = _scene->getActiveCamera()->getNode()->getRightVector();
+        kmVec3 v = _scene->getActiveCamera()->getNode()->getRightVector();
         v.normalize();
         v.scale(INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
@@ -882,7 +882,7 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
     case Mouse::MOUSE_MOVE:
         if (_panning)
         {
-            Vector3 n(-(float)x * PANNING_SENSITIVITY, (float)y * PANNING_SENSITIVITY, 0);
+            kmVec3 n(-(float)x * PANNING_SENSITIVITY, (float)y * PANNING_SENSITIVITY, 0);
             _cameraParent->getMatrix().transformVector(&n);
             _cameraParent->translate(n);
             return true;
@@ -895,7 +895,7 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
         }
         else if (_zooming)
         {
-            Vector3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
+            kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
             v.normalize();
             v.scale((float)(x-y) * INPUT_SENSITIVITY);
             _scene->getActiveCamera()->getNode()->translate(v);
@@ -906,7 +906,7 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
     case Mouse::MOUSE_WHEEL:
         if (wheelDelta != 0)
         {
-            Vector3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
+            kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
             v.normalize();
             v.scale((float)(wheelDelta));
             _scene->getActiveCamera()->getNode()->translate(v);
@@ -1034,7 +1034,7 @@ void ParticlesSample::emitterChanged()
     Properties* ns = p->getNamespace("editor", true);
     if (ns)
     {
-        Vector3 v3;
+        kmVec3 v3;
         if (ns->getVector3("cameraTranslation", &v3))
         {
             _cameraParent->setTranslation(v3);
@@ -1085,27 +1085,27 @@ void ParticlesSample::emitterChanged()
 
     _emissionRate->setValue(emitter->getEmissionRate());
 
-    const Vector3& posVar = emitter->getPositionVariance();
+    const kmVec3& posVar = emitter->getPositionVariance();
     _posVarX->setValue(posVar.x);
     _posVarY->setValue(posVar.y);
     _posVarZ->setValue(posVar.z);
 
-    const Vector3& vel = emitter->getVelocity();
+    const kmVec3& vel = emitter->getVelocity();
     _velX->setValue(vel.x);    
     _velY->setValue(vel.y);
     _velZ->setValue(vel.z);
 
-    const Vector3& velVar = emitter->getVelocityVariance();
+    const kmVec3& velVar = emitter->getVelocityVariance();
     _velVarX->setValue(velVar.x);
     _velVarY->setValue(velVar.y);
     _velVarZ->setValue(velVar.z);
 
-    const Vector3& accel = emitter->getAcceleration();
+    const kmVec3& accel = emitter->getAcceleration();
     _accelX->setValue(accel.x);
     _accelY->setValue(accel.y);
     _accelZ->setValue(accel.z);
 
-    const Vector3& accelVar = emitter->getAccelerationVariance();
+    const kmVec3& accelVar = emitter->getAccelerationVariance();
     _accelVarX->setValue(accelVar.x);
     _accelVarY->setValue(accelVar.y);
     _accelVarZ->setValue(accelVar.z);
@@ -1113,13 +1113,13 @@ void ParticlesSample::emitterChanged()
     _spinSpeedMin->setValue(emitter->getRotationPerParticleSpeedMin());
     _spinSpeedMax->setValue(emitter->getRotationPerParticleSpeedMax());
 
-    const Vector3& axis = emitter->getRotationAxis();
+    const kmVec3& axis = emitter->getRotationAxis();
     _axisX->setValue(axis.x);
     _axisY->setValue(axis.y);    
     _axisZ->setValue(axis.z);
 
 
-    const Vector3& axisVar = emitter->getRotationAxisVariance();
+    const kmVec3& axisVar = emitter->getRotationAxisVariance();
     _axisVarX->setValue(axisVar.x);
     _axisVarY->setValue(axisVar.y);
     _axisVarZ->setValue(axisVar.z);
@@ -1134,7 +1134,7 @@ void ParticlesSample::emitterChanged()
     emitter->start();
 }
 
-void ParticlesSample::drawFrameRate(Font* font, const Vector4& color, unsigned int x, unsigned int y, unsigned int fps)
+void ParticlesSample::drawFrameRate(Font* font, const kmVec4& color, unsigned int x, unsigned int y, unsigned int fps)
 {
     char buffer[30];
     sprintf(buffer, "FPS: %u\nParticles: %u", fps,dynamic_cast<ParticleEmitter*>(_particleEmitterNode->getDrawable())->getParticlesCount());

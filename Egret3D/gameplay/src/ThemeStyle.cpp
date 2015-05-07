@@ -171,7 +171,7 @@ const Theme::Border& Theme::Style::Overlay::getBorder() const
     }
 }
 
-void Theme::Style::Overlay::setSkinColor(const Vector4& color)
+void Theme::Style::Overlay::setSkinColor(const kmVec4& color)
 {
     if (_skin)
     {
@@ -179,7 +179,7 @@ void Theme::Style::Overlay::setSkinColor(const Vector4& color)
     }
 }
 
-const Vector4& Theme::Style::Overlay::getSkinColor() const
+const kmVec4& Theme::Style::Overlay::getSkinColor() const
 {
     if (_skin)
     {
@@ -265,12 +265,12 @@ void Theme::Style::Overlay::setTextRightToLeft(bool rightToLeft)
     _textRightToLeft = rightToLeft;
 }
 
-const Vector4& Theme::Style::Overlay::getTextColor() const
+const kmVec4& Theme::Style::Overlay::getTextColor() const
 {
     return _textColor;
 }
 
-void Theme::Style::Overlay::setTextColor(const Vector4& color)
+void Theme::Style::Overlay::setTextColor(const kmVec4& color)
 {
     _textColor = color;
 }
@@ -302,7 +302,7 @@ void Theme::Style::Overlay::setImageRegion(const char* id, const Rectangle& regi
     generateUVs(tw, th, region.x, region.y, region.width, region.height, &(image->_uvs));
 }
 
-const Vector4& Theme::Style::Overlay::getImageColor(const char* id) const
+const kmVec4& Theme::Style::Overlay::getImageColor(const char* id) const
 {
     GP_ASSERT(_imageList);
     ThemeImage* image = _imageList->getImage(id);
@@ -316,7 +316,7 @@ const Vector4& Theme::Style::Overlay::getImageColor(const char* id) const
     }
 }
 
-void Theme::Style::Overlay::setImageColor(const char* id, const Vector4& color)
+void Theme::Style::Overlay::setImageColor(const char* id, const kmVec4& color)
 {
     GP_ASSERT(_imageList);
     ThemeImage* image = _imageList->getImage(id);
@@ -357,7 +357,7 @@ void Theme::Style::Overlay::setCursorRegion(const Rectangle& region, float tw, f
     generateUVs(tw, th, region.x, region.y, region.width, region.height, &(_cursor->_uvs));
 }
 
-const Vector4& Theme::Style::Overlay::getCursorColor() const
+const kmVec4& Theme::Style::Overlay::getCursorColor() const
 {
     if (_cursor)
     {
@@ -369,7 +369,7 @@ const Vector4& Theme::Style::Overlay::getCursorColor() const
     }
 }
 
-void Theme::Style::Overlay::setCursorColor(const Vector4& color)
+void Theme::Style::Overlay::setCursorColor(const kmVec4& color)
 {
     GP_ASSERT(_cursor);
     _cursor->_color.set(color);

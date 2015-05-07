@@ -484,7 +484,7 @@ void Game::setViewport(const Rectangle& viewport)
     gContext3D.EgViewport((GLuint)viewport.x, (GLuint)viewport.y, (GLuint)viewport.width, (GLuint)viewport.height);
 }
 
-void Game::clear(ClearFlags flags, const Vector4& clearColor, float clearDepth, int clearStencil)
+void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, int clearStencil)
 {
     GLbitfield bits = 0;
     if (flags & CLEAR_COLOR)

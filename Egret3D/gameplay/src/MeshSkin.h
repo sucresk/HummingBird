@@ -35,7 +35,7 @@ public:
      * 
      * @return The bind shape matrix.
      */
-    const Matrix& getBindShape() const;
+    const kmMat4& getBindShape() const;
 
     /**
      * Sets the bind shape of this skin.
@@ -95,11 +95,11 @@ public:
      * 
      * @return The pointer to the matrix palette.
      */
-    Vector4* getMatrixPalette() const;
+    kmVec4* getMatrixPalette() const;
 
     /**
      * Returns the number of elements in the matrix palette array.
-     * Each element is a Vector4* that represents a row.
+     * Each element is a kmVec4* that represents a row.
      * Each matrix palette is represented by 3 rows of Vector4.
      * 
      * @return The matrix palette size.
@@ -188,7 +188,7 @@ private:
     // This array is passed to the vertex shader as a uniform.
     // Each 4x3 row-wise matrix is represented as 3 Vector4's.
     // The number of Vector4's is (_joints.size() * 3).
-    Vector4* _matrixPalette;
+    kmVec4* _matrixPalette;
     Model* _model;
 };
 

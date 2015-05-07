@@ -93,7 +93,7 @@ void InputSample::update(float elapsedTime)
 {
     if (hasAccelerometer())
     {
-        Vector3 accelRaw, gyroRaw;
+        kmVec3 accelRaw, gyroRaw;
         getSensorValues(&accelRaw.x, &accelRaw.y, &accelRaw.z, &gyroRaw.x, &gyroRaw.y, &gyroRaw.z);
 
         // Adjust for landscape mode
@@ -105,13 +105,13 @@ void InputSample::update(float elapsedTime)
         gyroRaw.y = temp;
 
         // Respond to raw accelerometer inputs
-        Vector3 position;
+        kmVec3 position;
         _formNodeParent->getTranslation(&position);
         position.smooth(_formNodeRestPosition - accelRaw*0.04f, elapsedTime, 100);
         _formNodeParent->setTranslation(position);
 
         // Respond to raw gyroscope inputs
-        Vector3 rotation;
+        kmVec3 rotation;
         float angle = _formNodeParent->getRotation(&rotation);
         rotation *= angle;
         rotation.smooth(gyroRaw*(-0.18f), elapsedTime, 220);

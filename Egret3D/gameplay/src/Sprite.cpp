@@ -274,7 +274,7 @@ Sprite* Sprite::create(Properties* properties)
     {
         // Get source frame
         Rectangle source;
-        properties->getVector4("source", (Vector4*)&source);
+        properties->getVector4("source", (kmVec4*)&source);
 
         // Get frame count
         int frameCount = properties->getInt("frameCount");
@@ -325,7 +325,7 @@ Sprite* Sprite::create(Properties* properties)
         {
             case Properties::VECTOR3:
                 vect.w = 1.0f;
-                properties->getVector3("color", (Vector3*)&vect);
+                properties->getVector3("color", (kmVec3*)&vect);
                 break;
             case Properties::VECTOR4:
                 properties->getVector4("color", &vect);
@@ -503,12 +503,12 @@ float Sprite::getOpacity() const
     return _opacity;
 }
 
-void Sprite::setColor(const Vector4& color)
+void Sprite::setColor(const kmVec4& color)
 {
     _color = color;
 }
 
-const Vector4& Sprite::getColor() const
+const kmVec4& Sprite::getColor() const
 {
     return _color;
 }
@@ -564,7 +564,7 @@ Material* Sprite::getMaterial() const
 unsigned int Sprite::draw(bool wireframe)
 {
     // Apply scene camera projection and translation offsets
-    Vector3 position = Vector3::zero();
+    kmVec3 position = Vector3::zero();
     if (_node && _node->getScene())
     {
         Camera* activeCamera = _node->getScene()->getActiveCamera();
@@ -586,7 +586,7 @@ unsigned int Sprite::draw(bool wireframe)
         }
         
         // Apply node translation offsets
-        Vector3 translation = _node->getTranslationWorld();
+        kmVec3 translation = _node->getTranslationWorld();
         position.x += translation.x;
         position.y += translation.y;
         position.z += translation.z;

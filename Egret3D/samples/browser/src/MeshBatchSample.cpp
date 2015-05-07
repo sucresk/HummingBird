@@ -26,7 +26,7 @@ static MeshBatch* createMeshBatch(Mesh::PrimitiveType primitiveType)
     return meshBatch;
 }
 
-static Vector3 randomColor()
+static kmVec3 randomColor()
 {
     return Vector3(MATH_RANDOM_0_1(), MATH_RANDOM_0_1(), MATH_RANDOM_0_1());
 }
@@ -110,9 +110,9 @@ void MeshBatchSample::addTriangle(int x, int y)
     // Calculate the vertices of the equilateral triangle.
     // length of the side (between 40 and 120)
     float a = MATH_RANDOM_0_1() * 80.0 + 40.0f;  
-    Vector3 p1(0.0f,       a / sqrtf(3.0f), 0);
-    Vector3 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
-    Vector3 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
+    kmVec3 p1(0.0f,       a / sqrtf(3.0f), 0);
+    kmVec3 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
+    kmVec3 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
 
     // Transform each point to x,y and rotate it randomly.
     Matrix m;

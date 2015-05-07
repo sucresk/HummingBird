@@ -99,7 +99,7 @@ void TerrainSample::update(float elapsedTime)
 	if (_snapToGround)
 	{
 		// Get current camera location in world coords
-		Vector3 pos = camera->getTranslationWorld();
+		kmVec3 pos = camera->getTranslationWorld();
 
 		// Query the height of our terrain at this location
 		float height = _terrain->getHeight(pos.x, pos.z);
@@ -367,12 +367,12 @@ void TerrainSample::setMessage(const char* message)
     _form->getControl("messageBox")->setVisible(message ? true : false);
 }
 
-Vector3 TerrainSample::getLightDirection0() const
+kmVec3 TerrainSample::getLightDirection0() const
 {
     return _directionalLight->getNode()->getForwardVectorView();
 }
 
-Vector3 TerrainSample::getLightColor0() const
+kmVec3 TerrainSample::getLightColor0() const
 {
     return _directionalLight->getColor();
 }

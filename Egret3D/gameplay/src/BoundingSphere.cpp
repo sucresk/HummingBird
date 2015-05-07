@@ -10,7 +10,7 @@ BoundingSphere::BoundingSphere()
 {
 }
 
-BoundingSphere::BoundingSphere(const Vector3& center, float radius)
+BoundingSphere::BoundingSphere(const kmVec3& center, float radius)
 {
     set(center, radius);
 }
@@ -49,8 +49,8 @@ bool BoundingSphere::intersects(const BoundingBox& box) const
     float cpY = center.y;
     float cpZ = center.z;
 
-    const Vector3& boxMin = box.min;
-    const Vector3& boxMax = box.max;
+    const kmVec3& boxMin = box.min;
+    const kmVec3& boxMax = box.max;
     // Closest x value.
     if (center.x < boxMin.x)
     {
@@ -120,8 +120,8 @@ float BoundingSphere::intersects(const Plane& plane) const
 
 float BoundingSphere::intersects(const Ray& ray) const
 {
-    const Vector3& origin = ray.getOrigin();
-    const Vector3& direction = ray.getDirection();
+    const kmVec3& origin = ray.getOrigin();
+    const kmVec3& direction = ray.getDirection();
 
     // Calculate the vector and the square of the distance from the ray's origin to this sphere's center.
     float vx = origin.x - center.x;
@@ -207,8 +207,8 @@ void BoundingSphere::merge(const BoundingBox& box)
     if (box.isEmpty())
         return;
 
-    const Vector3& min = box.min;
-    const Vector3& max = box.max;
+    const kmVec3& min = box.min;
+    const kmVec3& max = box.max;
 
     // Find the corner of the bounding box that is farthest away from this sphere's center.
     float v1x = min.x - center.x;
@@ -268,7 +268,7 @@ void BoundingSphere::merge(const BoundingBox& box)
     radius = r;
 }
 
-void BoundingSphere::set(const Vector3& center, float radius)
+void BoundingSphere::set(const kmVec3& center, float radius)
 {
     this->center = center;
     this->radius = radius;
@@ -288,13 +288,13 @@ void BoundingSphere::set(const BoundingBox& box)
     radius = center.distance(box.max);
 }
 
-void BoundingSphere::transform(const Matrix& matrix)
+void BoundingSphere::transform(const kmMat4& matrix)
 {
     // Translate the center point.
     matrix.transformPoint(center, &center);
 
     // Scale the sphere's radius by the scale fo the matrix
-    Vector3 scale;
+    kmVec3 scale;
     matrix.decompose(&scale, NULL, NULL);
     float r = radius * scale.x;
     r = max(r, radius * scale.y);
@@ -302,14 +302,14 @@ void BoundingSphere::transform(const Matrix& matrix)
     radius = r;
 }
 
-float BoundingSphere::distance(const BoundingSphere& sphere, const Vector3& point)
+float BoundingSphere::distance(const BoundingSphere& sphere, const kmVec3& point)
 {
     return sqrt((point.x - sphere.center.x) * (point.x - sphere.center.x) +
                  (point.y - sphere.center.y) * (point.y - sphere.center.x) +
                  (point.z - sphere.center.z) * (point.z - sphere.center.x));
 }
 
-bool BoundingSphere::contains(const BoundingSphere& sphere, Vector3* points, unsigned int count)
+bool BoundingSphere::contains(const BoundingSphere& sphere, kmVec3* points, unsigned int count)
 {
     for (unsigned int i = 0; i < count; i++)
     {

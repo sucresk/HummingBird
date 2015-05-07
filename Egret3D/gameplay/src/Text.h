@@ -47,7 +47,7 @@ public:
      *
      * @return A Text object.
      */
-    static Text* create(const char* fontPath, const char* str, const Vector4& color = Vector4::one(), unsigned int size = 0);
+    static Text* create(const char* fontPath, const char* str, const kmVec4& color = Vector4::one(), unsigned int size = 0);
     
     /**
      * Creates text from a properties object.
@@ -195,14 +195,14 @@ public:
      *
      * @param color The color(RGBA) for the sprite.
      */
-    void setColor(const Vector4& color);
+    void setColor(const kmVec4& color);
     
     /**
      * Gets the color (RGBA) for the sprite.
      *
      * @return The color(RGBA) for the sprite.
      */
-    const Vector4& getColor() const;
+    const kmVec4& getColor() const;
 
     /**
      * @see Drawable::draw

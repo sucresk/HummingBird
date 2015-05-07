@@ -62,7 +62,7 @@ void Joint::transformChanged()
     _jointMatrixDirty = true;
 }
 
-void Joint::updateJointMatrix(const Matrix& bindShape, Vector4* matrixPalette)
+void Joint::updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette)
 {
     // Note: If more than one MeshSkin influences this Joint, we need to skip
     // the _jointMatrixDirty optimization since updateJointMatrix() may be
@@ -83,12 +83,12 @@ void Joint::updateJointMatrix(const Matrix& bindShape, Vector4* matrixPalette)
     }
 }
 
-const Matrix& Joint::getInverseBindPose() const
+const kmMat4& Joint::getInverseBindPose() const
 {
     return _bindPose;
 }
 
-void Joint::setInverseBindPose(const Matrix& m)
+void Joint::setInverseBindPose(const kmMat4& m)
 {
     _bindPose = m;
     _jointMatrixDirty = true;

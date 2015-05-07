@@ -17,7 +17,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     GP_ASSERT(_node);
 
     // Create our collision shape.
-    Vector3 centerOfMassOffset;
+    kmVec3 centerOfMassOffset;
     _collisionShape = Game::getInstance()->getPhysicsController()->createShape(node, shape, &centerOfMassOffset, parameters.mass != 0.0f);
     GP_ASSERT(_collisionShape && _collisionShape->getShape());
 
@@ -27,7 +27,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     // If the mass is non-zero, then the object is dynamic so we calculate the local 
     // inertia. However, if the collision shape is a triangle mesh, we don't calculate 
     // inertia since Bullet doesn't currently support this.
-    btVector3 localInertia(0.0, 0.0, 0.0);
+    btkmVec3 localInertia(0.0, 0.0, 0.0);
     if (parameters.mass != 0.0)
         _collisionShape->getShape()->calculateLocalInertia(parameters.mass, localInertia);
 
@@ -102,7 +102,7 @@ btCollisionObject* PhysicsRigidBody::getCollisionObject() const
     return _body;
 }
 
-void PhysicsRigidBody::applyForce(const Vector3& force, const Vector3* relativePosition)
+void PhysicsRigidBody::applyForce(const kmVec3& force, const kmVec3* relativePosition)
 {
     // If the force is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the force.
@@ -117,7 +117,7 @@ void PhysicsRigidBody::applyForce(const Vector3& force, const Vector3* relativeP
     }
 }
 
-void PhysicsRigidBody::applyImpulse(const Vector3& impulse, const Vector3* relativePosition)
+void PhysicsRigidBody::applyImpulse(const kmVec3& impulse, const kmVec3* relativePosition)
 {
     // If the impulse is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the impulse.
@@ -134,7 +134,7 @@ void PhysicsRigidBody::applyImpulse(const Vector3& impulse, const Vector3* relat
     }
 }
 
-void PhysicsRigidBody::applyTorque(const Vector3& torque)
+void PhysicsRigidBody::applyTorque(const kmVec3& torque)
 {
     // If the torque is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the torque.
@@ -146,7 +146,7 @@ void PhysicsRigidBody::applyTorque(const Vector3& torque)
     }
 }
 
-void PhysicsRigidBody::applyTorqueImpulse(const Vector3& torque)
+void PhysicsRigidBody::applyTorqueImpulse(const kmVec3& torque)
 {
     // If the torque impulse is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the torque impulse.
@@ -190,7 +190,7 @@ PhysicsRigidBody* PhysicsRigidBody::create(Node* node, Properties* properties, c
 
     // Set the rigid body parameters to their defaults.
     Parameters parameters;
-    Vector3* gravity = NULL;
+    kmVec3* gravity = NULL;
 
     // Load the defined rigid body parameters.
     properties->rewind();
@@ -314,7 +314,7 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     GP_ASSERT(cols > 0);
     GP_ASSERT(rows > 0);
 
-    Vector3 v = _collisionShape->_shapeData.heightfieldData->inverse * Vector3(x, 0.0f, z);
+    kmVec3 v = _collisionShape->_shapeData.heightfieldData->inverse * Vector3(x, 0.0f, z);
     x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
 
@@ -322,7 +322,7 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     float height = _collisionShape->_shapeData.heightfieldData->heightfield->getHeight(x, z);
 
     // Apply scale back to height
-    Vector3 worldScale;
+    kmVec3 worldScale;
     _node->getWorldMatrix().getScale(&worldScale);
     height *= worldScale.y;
 
@@ -371,14 +371,14 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
         _collisionShape->_shapeData.heightfieldData->inverseIsDirty = true;
 
         // Update local scaling for the heightfield.
-        Vector3 scale;
+        kmVec3 scale;
         _node->getWorldMatrix().getScale(&scale);
 
         // If the node has a terrain attached, factor in the terrain local scaling as well for the collision shape
         Terrain* terrain = dynamic_cast<Terrain*>(_node->getDrawable());
         if (terrain)
         {
-            const Vector3& tScale = terrain->_localScale;
+            const kmVec3& tScale = terrain->_localScale;
             scale.set(scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z);
         }
 

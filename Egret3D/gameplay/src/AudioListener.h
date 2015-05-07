@@ -35,14 +35,14 @@ public:
      *
      * @return The position of the audio listener
      */
-    const Vector3& getPosition() const;
+    const kmVec3& getPosition() const;
 
     /**
      * Sets the position of the audio source.
      *
      * @param position The position to set the listener to.
      */
-    void setPosition(const Vector3& position);
+    void setPosition(const kmVec3& position);
 
     /**
      * Sets the position of the audio source.
@@ -72,14 +72,14 @@ public:
      *
      * @return The velocity as a vector.
      */
-    const Vector3& getVelocity() const;
+    const kmVec3& getVelocity() const;
 
     /**
      * Sets the velocity of the audio source
      *
      * @param velocity A vector representing the velocity.
      */
-    void setVelocity(const Vector3& velocity);
+    void setVelocity(const kmVec3& velocity);
 
     /**
      * Sets the velocity of the audio source
@@ -104,14 +104,14 @@ public:
      *
      * @return The forward vector.
      */
-    const Vector3& getOrientationForward() const;
+    const kmVec3& getOrientationForward() const;
 
     /**
      * Gets the up orientation vector of the audio listener.
      *
      * @return The up vector.
      */
-    const Vector3& getOrientationUp() const;
+    const kmVec3& getOrientationUp() const;
 
     /**
      * Sets the orientation of the audio listener.
@@ -119,7 +119,7 @@ public:
      * @param forward The forward vector.
      * @param up The up vector.
      */
-    void setOrientation(const Vector3& forward, const Vector3& up);
+    void setOrientation(const kmVec3& forward, const kmVec3& up);
 
     /**
      * Sets the orientation of the audio listener.
@@ -165,9 +165,9 @@ private:
     void cameraChanged(Camera* camera);
 
     float _gain;
-    Vector3 _position;
-    Vector3 _velocity;
-    Vector3 _orientation[2];
+    kmVec3 _position;
+    kmVec3 _velocity;
+    kmVec3 _orientation[2];
     Camera* _camera;
 };
 

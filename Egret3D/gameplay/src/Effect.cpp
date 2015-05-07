@@ -553,13 +553,13 @@ void Effect::setValue(Uniform* uniform, const int* values, unsigned int count)
     GL_ASSERT( gContext3D.EgUniform1iv(uniform->_location, count, values) );
 }
 
-void Effect::setValue(Uniform* uniform, const Matrix& value)
+void Effect::setValue(Uniform* uniform, const kmMat4& value)
 {
     GP_ASSERT(uniform);
     GL_ASSERT( gContext3D.EgUniformMatrix4fv(uniform->_location, 1, GL_FALSE, value.m) );
 }
 
-void Effect::setValue(Uniform* uniform, const Matrix* values, unsigned int count)
+void Effect::setValue(Uniform* uniform, const kmMat4* values, unsigned int count)
 {
     GP_ASSERT(uniform);
     GP_ASSERT(values);
@@ -579,26 +579,26 @@ void Effect::setValue(Uniform* uniform, const Vector2* values, unsigned int coun
     GL_ASSERT( gContext3D.EgUniform2fv(uniform->_location, count, (GLfloat*)values) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector3& value)
+void Effect::setValue(Uniform* uniform, const kmVec3& value)
 {
     GP_ASSERT(uniform);
     GL_ASSERT( gContext3D.EgUniform3f(uniform->_location, value.x, value.y, value.z) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector3* values, unsigned int count)
+void Effect::setValue(Uniform* uniform, const kmVec3* values, unsigned int count)
 {
     GP_ASSERT(uniform);
     GP_ASSERT(values);
     GL_ASSERT( gContext3D.EgUniform3fv(uniform->_location, count, (GLfloat*)values) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector4& value)
+void Effect::setValue(Uniform* uniform, const kmVec4& value)
 {
     GP_ASSERT(uniform);
     GL_ASSERT( gContext3D.EgUniform4f(uniform->_location, value.x, value.y, value.z, value.w) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector4* values, unsigned int count)
+void Effect::setValue(Uniform* uniform, const kmVec4* values, unsigned int count)
 {
     GP_ASSERT(uniform);
     GP_ASSERT(values);

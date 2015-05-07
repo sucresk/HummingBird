@@ -143,8 +143,8 @@ public:
          */
         virtual void collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
                                     const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const Vector3& contactPointA = Vector3::zero(),
-                                    const Vector3& contactPointB = Vector3::zero()) = 0;
+                                    const kmVec3& contactPointA = Vector3::zero(),
+                                    const kmVec3& contactPointB = Vector3::zero()) = 0;
     };
 
     /**
@@ -290,7 +290,7 @@ protected:
          * @see PhysicsCollisionObject::CollisionListener
          */
         void collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type, const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const Vector3& contactPointA, const Vector3& contactPointB);
+                                    const kmVec3& contactPointA, const kmVec3& contactPointB);
 
         /** The URL to the Lua script function to use as the callback. */
         std::string url;
@@ -359,7 +359,7 @@ private:
          * @param collisionObject The collision object that owns the motion state.
          * @param centerOfMassOffset The translation offset to the center of mass of the rigid body.
          */
-        PhysicsMotionState(Node* node, PhysicsCollisionObject* collisionObject, const Vector3* centerOfMassOffset = NULL);
+        PhysicsMotionState(Node* node, PhysicsCollisionObject* collisionObject, const kmVec3* centerOfMassOffset = NULL);
         
         /**
          * Destructor.
@@ -384,7 +384,7 @@ private:
         /**
          * Sets the center of mass offset for the associated collision shape.
          */
-        void setCenterOfMassOffset(const Vector3& centerOfMassOffset);
+        void setCenterOfMassOffset(const kmVec3& centerOfMassOffset);
         
     private:
         

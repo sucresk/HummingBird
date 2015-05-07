@@ -26,27 +26,27 @@ PhysicsConstraint::~PhysicsConstraint()
     SAFE_DELETE(_constraint);
 }
 
-Vector3 PhysicsConstraint::centerOfMassMidpoint(const Node* a, const Node* b)
+kmVec3 PhysicsConstraint::centerOfMassMidpoint(const Node* a, const Node* b)
 {
     GP_ASSERT(a);
     GP_ASSERT(b);
 
-    Vector3 tA, tB;
+    kmVec3 tA, tB;
     a->getWorldMatrix().getTranslation(&tA);
     b->getWorldMatrix().getTranslation(&tB);
 
     tA = getWorldCenterOfMass(a);
     tB = getWorldCenterOfMass(b);
     
-    Vector3 d(tA, tB);
+    kmVec3 d(tA, tB);
     d.scale(0.5f);
-    Vector3 c(tA);
+    kmVec3 c(tA);
     c.add(d);
 
     return c;
 }
 
-Quaternion PhysicsConstraint::getRotationOffset(const Node* node, const Vector3& point)
+Quaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3& point)
 {
     GP_ASSERT(node);
 
@@ -67,7 +67,7 @@ Quaternion PhysicsConstraint::getRotationOffset(const Node* node, const Vector3&
     return r;
 }
 
-Vector3 PhysicsConstraint::getTranslationOffset(const Node* node, const Vector3& point)
+kmVec3 PhysicsConstraint::getTranslationOffset(const Node* node, const kmVec3& point)
 {
     GP_ASSERT(node);
 
@@ -82,10 +82,10 @@ Vector3 PhysicsConstraint::getTranslationOffset(const Node* node, const Vector3&
     node->getWorldMatrix().invert(&mi);
     mi.multiply(m);
     
-    Vector3 t;
+    kmVec3 t;
     mi.getTranslation(&t);
 
-    Vector3 s;
+    kmVec3 s;
     node->getWorldMatrix().getScale(&s);
 
     t.x *= s.x;
@@ -97,7 +97,7 @@ Vector3 PhysicsConstraint::getTranslationOffset(const Node* node, const Vector3&
     return t;
 }
 
-btTransform PhysicsConstraint::getTransformOffset(const Node* node, const Vector3& origin)
+btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3& origin)
 {
     GP_ASSERT(node);
 
@@ -115,10 +115,10 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const Vector
     Quaternion r;
     mi.getRotation(&r);
     
-    Vector3 t;
+    kmVec3 t;
     mi.getTranslation(&t);
 
-    Vector3 s;
+    kmVec3 s;
     node->getWorldMatrix().getScale(&s);
 
     t.x *= s.x;
@@ -130,7 +130,7 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const Vector
     return btTransform(BQ(r), BV(t));
 }
 
-Vector3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
+kmVec3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
 {
     GP_ASSERT(node);
 
@@ -144,15 +144,15 @@ Vector3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
     // Warn the user that the node has no bounding volume.
     GP_WARN("Node %s' has no bounding volume - center of mass is defaulting to local coordinate origin.", node->getId());
 
-    Vector3 center;
+    kmVec3 center;
     node->getWorldMatrix().transformPoint(&center);
     return center;
 }
 
-Vector3 PhysicsConstraint::offsetByCenterOfMass(const Node* node, const Vector3& v)
+kmVec3 PhysicsConstraint::offsetByCenterOfMass(const Node* node, const kmVec3& v)
 {
     GP_ASSERT(node && node->getCollisionObject() && node->getCollisionObject()->_motionState);
-    btVector3 centerOfMassOffset = node->getCollisionObject()->_motionState->_centerOfMassOffset.getOrigin();
+    btkmVec3 centerOfMassOffset = node->getCollisionObject()->_motionState->_centerOfMassOffset.getOrigin();
     return Vector3(v.x + centerOfMassOffset.x(), v.y + centerOfMassOffset.y(), v.z + centerOfMassOffset.z());
 }
 

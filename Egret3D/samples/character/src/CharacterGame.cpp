@@ -207,7 +207,7 @@ void CharacterGame::update(float elapsedTime)
     if (_applyKick)
     {
         // apply impulse from kick.
-        Vector3 impulse(-_characterNode->getForwardVectorWorld());
+        kmVec3 impulse(-_characterNode->getForwardVectorWorld());
         impulse.normalize();
         // add some lift to kick
         impulse.y = 1.0f; 
@@ -299,16 +299,16 @@ void CharacterGame::update(float elapsedTime)
         play(running ? "running" : "walking", true, 1.0f);
 
         // Orient the character relative to the camera so he faces the direction we want to move.
-        const Matrix& cameraMatrix = _scene->getActiveCamera()->getNode()->getWorldMatrix();
-        Vector3 cameraRight, cameraForward;
+        const kmMat4& cameraMatrix = _scene->getActiveCamera()->getNode()->getWorldMatrix();
+        kmVec3 cameraRight, cameraForward;
         cameraMatrix.getRightVector(&cameraRight);
         cameraMatrix.getForwardVector(&cameraForward);
 
         // Get the current forward vector for the mesh node (negate it since the character was modelled facing +z)
-        Vector3 currentHeading(-_characterNode->getForwardVectorWorld());
+        kmVec3 currentHeading(-_characterNode->getForwardVectorWorld());
 
         // Construct a new forward vector for the mesh node
-        Vector3 newHeading(cameraForward * _currentDirection.y + cameraRight * _currentDirection.x);
+        kmVec3 newHeading(cameraForward * _currentDirection.y + cameraRight * _currentDirection.x);
 
         // Compute the rotation amount based on the difference between the current and new vectors
         float angle = atan2f(newHeading.x, newHeading.z) - atan2f(currentHeading.x, currentHeading.z);
@@ -320,7 +320,7 @@ void CharacterGame::update(float elapsedTime)
         _characterNode->rotate(Vector3::unitY(), angle);
 
         // Update the character's velocity
-        Vector3 velocity = -_characterNode->getForwardVectorWorld();
+        kmVec3 velocity = -_characterNode->getForwardVectorWorld();
         velocity.normalize();
         velocity *= speed;
         _character->setVelocity(velocity);
@@ -331,7 +331,7 @@ void CharacterGame::update(float elapsedTime)
 
     // Project the character's shadow node onto the surface directly below him.
     PhysicsController::HitResult hitResult;
-    Vector3 v = _character->getNode()->getTranslationWorld();
+    kmVec3 v = _character->getNode()->getTranslationWorld();
     if (getPhysicsController()->rayTest(Ray(Vector3(v.x, v.y + 1.0f, v.z), Vector3(0, -1, 0)), 100.0f, &hitResult, NULL))
     {
         _characterShadowNode->setTranslation(Vector3(hitResult.point.x, hitResult.point.y + 0.1f, hitResult.point.z));
@@ -350,19 +350,19 @@ void CharacterGame::update(float elapsedTime)
 
         // Capture the basketball's old position, and then calculate the basketball's new position in front of the character
         _oldBallPosition = _basketballNode->getTranslationWorld();
-        Vector3 characterForwardVector(_characterNode->getForwardVectorWorld());
-        Vector3 translation(_characterNode->getTranslationWorld() + characterForwardVector.normalize() * -2.2f);
+        kmVec3 characterForwardVector(_characterNode->getForwardVectorWorld());
+        kmVec3 translation(_characterNode->getTranslationWorld() + characterForwardVector.normalize() * -2.2f);
         translation.y = _floorLevel;
 
         // Calculates rotation to be applied to the basketball.
-        Vector3 rotationVector(0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f);
+        kmVec3 rotationVector(0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f);
         Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
         if (!rotationVector.isZero())
         {
             Matrix m;
             _basketballNode->getWorldMatrix().transpose(&m);
 
-            Vector3 rotNorm;
+            kmVec3 rotNorm;
             m.transformVector(rotationVector, &rotNorm);
             rotNorm.normalize();
             _basketballNode->rotate(rotNorm, rotationVector.length());
@@ -531,14 +531,14 @@ void CharacterGame::adjustCamera(float elapsedTime)
         cameraOffset = 0.0f;
     }
 
-    Vector3 cameraPosition = cameraNode->getTranslationWorld();
-    Vector3 cameraDirection = cameraNode->getForwardVectorWorld();
+    kmVec3 cameraPosition = cameraNode->getTranslationWorld();
+    kmVec3 cameraDirection = cameraNode->getForwardVectorWorld();
     cameraDirection.normalize();
 
     // Get focal point of camera (use the resolved world location of the head joint as a focal point)
-    Vector3 focalPoint(cameraPosition + (cameraDirection * CAMERA_FOCUS_DISTANCE));
+    kmVec3 focalPoint(cameraPosition + (cameraDirection * CAMERA_FOCUS_DISTANCE));
 
-    Vector3 oldPosition = cameraNode->getTranslationWorld();
+    kmVec3 oldPosition = cameraNode->getTranslationWorld();
 
     PhysicsController::HitResult result;
     PhysicsCollisionObject* occlusion = NULL;
@@ -618,8 +618,8 @@ void CharacterGame::clone()
 
 void CharacterGame::collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
                                     const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const Vector3& contactPointA,
-                                    const Vector3& contactPointB)
+                                    const kmVec3& contactPointA,
+                                    const kmVec3& contactPointB)
 {
     // objectA -> basketball, only care about collisions between the physics character and the basketball.
     if (type == PhysicsCollisionObject::CollisionListener::COLLIDING && collisionPair.objectB == _character)
@@ -632,7 +632,7 @@ void CharacterGame::grabBall()
     _basketballNode->getCollisionObject()->setEnabled(false);
     PhysicsRigidBody::Parameters rbParams;
     rbParams.mass = 20.0f;
-    Vector3 currentVelocity = _character->getCurrentVelocity();
+    kmVec3 currentVelocity = _character->getCurrentVelocity();
     Node* boy = _character->getNode();
     boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(2.9f, 6.0f, Vector3(0.0f, 3.0f, 0.0f), true), &rbParams);
     _character = static_cast<PhysicsCharacter*>(boy->getCollisionObject());
@@ -646,7 +646,7 @@ void CharacterGame::releaseBall()
     // Decreases the size of the character's collision object and re-enables physics simulation on the basketball.
     PhysicsRigidBody::Parameters rbParams;
     rbParams.mass = 20.0f;
-    Vector3 velocity = _character->getCurrentVelocity();
+    kmVec3 velocity = _character->getCurrentVelocity();
     Node* boy = _character->getNode();
     boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(1.2f, 6.0f, Vector3(0.0f, 3.0f, 0.0f), true), &rbParams);
     _character = static_cast<PhysicsCharacter*>(boy->getCollisionObject());

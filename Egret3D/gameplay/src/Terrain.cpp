@@ -60,7 +60,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
     Properties* pTerrain = NULL;
     bool externalProperties = (p != NULL);
     HeightField* heightfield = NULL;
-    Vector3 terrainSize;
+    kmVec3 terrainSize;
     int patchSize = 0;
     int detailLevels = 1;
     float skirtScale = 0;
@@ -223,7 +223,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         skirtScale = 0;
 
     // Compute terrain scale
-    Vector3 scale(terrainSize.x / (heightfield->getColumnCount()-1), terrainSize.y, terrainSize.z / (heightfield->getRowCount()-1));
+    kmVec3 scale(terrainSize.x / (heightfield->getColumnCount()-1), terrainSize.y, terrainSize.z / (heightfield->getRowCount()-1));
 
     // Create terrain
     Terrain* terrain = create(heightfield, scale, (unsigned int)patchSize, (unsigned int)detailLevels, skirtScale, normalMap, materialPath.c_str(), pTerrain);
@@ -234,12 +234,12 @@ Terrain* Terrain::create(const char* path, Properties* properties)
     return terrain;
 }
 
-Terrain* Terrain::create(HeightField* heightfield, const Vector3& scale, unsigned int patchSize, unsigned int detailLevels, float skirtScale, const char* normalMapPath, const char* materialPath)
+Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale, unsigned int patchSize, unsigned int detailLevels, float skirtScale, const char* normalMapPath, const char* materialPath)
 {
     return create(heightfield, scale, patchSize, detailLevels, skirtScale, normalMapPath, materialPath, NULL);
 }
 
-Terrain* Terrain::create(HeightField* heightfield, const Vector3& scale,
+Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
     unsigned int patchSize, unsigned int detailLevels, float skirtScale,
     const char* normalMapPath, const char* materialPath, Properties* properties)
 {
@@ -402,7 +402,7 @@ void Terrain::transformChanged(Transform* transform, long cookie)
     _dirtyFlags |= DIRTY_FLAG_INVERSE_WORLD;
 }
 
-const Matrix& Terrain::getInverseWorldMatrix() const
+const kmMat4& Terrain::getInverseWorldMatrix() const
 {
     if (_dirtyFlags & DIRTY_FLAG_INVERSE_WORLD)
     {
@@ -507,7 +507,7 @@ float Terrain::getHeight(float x, float z) const
     // Since the specified coordinates are in world space, we need to use the 
     // inverse of our world matrix to transform the world x,z coords back into
     // local heightfield coordinates for indexing into the height array.
-    Vector3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
+    kmVec3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
     x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
 
@@ -517,7 +517,7 @@ float Terrain::getHeight(float x, float z) const
     // Apply world scale to the height value
     if (_node)
     {
-        Vector3 worldScale;
+        kmVec3 worldScale;
         _node->getWorldMatrix().getScale(&worldScale);
         height *= worldScale.y;
     }

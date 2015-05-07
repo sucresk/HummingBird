@@ -57,7 +57,7 @@ public:
      * @param a The first node.
      * @param b The second node.
      */
-    static Vector3 centerOfMassMidpoint(const Node* a, const Node* b);
+    static kmVec3 centerOfMassMidpoint(const Node* a, const Node* b);
 
     /**
      * Calculates the rotation offset to the given point in the given node's local space.
@@ -65,7 +65,7 @@ public:
      * @param node The node to calculate a rotation offset for.
      * @param point The point to calculate the rotation offset to.
      */
-    static Quaternion getRotationOffset(const Node* node, const Vector3& point);
+    static Quaternion getRotationOffset(const Node* node, const kmVec3& point);
 
     /**
      * Calculates the translation offset to the given point in the given node's local space.
@@ -73,7 +73,7 @@ public:
      * @param node The node to calculate a translation offset for.
      * @param point The point to calculate the translation offset to.
      */
-    static Vector3 getTranslationOffset(const Node* node, const Vector3& point);
+    static kmVec3 getTranslationOffset(const Node* node, const kmVec3& point);
 
 protected:
 
@@ -91,17 +91,17 @@ protected:
      * Calculates the transform to be used as the offset (i.e. "frame in" 
      * parameter in Bullet terms) to the given constraint origin.
      */
-    static btTransform getTransformOffset(const Node* node, const Vector3& origin);
+    static btTransform getTransformOffset(const Node* node, const kmVec3& origin);
     
     /**
      * Calculates the center of mass in world space of the given node.
      */
-    static Vector3 getWorldCenterOfMass(const Node* node);
+    static kmVec3 getWorldCenterOfMass(const Node* node);
 
     /**
      * Offsets the given vector by the given node's center of mass.
      */
-    static Vector3 offsetByCenterOfMass(const Node* node, const Vector3& v);
+    static kmVec3 offsetByCenterOfMass(const Node* node, const kmVec3& v);
 
     /**
      * Pointer to the one rigid body bound by this constraint.

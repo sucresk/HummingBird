@@ -44,7 +44,7 @@ public:
     unsigned int getWidth() const;
     unsigned int getHeight() const;
     float getAspectRatio() const;
-    void clear(Game::ClearFlags flags, const Vector4& clearColor, float clearDepth, int clearStencil);
+    void clear(Game::ClearFlags flags, const kmVec4& clearColor, float clearDepth, int clearStencil);
     void clear(Game::ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil);
     AudioController* getAudioController() const;
     AnimationController* getAnimationController() const;
@@ -87,7 +87,7 @@ protected:
     virtual void finalize() = 0;
     virtual void update(float elapsedTime) = 0;
     virtual void render(float elapsedTime) = 0;
-    static void drawFrameRate(Font* font, const Vector4& color, unsigned int x, unsigned int y, unsigned int fps);
+    static void drawFrameRate(Font* font, const kmVec4& color, unsigned int x, unsigned int y, unsigned int fps);
 
 private:
 

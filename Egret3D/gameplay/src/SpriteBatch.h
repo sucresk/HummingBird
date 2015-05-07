@@ -5,7 +5,7 @@
 #include "Effect.h"
 #include "Mesh.h"
 #include "Rectangle.h"
-#include "Matrix.h"
+#include "mat4.h"
 #include "RenderState.h"
 #include "MeshBatch.h"
 
@@ -111,7 +111,7 @@ public:
      * @param src The source rectangle.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(const Rectangle& dst, const Rectangle& src, const Vector4& color = Vector4::one());
+    void draw(const Rectangle& dst, const Rectangle& src, const kmVec4& color = Vector4::one());
 
     /**
      * Draws a single sprite.
@@ -121,7 +121,7 @@ public:
      * @param scale The X and Y scale.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(const Vector3& dst, const Rectangle& src, const Vector2& scale, const Vector4& color = Vector4::one());
+    void draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color = Vector4::one());
 
     /**
      * Draws a single sprite, rotated around rotationPoint by rotationAngle.
@@ -134,7 +134,7 @@ public:
      *                      (e.g. Use Vector2(0.5f, 0.5f) to rotate around the quad's center.)
      * @param rotationAngle The rotation angle in radians.
      */
-    void draw(const Vector3& dst, const Rectangle& src, const Vector2& scale, const Vector4& color,
+    void draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color,
               const Vector2& rotationPoint, float rotationAngle);
 
     /**
@@ -153,7 +153,7 @@ public:
      * @param rotationAngle The rotation angle in radians.
      * @param positionIsCenter Specified whether the given destination is to be the center of the sprite or not (if not, it is treated as the bottom-left).
      */
-    void draw(const Vector3& dst, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color,
+    void draw(const kmVec3& dst, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
               const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
     
     /**
@@ -174,7 +174,7 @@ public:
      * @param rotationAngle The rotation angle in radians.
      * @param positionIsCenter Specified whether the given destination is to be the center of the sprite or not (if not, it is treated as the bottom-left).
      */
-    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color,
+    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
               const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
 
     /**
@@ -194,8 +194,8 @@ public:
      *                      (e.g. Use Vector2(0.5f, 0.5f) to rotate around the quad's center.)
      * @param rotationAngle The rotation angle in radians.
      */
-    void draw(const Vector3& position, const Vector3& right, const Vector3& forward, float width, float height, 
-              float u1, float v1, float u2, float v2, const Vector4& color, const Vector2& rotationPoint, float rotationAngle);
+    void draw(const kmVec3& position, const kmVec3& right, const kmVec3& forward, float width, float height, 
+              float u1, float v1, float u2, float v2, const kmVec4& color, const Vector2& rotationPoint, float rotationAngle);
 
     /**
      * Draws a single sprite.
@@ -210,7 +210,7 @@ public:
      * @param v2 Texture coordinate.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color);
+    void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color);
 
     /**
      * Draws a single sprite, clipped within a rectangle.
@@ -226,7 +226,7 @@ public:
      * @param color The color to tint the sprite. Use white for no tint.
      * @param clip The clip rectangle.
      */
-    void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip);
+    void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip);
 
     /**
      * Draws a single sprite, clipped within a rectangle.
@@ -243,7 +243,7 @@ public:
      * @param color The color to tint the sprite. Use white for no tint.
      * @param clip The clip rectangle.
      */
-    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip);
+    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip);
 
     /**
      * Draws a single sprite.
@@ -260,7 +260,7 @@ public:
      * @param color The color to tint the sprite. Use white for no tint.
      * @param positionIsCenter Specified whether the given destination is to be the center of the sprite or not (if not, it is treated as the bottom-left).
      */
-    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, bool positionIsCenter = false);
+    void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, bool positionIsCenter = false);
 
     /**
      * Sprite vertex structure used for batching.
@@ -344,14 +344,14 @@ public:
      *
      * @param matrix The new projection matrix to be used with the default effect.
      */
-    void setProjectionMatrix(const Matrix& matrix);
+    void setProjectionMatrix(const kmMat4& matrix);
 
     /**
      * Gets the projection matrix for the SpriteBatch.
      * 
      * @return The projection matrix.
      */
-    const Matrix& getProjectionMatrix() const;
+    const kmMat4& getProjectionMatrix() const;
 
 private:
 
@@ -381,7 +381,7 @@ private:
      * @param color The color to tint the sprite. Use white for no tint.
      * @param vertices The vertices to draw.
      */
-    void addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, SpriteBatch::SpriteVertex* vertices);
+    void addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, SpriteBatch::SpriteVertex* vertices);
 
     /**
      * Adds a single sprite to a SpriteVertex array, clipped within a rectangle.
@@ -398,7 +398,7 @@ private:
      * @param clip The clip rectangle.
      * @param vertices The vertices to draw.
      */
-    void addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip, SpriteBatch::SpriteVertex* vertices);
+    void addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip, SpriteBatch::SpriteVertex* vertices);
 
     bool clipSprite(const Rectangle& clip, float& x, float& y, float& width, float& height, float& u1, float& v1, float& u2, float& v2);
 

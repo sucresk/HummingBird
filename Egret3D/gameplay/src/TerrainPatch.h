@@ -128,7 +128,7 @@ private:
 
     unsigned int computeLOD(Camera* camera, const BoundingBox& worldBounds);
 
-    const Vector3& getAmbientColor() const;
+    const kmVec3& getAmbientColor() const;
 
     void setMaterialDirty();
 

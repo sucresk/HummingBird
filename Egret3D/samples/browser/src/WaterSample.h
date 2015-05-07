@@ -47,7 +47,7 @@ private:
     Node* _cameraNode;
     Node* _reflectCameraNode;
 
-    Vector3 _cameraAcceleration;
+    kmVec3 _cameraAcceleration;
     float _waterHeight;
 
     unsigned _inputMask;
@@ -60,12 +60,12 @@ private:
 
     bool _showBuffers;
     Vector4 _clipPlane;
-    const Vector4& getClipPlane() const
+    const kmVec4& getClipPlane() const
     {
         return _clipPlane;
     }
     Matrix m_worldViewProjectionReflection;
-    const Matrix& getReflectionMatrix() const
+    const kmMat4& getReflectionMatrix() const
     {
         return m_worldViewProjectionReflection;
     }

@@ -46,7 +46,7 @@ public:
      * 
      * @param position The position to move to.
      */
-    void setPosition(const Vector3& position);
+    void setPosition(const kmVec3& position);
 
     /**
      * Moves the camera forward in the direction that it is pointing. (Fly mode)

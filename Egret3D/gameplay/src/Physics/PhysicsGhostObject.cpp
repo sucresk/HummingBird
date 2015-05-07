@@ -9,7 +9,7 @@ namespace egret
 PhysicsGhostObject::PhysicsGhostObject(Node* node, const PhysicsCollisionShape::Definition& shape, int group, int mask)
     : PhysicsCollisionObject(node, group, mask), _ghostObject(NULL)
 {
-    Vector3 centerOfMassOffset;
+    kmVec3 centerOfMassOffset;
     PhysicsController* physicsController = Game::getInstance()->getPhysicsController();
     GP_ASSERT(physicsController);
 

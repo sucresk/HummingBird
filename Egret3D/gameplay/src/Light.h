@@ -41,7 +41,7 @@ public:
      * @return The new directional light.
      * @script{create}
      */
-    static Light* createDirectional(const Vector3& color);
+    static Light* createDirectional(const kmVec3& color);
 
     /**
      * Creates a directional light.
@@ -64,7 +64,7 @@ public:
      * @return The new point light.
      * @script{create}
      */
-    static Light* createPoint(const Vector3& color, float range);
+    static Light* createPoint(const kmVec3& color, float range);
 
     /**
      * Creates a point light.
@@ -90,7 +90,7 @@ public:
      * @return The new spot light.
      * @script{create}
      */
-    static Light* createSpot(const Vector3& color, float range, float innerAngle, float outerAngle);
+    static Light* createSpot(const kmVec3& color, float range, float innerAngle, float outerAngle);
 
     /**
      * Creates a spot light.
@@ -142,14 +142,14 @@ public:
      * 
      * @return The light color.
      */
-    const Vector3& getColor() const;
+    const kmVec3& getColor() const;
 
     /**
      * Sets the light color.
      * 
      * @param color The light color to set.
      */
-    void setColor(const Vector3& color);
+    void setColor(const kmVec3& color);
 
     /**
      * Sets the light color.
@@ -238,9 +238,9 @@ private:
     class Directional
     {
     public:
-        Vector3 color;
+        kmVec3 color;
 
-        Directional(const Vector3& color);
+        Directional(const kmVec3& color);
     };
 
     /**
@@ -249,11 +249,11 @@ private:
     class Point
     {
     public:
-        Vector3 color;
+        kmVec3 color;
         float range;
         float rangeInverse;
 
-        Point(const Vector3& color, float range);
+        Point(const kmVec3& color, float range);
     };
 
     /**
@@ -262,7 +262,7 @@ private:
     class Spot
     {
     public:
-        Vector3 color;
+        kmVec3 color;
         float range;
         float rangeInverse;
         float innerAngle;
@@ -270,23 +270,23 @@ private:
         float outerAngle;
         float outerAngleCos;
 
-        Spot(const Vector3& color, float range, float innerAngle, float outerAngle);
+        Spot(const kmVec3& color, float range, float innerAngle, float outerAngle);
     };
 
     /**
      * Constructor for the directional light.
      */
-    Light(Light::Type type, const Vector3& color);
+    Light(Light::Type type, const kmVec3& color);
 
     /**
      * Constructor for point light.
      */
-    Light(Light::Type type, const Vector3& color, float range);
+    Light(Light::Type type, const kmVec3& color, float range);
 
     /**
      * Constructor for spot light.
      */
-    Light(Light::Type type, const Vector3& color, float range, float innerAngle, float outerAngle);
+    Light(Light::Type type, const kmVec3& color, float range, float innerAngle, float outerAngle);
 
     /**
      * Sets the node associated with this light.

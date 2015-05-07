@@ -222,7 +222,7 @@ void FormsSample::update(float elapsedTime)
         {
             Matrix m;
             _formNodeParent->getWorldMatrix().transpose(&m);
-            Vector3 yaw;
+            kmVec3 yaw;
             m.getUpVector(&yaw);
             _formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
             _formNodeParent->rotateX(-speedFactor * _joysticks[1].y * 2.0f);
@@ -283,7 +283,7 @@ void FormsSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
                 // Yaw in world frame
                 Matrix m;
                 _formNodeParent->getWorldMatrix().transpose(&m);
-                Vector3 yaw;
+                kmVec3 yaw;
                 m.getUpVector(&yaw);
                 _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
             }

@@ -210,7 +210,7 @@ bool PhysicsCollisionObject::CollisionPair::operator < (const CollisionPair& col
     return false;
 }
 
-PhysicsCollisionObject::PhysicsMotionState::PhysicsMotionState(Node* node, PhysicsCollisionObject* collisionObject, const Vector3* centerOfMassOffset) :
+PhysicsCollisionObject::PhysicsMotionState::PhysicsMotionState(Node* node, PhysicsCollisionObject* collisionObject, const kmVec3* centerOfMassOffset) :
     _node(node), _collisionObject(collisionObject), _centerOfMassOffset(btTransform::getIdentity())
 {
     if (centerOfMassOffset)
@@ -244,7 +244,7 @@ void PhysicsCollisionObject::PhysicsMotionState::setWorldTransform(const btTrans
     _worldTransform = transform * _centerOfMassOffset;
         
     const btQuaternion& rot = _worldTransform.getRotation();
-    const btVector3& pos = _worldTransform.getOrigin();
+    const btkmVec3& pos = _worldTransform.getOrigin();
 
     _node->setRotation(rot.x(), rot.y(), rot.z(), rot.w());
     _node->setTranslation(pos.x(), pos.y(), pos.z());
@@ -256,7 +256,7 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
 
     // Store the initial world transform (minus the scale) for use by Bullet later on.
     Quaternion rotation;
-    const Matrix& m = _node->getWorldMatrix();
+    const kmMat4& m = _node->getWorldMatrix();
     m.getRotation(&rotation);
 
     if (!_centerOfMassOffset.getOrigin().isZero())
@@ -265,7 +265,7 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
         // so that when physics is initially applied, the object is in the correct location.
         btTransform offset = btTransform(BQ(rotation), btVector3(0.0f, 0.0f, 0.0f)) * _centerOfMassOffset.inverse();
 
-        btVector3 origin(m.m[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
+        btkmVec3 origin(m.m[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
                          m.m[13] + _centerOfMassOffset.getOrigin().getY() + offset.getOrigin().getY(), 
                          m.m[14] + _centerOfMassOffset.getOrigin().getZ() + offset.getOrigin().getZ());
         _worldTransform = btTransform(BQ(rotation), origin);
@@ -276,7 +276,7 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
     }
 }
 
-void PhysicsCollisionObject::PhysicsMotionState::setCenterOfMassOffset(const Vector3& centerOfMassOffset)
+void PhysicsCollisionObject::PhysicsMotionState::setCenterOfMassOffset(const kmVec3& centerOfMassOffset)
 {
     _centerOfMassOffset.setOrigin(BV(centerOfMassOffset));
 }
@@ -321,7 +321,7 @@ PhysicsCollisionObject::ScriptListener* PhysicsCollisionObject::ScriptListener::
 }
 
 void PhysicsCollisionObject::ScriptListener::collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
-    const PhysicsCollisionObject::CollisionPair& collisionPair, const Vector3& contactPointA, const Vector3& contactPointB)
+    const PhysicsCollisionObject::CollisionPair& collisionPair, const kmVec3& contactPointA, const kmVec3& contactPointB)
 {
     Game::getInstance()->getScriptController()->executeFunction<void>(function.c_str(), 
         "[PhysicsCollisionObject::CollisionListener::EventType]<PhysicsCollisionObject::CollisionPair><Vector3><Vector3>",

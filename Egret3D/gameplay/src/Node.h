@@ -274,14 +274,14 @@ public:
      *
      * @return The world matrix of this node.
      */
-    virtual const Matrix& getWorldMatrix() const;
+    virtual const kmMat4& getWorldMatrix() const;
 
     /**
      * Gets the world view matrix corresponding to this node.
      *
      * @return The world view matrix of this node.
      */
-    const Matrix& getWorldViewMatrix() const;
+    const kmMat4& getWorldViewMatrix() const;
 
     /**
      * Gets the inverse transpose world matrix corresponding to this node.
@@ -290,7 +290,7 @@ public:
      *
      * @return The inverse world matrix of this node.
      */
-    const Matrix& getInverseTransposeWorldMatrix() const;
+    const kmMat4& getInverseTransposeWorldMatrix() const;
 
     /**
      * Gets the inverse transpose world view matrix corresponding to this node.
@@ -299,7 +299,7 @@ public:
      *
      * @return The inverse world view matrix of this node.
      */
-    const Matrix& getInverseTransposeWorldViewMatrix() const;
+    const kmMat4& getInverseTransposeWorldViewMatrix() const;
 
     /**
      * Gets the view matrix corresponding to this node based
@@ -307,7 +307,7 @@ public:
      *
      * @return The view matrix of this node.
      */
-    const Matrix& getViewMatrix() const;
+    const kmMat4& getViewMatrix() const;
 
     /**
      * Gets the inverse view matrix corresponding to this node based
@@ -315,7 +315,7 @@ public:
      *
      * @return The inverse view matrix of this node.
      */
-    const Matrix& getInverseViewMatrix() const;
+    const kmMat4& getInverseViewMatrix() const;
 
     /**
      * Gets the projection matrix corresponding to this node based
@@ -323,7 +323,7 @@ public:
      *
      * @return The projection matrix of this node.
      */
-    const Matrix& getProjectionMatrix() const;
+    const kmMat4& getProjectionMatrix() const;
 
     /**
      * Gets the view * projection matrix corresponding to this node based
@@ -331,7 +331,7 @@ public:
      *
      * @return The view * projection matrix of this node.
      */
-    const Matrix& getViewProjectionMatrix() const;
+    const kmMat4& getViewProjectionMatrix() const;
 
     /**
      * Gets the inverse view * projection matrix corresponding to this node based
@@ -339,7 +339,7 @@ public:
      *
      * @return The inverse view * projection matrix of this node.
      */
-    const Matrix& getInverseViewProjectionMatrix() const;
+    const kmMat4& getInverseViewProjectionMatrix() const;
 
     /**
      * Gets the world * view * projection matrix corresponding to this node based
@@ -347,63 +347,63 @@ public:
      *
      * @return The world * view * projection matrix of this node.
      */
-    const Matrix& getWorldViewProjectionMatrix() const;
+    const kmMat4& getWorldViewProjectionMatrix() const;
 
     /**
      * Gets the translation vector (or position) of this Node in world space.
      *
      * @return The world translation vector.
      */
-    Vector3 getTranslationWorld() const;
+    kmVec3 getTranslationWorld() const;
 
     /**
      * Gets the translation vector (or position) of this Node in view space.
      *
      * @return The view space translation vector.
      */
-    Vector3 getTranslationView() const;
+    kmVec3 getTranslationView() const;
 
     /**
      * Returns the forward vector of the Node in world space.
      *
      * @return The forward vector in world space.
      */
-    Vector3 getForwardVectorWorld() const;
+    kmVec3 getForwardVectorWorld() const;
 
     /**
      * Returns the forward vector of the Node in view space.
      *
      * @return The forward vector in view space.
      */
-    Vector3 getForwardVectorView() const;
+    kmVec3 getForwardVectorView() const;
 
     /**
      * Returns the right vector of the Node in world space.
      *
      * @return The right vector in world space.
      */
-    Vector3 getRightVectorWorld() const;
+    kmVec3 getRightVectorWorld() const;
 
     /**
      * Returns the up vector of the Node in world space.
      *
      * @return The up vector in world space.
      */
-    Vector3 getUpVectorWorld() const;
+    kmVec3 getUpVectorWorld() const;
 
     /**
      * Returns the translation vector of the currently active camera for this node's scene.
      *
      * @return The translation vector of the scene's active camera.
      */
-    Vector3 getActiveCameraTranslationWorld() const;
+    kmVec3 getActiveCameraTranslationWorld() const;
 
     /**
      * Returns the view-space translation vector of the currently active camera for this node's scene.
      *
      * @return The translation vector of the scene's active camera, in view-space.
      */
-    Vector3 getActiveCameraTranslationView() const;
+    kmVec3 getActiveCameraTranslationView() const;
 
     /**
      * Gets the first animation in the node hierarchy with the specified ID.

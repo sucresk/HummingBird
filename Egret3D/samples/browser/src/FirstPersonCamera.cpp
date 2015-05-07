@@ -39,14 +39,14 @@ Camera* FirstPersonCamera::getCamera()
     return NULL;
 }
 
-void FirstPersonCamera::setPosition(const Vector3& position)
+void FirstPersonCamera::setPosition(const kmVec3& position)
 {
     _rootNode->setTranslation(position);
 }
 
 void FirstPersonCamera::moveForward(float amount)
 {
-    Vector3 v = _pitchNode->getForwardVectorWorld();
+    kmVec3 v = _pitchNode->getForwardVectorWorld();
     v.normalize().scale(amount);
     _rootNode->translate(v);
 }

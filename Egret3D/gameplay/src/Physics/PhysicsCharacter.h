@@ -97,7 +97,7 @@ public:
      *
      * @param velocity Movement velocity.
      */
-    void setVelocity(const Vector3& velocity);
+    void setVelocity(const kmVec3& velocity);
 
     /**
      * Sets the velocity of the character.
@@ -125,7 +125,7 @@ public:
      * @param axis Axis of rotation.
      * @param angle Angle in radians.
      */
-    void rotate(const Vector3& axis, float angle);
+    void rotate(const kmVec3& axis, float angle);
 
     /**
      * Rotates the character.
@@ -140,7 +140,7 @@ public:
      * @param axis Axis of rotation.
      * @param angle Angle in radians.
      */
-    void setRotation(const Vector3& axis, float angle);
+    void setRotation(const kmVec3& axis, float angle);
 
     /**
      * Sets the rotation of the character.
@@ -178,7 +178,7 @@ public:
      *
      * @return The current velocity.
      */
-    Vector3 getCurrentVelocity() const;
+    kmVec3 getCurrentVelocity() const;
 
     /**
      * Causes the character to jump to the specified height.
@@ -235,7 +235,7 @@ private:
 
     void stepForwardAndStrafe(btCollisionWorld* collisionWorld, float time);
 
-    void updateTargetPositionFromCollision(btVector3& targetPosition, const btVector3& collisionNormal);
+    void updateTargetPositionFromCollision(btkmVec3& targetPosition, const btkmVec3& collisionNormal);
 
     bool fixCollision(btCollisionWorld* world);
 
@@ -258,15 +258,15 @@ private:
 
     void updateAction(btCollisionWorld* collisionWorld, btScalar deltaTimeStep);
 
-    btVector3 _moveVelocity;
+    btkmVec3 _moveVelocity;
     float _forwardVelocity;
     float _rightVelocity;
-    btVector3 _verticalVelocity;
-    btVector3 _currentVelocity;
-    btVector3 _normalizedVelocity;
+    btkmVec3 _verticalVelocity;
+    btkmVec3 _currentVelocity;
+    btkmVec3 _normalizedVelocity;
     bool _colliding;
-    btVector3 _collisionNormal;
-    btVector3 _currentPosition;
+    btkmVec3 _collisionNormal;
+    btkmVec3 _currentPosition;
     btManifoldArray _manifoldArray;
     float _stepHeight;
     float _slopeAngle;

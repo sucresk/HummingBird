@@ -155,7 +155,7 @@ public:
      *
      * @return Definition of a box shape.
      */
-    static PhysicsCollisionShape::Definition box(const Vector3& extents, const Vector3& center = Vector3::zero(), bool absolute = false);
+    static PhysicsCollisionShape::Definition box(const kmVec3& extents, const kmVec3& center = Vector3::zero(), bool absolute = false);
 
     /**
      * Defines a sphere shape, using the bounding volume of the node it is attached to.
@@ -175,7 +175,7 @@ public:
      *
      * @return Definition of a sphere shape.
      */
-    static PhysicsCollisionShape::Definition sphere(float radius, const Vector3& center = Vector3::zero(), bool absolute = false);
+    static PhysicsCollisionShape::Definition sphere(float radius, const kmVec3& center = Vector3::zero(), bool absolute = false);
 
     /**
      * Defines a capsule shape, using the bounding volume of the node it is attached to.
@@ -196,7 +196,7 @@ public:
      *
      * @return Definition of a capsule shape.
      */
-    static PhysicsCollisionShape::Definition capsule(float radius, float height, const Vector3& center = Vector3::zero(), bool absolute = false);
+    static PhysicsCollisionShape::Definition capsule(float radius, float height, const kmVec3& center = Vector3::zero(), bool absolute = false);
 
     /**
      * Defines a heightfield shape, using the height data of a terrain on the node that is attached to.

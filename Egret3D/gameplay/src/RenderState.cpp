@@ -321,57 +321,57 @@ void RenderState::applyAutoBinding(const char* uniformName, const char* autoBind
     }
 }
 
-const Matrix& RenderState::autoBindingGetWorldMatrix() const
+const kmMat4& RenderState::autoBindingGetWorldMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getWorldMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetViewMatrix() const
+const kmMat4& RenderState::autoBindingGetViewMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getViewMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetProjectionMatrix() const
+const kmMat4& RenderState::autoBindingGetProjectionMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getProjectionMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetWorldViewMatrix() const
+const kmMat4& RenderState::autoBindingGetWorldViewMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getWorldViewMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetViewProjectionMatrix() const
+const kmMat4& RenderState::autoBindingGetViewProjectionMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getViewProjectionMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetWorldViewProjectionMatrix() const
+const kmMat4& RenderState::autoBindingGetWorldViewProjectionMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getWorldViewProjectionMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetInverseTransposeWorldMatrix() const
+const kmMat4& RenderState::autoBindingGetInverseTransposeWorldMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getInverseTransposeWorldMatrix() : Matrix::identity();
 }
 
-const Matrix& RenderState::autoBindingGetInverseTransposeWorldViewMatrix() const
+const kmMat4& RenderState::autoBindingGetInverseTransposeWorldViewMatrix() const
 {
     return _nodeBinding ? _nodeBinding->getInverseTransposeWorldViewMatrix() : Matrix::identity();
 }
 
-Vector3 RenderState::autoBindingGetCameraWorldPosition() const
+kmVec3 RenderState::autoBindingGetCameraWorldPosition() const
 {
     return _nodeBinding ? _nodeBinding->getActiveCameraTranslationWorld() : Vector3::zero();
 }
 
-Vector3 RenderState::autoBindingGetCameraViewPosition() const
+kmVec3 RenderState::autoBindingGetCameraViewPosition() const
 {
     return _nodeBinding ? _nodeBinding->getActiveCameraTranslationView() : Vector3::zero();
 }
 
-const Vector4* RenderState::autoBindingGetMatrixPalette() const
+const kmVec4* RenderState::autoBindingGetMatrixPalette() const
 {
     Model* model = dynamic_cast<Model*>(_nodeBinding->getDrawable());
     if (model)
@@ -395,7 +395,7 @@ unsigned int RenderState::autoBindingGetMatrixPaletteSize() const
     return 0;
 }
 
-const Vector3& RenderState::autoBindingGetAmbientColor() const
+const kmVec3& RenderState::autoBindingGetAmbientColor() const
 {
     Scene* scene = _nodeBinding ? _nodeBinding->getScene() : NULL;
     return scene ? scene->getAmbientColor() : Vector3::zero();

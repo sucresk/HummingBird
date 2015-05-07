@@ -250,9 +250,9 @@ private:
      *
      * @return True if the projected point lies within the form's plane, false otherwise.
      */
-    bool projectPoint(int x, int y, Vector3* point);
+    bool projectPoint(int x, int y, kmVec3* point);
 
-    const Matrix& getProjectionMatrix() const;
+    const kmMat4& getProjectionMatrix() const;
 
     static bool pointerEventInternal(bool mouse, int evt, int x, int y, int param);
 

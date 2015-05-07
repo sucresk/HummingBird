@@ -610,7 +610,7 @@ const Rectangle& Control::getSkinRegion(State state) const
     return overlay->getSkinRegion();
 }
 
-void Control::setSkinColor(const Vector4& color, unsigned char states)
+void Control::setSkinColor(const kmVec4& color, unsigned char states)
 {
     overrideStyle();
     Theme::Style::Overlay* overlays[Theme::Style::OVERLAY_MAX] = { 0 };
@@ -623,7 +623,7 @@ void Control::setSkinColor(const Vector4& color, unsigned char states)
     }
 }
 
-const Vector4& Control::getSkinColor(State state) const
+const kmVec4& Control::getSkinColor(State state) const
 {
     Theme::Style::Overlay* overlay = getOverlay(state);
     GP_ASSERT(overlay);
@@ -678,7 +678,7 @@ const Rectangle& Control::getImageRegion(const char* id, State state) const
     return overlay->getImageRegion(id);
 }
 
-void Control::setImageColor(const char* id, const Vector4& color, unsigned char states)
+void Control::setImageColor(const char* id, const kmVec4& color, unsigned char states)
 {
     overrideStyle();
     Theme::Style::Overlay* overlays[Theme::Style::OVERLAY_MAX] = { 0 };
@@ -691,7 +691,7 @@ void Control::setImageColor(const char* id, const Vector4& color, unsigned char 
     }
 }
 
-const Vector4& Control::getImageColor(const char* id, State state) const
+const kmVec4& Control::getImageColor(const char* id, State state) const
 {
     Theme::Style::Overlay* overlay = getOverlay(state);
     GP_ASSERT(overlay);
@@ -725,7 +725,7 @@ const Rectangle& Control::getCursorRegion(State state) const
     return overlay->getCursorRegion();
 }
 
-void Control::setCursorColor(const Vector4& color, unsigned char states)
+void Control::setCursorColor(const kmVec4& color, unsigned char states)
 {
     overrideStyle();
     Theme::Style::Overlay* overlays[Theme::Style::OVERLAY_MAX] = { 0 };
@@ -738,7 +738,7 @@ void Control::setCursorColor(const Vector4& color, unsigned char states)
     }
 }
 
-const Vector4& Control::getCursorColor(State state)
+const kmVec4& Control::getCursorColor(State state)
 {
     Theme::Style::Overlay* overlay = getOverlay(state);
     GP_ASSERT(overlay);
@@ -798,7 +798,7 @@ unsigned int Control::getFontSize(State state) const
     return overlay->getFontSize();
 }
 
-void Control::setTextColor(const Vector4& color, unsigned char states)
+void Control::setTextColor(const kmVec4& color, unsigned char states)
 {
     overrideStyle();
     Theme::Style::Overlay* overlays[Theme::Style::OVERLAY_MAX] = { 0 };
@@ -811,7 +811,7 @@ void Control::setTextColor(const Vector4& color, unsigned char states)
     }
 }
 
-const Vector4& Control::getTextColor(State state) const
+const kmVec4& Control::getTextColor(State state) const
 {
     Theme::Style::Overlay* overlay = getOverlay(state);
     GP_ASSERT(overlay);

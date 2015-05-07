@@ -13,7 +13,7 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(const Vector3& normal, float distance)
+Plane::Plane(const kmVec3& normal, float distance)
 {
     set(normal, distance);
 }
@@ -32,12 +32,12 @@ Plane::~Plane()
 {
 }
 
-const Vector3& Plane::getNormal() const
+const kmVec3& Plane::getNormal() const
 {
     return _normal;
 }
 
-void Plane::setNormal(const Vector3& normal)
+void Plane::setNormal(const kmVec3& normal)
 {
     _normal = normal;
     normalize();
@@ -59,12 +59,12 @@ void Plane::setDistance(float distance)
     _distance = distance;
 }
 
-float Plane::distance(const Vector3& point) const
+float Plane::distance(const kmVec3& point) const
 {
     return _normal.x * point.x + _normal.y * point.y + _normal.z * point.z + _distance;
 }
 
-void Plane::intersection(const Plane& p1, const Plane& p2, const Plane& p3, Vector3* point)
+void Plane::intersection(const Plane& p1, const Plane& p2, const Plane& p3, kmVec3* point)
 {
     GP_ASSERT(point);
 
@@ -125,7 +125,7 @@ float Plane::intersects(const BoundingBox& box) const
 float Plane::intersects(const Frustum& frustum) const
 {
     // Get the corners of the frustum.
-    Vector3 corners[8];
+    kmVec3 corners[8];
     frustum.getCorners(corners);
 
     // Calculate the distances from all of the corners to the plane.
@@ -179,7 +179,7 @@ float Plane::intersects(const Plane& plane) const
     }
 
     // Calculate the point where the given plane's normal vector intersects the given plane.
-    Vector3 point(plane._normal.x * -plane._distance, plane._normal.y * -plane._distance, plane._normal.z * -plane._distance);
+    kmVec3 point(plane._normal.x * -plane._distance, plane._normal.y * -plane._distance, plane._normal.z * -plane._distance);
 
     // Calculate whether the given plane is in the positive or negative half-space of this plane
     // (corresponds directly to the sign of the distance from the point calculated above to this plane).
@@ -205,7 +205,7 @@ float Plane::intersects(const Ray& ray) const
     }
     else
     {
-        Vector3 rayDirection = ray.getDirection();
+        kmVec3 rayDirection = ray.getDirection();
         // If the dot product of this plane's normal and the ray's direction is positive, and
         // if the distance from this plane to the ray's origin is negative -> intersection, OR
         // if the dot product of this plane's normal and the ray's direction is negative, and
@@ -242,7 +242,7 @@ bool Plane::isParallel(const Plane& plane) const
            (_normal.x * plane._normal.y) - (_normal.y * plane._normal.x) == 0.0f;
 }
 
-void Plane::set(const Vector3& normal, float distance)
+void Plane::set(const kmVec3& normal, float distance)
 {
     _normal = normal;
     _distance = distance;
@@ -255,7 +255,7 @@ void Plane::set(const Plane& plane)
     _distance = plane._distance;
 }
 
-void Plane::transform(const Matrix& matrix)
+void Plane::transform(const kmMat4& matrix)
 {
     Matrix inverted;
     if (matrix.invert(&inverted))

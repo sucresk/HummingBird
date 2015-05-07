@@ -401,7 +401,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::VECTOR3:
             {
-                Vector3 vector3;
+                kmVec3 vector3;
                 if (properties->getVector3(NULL, &vector3))
                 {
                     GP_ASSERT(renderState->getParameter(name));

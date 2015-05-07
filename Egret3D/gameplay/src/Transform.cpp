@@ -18,7 +18,7 @@ Transform::Transform()
     _scale.set(Vector3::one());
 }
 
-Transform::Transform(const Vector3& scale, const Quaternion& rotation, const Vector3& translation)
+Transform::Transform(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
     GP_REGISTER_SCRIPT_EVENTS();
@@ -27,7 +27,7 @@ Transform::Transform(const Vector3& scale, const Quaternion& rotation, const Vec
     set(scale, rotation, translation);
 }
 
-Transform::Transform(const Vector3& scale, const Matrix& rotation, const Vector3& translation)
+Transform::Transform(const kmVec3& scale, const kmMat4& rotation, const kmVec3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
     GP_REGISTER_SCRIPT_EVENTS();
@@ -97,7 +97,7 @@ const char* Transform::getTypeName() const
     return "Transform";
 }
 
-const Matrix& Transform::getMatrix() const
+const kmMat4& Transform::getMatrix() const
 {
     if (_matrixDirtyBits)
     {
@@ -141,12 +141,12 @@ const Matrix& Transform::getMatrix() const
     return _matrix;
 }
 
-const Vector3& Transform::getScale() const
+const kmVec3& Transform::getScale() const
 {
     return _scale;
 }
 
-void Transform::getScale(Vector3* scale) const
+void Transform::getScale(kmVec3* scale) const
 {
     GP_ASSERT(scale);
     scale->set(_scale);
@@ -178,24 +178,24 @@ void Transform::getRotation(Quaternion* rotation) const
     rotation->set(_rotation);
 }
 
-void Transform::getRotation(Matrix* rotation) const
+void Transform::getRotation(kmMat4* rotation) const
 {
     GP_ASSERT(rotation);
     Matrix::createRotation(_rotation, rotation);
 }
 
-float Transform::getRotation(Vector3* axis) const
+float Transform::getRotation(kmVec3* axis) const
 {
     GP_ASSERT(axis);
     return _rotation.toAxisAngle(axis);
 }
 
-const Vector3& Transform::getTranslation() const
+const kmVec3& Transform::getTranslation() const
 {
     return _translation;
 }
 
-void Transform::getTranslation(Vector3* translation) const
+void Transform::getTranslation(kmVec3* translation) const
 {
     GP_ASSERT(translation);
     translation->set(_translation);
@@ -216,74 +216,74 @@ float Transform::getTranslationZ() const
     return _translation.z;
 }
 
-Vector3 Transform::getForwardVector() const
+kmVec3 Transform::getForwardVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getForwardVector(&v);
     return v;
 }
 
-void Transform::getForwardVector(Vector3* dst) const
+void Transform::getForwardVector(kmVec3* dst) const
 {
     getMatrix().getForwardVector(dst);
 }
 
-Vector3 Transform::getBackVector() const
+kmVec3 Transform::getBackVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getBackVector(&v);
     return v;
 }
 
-void Transform::getBackVector(Vector3* dst) const
+void Transform::getBackVector(kmVec3* dst) const
 {
     getMatrix().getBackVector(dst);
 }
 
-Vector3 Transform::getUpVector() const
+kmVec3 Transform::getUpVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getUpVector(&v);
     return v;
 }
 
-void Transform::getUpVector(Vector3* dst) const
+void Transform::getUpVector(kmVec3* dst) const
 {
     getMatrix().getUpVector(dst);
 }
 
-Vector3 Transform::getDownVector() const
+kmVec3 Transform::getDownVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getDownVector(&v);
     return v;
 }
 
-void Transform::getDownVector(Vector3* dst) const
+void Transform::getDownVector(kmVec3* dst) const
 {
     getMatrix().getDownVector(dst);
 }
 
-Vector3 Transform::getLeftVector() const
+kmVec3 Transform::getLeftVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getLeftVector(&v);
     return v;
 }
 
-void Transform::getLeftVector(Vector3* dst) const
+void Transform::getLeftVector(kmVec3* dst) const
 {
     getMatrix().getLeftVector(dst);
 }
 
-Vector3 Transform::getRightVector() const
+kmVec3 Transform::getRightVector() const
 {
-    Vector3 v;
+    kmVec3 v;
     getRightVector(&v);
     return v;
 }
 
-void Transform::getRightVector(Vector3* dst) const
+void Transform::getRightVector(kmVec3* dst) const
 {
     getMatrix().getRightVector(dst);
 }
@@ -307,7 +307,7 @@ void Transform::rotate(const Quaternion& rotation)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::rotate(const Vector3& axis, float angle)
+void Transform::rotate(const kmVec3& axis, float angle)
 {
     if (isStatic())
         return;
@@ -319,7 +319,7 @@ void Transform::rotate(const Vector3& axis, float angle)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::rotate(const Matrix& rotation)
+void Transform::rotate(const kmMat4& rotation)
 {
     if (isStatic())
         return;
@@ -383,7 +383,7 @@ void Transform::scale(float sx, float sy, float sz)
     dirty(DIRTY_SCALE);
 }
 
-void Transform::scale(const Vector3& scale)
+void Transform::scale(const kmVec3& scale)
 {
     if (isStatic())
         return;
@@ -421,7 +421,7 @@ void Transform::scaleZ(float sz)
     dirty(DIRTY_SCALE);
 }
 
-void Transform::set(const Vector3& scale, const Quaternion& rotation, const Vector3& translation)
+void Transform::set(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -432,7 +432,7 @@ void Transform::set(const Vector3& scale, const Quaternion& rotation, const Vect
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
-void Transform::set(const Vector3& scale, const Matrix& rotation, const Vector3& translation)
+void Transform::set(const kmVec3& scale, const kmMat4& rotation, const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -445,7 +445,7 @@ void Transform::set(const Vector3& scale, const Matrix& rotation, const Vector3&
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
-void Transform::set(const Vector3& scale, const Vector3& axis, float angle, const Vector3& translation)
+void Transform::set(const kmVec3& scale, const kmVec3& axis, float angle, const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -496,7 +496,7 @@ void Transform::setScale(float sx, float sy, float sz)
     dirty(DIRTY_SCALE);
 }
 
-void Transform::setScale(const Vector3& scale)
+void Transform::setScale(const kmVec3& scale)
 {
     _scale.set(scale);
     dirty(DIRTY_SCALE);
@@ -547,7 +547,7 @@ void Transform::setRotation(float qx, float qy, float qz, float qw)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::setRotation(const Matrix& rotation)
+void Transform::setRotation(const kmMat4& rotation)
 {
     if (isStatic())
         return;
@@ -558,7 +558,7 @@ void Transform::setRotation(const Matrix& rotation)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::setRotation(const Vector3& axis, float angle)
+void Transform::setRotation(const kmVec3& axis, float angle)
 {
     if (isStatic())
         return;
@@ -567,7 +567,7 @@ void Transform::setRotation(const Vector3& axis, float angle)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::setTranslation(const Vector3& translation)
+void Transform::setTranslation(const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -623,7 +623,7 @@ void Transform::translate(float tx, float ty, float tz)
     dirty(DIRTY_TRANSLATION);
 }
 
-void Transform::translate(const Vector3& translation)
+void Transform::translate(const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -669,7 +669,7 @@ void Transform::translateLeft(float amount)
     // Force the current transform matrix to be updated.
     getMatrix();
 
-    Vector3 left;
+    kmVec3 left;
     _matrix.getLeftVector(&left);
     left.normalize();
     left.scale(amount);
@@ -685,7 +685,7 @@ void Transform::translateUp(float amount)
     // Force the current transform matrix to be updated.
     getMatrix();
 
-    Vector3 up;
+    kmVec3 up;
     _matrix.getUpVector(&up);
     up.normalize();
     up.scale(amount);
@@ -701,7 +701,7 @@ void Transform::translateForward(float amount)
     // Force the current transform matrix to be updated.
     getMatrix();
 
-    Vector3 forward;
+    kmVec3 forward;
     _matrix.getForwardVector(&forward);
     forward.normalize();
     forward.scale(amount);
@@ -709,7 +709,7 @@ void Transform::translateForward(float amount)
     translate(forward);
 }
 
-void Transform::translateSmooth(const Vector3& target, float elapsedTime, float responseTime)
+void Transform::translateSmooth(const kmVec3& target, float elapsedTime, float responseTime)
 {
     if (isStatic())
         return;
@@ -721,31 +721,31 @@ void Transform::translateSmooth(const Vector3& target, float elapsedTime, float 
     }
 }
 
-void Transform::transformPoint(Vector3* point)
+void Transform::transformPoint(kmVec3* point)
 {
     getMatrix();
     _matrix.transformPoint(point);
 }
 
-void Transform::transformPoint(const Vector3& point, Vector3* dst)
+void Transform::transformPoint(const kmVec3& point, kmVec3* dst)
 {
     getMatrix();
     _matrix.transformPoint(point, dst);
 }
 
-void Transform::transformVector(Vector3* normal)
+void Transform::transformVector(kmVec3* normal)
 {
     getMatrix();
     _matrix.transformVector(normal);
 }
 
-void Transform::transformVector(const Vector3& normal, Vector3* dst)
+void Transform::transformVector(const kmVec3& normal, kmVec3* dst)
 {
     getMatrix();
     _matrix.transformVector(normal, dst);
 }
 
-void Transform::transformVector(float x, float y, float z, float w, Vector3* dst)
+void Transform::transformVector(float x, float y, float z, float w, kmVec3* dst)
 {
     getMatrix();
     _matrix.transformVector(x, y, z, w, dst);

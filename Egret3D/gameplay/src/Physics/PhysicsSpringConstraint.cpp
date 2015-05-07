@@ -15,12 +15,12 @@ PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, PhysicsRig
     _a = a;
     _b = b;
 
-    Vector3 origin = centerOfMassMidpoint(a->getNode(), b->getNode());
+    kmVec3 origin = centerOfMassMidpoint(a->getNode(), b->getNode());
     _constraint = bullet_new<btGeneric6DofSpringConstraint>(*a->_body, *b->_body, getTransformOffset(a->getNode(), origin), getTransformOffset(b->getNode(), origin), true);
 }
 
-PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const Vector3& translationOffsetA,
-                                                 PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const Vector3& translationOffsetB)
+PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                                                 PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     GP_ASSERT(a && a->_body && a->getNode());
     GP_ASSERT(b && b->_body && b->getNode());
@@ -30,13 +30,13 @@ PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const Quat
     _b = b;
 
     // Take scale into account for the translation offsets.
-    Vector3 sA;
+    kmVec3 sA;
     a->getNode()->getWorldMatrix().getScale(&sA);
-    Vector3 tA(translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z);
+    kmVec3 tA(translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z);
 
-    Vector3 sB;
+    kmVec3 sB;
     b->getNode()->getWorldMatrix().getScale(&sB);
-    Vector3 tB(translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z);
+    kmVec3 tB(translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z);
 
     btTransform frameInA(BQ(rotationOffsetA), BV(tA));
     btTransform frameInB(BQ(rotationOffsetB), BV(tB));

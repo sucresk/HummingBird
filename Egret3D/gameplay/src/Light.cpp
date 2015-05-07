@@ -5,19 +5,19 @@
 namespace egret
 {
 
-Light::Light(Light::Type type, const Vector3& color) :
+Light::Light(Light::Type type, const kmVec3& color) :
     _type(type), _node(NULL)
 {
     _directional = new Directional(color);
 }
 
-Light::Light(Light::Type type, const Vector3& color, float range) :
+Light::Light(Light::Type type, const kmVec3& color, float range) :
     _type(type), _node(NULL)
 {
     _point = new Point(color, range);
 }
 
-Light::Light(Light::Type type, const Vector3& color, float range, float innerAngle, float outerAngle) :
+Light::Light(Light::Type type, const kmVec3& color, float range, float innerAngle, float outerAngle) :
     _type(type), _node(NULL)
 {
     _spot = new Spot(color, range, innerAngle, outerAngle);
@@ -42,7 +42,7 @@ Light::~Light()
     }
 }
 
-Light* Light::createDirectional(const Vector3& color)
+Light* Light::createDirectional(const kmVec3& color)
 {
     return new Light(DIRECTIONAL, color);
 }
@@ -52,7 +52,7 @@ Light* Light::createDirectional(float red, float green, float blue)
     return new Light(DIRECTIONAL, Vector3(red, green, blue));
 }
 
-Light* Light::createPoint(const Vector3& color, float range)
+Light* Light::createPoint(const kmVec3& color, float range)
 {
     return new Light(POINT, color, range);
 }
@@ -62,7 +62,7 @@ Light* Light::createPoint(float red, float green, float blue, float range)
     return new Light(POINT, Vector3(red, green, blue), range);
 }
 
-Light* Light::createSpot(const Vector3& color, float range, float innerAngle, float outerAngle)
+Light* Light::createSpot(const kmVec3& color, float range, float innerAngle, float outerAngle)
 {
     return new Light(SPOT, color, range, innerAngle, outerAngle);
 }
@@ -100,7 +100,7 @@ Light* Light::create(Properties* properties)
     }
 
     // Read common parameters
-    Vector3 color;
+    kmVec3 color;
     if (!properties->getVector3("color", &color))
     {
         GP_ERROR("Missing valid 'color' parameter for light definition.");
@@ -167,7 +167,7 @@ void Light::setNode(Node* node)
     _node = node;
 }
 
-const Vector3& Light::getColor() const
+const kmVec3& Light::getColor() const
 {
     switch (_type)
     {
@@ -187,7 +187,7 @@ const Vector3& Light::getColor() const
     }
 }
 
-void Light::setColor(const Vector3& color)
+void Light::setColor(const kmVec3& color)
 {
     switch (_type)
     {
@@ -349,18 +349,18 @@ Light* Light::clone(NodeCloneContext &context)
     return lightClone;
 }
 
-Light::Directional::Directional(const Vector3& color)
+Light::Directional::Directional(const kmVec3& color)
     : color(color)
 {
 }
 
-Light::Point::Point(const Vector3& color, float range)
+Light::Point::Point(const kmVec3& color, float range)
     : color(color), range(range)
 {
     rangeInverse = 1.0f / range;
 }
 
-Light::Spot::Spot(const Vector3& color, float range, float innerAngle, float outerAngle)
+Light::Spot::Spot(const kmVec3& color, float range, float innerAngle, float outerAngle)
     : color(color), range(range), innerAngle(innerAngle), outerAngle(outerAngle)
 {
     rangeInverse = 1.0f / range;

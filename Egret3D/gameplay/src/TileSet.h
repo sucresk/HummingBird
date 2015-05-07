@@ -139,14 +139,14 @@ public:
      *
      * @param color The color(RGBA) for the sprite.
      */
-    void setColor(const Vector4& color);
+    void setColor(const kmVec4& color);
     
     /**
      * Gets the color (RGBA) for the sprite.
      *
      * @return The color(RGBA) for the sprite.
      */
-    const Vector4& getColor() const;
+    const kmVec4& getColor() const;
    
     /**
      * @see Drawable::draw

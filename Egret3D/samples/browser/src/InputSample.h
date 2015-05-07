@@ -68,7 +68,7 @@ private:
     Scene* _scene;
     Node* _formNode;
     Node* _formNodeParent;
-    Vector3 _formNodeRestPosition;
+    kmVec3 _formNodeRestPosition;
 };
 
 #endif

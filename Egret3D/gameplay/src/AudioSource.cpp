@@ -126,7 +126,7 @@ AudioSource* AudioSource::create(Properties* properties)
     {
         audio->setPitch(properties->getFloat("pitch"));
     }
-    Vector3 v;
+    kmVec3 v;
     if (properties->getVector3("velocity", &v))
     {
         audio->setVelocity(v);
@@ -241,12 +241,12 @@ void AudioSource::setPitch(float pitch)
     _pitch = pitch;
 }
 
-const Vector3& AudioSource::getVelocity() const
+const kmVec3& AudioSource::getVelocity() const
 {
     return _velocity;
 }
 
-void AudioSource::setVelocity(const Vector3& velocity)
+void AudioSource::setVelocity(const kmVec3& velocity)
 {
     AL_CHECK( alSourcefv(_alSource, AL_VELOCITY, (ALfloat*)&velocity) );
     _velocity = velocity;
@@ -288,7 +288,7 @@ void AudioSource::transformChanged(Transform* transform, long cookie)
 {
     if (_node)
     {
-        Vector3 translation = _node->getTranslationWorld();
+        kmVec3 translation = _node->getTranslationWorld();
         AL_CHECK( alSourcefv(_alSource, AL_POSITION, (const ALfloat*)&translation.x) );
     }
 }

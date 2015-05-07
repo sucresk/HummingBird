@@ -2,8 +2,8 @@
 #define RENDERSTATE_H_
 
 #include "Ref.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "vec3.h"
+#include "vec4.h"
 
 namespace egret
 {
@@ -633,21 +633,21 @@ private:
     RenderState& operator=(const RenderState&);
 
     // Internal auto binding handler methods.
-    const Matrix& autoBindingGetWorldMatrix() const;
-    const Matrix& autoBindingGetViewMatrix() const;
-    const Matrix& autoBindingGetProjectionMatrix() const;
-    const Matrix& autoBindingGetWorldViewMatrix() const;
-    const Matrix& autoBindingGetViewProjectionMatrix() const;
-    const Matrix& autoBindingGetWorldViewProjectionMatrix() const;
-    const Matrix& autoBindingGetInverseTransposeWorldMatrix() const;
-    const Matrix& autoBindingGetInverseTransposeWorldViewMatrix() const;
-    Vector3 autoBindingGetCameraWorldPosition() const;
-    Vector3 autoBindingGetCameraViewPosition() const;
-    const Vector4* autoBindingGetMatrixPalette() const;
+    const kmMat4& autoBindingGetWorldMatrix() const;
+    const kmMat4& autoBindingGetViewMatrix() const;
+    const kmMat4& autoBindingGetProjectionMatrix() const;
+    const kmMat4& autoBindingGetWorldViewMatrix() const;
+    const kmMat4& autoBindingGetViewProjectionMatrix() const;
+    const kmMat4& autoBindingGetWorldViewProjectionMatrix() const;
+    const kmMat4& autoBindingGetInverseTransposeWorldMatrix() const;
+    const kmMat4& autoBindingGetInverseTransposeWorldViewMatrix() const;
+    kmVec3 autoBindingGetCameraWorldPosition() const;
+    kmVec3 autoBindingGetCameraViewPosition() const;
+    const kmVec4* autoBindingGetMatrixPalette() const;
     unsigned int autoBindingGetMatrixPaletteSize() const;
-    const Vector3& autoBindingGetAmbientColor() const;
-    const Vector3& autoBindingGetLightColor() const;
-    const Vector3& autoBindingGetLightDirection() const;
+    const kmVec3& autoBindingGetAmbientColor() const;
+    const kmVec3& autoBindingGetLightColor() const;
+    const kmVec3& autoBindingGetLightDirection() const;
 
 protected:
 

@@ -73,7 +73,7 @@ private:
 
     void emitterChanged();
 
-    void drawFrameRate(Font* font, const Vector4& color, unsigned int x, unsigned int y, unsigned int fps);
+    void drawFrameRate(Font* font, const kmVec4& color, unsigned int x, unsigned int y, unsigned int fps);
 
     void updateTexture();
 
@@ -91,9 +91,9 @@ private:
     
     std::string toString(unsigned int i);
     
-    std::string toString(const Vector3& v);
+    std::string toString(const kmVec3& v);
     
-    std::string toString(const Vector4& v);
+    std::string toString(const kmVec4& v);
     
     std::string toString(const Quaternion& q);
     

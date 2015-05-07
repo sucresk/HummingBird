@@ -25,7 +25,7 @@ Text& Text::operator=(const Text& text)
     return *this;
 }
     
-Text* Text::create(const char* fontPath, const char* str, const Vector4& color, unsigned int size)
+Text* Text::create(const char* fontPath, const char* str, const kmVec4& color, unsigned int size)
 {
     GP_ASSERT(fontPath);
     GP_ASSERT(str);
@@ -99,7 +99,7 @@ Text* Text::create(Properties* properties)
         {
             case Properties::VECTOR3:
                 color.w = 1.0f;
-                properties->getVector3("color", (Vector3*)&color);
+                properties->getVector3("color", (kmVec3*)&color);
                 break;
             case Properties::VECTOR4:
                 properties->getVector4("color", &color);
@@ -200,12 +200,12 @@ float Text::getOpacity() const
     return _opacity;
 }
 
-void Text::setColor(const Vector4& color)
+void Text::setColor(const kmVec4& color)
 {
     _color = color;
 }
 
-const Vector4& Text::getColor() const
+const kmVec4& Text::getColor() const
 {
     return _color;
 }
@@ -233,7 +233,7 @@ unsigned int Text::draw(bool wireframe)
 {
     // Apply scene camera projection and translation offsets
     Rectangle viewport = Game::getInstance()->getViewport();
-    Vector3 position = Vector3::zero();
+    kmVec3 position = Vector3::zero();
     
     // Font is always using a offset projection matrix to top-left. So we need to adjust it back to cartesian
     position.x += viewport.width / 2;
@@ -254,7 +254,7 @@ unsigned int Text::draw(bool wireframe)
         }
         
         // Apply node translation offsets
-        Vector3 translation = _node->getTranslationWorld();
+        kmVec3 translation = _node->getTranslationWorld();
         position.x += translation.x;
         position.y -= translation.y;
     

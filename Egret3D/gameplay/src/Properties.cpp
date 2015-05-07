@@ -854,7 +854,7 @@ long Properties::getLong(const char* name) const
     return 0L;
 }
 
-bool Properties::getMatrix(const char* name, Matrix* out) const
+bool Properties::getMatrix(const char* name, kmMat4* out) const
 {
     GP_ASSERT(out);
 
@@ -887,12 +887,12 @@ bool Properties::getVector2(const char* name, Vector2* out) const
     return parseVector2(getString(name), out);
 }
 
-bool Properties::getVector3(const char* name, Vector3* out) const
+bool Properties::getVector3(const char* name, kmVec3* out) const
 {
     return parseVector3(getString(name), out);
 }
 
-bool Properties::getVector4(const char* name, Vector4* out) const
+bool Properties::getVector4(const char* name, kmVec4* out) const
 {
     return parseVector4(getString(name), out);
 }
@@ -902,12 +902,12 @@ bool Properties::getQuaternionFromAxisAngle(const char* name, Quaternion* out) c
     return parseAxisAngle(getString(name), out);
 }
 
-bool Properties::getColor(const char* name, Vector3* out) const
+bool Properties::getColor(const char* name, kmVec3* out) const
 {
     return parseColor(getString(name), out);
 }
 
-bool Properties::getColor(const char* name, Vector4* out) const
+bool Properties::getColor(const char* name, kmVec4* out) const
 {
     return parseColor(getString(name), out);
 }
@@ -1140,7 +1140,7 @@ bool Properties::parseVector2(const char* str, Vector2* out)
     return false;
 }
 
-bool Properties::parseVector3(const char* str, Vector3* out)
+bool Properties::parseVector3(const char* str, kmVec3* out)
 {
     if (str)
     {
@@ -1162,7 +1162,7 @@ bool Properties::parseVector3(const char* str, Vector3* out)
     return false;
 }
 
-bool Properties::parseVector4(const char* str, Vector4* out)
+bool Properties::parseVector4(const char* str, kmVec4* out)
 {
     if (str)
     {
@@ -1206,7 +1206,7 @@ bool Properties::parseAxisAngle(const char* str, Quaternion* out)
     return false;
 }
 
-bool Properties::parseColor(const char* str, Vector3* out)
+bool Properties::parseColor(const char* str, kmVec3* out)
 {
     if (str)
     {
@@ -1238,7 +1238,7 @@ bool Properties::parseColor(const char* str, Vector3* out)
     return false;
 }
 
-bool Properties::parseColor(const char* str, Vector4* out)
+bool Properties::parseColor(const char* str, kmVec4* out)
 {
     if (str)
     {

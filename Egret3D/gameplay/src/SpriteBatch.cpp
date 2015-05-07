@@ -150,7 +150,7 @@ bool SpriteBatch::isStarted() const
     return _batch->isStarted();
 }
 
-void SpriteBatch::draw(const Rectangle& dst, const Rectangle& src, const Vector4& color)
+void SpriteBatch::draw(const Rectangle& dst, const Rectangle& src, const kmVec4& color)
 {
     // Calculate uvs.
     float u1 = _textureWidthRatio * src.x;
@@ -161,7 +161,7 @@ void SpriteBatch::draw(const Rectangle& dst, const Rectangle& src, const Vector4
     draw(dst.x, dst.y, dst.width, dst.height, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::draw(const Vector3& dst, const Rectangle& src, const Vector2& scale, const Vector4& color)
+void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color)
 {
     // Calculate uvs.
     float u1 = _textureWidthRatio * src.x;
@@ -172,7 +172,7 @@ void SpriteBatch::draw(const Vector3& dst, const Rectangle& src, const Vector2& 
     draw(dst.x, dst.y, dst.z, scale.x, scale.y, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::draw(const Vector3& dst, const Rectangle& src, const Vector2& scale, const Vector4& color,
+void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color,
                        const Vector2& rotationPoint, float rotationAngle)
 {
     // Calculate uvs.
@@ -184,13 +184,13 @@ void SpriteBatch::draw(const Vector3& dst, const Rectangle& src, const Vector2& 
     draw(dst, scale.x, scale.y, u1, v1, u2, v2, color, rotationPoint, rotationAngle);
 }
 
-void SpriteBatch::draw(const Vector3& dst, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color,
+void SpriteBatch::draw(const kmVec3& dst, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
                        const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter)
 {
     draw(dst.x, dst.y, dst.z, width, height, u1, v1, u2, v2, color, rotationPoint, rotationAngle, positionIsCenter);
 }
 
-void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color,
+void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
           const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter)
 {
     // Treat the given position as the center if the user specified it as such.
@@ -235,34 +235,34 @@ void SpriteBatch::draw(float x, float y, float z, float width, float height, flo
     _batch->add(v, 4, indices, 4);
 }
 
-void SpriteBatch::draw(const Vector3& position, const Vector3& right, const Vector3& forward, float width, float height,
-    float u1, float v1, float u2, float v2, const Vector4& color, const Vector2& rotationPoint, float rotationAngle)
+void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3& forward, float width, float height,
+    float u1, float v1, float u2, float v2, const kmVec4& color, const Vector2& rotationPoint, float rotationAngle)
 {
     // Calculate the vertex positions.
-    Vector3 tRight(right);
+    kmVec3 tRight(right);
     tRight *= width * 0.5f;
-    Vector3 tForward(forward);
+    kmVec3 tForward(forward);
     tForward *= height * 0.5f;
     
-    Vector3 p0 = position;
+    kmVec3 p0 = position;
     p0 -= tRight;
     p0 -= tForward;
 
-    Vector3 p1 = position;
+    kmVec3 p1 = position;
     p1 += tRight;
     p1 -= tForward;
 
     tForward = forward;
     tForward *= height;
-    Vector3 p2 = p0;
+    kmVec3 p2 = p0;
     p2 += tForward;
-    Vector3 p3 = p1;
+    kmVec3 p3 = p1;
     p3 += tForward;
 
     // Calculate the rotation point.
     if (rotationAngle != 0)
     {
-        Vector3 rp = p0;
+        kmVec3 rp = p0;
         tRight = right;
         tRight *= width * rotationPoint.x;
         tForward *= rotationPoint.y;
@@ -270,7 +270,7 @@ void SpriteBatch::draw(const Vector3& position, const Vector3& right, const Vect
         rp += tForward;
 
         // Rotate all points the specified amount about the given point (about the up vector).
-        static Vector3 u;
+        static kmVec3 u;
         Vector3::cross(right, forward, &u);
         static Matrix rotation;
         Matrix::createRotation(u, rotationAngle, &rotation);
@@ -300,17 +300,17 @@ void SpriteBatch::draw(const Vector3& position, const Vector3& right, const Vect
     _batch->add(v, 4, const_cast<unsigned short*>(indices), 4);
 }
 
-void SpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color)
+void SpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color)
 {
     draw(x, y, 0, width, height, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip)
+void SpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip)
 {
     draw(x, y, 0, width, height, u1, v1, u2, v2, color, clip);
 }
 
-void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip)
+void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip)
 {
     // TODO: Perform software clipping instead of culling the entire sprite.
 
@@ -319,7 +319,7 @@ void SpriteBatch::draw(float x, float y, float z, float width, float height, flo
         draw(x, y, z, width, height, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, SpriteBatch::SpriteVertex* vertices)
+void SpriteBatch::addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, SpriteBatch::SpriteVertex* vertices)
 {
     GP_ASSERT(vertices);
 
@@ -331,7 +331,7 @@ void SpriteBatch::addSprite(float x, float y, float width, float height, float u
     SPRITE_ADD_VERTEX(vertices[3], x2, y2, 0, u2, v2, color.x, color.y, color.z, color.w);
 }
 
-void SpriteBatch::addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, const Rectangle& clip, SpriteBatch::SpriteVertex* vertices)
+void SpriteBatch::addSprite(float x, float y, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, const Rectangle& clip, SpriteBatch::SpriteVertex* vertices)
 {
     GP_ASSERT(vertices);
 
@@ -355,7 +355,7 @@ void SpriteBatch::draw(SpriteBatch::SpriteVertex* vertices, unsigned int vertexC
     _batch->add(vertices, vertexCount, indices, indexCount);
 }
 
-void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const Vector4& color, bool positionIsCenter)
+void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color, bool positionIsCenter)
 {
     // Treat the given position as the center if the user specified it as such.
     if (positionIsCenter)
@@ -400,12 +400,12 @@ Material* SpriteBatch::getMaterial() const
     return _batch->getMaterial();
 }
 
-void SpriteBatch::setProjectionMatrix(const Matrix& matrix)
+void SpriteBatch::setProjectionMatrix(const kmMat4& matrix)
 {
     _projectionMatrix = matrix;
 }
 
-const Matrix& SpriteBatch::getProjectionMatrix() const
+const kmMat4& SpriteBatch::getProjectionMatrix() const
 {
     return _projectionMatrix;
 }

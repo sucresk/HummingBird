@@ -414,7 +414,7 @@ bool Node::isStatic() const
     return (_collisionObject && _collisionObject->isStatic());
 }
 
-const Matrix& Node::getWorldMatrix() const
+const kmMat4& Node::getWorldMatrix() const
 {
     if (_dirtyBits & NODE_DIRTY_WORLD)
     {
@@ -447,14 +447,14 @@ const Matrix& Node::getWorldMatrix() const
     return _world;
 }
 
-const Matrix& Node::getWorldViewMatrix() const
+const kmMat4& Node::getWorldViewMatrix() const
 {
     static Matrix worldView;
     Matrix::multiply(getViewMatrix(), getWorldMatrix(), &worldView);
     return worldView;
 }
 
-const Matrix& Node::getInverseTransposeWorldViewMatrix() const
+const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 {
     static Matrix invTransWorldView;
     Matrix::multiply(getViewMatrix(), getWorldMatrix(), &invTransWorldView);
@@ -463,7 +463,7 @@ const Matrix& Node::getInverseTransposeWorldViewMatrix() const
     return invTransWorldView;
 }
 
-const Matrix& Node::getInverseTransposeWorldMatrix() const
+const kmMat4& Node::getInverseTransposeWorldMatrix() const
 {
     static Matrix invTransWorld;
     invTransWorld = getWorldMatrix();
@@ -472,7 +472,7 @@ const Matrix& Node::getInverseTransposeWorldMatrix() const
     return invTransWorld;
 }
 
-const Matrix& Node::getViewMatrix() const
+const kmMat4& Node::getViewMatrix() const
 {
     Scene* scene = getScene();
     Camera* camera = scene ? scene->getActiveCamera() : NULL;
@@ -486,7 +486,7 @@ const Matrix& Node::getViewMatrix() const
     }
 }
 
-const Matrix& Node::getInverseViewMatrix() const
+const kmMat4& Node::getInverseViewMatrix() const
 {
     Scene* scene = getScene();
     Camera* camera = scene ? scene->getActiveCamera() : NULL;
@@ -500,7 +500,7 @@ const Matrix& Node::getInverseViewMatrix() const
     }
 }
 
-const Matrix& Node::getProjectionMatrix() const
+const kmMat4& Node::getProjectionMatrix() const
 {
     Scene* scene = getScene();
     Camera* camera = scene ? scene->getActiveCamera() : NULL;
@@ -514,7 +514,7 @@ const Matrix& Node::getProjectionMatrix() const
     }
 }
 
-const Matrix& Node::getViewProjectionMatrix() const
+const kmMat4& Node::getViewProjectionMatrix() const
 {
     Scene* scene = getScene();
     Camera* camera = scene ? scene->getActiveCamera() : NULL;
@@ -528,7 +528,7 @@ const Matrix& Node::getViewProjectionMatrix() const
     }
 }
 
-const Matrix& Node::getInverseViewProjectionMatrix() const
+const kmMat4& Node::getInverseViewProjectionMatrix() const
 {
     Scene* scene = getScene();
     Camera* camera = scene ? scene->getActiveCamera() : NULL;
@@ -539,7 +539,7 @@ const Matrix& Node::getInverseViewProjectionMatrix() const
     return Matrix::identity();
 }
 
-const Matrix& Node::getWorldViewProjectionMatrix() const
+const kmMat4& Node::getWorldViewProjectionMatrix() const
 {
     // Always re-calculate worldViewProjection matrix since it's extremely difficult
     // to track whether the camera has changed (it may frequently change every frame).
@@ -548,51 +548,51 @@ const Matrix& Node::getWorldViewProjectionMatrix() const
     return worldViewProj;
 }
 
-Vector3 Node::getTranslationWorld() const
+kmVec3 Node::getTranslationWorld() const
 {
-    Vector3 translation;
+    kmVec3 translation;
     getWorldMatrix().getTranslation(&translation);
     return translation;
 }
 
-Vector3 Node::getTranslationView() const
+kmVec3 Node::getTranslationView() const
 {
-    Vector3 translation;
+    kmVec3 translation;
     getWorldMatrix().getTranslation(&translation);
     getViewMatrix().transformPoint(&translation);
     return translation;
 }
 
-Vector3 Node::getForwardVectorWorld() const
+kmVec3 Node::getForwardVectorWorld() const
 {
-    Vector3 vector;
+    kmVec3 vector;
     getWorldMatrix().getForwardVector(&vector);
     return vector;
 }
 
-Vector3 Node::getForwardVectorView() const
+kmVec3 Node::getForwardVectorView() const
 {
-    Vector3 vector;
+    kmVec3 vector;
     getWorldMatrix().getForwardVector(&vector);
     getViewMatrix().transformVector(&vector);
     return vector;
 }
 
-Vector3 Node::getRightVectorWorld() const
+kmVec3 Node::getRightVectorWorld() const
 {
-    Vector3 vector;
+    kmVec3 vector;
     getWorldMatrix().getRightVector(&vector);
     return vector;
 }
 
-Vector3 Node::getUpVectorWorld() const
+kmVec3 Node::getUpVectorWorld() const
 {
-    Vector3 vector;
+    kmVec3 vector;
     getWorldMatrix().getUpVector(&vector);
     return vector;
 }
 
-Vector3 Node::getActiveCameraTranslationWorld() const
+kmVec3 Node::getActiveCameraTranslationWorld() const
 {
     Scene* scene = getScene();
     if (scene)
@@ -610,7 +610,7 @@ Vector3 Node::getActiveCameraTranslationWorld() const
     return Vector3::zero();
 }
 
-Vector3 Node::getActiveCameraTranslationView() const
+kmVec3 Node::getActiveCameraTranslationView() const
 {
     Scene* scene = getScene();
     if (scene)
@@ -818,7 +818,7 @@ const BoundingSphere& Node::getBoundingSphere() const
     {
         _dirtyBits &= ~NODE_DIRTY_BOUNDS;
 
-        const Matrix& worldMatrix = getWorldMatrix();
+        const kmMat4& worldMatrix = getWorldMatrix();
 
         // Start with our local bounding sphere
         // TODO: Incorporate bounds from entities other than mesh (i.e. particleemitters, audiosource, etc)

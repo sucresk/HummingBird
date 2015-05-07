@@ -535,7 +535,7 @@ Theme::Style* Theme::getEmptyStyle()
     return emptyStyle;
 }
 
-void Theme::setProjectionMatrix(const Matrix& matrix)
+void Theme::setProjectionMatrix(const kmMat4& matrix)
 {
     GP_ASSERT(_spriteBatch);
     _spriteBatch->setProjectionMatrix(matrix);
@@ -583,7 +583,7 @@ const Theme::SideRegions& Theme::SideRegions::empty()
 /*********************
  * Theme::ThemeImage *
  *********************/
-Theme::ThemeImage::ThemeImage(float tw, float th, const Rectangle& region, const Vector4& color)
+Theme::ThemeImage::ThemeImage(float tw, float th, const Rectangle& region, const kmVec4& color)
     : _region(region), _color(color)
 {
     generateUVs(tw, th, region.x, region.y, region.width, region.height, &_uvs);
@@ -593,7 +593,7 @@ Theme::ThemeImage::~ThemeImage()
 {
 }
 
-Theme::ThemeImage* Theme::ThemeImage::create(float tw, float th, Properties* properties, const Vector4& defaultColor)
+Theme::ThemeImage* Theme::ThemeImage::create(float tw, float th, Properties* properties, const kmVec4& defaultColor)
 {
     GP_ASSERT(properties);
 
@@ -636,7 +636,7 @@ const Rectangle& Theme::ThemeImage::getRegion() const
     return _region;
 }
 
-const Vector4& Theme::ThemeImage::getColor() const
+const kmVec4& Theme::ThemeImage::getColor() const
 {
     return _color;
 }
@@ -644,7 +644,7 @@ const Vector4& Theme::ThemeImage::getColor() const
 /********************
  * Theme::ImageList *
  ********************/
-Theme::ImageList::ImageList(const Vector4& color) : _color(color)
+Theme::ImageList::ImageList(const kmVec4& color) : _color(color)
 {
 }
 
@@ -726,7 +726,7 @@ Theme::ThemeImage* Theme::ImageList::getImage(const char* imageId) const
 /***************
  * Theme::Skin *
  ***************/
-Theme::Skin* Theme::Skin::create(const char* id, float tw, float th, const Rectangle& region, const Theme::Border& border, const Vector4& color)
+Theme::Skin* Theme::Skin::create(const char* id, float tw, float th, const Rectangle& region, const Theme::Border& border, const kmVec4& color)
 {
     Skin* skin = new Skin(tw, th, region, border, color);
 
@@ -738,7 +738,7 @@ Theme::Skin* Theme::Skin::create(const char* id, float tw, float th, const Recta
     return skin;
 }
 
-Theme::Skin::Skin(float tw, float th, const Rectangle& region, const Theme::Border& border, const Vector4& color)
+Theme::Skin::Skin(float tw, float th, const Rectangle& region, const Theme::Border& border, const kmVec4& color)
     : _border(border), _color(color), _region(region)
 {
     setRegion(region, tw, th);
@@ -828,7 +828,7 @@ const Theme::UVs& Theme::Skin::getUVs(SkinArea area) const
     return _uvs[area];
 }
 
-const Vector4& Theme::Skin::getColor() const
+const kmVec4& Theme::Skin::getColor() const
 {
     return _color;
 }

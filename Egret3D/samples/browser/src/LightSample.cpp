@@ -237,12 +237,12 @@ void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 			_modelNode->getWorldMatrix().transpose(&m);
 
 			// Yaw in world frame
-			Vector3 yaw;
+			kmVec3 yaw;
 			m.getUpVector(&yaw);
 			_modelNode->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
 
 			// Roll in world frame
-			Vector3 pitch;
+			kmVec3 pitch;
 			m.getRightVector(&pitch);
 			_modelNode->rotate(pitch, MATH_DEG_TO_RAD(deltaY * 0.5f));
 		}
@@ -289,7 +289,7 @@ void LightSample::controlEvent(Control* control, EventType evt)
 	case Control::Listener::VALUE_CHANGED:
 		if ((control == _redSlider) || (control == _greenSlider) || (control == _blueSlider))
         {
-			Vector3 color(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue());
+			kmVec3 color(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue());
 			setColorValue(color);
         }
 		else if (control == _specularSlider)
@@ -426,7 +426,7 @@ void LightSample::setUnlitMaterialTexture(Model* model, const char* texturePath,
 	material->getStateBlock()->setBlendDst(RenderState::BLEND_ONE_MINUS_SRC_ALPHA);
 }
 
-void LightSample::setColorValue(const Vector3& value)
+void LightSample::setColorValue(const kmVec3& value)
 {
 	_lighting->getTechnique(("directional"))->getParameter("u_directionalLightColor[0]")->setValue(value);
 	_lighting->getTechnique(("directionalSpecular"))->getParameter("u_directionalLightColor[0]")->setValue(value);

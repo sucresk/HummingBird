@@ -13,7 +13,7 @@ Ray::Ray()
 {
 }
 
-Ray::Ray(const Vector3& origin, const Vector3& direction)
+Ray::Ray(const kmVec3& origin, const kmVec3& direction)
 {
     set(origin, direction);
 }
@@ -32,12 +32,12 @@ Ray::~Ray()
 {
 }
 
-const Vector3& Ray::getOrigin() const
+const kmVec3& Ray::getOrigin() const
 {
     return _origin;
 }
 
-void Ray::setOrigin(const Vector3& origin)
+void Ray::setOrigin(const kmVec3& origin)
 {
     _origin = origin;
 }
@@ -47,12 +47,12 @@ void Ray::setOrigin(float x, float y, float z)
     _origin.set(x, y, z);
 }
 
-const Vector3& Ray::getDirection() const
+const kmVec3& Ray::getDirection() const
 {
     return _direction;
 }
 
-void Ray::setDirection(const Vector3& direction)
+void Ray::setDirection(const kmVec3& direction)
 {
     _direction = direction;
     normalize();
@@ -122,7 +122,7 @@ float Ray::intersects(const Frustum& frustum) const
 
 float Ray::intersects(const Plane& plane) const
 {
-    const Vector3& normal = plane.getNormal();
+    const kmVec3& normal = plane.getNormal();
     // If the origin of the ray is on the plane then the distance is zero.
     float alpha = (normal.dot(_origin) + plane.getDistance());
     if (fabs(alpha) < MATH_EPSILON)
@@ -149,7 +149,7 @@ float Ray::intersects(const Plane& plane) const
     return d;
 }
 
-void Ray::set(const Vector3& origin, const Vector3& direction)
+void Ray::set(const kmVec3& origin, const kmVec3& direction)
 {
     _origin = origin;
     _direction = direction;

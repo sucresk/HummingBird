@@ -228,7 +228,7 @@ void Form::finishBatch(SpriteBatch* batch)
     }
 }
 
-const Matrix& Form::getProjectionMatrix() const
+const kmMat4& Form::getProjectionMatrix() const
 {
     return  _projectionMatrix;
 }
@@ -316,7 +316,7 @@ bool Form::screenToForm(Control* ctrl, int* x, int* y)
         {
             // Form is attached to a scene node, so project the screen space point into the
             // form's coordinate space (which may be transformed by the node).
-            Vector3 point;
+            kmVec3 point;
             if (form->projectPoint(*x, *y, &point))
             {
                 *x = (int)point.x;
@@ -997,7 +997,7 @@ void Form::resizeEventInternal(unsigned int width, unsigned int height)
     }
 }
 
-bool Form::projectPoint(int x, int y, Vector3* point)
+bool Form::projectPoint(int x, int y, kmVec3* point)
 {
     if (!_node)
         return false;
@@ -1009,7 +1009,7 @@ bool Form::projectPoint(int x, int y, Vector3* point)
     {
         // Get info about the form's position.
         Matrix m = _node->getWorldMatrix();
-        Vector3 pointOnPlane(0, 0, 0);
+        kmVec3 pointOnPlane(0, 0, 0);
         m.transformPoint(&pointOnPlane);
 
         // Unproject point into world space.
@@ -1017,7 +1017,7 @@ bool Form::projectPoint(int x, int y, Vector3* point)
         camera->pickRay(Game::getInstance()->getViewport(), x, y, &ray);
 
         // Find the quad's plane.  We know its normal is the quad's forward vector.
-        Vector3 normal = _node->getForwardVectorWorld().normalize();
+        kmVec3 normal = _node->getForwardVectorWorld().normalize();
 
         // To get the plane's distance from the origin, we project a point on the
         // plane onto the plane's normal vector.

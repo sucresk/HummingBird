@@ -16,7 +16,7 @@ public:
     /**
      * The center point.
      */
-    Vector3 center;
+    kmVec3 center;
 
     /**
      * The sphere radius.
@@ -34,7 +34,7 @@ public:
      * @param center The center of the sphere.
      * @param radius The radius of the sphere.
      */
-    BoundingSphere(const Vector3& center, float radius);
+    BoundingSphere(const kmVec3& center, float radius);
 
     /**
      * Constructs a bounding sphere from the given bounding sphere.
@@ -130,7 +130,7 @@ public:
      * @param center The center of the sphere.
      * @param radius The radius of the sphere.
      */
-    void set(const Vector3& center, float radius);
+    void set(const kmVec3& center, float radius);
 
     /**
      * Sets this bounding sphere to the specified bounding sphere.
@@ -151,7 +151,7 @@ public:
      *
      * @param matrix The transformation matrix to transform by.
      */
-    void transform(const Matrix& matrix);
+    void transform(const kmMat4& matrix);
 
     /**
      * Transforms this bounding sphere by the given matrix.
@@ -159,13 +159,13 @@ public:
      * @param matrix The matrix to transform by.
      * @return This bounding sphere, after the transformation occurs.
      */
-    inline BoundingSphere& operator*=(const Matrix& matrix);
+    inline BoundingSphere& operator*=(const kmMat4& matrix);
 
 private:
 
-    float distance(const BoundingSphere& sphere, const Vector3&);
+    float distance(const BoundingSphere& sphere, const kmVec3&);
 
-    bool contains(const BoundingSphere& sphere, Vector3* points, unsigned int count);
+    bool contains(const BoundingSphere& sphere, kmVec3* points, unsigned int count);
 };
 
 /**
@@ -175,7 +175,7 @@ private:
  * @param sphere The bounding sphere to transform.
  * @return The resulting transformed bounding sphere.
  */
-inline const BoundingSphere operator*(const Matrix& matrix, const BoundingSphere& sphere);
+inline const BoundingSphere operator*(const kmMat4& matrix, const BoundingSphere& sphere);
 
 }
 

@@ -102,7 +102,7 @@ float Sample::getAspectRatio() const
     return Game::getInstance()->getAspectRatio();
 }
 
-void Sample::clear(Game::ClearFlags flags, const Vector4& clearColor, float clearDepth, int clearStencil)
+void Sample::clear(Game::ClearFlags flags, const kmVec4& clearColor, float clearDepth, int clearStencil)
 {
     Game::getInstance()->clear(flags, clearColor, clearDepth, clearStencil);
 }
@@ -263,7 +263,7 @@ Gamepad* Sample::getGamepad(unsigned int index, bool preferPhysical) const
     return Game::getInstance()->getGamepad(index, preferPhysical);
 }
 
-void Sample::drawFrameRate(Font* font, const Vector4& color, unsigned int x, unsigned int y, unsigned int fps)
+void Sample::drawFrameRate(Font* font, const kmVec4& color, unsigned int x, unsigned int y, unsigned int fps)
 {
     char buffer[10];
     sprintf(buffer, "%u", fps);

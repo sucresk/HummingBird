@@ -113,10 +113,10 @@ Mesh* Mesh::createQuadFullscreen()
     return mesh;
 }
 
-Mesh* Mesh::createQuad(const Vector3& p1, const Vector3& p2, const Vector3& p3, const Vector3& p4)
+Mesh* Mesh::createQuad(const kmVec3& p1, const kmVec3& p2, const kmVec3& p3, const kmVec3& p4)
 {
     // Calculate the normal vector of the plane.
-    Vector3 v1, v2, n;
+    kmVec3 v1, v2, n;
     Vector3::subtract(p2, p1, &v1);
     Vector3::subtract(p3, p2, &v2);
     Vector3::cross(v1, v2, &n);
@@ -150,7 +150,7 @@ Mesh* Mesh::createQuad(const Vector3& p1, const Vector3& p2, const Vector3& p3, 
     return mesh;
 }
 
-Mesh* Mesh::createLines(Vector3* points, unsigned int pointCount)
+Mesh* Mesh::createLines(kmVec3* points, unsigned int pointCount)
 {
     GP_ASSERT(points);
     GP_ASSERT(pointCount);
@@ -179,7 +179,7 @@ Mesh* Mesh::createLines(Vector3* points, unsigned int pointCount)
 
 Mesh* Mesh::createBoundingBox(const BoundingBox& box)
 {
-    Vector3 corners[8];
+    kmVec3 corners[8];
     box.getCorners(corners);
 
     float vertices[] =

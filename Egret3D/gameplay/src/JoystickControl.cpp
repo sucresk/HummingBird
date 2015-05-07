@@ -439,7 +439,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
         {
             Theme::ThemeImage* outer = getImage("outer", state);
             const Theme::UVs& uvs = outer->getUVs();
-            const Vector4& color = outer->getColor();
+            const kmVec4& color = outer->getColor();
 
             Vector2 position(_screenRegionPixels.x, _screenRegionPixels.y);
 
@@ -474,7 +474,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
 
             // Get the uvs and color and draw.
             const Theme::UVs& uvs = inner->getUVs();
-            const Vector4& color = inner->getColor();
+            const kmVec4& color = inner->getColor();
             if (_relative)
                 batch->draw(position.x, position.y, _innerSizePixels->x, _innerSizePixels->y, uvs.u1, uvs.v1, uvs.u2, uvs.v2, color);
             else

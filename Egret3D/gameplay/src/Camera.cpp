@@ -234,7 +234,7 @@ void Camera::setNode(Node* node)
     }
 }
 
-const Matrix& Camera::getViewMatrix() const
+const kmMat4& Camera::getViewMatrix() const
 {
     if (_bits & CAMERA_DIRTY_VIEW)
     {
@@ -254,7 +254,7 @@ const Matrix& Camera::getViewMatrix() const
     return _view;
 }
 
-const Matrix& Camera::getInverseViewMatrix() const
+const kmMat4& Camera::getInverseViewMatrix() const
 {
     if (_bits & CAMERA_DIRTY_INV_VIEW)
     {
@@ -266,7 +266,7 @@ const Matrix& Camera::getInverseViewMatrix() const
     return _inverseView;
 }
 
-const Matrix& Camera::getProjectionMatrix() const
+const kmMat4& Camera::getProjectionMatrix() const
 {
     if (!(_bits & CAMERA_CUSTOM_PROJECTION) && (_bits & CAMERA_DIRTY_PROJ))
     {
@@ -286,7 +286,7 @@ const Matrix& Camera::getProjectionMatrix() const
     return _projection;
 }
 
-void Camera::setProjectionMatrix(const Matrix& matrix)
+void Camera::setProjectionMatrix(const kmMat4& matrix)
 {
     _projection = matrix;
     _bits |= CAMERA_CUSTOM_PROJECTION;
@@ -306,7 +306,7 @@ void Camera::resetProjectionMatrix()
     }
 }
 
-const Matrix& Camera::getViewProjectionMatrix() const
+const kmMat4& Camera::getViewProjectionMatrix() const
 {
     if (_bits & CAMERA_DIRTY_VIEW_PROJ)
     {
@@ -318,7 +318,7 @@ const Matrix& Camera::getViewProjectionMatrix() const
     return _viewProjection;
 }
 
-const Matrix& Camera::getInverseViewProjectionMatrix() const
+const kmMat4& Camera::getInverseViewProjectionMatrix() const
 {
     if (_bits & CAMERA_DIRTY_INV_VIEW_PROJ)
     {
@@ -343,7 +343,7 @@ const Frustum& Camera::getFrustum() const
     return _bounds;
 }
 
-void Camera::project(const Rectangle& viewport, const Vector3& position, float* x, float* y, float* depth) const
+void Camera::project(const Rectangle& viewport, const kmVec3& position, float* x, float* y, float* depth) const
 {
     GP_ASSERT(x);
     GP_ASSERT(y);
@@ -367,7 +367,7 @@ void Camera::project(const Rectangle& viewport, const Vector3& position, float* 
     }
 }
 
-void Camera::project(const Rectangle& viewport, const Vector3& position, Vector2* out) const
+void Camera::project(const Rectangle& viewport, const kmVec3& position, Vector2* out) const
 {
     GP_ASSERT(out);
     float x, y;
@@ -375,7 +375,7 @@ void Camera::project(const Rectangle& viewport, const Vector3& position, Vector2
     out->set(x, y);
 }
 
-void Camera::project(const Rectangle& viewport, const Vector3& position, Vector3* out) const
+void Camera::project(const Rectangle& viewport, const kmVec3& position, kmVec3* out) const
 {
     GP_ASSERT(out);
     float x, y, depth;
@@ -383,7 +383,7 @@ void Camera::project(const Rectangle& viewport, const Vector3& position, Vector3
     out->set(x, y, depth);
 }
 
-void Camera::unproject(const Rectangle& viewport, float x, float y, float depth, Vector3* dst) const
+void Camera::unproject(const Rectangle& viewport, float x, float y, float depth, kmVec3* dst) const
 {
     GP_ASSERT(dst);
     
@@ -415,15 +415,15 @@ void Camera::pickRay(const Rectangle& viewport, float x, float y, Ray* dst) cons
     GP_ASSERT(dst);
 
     // Get the world-space position at the near clip plane.
-    Vector3 nearPoint;
+    kmVec3 nearPoint;
     unproject(viewport, x, y, 0.0f, &nearPoint);
 
     // Get the world-space position at the far clip plane.
-    Vector3 farPoint;
+    kmVec3 farPoint;
     unproject(viewport, x, y, 1.0f, &farPoint);
 
     // Set the direction of the ray.
-    Vector3 direction;
+    kmVec3 direction;
     Vector3::subtract(farPoint, nearPoint, &direction);
     direction.normalize();
 

@@ -38,22 +38,22 @@ protected:
     /**
      * Protected to prevent usage.
      */
-    inline void setAngularLowerLimit(const Vector3& limit);
+    inline void setAngularLowerLimit(const kmVec3& limit);
     
     /**
      * Protected to prevent usage.
      */
-    inline void setAngularUpperLimit(const Vector3& limit);
+    inline void setAngularUpperLimit(const kmVec3& limit);
     
     /**
      * Protected to prevent usage.
      */
-    inline void setLinearLowerLimit(const Vector3& limit);
+    inline void setLinearLowerLimit(const kmVec3& limit);
     
     /**
      * Protected to prevent usage.
      */
-    inline void setLinearUpperLimit(const Vector3& limit);
+    inline void setLinearUpperLimit(const kmVec3& limit);
 };
 
 }

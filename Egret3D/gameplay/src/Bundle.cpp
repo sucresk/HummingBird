@@ -925,7 +925,7 @@ Light* Bundle::readLight()
         GP_ERROR("Failed to load light color in bundle '%s'.", _path.c_str());
         return NULL;
     }
-    Vector3 color(red, blue, green);
+    kmVec3 color(red, blue, green);
 
     Light* light = NULL;
     if (type == Light::DIRECTIONAL)
@@ -1837,7 +1837,7 @@ void Bundle::setTransform(const float* values, Transform* transform)
 
     // Load array into transform.
     Matrix matrix(values);
-    Vector3 scale, translation;
+    kmVec3 scale, translation;
     Quaternion rotation;
     matrix.decompose(&scale, &rotation, &translation);
     transform->setScale(scale);

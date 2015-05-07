@@ -152,14 +152,14 @@ ParticleEmitter* ParticleEmitter::create(Properties* properties)
     properties->getVector4("colorEnd", &colorEnd);
     properties->getVector4("colorEndVar", &colorEndVar);
 
-    Vector3 position;
-    Vector3 positionVar;
-    Vector3 velocity;
-    Vector3 velocityVar;
-    Vector3 acceleration;
-    Vector3 accelerationVar;
-    Vector3 rotationAxis;
-    Vector3 rotationAxisVar;
+    kmVec3 position;
+    kmVec3 positionVar;
+    kmVec3 velocity;
+    kmVec3 velocityVar;
+    kmVec3 acceleration;
+    kmVec3 accelerationVar;
+    kmVec3 rotationAxis;
+    kmVec3 rotationAxisVar;
     properties->getVector3("position", &position);
     properties->getVector3("positionVar", &positionVar);
     properties->getVector3("velocity", &velocity);
@@ -308,7 +308,7 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
         particleCount = _particleCountMax - _particleCount;
     }
 
-    Vector3 translation;
+    kmVec3 translation;
     Matrix world = _node->getWorldMatrix();
     world.getTranslation(&translation);
 
@@ -439,7 +439,7 @@ long ParticleEmitter::getEnergyMax() const
     return _energyMax;
 }
 
-void ParticleEmitter::setColor(const Vector4& startColor, const Vector4& startColorVar, const Vector4& endColor, const Vector4& endColorVar)
+void ParticleEmitter::setColor(const kmVec4& startColor, const kmVec4& startColorVar, const kmVec4& endColor, const kmVec4& endColorVar)
 {
     _colorStart.set(startColor);
     _colorStartVar.set(startColorVar);
@@ -447,69 +447,69 @@ void ParticleEmitter::setColor(const Vector4& startColor, const Vector4& startCo
     _colorEndVar.set(endColorVar);
 }
 
-const Vector4& ParticleEmitter::getColorStart() const
+const kmVec4& ParticleEmitter::getColorStart() const
 {
     return _colorStart;
 }
 
-const Vector4& ParticleEmitter::getColorStartVariance() const
+const kmVec4& ParticleEmitter::getColorStartVariance() const
 {
     return _colorStartVar;
 }
 
-const Vector4& ParticleEmitter::getColorEnd() const
+const kmVec4& ParticleEmitter::getColorEnd() const
 {
     return _colorEnd;
 }
 
-const Vector4& ParticleEmitter::getColorEndVariance() const
+const kmVec4& ParticleEmitter::getColorEndVariance() const
 {
     return _colorEndVar;
 }
 
-void ParticleEmitter::setPosition(const Vector3& position, const Vector3& positionVar)
+void ParticleEmitter::setPosition(const kmVec3& position, const kmVec3& positionVar)
 {
     _position.set(position);
     _positionVar.set(positionVar);
 }
 
-const Vector3& ParticleEmitter::getPosition() const
+const kmVec3& ParticleEmitter::getPosition() const
 {
     return _position;
 }
 
-const Vector3& ParticleEmitter::getPositionVariance() const
+const kmVec3& ParticleEmitter::getPositionVariance() const
 {
     return _positionVar;
 }
 
-const Vector3& ParticleEmitter::getVelocity() const
+const kmVec3& ParticleEmitter::getVelocity() const
 {
     return _velocity;
 }
 
-const Vector3& ParticleEmitter::getVelocityVariance() const
+const kmVec3& ParticleEmitter::getVelocityVariance() const
 {
     return _velocityVar;
 }
 
-void ParticleEmitter::setVelocity(const Vector3& velocity, const Vector3& velocityVar)
+void ParticleEmitter::setVelocity(const kmVec3& velocity, const kmVec3& velocityVar)
 {
     _velocity.set(velocity);
     _velocityVar.set(velocityVar);
 }
 
-const Vector3& ParticleEmitter::getAcceleration() const
+const kmVec3& ParticleEmitter::getAcceleration() const
 {
     return _acceleration;
 }
 
-const Vector3& ParticleEmitter::getAccelerationVariance() const
+const kmVec3& ParticleEmitter::getAccelerationVariance() const
 {
     return _accelerationVar;
 }
 
-void ParticleEmitter::setAcceleration(const Vector3& acceleration, const Vector3& accelerationVar)
+void ParticleEmitter::setAcceleration(const kmVec3& acceleration, const kmVec3& accelerationVar)
 {
     _acceleration.set(acceleration);
     _accelerationVar.set(accelerationVar);
@@ -531,7 +531,7 @@ float ParticleEmitter::getRotationPerParticleSpeedMax() const
     return _rotationPerParticleSpeedMax;
 }
 
-void ParticleEmitter::setRotation(float speedMin, float speedMax, const Vector3& axis, const Vector3& axisVariance)
+void ParticleEmitter::setRotation(float speedMin, float speedMax, const kmVec3& axis, const kmVec3& axisVariance)
 {
     _rotationSpeedMin = speedMin;
     _rotationSpeedMax = speedMax;
@@ -549,12 +549,12 @@ float ParticleEmitter::getRotationSpeedMax() const
     return _rotationSpeedMax;
 }
 
-const Vector3& ParticleEmitter::getRotationAxis() const
+const kmVec3& ParticleEmitter::getRotationAxis() const
 {
     return _rotationAxis;
 }
 
-const Vector3& ParticleEmitter::getRotationAxisVariance() const
+const kmVec3& ParticleEmitter::getRotationAxisVariance() const
 {
     return _rotationAxisVar;
 }
@@ -766,7 +766,7 @@ float ParticleEmitter::generateScalar(float min, float max)
     return min + (max - min) * MATH_RANDOM_0_1();
 }
 
-void ParticleEmitter::generateVectorInRect(const Vector3& base, const Vector3& variance, Vector3* dst)
+void ParticleEmitter::generateVectorInRect(const kmVec3& base, const kmVec3& variance, kmVec3* dst)
 {
     GP_ASSERT(dst);
 
@@ -777,7 +777,7 @@ void ParticleEmitter::generateVectorInRect(const Vector3& base, const Vector3& v
     dst->z = base.z + variance.z * MATH_RANDOM_MINUS1_1();
 }
 
-void ParticleEmitter::generateVectorInEllipsoid(const Vector3& center, const Vector3& scale, Vector3* dst)
+void ParticleEmitter::generateVectorInEllipsoid(const kmVec3& center, const kmVec3& scale, kmVec3* dst)
 {
     GP_ASSERT(dst);
 
@@ -798,7 +798,7 @@ void ParticleEmitter::generateVectorInEllipsoid(const Vector3& center, const Vec
     dst->add(center);
 }
 
-void ParticleEmitter::generateVector(const Vector3& base, const Vector3& variance, Vector3* dst, bool ellipsoid)
+void ParticleEmitter::generateVector(const kmVec3& base, const kmVec3& variance, kmVec3* dst, bool ellipsoid)
 {
     if (ellipsoid)
     {
@@ -810,7 +810,7 @@ void ParticleEmitter::generateVector(const Vector3& base, const Vector3& varianc
     }
 }
 
-void ParticleEmitter::generateColor(const Vector4& base, const Vector4& variance, Vector4* dst)
+void ParticleEmitter::generateColor(const kmVec4& base, const kmVec4& variance, kmVec4* dst)
 {
     GP_ASSERT(dst);
 
@@ -1004,11 +1004,11 @@ unsigned int ParticleEmitter::draw(bool wireframe)
 
         // 3D Rotation so that particles always face the camera.
         GP_ASSERT(_node && _node->getScene() && _node->getScene()->getActiveCamera() && _node->getScene()->getActiveCamera()->getNode());
-        const Matrix& cameraWorldMatrix = _node->getScene()->getActiveCamera()->getNode()->getWorldMatrix();
+        const kmMat4& cameraWorldMatrix = _node->getScene()->getActiveCamera()->getNode()->getWorldMatrix();
 
-        Vector3 right;
+        kmVec3 right;
         cameraWorldMatrix.getRightVector(&right);
-        Vector3 up;
+        kmVec3 up;
         cameraWorldMatrix.getUpVector(&up);
 
         for (unsigned int i = 0; i < _particleCount; i++)

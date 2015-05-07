@@ -76,21 +76,21 @@ public:
         /**
          * The anisotropic friction term for the rigid body.
          */
-        Vector3 anisotropicFriction;
+        kmVec3 anisotropicFriction;
 
         /**
          * Linear factor for the rigid body. x, y, z coordinates correspond to world 
          * space motion along these axes. Use 1.0 to allow or 0.0 to disallow motion 
          * along certain axis.
          */
-        Vector3 linearFactor;
+        kmVec3 linearFactor;
 
         /**
          * Angular factor for the rigid body. x, y, z coordinates correspond to world 
          * space rotation along these axes. Use 1.0 to allow or 0.0 to disallow rotation
          * along certain axis.
          */
-        Vector3 angularFactor;
+        kmVec3 angularFactor;
 
         /**
          * Constructor.
@@ -106,8 +106,8 @@ public:
          */
         Parameters(float mass, float friction = 0.5f, float restitution = 0.0f,
             float linearDamping = 0.0f, float angularDamping = 0.0f, bool kinematic = false,
-            const Vector3& anisotropicFriction = Vector3::one(), const Vector3& linearFactor = Vector3::one(), 
-            const Vector3& angularFactor = Vector3::one())
+            const kmVec3& anisotropicFriction = Vector3::one(), const kmVec3& linearFactor = Vector3::one(), 
+            const kmVec3& angularFactor = Vector3::one())
             : mass(mass), friction(friction), restitution(restitution), linearDamping(linearDamping), angularDamping(angularDamping),
               kinematic(kinematic), anisotropicFriction(anisotropicFriction), linearFactor(linearFactor), angularFactor(angularFactor)
         {
@@ -181,14 +181,14 @@ public:
      * 
      * @return The linear velocity.
      */
-    inline Vector3 getLinearVelocity() const;
+    inline kmVec3 getLinearVelocity() const;
 
     /**
      * Sets the rigid body's linear velocity.
      * 
      * @param velocity The linear velocity.
      */
-    inline void setLinearVelocity(const Vector3& velocity);
+    inline void setLinearVelocity(const kmVec3& velocity);
 
     /**
      * Sets the rigid body's linear velocity.
@@ -204,14 +204,14 @@ public:
      * 
      * @return The angular velocity.
      */
-    inline Vector3 getAngularVelocity() const;
+    inline kmVec3 getAngularVelocity() const;
 
     /**
      * Sets the rigid body's angular velocity.
      * 
      * @param velocity The angular velocity.
      */
-    inline void setAngularVelocity(const Vector3& velocity);
+    inline void setAngularVelocity(const kmVec3& velocity);
 
     /**
      * Sets the rigid body's angular velocity.
@@ -227,14 +227,14 @@ public:
      * 
      * @return The anisotropic friction.
      */
-    inline Vector3 getAnisotropicFriction() const;
+    inline kmVec3 getAnisotropicFriction() const;
 
     /**
      * Sets the rigid body's anisotropic friction.
      * 
      * @param friction The anisotropic friction.
      */
-    inline void setAnisotropicFriction(const Vector3& friction);
+    inline void setAnisotropicFriction(const kmVec3& friction);
 
     /**
      * Sets the rigid body's anisotropic friction.
@@ -251,14 +251,14 @@ public:
      * 
      * @return The gravity.
      */
-    inline Vector3 getGravity() const;
+    inline kmVec3 getGravity() const;
 
     /**
      * Sets the rigid body's gravity (this overrides the global gravity for this rigid body).
      * 
      * @param gravity The gravity.
      */
-    inline void setGravity(const Vector3& gravity);
+    inline void setGravity(const kmVec3& gravity);
 
     /**
      * Sets the rigid body's gravity (this overrides the global gravity for this rigid body).
@@ -274,7 +274,7 @@ public:
      * 
      * @return The angular factor.
      */
-    inline Vector3 getAngularFactor() const;
+    inline kmVec3 getAngularFactor() const;
 
     /**
      * Sets the rigid body's angular factor.  x, y, z coordinates correspond to world 
@@ -283,7 +283,7 @@ public:
      * 
      * @param angularFactor angular factor vector
      */
-    inline void setAngularFactor(const Vector3& angularFactor);
+    inline void setAngularFactor(const kmVec3& angularFactor);
 
     /**
      * Sets the rigid body's angular factor.  x, y, z coordinates correspond to world 
@@ -301,7 +301,7 @@ public:
      * 
      * @return The linear factor.
      */
-    inline Vector3 getLinearFactor() const;
+    inline kmVec3 getLinearFactor() const;
 
     /**
      * Sets the rigid body's linear factor.  x, y, z coordinates correspond to world 
@@ -310,7 +310,7 @@ public:
      * 
      * @param linearFactor linear factor vector
      */
-    inline void setLinearFactor(const Vector3& linearFactor);
+    inline void setLinearFactor(const kmVec3& linearFactor);
 
     /**
      * Sets the rigid body's linear factor.  x, y, z coordinates correspond to world 
@@ -361,7 +361,7 @@ public:
      * @param force The force to be applied.
      * @param relativePosition The relative position from which to apply the force.
      */
-    void applyForce(const Vector3& force, const Vector3* relativePosition = NULL);
+    void applyForce(const kmVec3& force, const kmVec3* relativePosition = NULL);
 
     /**
      * Applies the given force impulse to the rigid body (optionally, from the given relative position).
@@ -369,21 +369,21 @@ public:
      * @param impulse The force impulse to be applied.
      * @param relativePosition The relative position from which to apply the force.
      */
-    void applyImpulse(const Vector3& impulse, const Vector3* relativePosition = NULL);
+    void applyImpulse(const kmVec3& impulse, const kmVec3* relativePosition = NULL);
 
     /**
      * Applies the given torque to the rigid body.
      * 
      * @param torque The torque to be applied.
      */
-    void applyTorque(const Vector3& torque);
+    void applyTorque(const kmVec3& torque);
 
     /**
      * Applies the given torque impulse to the rigid body.
      * 
      * @param torque The torque impulse to be applied.
      */
-    void applyTorqueImpulse(const Vector3& torque);
+    void applyTorqueImpulse(const kmVec3& torque);
 
 protected:
 
