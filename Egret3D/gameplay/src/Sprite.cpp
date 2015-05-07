@@ -313,9 +313,9 @@ Sprite* Sprite::create(Properties* properties)
 
     // Get anchor
     Vector4 vect;
-    if (properties->getVector2("anchor", (Vector2*)&vect))
+    if (properties->getVector2("anchor", (kmVec2*)&vect))
     {
-        sprite->setAnchor(*((Vector2*)&vect));
+        sprite->setAnchor(*((kmVec2*)&vect));
     }
 
     // Get color
@@ -388,12 +388,12 @@ Sprite::Offset Sprite::getOffset() const
     return _offset;
 }
     
-void Sprite::setAnchor(const Vector2& anchor)
+void Sprite::setAnchor(const kmVec2& anchor)
 {
     _anchor = anchor;
 }
 
-const Vector2& Sprite::getAnchor() const
+const kmVec2& Sprite::getAnchor() const
 {
     return _anchor;
 }

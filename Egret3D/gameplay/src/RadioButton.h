@@ -135,7 +135,7 @@ protected:
     /**
      * @see Control::updateAbsoluteBounds
      */
-    void updateAbsoluteBounds(const Vector2& offset);
+    void updateAbsoluteBounds(const kmVec2& offset);
 
     /**
      * @see Control::drawImages

@@ -121,7 +121,7 @@ public:
      * @param scale The X and Y scale.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color = Vector4::one());
+    void draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color = Vector4::one());
 
     /**
      * Draws a single sprite, rotated around rotationPoint by rotationAngle.
@@ -134,8 +134,8 @@ public:
      *                      (e.g. Use Vector2(0.5f, 0.5f) to rotate around the quad's center.)
      * @param rotationAngle The rotation angle in radians.
      */
-    void draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color,
-              const Vector2& rotationPoint, float rotationAngle);
+    void draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color,
+              const kmVec2& rotationPoint, float rotationAngle);
 
     /**
      * Draws a single sprite, rotated around rotationPoint by rotationAngle.
@@ -154,7 +154,7 @@ public:
      * @param positionIsCenter Specified whether the given destination is to be the center of the sprite or not (if not, it is treated as the bottom-left).
      */
     void draw(const kmVec3& dst, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
-              const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
+              const kmVec2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
     
     /**
      * Draws a single sprite, rotated around rotationPoint by rotationAngle.
@@ -175,7 +175,7 @@ public:
      * @param positionIsCenter Specified whether the given destination is to be the center of the sprite or not (if not, it is treated as the bottom-left).
      */
     void draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
-              const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
+              const kmVec2& rotationPoint, float rotationAngle, bool positionIsCenter = false);
 
     /**
      * Draws a single sprite, rotated about the implied up vector.
@@ -195,7 +195,7 @@ public:
      * @param rotationAngle The rotation angle in radians.
      */
     void draw(const kmVec3& position, const kmVec3& right, const kmVec3& forward, float width, float height, 
-              float u1, float v1, float u2, float v2, const kmVec4& color, const Vector2& rotationPoint, float rotationAngle);
+              float u1, float v1, float u2, float v2, const kmVec4& color, const kmVec2& rotationPoint, float rotationAngle);
 
     /**
      * Draws a single sprite.

@@ -295,7 +295,7 @@ unsigned int Gamepad::getJoystickCount() const
     return _joystickCount;
 }
 
-void Gamepad::getJoystickValues(unsigned int joystickId, Vector2* outValue) const
+void Gamepad::getJoystickValues(unsigned int joystickId, kmVec2* outValue) const
 {
     if (joystickId >= _joystickCount)
         return;
@@ -305,7 +305,7 @@ void Gamepad::getJoystickValues(unsigned int joystickId, Vector2* outValue) cons
         JoystickControl* joystick = _uiJoysticks[joystickId];
         if (joystick)
         {
-            const Vector2& value = joystick->getValue();
+            const kmVec2& value = joystick->getValue();
             outValue->set(value.x, value.y);
         }
         else

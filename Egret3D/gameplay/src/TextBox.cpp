@@ -453,7 +453,7 @@ void TextBox::setCaretLocation(int x, int y)
         _caretLocation = index;
 }
 
-void TextBox::getCaretLocation(Vector2* p)
+void TextBox::getCaretLocation(kmVec2* p)
 {
     GP_ASSERT(p);
 

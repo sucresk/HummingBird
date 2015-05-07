@@ -146,7 +146,7 @@ TileSet* TileSet::create(Properties* properties)
     return set;
 }
 
-void TileSet::setTileSource(unsigned int column, unsigned int row, const Vector2& source)
+void TileSet::setTileSource(unsigned int column, unsigned int row, const kmVec2& source)
 {
     GP_ASSERT(column < _columnCount);
     GP_ASSERT(row < _rowCount);
@@ -154,7 +154,7 @@ void TileSet::setTileSource(unsigned int column, unsigned int row, const Vector2
     _tiles[row * _columnCount + column] = source;
 }
 
-void TileSet::getTileSource(unsigned int column, unsigned int row, Vector2* source)
+void TileSet::getTileSource(unsigned int column, unsigned int row, kmVec2* source)
 {
     GP_ASSERT(column < _columnCount);
     GP_ASSERT(row < _rowCount);

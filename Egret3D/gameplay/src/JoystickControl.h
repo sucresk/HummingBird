@@ -59,7 +59,7 @@ public:
      * 
      * @return The value of the joystick.
      */
-    const Vector2& getValue() const;
+    const kmVec2& getValue() const;
 
     /**
      * Sets the image size of the inner region of the joystick. Does not do anything if there is no
@@ -69,7 +69,7 @@ public:
      * @param isWidthPercentage If the width value should be computed as a percentage of the relative size of this control
      * @param isHeightPercentage If the height value should be computed as a percentage of the relative size of this control
      */
-    void setInnerRegionSize(const Vector2& size, bool isWidthPercentage = false, bool isHeightPercentage = false);
+    void setInnerRegionSize(const kmVec2& size, bool isWidthPercentage = false, bool isHeightPercentage = false);
 
     /**
      * Gets the image size of the inner region of the joystick. Returns (0,0) if there is no inner image
@@ -80,7 +80,7 @@ public:
      *
      * @return The image size of the inner region of the joystick. (x, y) == (width, height)
      */
-    const Vector2& getInnerRegionSize(bool* isWidthPercentage = NULL, bool* isHeightPercentage = NULL) const;
+    const kmVec2& getInnerRegionSize(bool* isWidthPercentage = NULL, bool* isHeightPercentage = NULL) const;
 
     /**
      * Sets the image size of the outer region of the joystick. Does not do anything if there is no
@@ -90,7 +90,7 @@ public:
      * @param isWidthPercentage If the width value should be computed as a percentage of the relative size of this control
      * @param isHeightPercentage If the height value should be computed as a percentage of the relative size of this control
      */
-    void setOuterRegionSize(const Vector2& size, bool isWidthPercentage = false, bool isHeightPercentage = false);
+    void setOuterRegionSize(const kmVec2& size, bool isWidthPercentage = false, bool isHeightPercentage = false);
 
     /**
      * Gets the image size of the outer region of the joystick. Returns (0,0) if there is no outer image
@@ -101,7 +101,7 @@ public:
      * 
      * @return The image size of the outer region of the joystick. (x, y) == (width, height)
      */
-    const Vector2& getOuterRegionSize(bool* isWidthPercentage = NULL, bool* isHeightPercentage = NULL) const;
+    const kmVec2& getOuterRegionSize(bool* isWidthPercentage = NULL, bool* isHeightPercentage = NULL) const;
 
     /**
      * Sets whether relative positioning is enabled or not.
@@ -194,7 +194,7 @@ protected:
     /**
      * @see Control::updateAbsoluteBounds
      */
-    void updateAbsoluteBounds(const Vector2& offset);
+    void updateAbsoluteBounds(const kmVec2& offset);
 
     /**
      * @see Control::drawImages
@@ -205,11 +205,11 @@ private:
 
     JoystickControl(const JoystickControl& copy);
 
-    void setRegion(const Vector2& regionSizeIn, Vector2& regionSizeOut, int& regionBoundsBitsOut, bool isWidthPercentage, bool isHeightPercentage);
+    void setRegion(const kmVec2& regionSizeIn, kmVec2& regionSizeOut, int& regionBoundsBitsOut, bool isWidthPercentage, bool isHeightPercentage);
 
-    void getRegion(Vector2& regionOut, int& regionBoundsBitsOut, const char* regionPropertyId);
+    void getRegion(kmVec2& regionOut, int& regionBoundsBitsOut, const char* regionPropertyId);
 
-    Vector2 getPixelSize(const Vector2& region, const int regionBoundsBits) const;
+    Vector2 getPixelSize(const kmVec2& region, const int regionBoundsBits) const;
 
     Vector2 getPixelSize(const Theme::ThemeImage* image) const;
 
@@ -220,13 +220,13 @@ private:
     void setBoundsBit(bool set, int& bitSetOut, int bit);
 
     float _radiusCoord;
-    Vector2* _innerRegionCoord;
-    Vector2* _outerRegionCoord;
+    kmVec2* _innerRegionCoord;
+    kmVec2* _outerRegionCoord;
     int _innerRegionCoordBoundsBits;
     int _outerRegionCoordBoundsBits;
     float _radiusPixels;
-    Vector2* _innerSizePixels;
-    Vector2* _outerSizePixels;
+    kmVec2* _innerSizePixels;
+    kmVec2* _outerSizePixels;
     Rectangle _screenRegionPixels;
     bool _relative;
     Vector2 _value;

@@ -161,7 +161,7 @@ void SpriteBatch::draw(const Rectangle& dst, const Rectangle& src, const kmVec4&
     draw(dst.x, dst.y, dst.width, dst.height, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color)
+void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color)
 {
     // Calculate uvs.
     float u1 = _textureWidthRatio * src.x;
@@ -172,8 +172,8 @@ void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& s
     draw(dst.x, dst.y, dst.z, scale.x, scale.y, u1, v1, u2, v2, color);
 }
 
-void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& scale, const kmVec4& color,
-                       const Vector2& rotationPoint, float rotationAngle)
+void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color,
+                       const kmVec2& rotationPoint, float rotationAngle)
 {
     // Calculate uvs.
     float u1 = _textureWidthRatio * src.x;
@@ -185,13 +185,13 @@ void SpriteBatch::draw(const kmVec3& dst, const Rectangle& src, const Vector2& s
 }
 
 void SpriteBatch::draw(const kmVec3& dst, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
-                       const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter)
+                       const kmVec2& rotationPoint, float rotationAngle, bool positionIsCenter)
 {
     draw(dst.x, dst.y, dst.z, width, height, u1, v1, u2, v2, color, rotationPoint, rotationAngle, positionIsCenter);
 }
 
 void SpriteBatch::draw(float x, float y, float z, float width, float height, float u1, float v1, float u2, float v2, const kmVec4& color,
-          const Vector2& rotationPoint, float rotationAngle, bool positionIsCenter)
+          const kmVec2& rotationPoint, float rotationAngle, bool positionIsCenter)
 {
     // Treat the given position as the center if the user specified it as such.
     if (positionIsCenter)
@@ -236,7 +236,7 @@ void SpriteBatch::draw(float x, float y, float z, float width, float height, flo
 }
 
 void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3& forward, float width, float height,
-    float u1, float v1, float u2, float v2, const kmVec4& color, const Vector2& rotationPoint, float rotationAngle)
+    float u1, float v1, float u2, float v2, const kmVec4& color, const kmVec2& rotationPoint, float rotationAngle)
 {
     // Calculate the vertex positions.
     kmVec3 tRight(right);

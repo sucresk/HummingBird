@@ -41,12 +41,12 @@ const char* JoystickControl::getTypeName() const
     return "JoystickControl";
 }
 
-const Vector2& JoystickControl::getValue() const
+const kmVec2& JoystickControl::getValue() const
 {
     return _value;
 }
 
-void JoystickControl::setInnerRegionSize(const Vector2& size, bool isWidthPercentage, bool isHeightPercentage)
+void JoystickControl::setInnerRegionSize(const kmVec2& size, bool isWidthPercentage, bool isHeightPercentage)
 {
     if (_innerSizePixels)
     {
@@ -60,7 +60,7 @@ void JoystickControl::setInnerRegionSize(const Vector2& size, bool isWidthPercen
     }
 }
 
-const Vector2& JoystickControl::getInnerRegionSize(bool* isWidthPercentage, bool* isHeightPercentage) const
+const kmVec2& JoystickControl::getInnerRegionSize(bool* isWidthPercentage, bool* isHeightPercentage) const
 {
     if(isWidthPercentage)
     {
@@ -78,7 +78,7 @@ const Vector2& JoystickControl::getInnerRegionSize(bool* isWidthPercentage, bool
         return Vector2::zero();
 }
 
-void JoystickControl::setOuterRegionSize(const Vector2& size, bool isWidthPercentage, bool isHeightPercentage)
+void JoystickControl::setOuterRegionSize(const kmVec2& size, bool isWidthPercentage, bool isHeightPercentage)
 {
     if (_outerSizePixels)
     {
@@ -92,7 +92,7 @@ void JoystickControl::setOuterRegionSize(const Vector2& size, bool isWidthPercen
     }
 }
 
-const Vector2& JoystickControl::getOuterRegionSize(bool* isWidthPercentage, bool* isHeightPercentage) const
+const kmVec2& JoystickControl::getOuterRegionSize(bool* isWidthPercentage, bool* isHeightPercentage) const
 {
     if(isWidthPercentage)
     {
@@ -204,20 +204,20 @@ void JoystickControl::initialize(const char* typeName, Theme::Style* style, Prop
     _index = properties->getInt("index");
 }
 
-void JoystickControl::updateAbsoluteBounds(const Vector2& offset)
+void JoystickControl::updateAbsoluteBounds(const kmVec2& offset)
 {
     Control::updateAbsoluteBounds(offset);
     updateAbsoluteSizes();
 }
 
-void JoystickControl::setRegion(const Vector2& regionSizeIn, Vector2& regionSizeOut, int& regionBoundsBitsOut, bool isWidthPercentage, bool isHeightPercentage)
+void JoystickControl::setRegion(const kmVec2& regionSizeIn, kmVec2& regionSizeOut, int& regionBoundsBitsOut, bool isWidthPercentage, bool isHeightPercentage)
 {
     regionSizeOut = regionSizeIn;
     setBoundsBit(isWidthPercentage, regionBoundsBitsOut, BOUNDS_WIDTH_PERCENTAGE_BIT);
     setBoundsBit(isHeightPercentage, regionBoundsBitsOut, BOUNDS_HEIGHT_PERCENTAGE_BIT);
 }
 
-void JoystickControl::getRegion(Vector2& regionOut, int& regionBoundsBitsOut, const char* regionPropertyId)
+void JoystickControl::getRegion(kmVec2& regionOut, int& regionBoundsBitsOut, const char* regionPropertyId)
 {
     bool isWidthPercent = false;
     bool isHeightPercent = false;
@@ -226,7 +226,7 @@ void JoystickControl::getRegion(Vector2& regionOut, int& regionBoundsBitsOut, co
     setBoundsBit(isHeightPercent, regionBoundsBitsOut, BOUNDS_HEIGHT_PERCENTAGE_BIT);
 }
 
-Vector2 JoystickControl::getPixelSize(const Vector2& region, const int regionBoundsBits) const
+Vector2 JoystickControl::getPixelSize(const kmVec2& region, const int regionBoundsBits) const
 {
     Vector2 size;
     size.x = regionBoundsBits & BOUNDS_WIDTH_PERCENTAGE_BIT ? _absoluteBounds.width * region.x : region.x;

@@ -882,7 +882,7 @@ bool Properties::getMatrix(const char* name, kmMat4* out) const
     return false;
 }
 
-bool Properties::getVector2(const char* name, Vector2* out) const
+bool Properties::getVector2(const char* name, kmVec2* out) const
 {
     return parseVector2(getString(name), out);
 }
@@ -1118,7 +1118,7 @@ Properties* getPropertiesFromNamespacePath(Properties* properties, const std::ve
         return properties;
 }
 
-bool Properties::parseVector2(const char* str, Vector2* out)
+bool Properties::parseVector2(const char* str, kmVec2* out)
 {
     if (str)
     {

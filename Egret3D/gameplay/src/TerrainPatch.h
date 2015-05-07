@@ -116,7 +116,7 @@ private:
                 float xOffset, float zOffset, unsigned int step, float verticalSkirtSize);
 
 
-    bool setLayer(int index, const char* texturePath, const Vector2& textureRepeat, const char* blendPath, int blendChannel);
+    bool setLayer(int index, const char* texturePath, const kmVec2& textureRepeat, const char* blendPath, int blendChannel);
 
     void deleteLayer(Layer* layer);
 

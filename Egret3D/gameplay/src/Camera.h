@@ -269,7 +269,7 @@ public:
      * @param position The world space position.
      * @param out Populated with the resulting screen-space position.
      */
-    void project(const Rectangle& viewport, const kmVec3& position, Vector2* out) const;
+    void project(const Rectangle& viewport, const kmVec3& position, kmVec2* out) const;
 
     /**
      * Projects the specified world position into the viewport coordinates.

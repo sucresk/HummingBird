@@ -330,7 +330,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getVector2(const char* name, Vector2* out) const;
+    bool getVector2(const char* name, kmVec2* out) const;
 
     /**
      * Interpret the value of the given property as a Vector3.
@@ -444,7 +444,7 @@ public:
      *
      * @return True if a valid Vector2 was parsed, false otherwise.
      */
-    static bool parseVector2(const char* str, Vector2* out);
+    static bool parseVector2(const char* str, kmVec2* out);
 
     /**
      * Attempts to parse the specified string as a kmVec3 value.

@@ -226,12 +226,12 @@ public:
     /**
      * Get an offset of how far this layout has been scrolled in each direction.
      */
-    const Vector2& getScrollPosition() const;
+    const kmVec2& getScrollPosition() const;
 
     /**
      * Set an offset of how far this layout has been scrolled in each direction.
      */
-    void setScrollPosition(const Vector2& scrollPosition);
+    void setScrollPosition(const kmVec2& scrollPosition);
 
     /**
      * @see AnimationTarget::getAnimation
@@ -349,7 +349,7 @@ protected:
     /**
      * @see Control::updateAbsoluteBounds
      */
-    void updateAbsoluteBounds(const Vector2& offset);
+    void updateAbsoluteBounds(const kmVec2& offset);
 
     /**
      * Updates the bounds for this container's child controls.

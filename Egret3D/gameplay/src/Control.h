@@ -1184,7 +1184,7 @@ protected:
      *
      * @param offset Offset to add to the control's position (most often used for scrolling).
      */
-    virtual void updateAbsoluteBounds(const Vector2& offset);
+    virtual void updateAbsoluteBounds(const kmVec2& offset);
 
     /**
      * Indicates that a control will begin drawing into the specified batch.
@@ -1477,7 +1477,7 @@ private:
      */    
     Control(const Control& copy);
 
-    bool updateBoundsInternal(const Vector2& offset);
+    bool updateBoundsInternal(const kmVec2& offset);
 
     AutoSize parseAutoSize(const char* str);
 

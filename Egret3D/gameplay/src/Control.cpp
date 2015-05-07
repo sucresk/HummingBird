@@ -1116,7 +1116,7 @@ void Control::updateState(State state)
     _skin = getSkin(state);
 }
 
-bool Control::updateBoundsInternal(const Vector2& offset)
+bool Control::updateBoundsInternal(const kmVec2& offset)
 {
     // If our state is currently dirty, update it here so that any rendering state objects needed
     // for bounds computation are accessible.
@@ -1230,7 +1230,7 @@ void Control::updateBounds()
     }
 }
 
-void Control::updateAbsoluteBounds(const Vector2& offset)
+void Control::updateAbsoluteBounds(const kmVec2& offset)
 {
     Game* game = Game::getInstance();
 

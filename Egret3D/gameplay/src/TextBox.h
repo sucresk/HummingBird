@@ -255,7 +255,7 @@ private:
 
     void setCaretLocation(int x, int y);
 
-    void getCaretLocation(Vector2* p);
+    void getCaretLocation(kmVec2* p);
 };
 
 }

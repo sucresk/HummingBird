@@ -1209,19 +1209,19 @@ void Font::setCharacterSpacing(float spacing)
     _spacing = spacing;
 }
 
-int Font::getIndexAtLocation(const char* text, const Rectangle& area, unsigned int size, const Vector2& inLocation, Vector2* outLocation,
+int Font::getIndexAtLocation(const char* text, const Rectangle& area, unsigned int size, const kmVec2& inLocation, kmVec2* outLocation,
                                       Justify justify, bool wrap, bool rightToLeft)
 {
     return getIndexOrLocation(text, area, size, inLocation, outLocation, -1, justify, wrap, rightToLeft);
 }
 
-void Font::getLocationAtIndex(const char* text, const Rectangle& clip, unsigned int size, Vector2* outLocation, const unsigned int destIndex,
+void Font::getLocationAtIndex(const char* text, const Rectangle& clip, unsigned int size, kmVec2* outLocation, const unsigned int destIndex,
                               Justify justify, bool wrap, bool rightToLeft)
 {
     getIndexOrLocation(text, clip, size, *outLocation, outLocation, (const int)destIndex, justify, wrap, rightToLeft);
 }
 
-int Font::getIndexOrLocation(const char* text, const Rectangle& area, unsigned int size, const Vector2& inLocation, Vector2* outLocation,
+int Font::getIndexOrLocation(const char* text, const Rectangle& area, unsigned int size, const kmVec2& inLocation, kmVec2* outLocation,
                                       const int destIndex, Justify justify, bool wrap, bool rightToLeft)
 {
     GP_ASSERT(_size);
@@ -1529,7 +1529,7 @@ unsigned int Font::getReversedTokenLength(const char* token, const char* bufStar
 
 int Font::handleDelimiters(const char** token, const unsigned int size, const int iteration, const int areaX, int* xPos, int* yPos, unsigned int* lineLength,
                           std::vector<int>::const_iterator* xPositionsIt, std::vector<int>::const_iterator xPositionsEnd, unsigned int* charIndex,
-                          const Vector2* stopAtPosition, const int currentIndex, const int destIndex)
+                          const kmVec2* stopAtPosition, const int currentIndex, const int destIndex)
 {
     GP_ASSERT(token);
     GP_ASSERT(*token);

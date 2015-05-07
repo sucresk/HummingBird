@@ -566,13 +566,13 @@ void Effect::setValue(Uniform* uniform, const kmMat4* values, unsigned int count
     GL_ASSERT( gContext3D.EgUniformMatrix4fv(uniform->_location, count, GL_FALSE, (GLfloat*)values) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector2& value)
+void Effect::setValue(Uniform* uniform, const kmVec2& value)
 {
     GP_ASSERT(uniform);
     GL_ASSERT( gContext3D.EgUniform2f(uniform->_location, value.x, value.y) );
 }
 
-void Effect::setValue(Uniform* uniform, const Vector2* values, unsigned int count)
+void Effect::setValue(Uniform* uniform, const kmVec2* values, unsigned int count)
 {
     GP_ASSERT(uniform);
     GP_ASSERT(values);

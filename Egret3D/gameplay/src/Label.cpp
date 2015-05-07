@@ -114,7 +114,7 @@ void Label::updateBounds()
     }
 }
 
-void Label::updateAbsoluteBounds(const Vector2& offset)
+void Label::updateAbsoluteBounds(const kmVec2& offset)
 {
     Control::updateAbsoluteBounds(offset);
 

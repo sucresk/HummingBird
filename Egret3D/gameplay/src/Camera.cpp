@@ -367,7 +367,7 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, float* x
     }
 }
 
-void Camera::project(const Rectangle& viewport, const kmVec3& position, Vector2* out) const
+void Camera::project(const Rectangle& viewport, const kmVec3& position, kmVec2* out) const
 {
     GP_ASSERT(out);
     float x, y;

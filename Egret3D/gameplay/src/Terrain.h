@@ -258,7 +258,7 @@ public:
      *
      * @script{ignore}
      */
-    bool setLayer(int index, const char* texturePath, const Vector2& textureRepeat = Vector2::one(),
+    bool setLayer(int index, const char* texturePath, const kmVec2& textureRepeat = Vector2::one(),
                   const char* blendPath = NULL, int blendChannel = 0,
                   int row = -1, int column = -1);
 

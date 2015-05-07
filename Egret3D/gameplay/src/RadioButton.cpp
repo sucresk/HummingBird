@@ -174,7 +174,7 @@ void RadioButton::updateBounds()
     }
 }
 
-void RadioButton::updateAbsoluteBounds(const Vector2& offset)
+void RadioButton::updateAbsoluteBounds(const kmVec2& offset)
 {
     Label::updateAbsoluteBounds(offset);
 

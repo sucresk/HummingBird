@@ -424,7 +424,7 @@ const kmMat4& Terrain::getInverseWorldMatrix() const
     return _inverseWorldMatrix;
 }
 
-bool Terrain::setLayer(int index, const char* texturePath, const Vector2& textureRepeat, const char* blendPath, int blendChannel, int row, int column)
+bool Terrain::setLayer(int index, const char* texturePath, const kmVec2& textureRepeat, const char* blendPath, int blendChannel, int row, int column)
 {
     if (!texturePath)
         return false;

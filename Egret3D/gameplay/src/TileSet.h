@@ -62,7 +62,7 @@ public:
      * @param row The row to set the source for.
      * @param source The source top-left corner where the tile is positioned.
      */
-    void setTileSource(unsigned int column, unsigned int row, const Vector2& source);
+    void setTileSource(unsigned int column, unsigned int row, const kmVec2& source);
 
     /**
      * Gets the source clip region and flip flags for the specified column and row.
@@ -72,7 +72,7 @@ public:
      * @param source The source region to be returned back.
      * @see Sprite::FlipFlags
      */
-    void getTileSource(unsigned int column, unsigned int row, Vector2* source);
+    void getTileSource(unsigned int column, unsigned int row, kmVec2* source);
 
     /**
      * Gets the width of each tile in the tile set.
@@ -176,7 +176,7 @@ protected:
 
 private:
 
-    Vector2* _tiles;
+    kmVec2* _tiles;
     float _tileWidth;
     float _tileHeight;
     unsigned int _rowCount;

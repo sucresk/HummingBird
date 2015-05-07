@@ -211,13 +211,13 @@ public:
     /**
      * Get an character index into a string corresponding to the character nearest the given location within the clip region.
      */
-    int getIndexAtLocation(const char* text, const Rectangle& clip, unsigned int size, const Vector2& inLocation,
-                           Vector2* outLocation, Justify justify = ALIGN_TOP_LEFT, bool wrap = true, bool rightToLeft = false);
+    int getIndexAtLocation(const char* text, const Rectangle& clip, unsigned int size, const kmVec2& inLocation,
+                           kmVec2* outLocation, Justify justify = ALIGN_TOP_LEFT, bool wrap = true, bool rightToLeft = false);
 
     /**
      * Get the location of the character at the given index.
      */
-    void getLocationAtIndex(const char* text, const Rectangle& clip, unsigned int size, Vector2* outLocation,
+    void getLocationAtIndex(const char* text, const Rectangle& clip, unsigned int size, kmVec2* outLocation,
                             const unsigned int destIndex, Justify justify = ALIGN_TOP_LEFT, bool wrap = true,
                             bool rightToLeft = false);
 
@@ -315,7 +315,7 @@ private:
     void getMeasurementInfo(const char* text, const Rectangle& area, unsigned int size, Justify justify, bool wrap, bool rightToLeft,
                             std::vector<int>* xPositions, int* yPosition, std::vector<unsigned int>* lineLengths);
 
-    int getIndexOrLocation(const char* text, const Rectangle& clip, unsigned int size, const Vector2& inLocation, Vector2* outLocation,
+    int getIndexOrLocation(const char* text, const Rectangle& clip, unsigned int size, const kmVec2& inLocation, kmVec2* outLocation,
                            const int destIndex = -1, Justify justify = ALIGN_TOP_LEFT, bool wrap = true, bool rightToLeft = false);
 
     unsigned int getTokenWidth(const char* token, unsigned length, unsigned int size, float scale);
@@ -324,7 +324,7 @@ private:
 
     int handleDelimiters(const char** token, const unsigned int size, const int iteration, const int areaX, int* xPos, int* yPos, unsigned int* lineLength,
                          std::vector<int>::const_iterator* xPositionsIt, std::vector<int>::const_iterator xPositionsEnd, unsigned int* charIndex = NULL,
-                         const Vector2* stopAtPosition = NULL, const int currentIndex = -1, const int destIndex = -1);
+                         const kmVec2* stopAtPosition = NULL, const int currentIndex = -1, const int destIndex = -1);
 
     void addLineInfo(const Rectangle& area, int lineWidth, int lineLength, Justify hAlign,
                      std::vector<int>* xPositions, std::vector<unsigned int>* lineLengths, bool rightToLeft);

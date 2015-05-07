@@ -426,7 +426,7 @@ int TerrainPatch::addSampler(const char* path)
     return (int)(_samplers.size()-1);
 }
 
-bool TerrainPatch::setLayer(int index, const char* texturePath, const Vector2& textureRepeat, const char* blendPath, int blendChannel)
+bool TerrainPatch::setLayer(int index, const char* texturePath, const kmVec2& textureRepeat, const char* blendPath, int blendChannel)
 {
     // If there is an existing layer at this index, delete it
     for (std::set<Layer*, LayerCompare>::iterator itr = _layers.begin(); itr != _layers.end(); ++itr)

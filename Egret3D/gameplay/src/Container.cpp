@@ -416,12 +416,12 @@ bool Container::isScrolling() const
     return false;
 }
 
-const Vector2& Container::getScrollPosition() const
+const kmVec2& Container::getScrollPosition() const
 {
     return _scrollPosition;
 }
 
-void Container::setScrollPosition(const Vector2& scrollPosition)
+void Container::setScrollPosition(const kmVec2& scrollPosition)
 {
     _scrollPosition = scrollPosition;
 }
@@ -593,7 +593,7 @@ void Container::updateBounds()
     _layout->update(this);
 }
 
-void Container::updateAbsoluteBounds(const Vector2& offset)
+void Container::updateAbsoluteBounds(const kmVec2& offset)
 {
     Control::updateAbsoluteBounds(offset);
 

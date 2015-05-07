@@ -130,7 +130,7 @@ void CheckBox::updateBounds()
     }
 }
 
-void CheckBox::updateAbsoluteBounds(const Vector2& offset)
+void CheckBox::updateAbsoluteBounds(const kmVec2& offset)
 {
     Label::updateAbsoluteBounds(offset);
 

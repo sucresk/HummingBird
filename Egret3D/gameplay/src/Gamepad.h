@@ -87,7 +87,7 @@ public:
      * @param joystickId The index of the joystick to get the value for.
      * @param outValues The current x-axis and y-axis values of the joystick.
      */
-    void getJoystickValues(unsigned int joystickId, Vector2* outValues) const;
+    void getJoystickValues(unsigned int joystickId, kmVec2* outValues) const;
 
     /**
      * Returns the number of analog triggers (as opposed to digital shoulder buttons)

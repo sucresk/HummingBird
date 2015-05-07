@@ -166,14 +166,14 @@ public:
      *
      * @param anchor The anchor which is a origin ratio of the sprite width and height from [0.0,1.0].
      */
-    void setAnchor(const Vector2& anchor);
+    void setAnchor(const kmVec2& anchor);
 
     /**
      * Gets the anchor which is a origin ratio of the sprite width and height from [0.0,1.0].
      *
      * @return The anchor which is a origin ratio of the sprite width and height from [0.0,1.0].
      */
-    const Vector2& getAnchor() const;
+    const kmVec2& getAnchor() const;
     
     /**
      * Sets the flip flags used for rendering the sprite.
