@@ -103,7 +103,7 @@ void CheckBox::updateBounds()
 {
     Label::updateBounds();
 
-    Vector2 size;
+    kmVec2 size;
     if (_checked)
     {
         const Rectangle& selectedRegion = getImageRegion("checked", NORMAL);
@@ -147,10 +147,10 @@ unsigned int CheckBox::drawImages(Form* form, const Rectangle& clip)
 
     const Rectangle& region = _image->getRegion();
     const Theme::UVs& uvs = _image->getUVs();
-    Vector4 color = _image->getColor();
+    kmVec4 color = _image->getColor();
     color.w *= _opacity;
 
-    Vector2 pos(_viewportBounds.x, _viewportBounds.y);
+    kmVec2 pos(_viewportBounds.x, _viewportBounds.y);
 
     SpriteBatch* batch = _style->getTheme()->getSpriteBatch();
     startBatch(form, batch);

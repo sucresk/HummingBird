@@ -270,82 +270,82 @@ public:
     bool isStatic() const;
 
     /**
-     * Gets the world matrix corresponding to this node.
+     * Gets the world kmMat4 corresponding to this node.
      *
-     * @return The world matrix of this node.
+     * @return The world kmMat4 of this node.
      */
     virtual const kmMat4& getWorldMatrix() const;
 
     /**
-     * Gets the world view matrix corresponding to this node.
+     * Gets the world view kmMat4 corresponding to this node.
      *
-     * @return The world view matrix of this node.
+     * @return The world view kmMat4 of this node.
      */
     const kmMat4& getWorldViewMatrix() const;
 
     /**
-     * Gets the inverse transpose world matrix corresponding to this node.
+     * Gets the inverse transpose world kmMat4 corresponding to this node.
      *
-     * This matrix is typically used to transform normal vectors into world space.
+     * This kmMat4 is typically used to transform normal vectors into world space.
      *
-     * @return The inverse world matrix of this node.
+     * @return The inverse world kmMat4 of this node.
      */
     const kmMat4& getInverseTransposeWorldMatrix() const;
 
     /**
-     * Gets the inverse transpose world view matrix corresponding to this node.
+     * Gets the inverse transpose world view kmMat4 corresponding to this node.
      *
-     * This matrix is typically used to transform normal vectors into view space.
+     * This kmMat4 is typically used to transform normal vectors into view space.
      *
-     * @return The inverse world view matrix of this node.
+     * @return The inverse world view kmMat4 of this node.
      */
     const kmMat4& getInverseTransposeWorldViewMatrix() const;
 
     /**
-     * Gets the view matrix corresponding to this node based
+     * Gets the view kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The view matrix of this node.
+     * @return The view kmMat4 of this node.
      */
     const kmMat4& getViewMatrix() const;
 
     /**
-     * Gets the inverse view matrix corresponding to this node based
+     * Gets the inverse view kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The inverse view matrix of this node.
+     * @return The inverse view kmMat4 of this node.
      */
     const kmMat4& getInverseViewMatrix() const;
 
     /**
-     * Gets the projection matrix corresponding to this node based
+     * Gets the projection kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The projection matrix of this node.
+     * @return The projection kmMat4 of this node.
      */
     const kmMat4& getProjectionMatrix() const;
 
     /**
-     * Gets the view * projection matrix corresponding to this node based
+     * Gets the view * projection kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The view * projection matrix of this node.
+     * @return The view * projection kmMat4 of this node.
      */
     const kmMat4& getViewProjectionMatrix() const;
 
     /**
-     * Gets the inverse view * projection matrix corresponding to this node based
+     * Gets the inverse view * projection kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The inverse view * projection matrix of this node.
+     * @return The inverse view * projection kmMat4 of this node.
      */
     const kmMat4& getInverseViewProjectionMatrix() const;
 
     /**
-     * Gets the world * view * projection matrix corresponding to this node based
+     * Gets the world * view * projection kmMat4 corresponding to this node based
      * on the scene's active camera.
      *
-     * @return The world * view * projection matrix of this node.
+     * @return The world * view * projection kmMat4 of this node.
      */
     const kmMat4& getWorldViewProjectionMatrix() const;
 
@@ -713,8 +713,8 @@ protected:
     mutable AIAgent* _agent;
     /** The user object component attached to this node. */
     Ref* _userObject;
-    /** The world matrix for this node. */
-    mutable Matrix _world;
+    /** The world kmMat4 for this node. */
+    mutable kmMat4 _world;
     /** The bounding sphere for this node. */
     mutable BoundingSphere _bounds;
     /** The dirty bits used for optimization. */

@@ -5,8 +5,8 @@
 #include "AnimationTarget.h"
 #include "Properties.h"
 #include "Font.h"
-#include "Vector2.h"
-#include "Vector4.h"
+#include "vec2.h"
+#include "vec4.h"
 #include "Effect.h"
 #include "Drawable.h"
 
@@ -47,7 +47,7 @@ public:
      *
      * @return A Text object.
      */
-    static Text* create(const char* fontPath, const char* str, const kmVec4& color = Vector4::one(), unsigned int size = 0);
+	static Text* create(const char* fontPath, const char* str, const kmVec4& color = { 1.0f, 1.0f, 1.0f, 1.0f }, unsigned int size = 0);
     
     /**
      * Creates text from a properties object.
@@ -264,7 +264,7 @@ private:
     Font::Justify _align;
     Rectangle _clip;
     float _opacity;
-    Vector4 _color;
+    kmVec4 _color;
 };
     
 }

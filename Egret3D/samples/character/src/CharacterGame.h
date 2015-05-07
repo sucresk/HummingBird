@@ -109,7 +109,7 @@ private:
     bool _kicking;
     float _kickDelay;
     bool* _buttonPressed;
-    Vector2 _currentDirection;
+    kmVec2 _currentDirection;
     Gamepad* _gamepad;
 
 };

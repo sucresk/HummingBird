@@ -45,14 +45,14 @@ private:
     {
     public:
         unsigned int _id;
-        Vector2 _coord;
+        kmVec2 _coord;
         bool _isStale;
     };
 
     std::list<TouchPoint> _touchPoints;
     std::set<int> _downKeys;
-    Vector2 _mousePoint;
-    Vector2 _mouseWheelPoint;
+    kmVec2 _mousePoint;
+    kmVec2 _mouseWheelPoint;
     std::string _keyboardString;
     std::string _symbolsString;
     std::string _mouseString;
@@ -63,8 +63,8 @@ private:
     SpriteBatch* _crosshair;
     Rectangle _crosshairDstRect;
     Rectangle _crosshairSrcRect;
-    Vector2 _crosshairLowerLimit;
-    Vector2 _crosshairUpperLimit;
+    kmVec2 _crosshairLowerLimit;
+    kmVec2 _crosshairUpperLimit;
     Scene* _scene;
     Node* _formNode;
     Node* _formNodeParent;

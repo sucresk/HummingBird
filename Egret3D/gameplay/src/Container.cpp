@@ -680,17 +680,17 @@ unsigned int Container::draw(Form* form, const Rectangle& clip)
         {
             const Rectangle& topRegion = _scrollBarTopCap->getRegion();
             const Theme::UVs& topUVs = _scrollBarTopCap->getUVs();
-            Vector4 topColor = _scrollBarTopCap->getColor();
+            kmVec4 topColor = _scrollBarTopCap->getColor();
             topColor.w *= _scrollBarOpacity * _opacity;
 
             const Rectangle& verticalRegion = _scrollBarVertical->getRegion();
             const Theme::UVs& verticalUVs = _scrollBarVertical->getUVs();
-            Vector4 verticalColor = _scrollBarVertical->getColor();
+            kmVec4 verticalColor = _scrollBarVertical->getColor();
             verticalColor.w *= _scrollBarOpacity * _opacity;
 
             const Rectangle& bottomRegion = _scrollBarBottomCap->getRegion();
             const Theme::UVs& bottomUVs = _scrollBarBottomCap->getUVs();
-            Vector4 bottomColor = _scrollBarBottomCap->getColor();
+            kmVec4 bottomColor = _scrollBarBottomCap->getColor();
             bottomColor.w *= _scrollBarOpacity * _opacity;
 
             clipRegion.width += verticalRegion.width;
@@ -713,17 +713,17 @@ unsigned int Container::draw(Form* form, const Rectangle& clip)
         {
             const Rectangle& leftRegion = _scrollBarLeftCap->getRegion();
             const Theme::UVs& leftUVs = _scrollBarLeftCap->getUVs();
-            Vector4 leftColor = _scrollBarLeftCap->getColor();
+            kmVec4 leftColor = _scrollBarLeftCap->getColor();
             leftColor.w *= _scrollBarOpacity * _opacity;
 
             const Rectangle& horizontalRegion = _scrollBarHorizontal->getRegion();
             const Theme::UVs& horizontalUVs = _scrollBarHorizontal->getUVs();
-            Vector4 horizontalColor = _scrollBarHorizontal->getColor();
+            kmVec4 horizontalColor = _scrollBarHorizontal->getColor();
             horizontalColor.w *= _scrollBarOpacity * _opacity;
 
             const Rectangle& rightRegion = _scrollBarRightCap->getRegion();
             const Theme::UVs& rightUVs = _scrollBarRightCap->getUVs();
-            Vector4 rightColor = _scrollBarRightCap->getColor();
+            kmVec4 rightColor = _scrollBarRightCap->getColor();
             rightColor.w *= _scrollBarOpacity * _opacity;
 
             clipRegion.height += horizontalRegion.height;
@@ -902,7 +902,7 @@ bool Container::moveFocusDirectional(Direction direction)
 	const Rectangle& startBounds = startControl->_absoluteBounds;
 
 	Control* next = NULL;
-	Vector2 vStart, vNext;
+	kmVec2 vStart, vNext;
 	float distance = FLT_MAX;
 
 	switch (direction)

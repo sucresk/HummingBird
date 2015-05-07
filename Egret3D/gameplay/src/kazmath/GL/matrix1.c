@@ -81,7 +81,7 @@ void kmGLMatrixMode(kmGLEnum mode)
             current_stack = &texture_matrix_stack;
         break;
         default:
-            assert(0 && "Invalid matrix mode specified"); //TODO: Proper error handling
+            assert(0 && "Invalid kmMat4 mode specified"); //TODO: Proper error handling
         break;
     }
 }
@@ -99,7 +99,7 @@ void kmGLPushMatrix(void)
 
 void kmGLPopMatrix(void)
 {
-    assert(initialized && "Cannot Pop empty matrix stack");
+    assert(initialized && "Cannot Pop empty kmMat4 stack");
     //No need to lazy initialize, you shouldn't be popping first anyway!
     km_mat4_stack_pop(current_stack, NULL);
 }
@@ -108,12 +108,12 @@ void kmGLLoadIdentity()
 {
     lazyInitialize();
 
-    kmMat4Identity(current_stack->top); //Replace the top matrix with the identity matrix
+    kmMat4Identity(current_stack->top); //Replace the top kmMat4 with the identity matrix
 }
 
 void kmGLFreeAll()
 {
-    //Clear the matrix stacks
+    //Clear the kmMat4 stacks
     km_mat4_stack_release(&modelview_matrix_stack);
     km_mat4_stack_release(&projection_matrix_stack);
     km_mat4_stack_release(&texture_matrix_stack);
@@ -152,7 +152,7 @@ void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)
             kmMat4Assign(pOut, texture_matrix_stack.top);
         break;
         default:
-            assert(1 && "Invalid matrix mode specified"); //TODO: Proper error handling
+            assert(1 && "Invalid kmMat4 mode specified"); //TODO: Proper error handling
         break;
     }
 }
@@ -161,10 +161,10 @@ void kmGLTranslatef(float x, float y, float z)
 {
     kmMat4 translation;
 
-    //Create a rotation matrix using the axis and the angle
+    //Create a rotation kmMat4 using the axis and the angle
     kmMat4Translation(&translation,x,y,z);
 
-    //Multiply the rotation matrix by the current matrix
+    //Multiply the rotation kmMat4 by the current matrix
     kmMat4Multiply(current_stack->top, current_stack->top, &translation);
 }
 
@@ -176,10 +176,10 @@ void kmGLRotatef(float angle, float x, float y, float z)
     //Create an axis vector
     kmVec3Fill(&axis, x, y, z);
 
-    //Create a rotation matrix using the axis and the angle
+    //Create a rotation kmMat4 using the axis and the angle
     kmMat4RotationAxisAngle(&rotation, &axis, kmDegreesToRadians(angle));
 
-    //Multiply the rotation matrix by the current matrix
+    //Multiply the rotation kmMat4 by the current matrix
     kmMat4Multiply(current_stack->top, current_stack->top, &rotation);
 }
 

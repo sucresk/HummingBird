@@ -58,7 +58,7 @@ private:
 	Node* _sky;
     Form* _form;
     bool _formVisible;
-    Vector2 _formSize;
+    kmVec2 _formSize;
 	bool _wireframe;
     bool _debugPhysics;
 	bool _snapToGround;

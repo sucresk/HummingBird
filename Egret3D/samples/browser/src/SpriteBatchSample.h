@@ -31,7 +31,7 @@ private:
 
     Font* _font;
     SpriteBatch* _spriteBatch;
-    Matrix _worldViewProjectionMatrix;
+    kmMat4 _worldViewProjectionMatrix;
 };
 
 #endif

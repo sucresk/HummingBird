@@ -59,12 +59,12 @@ private:
     SpriteBatch* _reflectBatch;
 
     bool _showBuffers;
-    Vector4 _clipPlane;
+    kmVec4 _clipPlane;
     const kmVec4& getClipPlane() const
     {
         return _clipPlane;
     }
-    Matrix m_worldViewProjectionReflection;
+    kmMat4 m_worldViewProjectionReflection;
     const kmMat4& getReflectionMatrix() const
     {
         return m_worldViewProjectionReflection;

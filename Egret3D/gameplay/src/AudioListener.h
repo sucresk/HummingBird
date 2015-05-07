@@ -1,7 +1,7 @@
 #ifndef AUDIOLISTENER_H_
 #define AUDIOLISTENER_H_
 
-#include "Vector3.h"
+#include "vec3.h"
 #include "Transform.h"
 #include "Camera.h"
 

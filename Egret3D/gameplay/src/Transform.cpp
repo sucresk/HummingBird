@@ -18,7 +18,7 @@ Transform::Transform()
     _scale.set(Vector3::one());
 }
 
-Transform::Transform(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation)
+Transform::Transform(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
     GP_REGISTER_SCRIPT_EVENTS();
@@ -107,7 +107,7 @@ const kmMat4& Transform::getMatrix() const
             bool hasScale = !_scale.isOne();
             bool hasRotation = !_rotation.isIdentity();
 
-            // Compose the matrix in TRS order since we use column-major matrices with column vectors and
+            // Compose the kmMat4 in TRS order since we use column-major matrices with column vectors and
             // multiply M*v (as opposed to XNA and DirectX that use row-major matrices with row vectors and multiply v*M).
             if (hasTranslation || (_matrixDirtyBits & DIRTY_TRANSLATION) == DIRTY_TRANSLATION)
             {
@@ -167,12 +167,12 @@ float Transform::getScaleZ() const
     return _scale.z;
 }
 
-const Quaternion& Transform::getRotation() const
+const kmQuaternion& Transform::getRotation() const
 {
     return _rotation;
 }
 
-void Transform::getRotation(Quaternion* rotation) const
+void Transform::getRotation(kmQuaternion* rotation) const
 {
     GP_ASSERT(rotation);
     rotation->set(_rotation);
@@ -298,7 +298,7 @@ void Transform::rotate(float qx, float qy, float qz, float qw)
     dirty(DIRTY_ROTATION);
 }
 
-void Transform::rotate(const Quaternion& rotation)
+void Transform::rotate(const kmQuaternion& rotation)
 {
     if (isStatic())
         return;
@@ -421,7 +421,7 @@ void Transform::scaleZ(float sz)
     dirty(DIRTY_SCALE);
 }
 
-void Transform::set(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation)
+void Transform::set(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation)
 {
     if (isStatic())
         return;
@@ -529,7 +529,7 @@ void Transform::setScaleZ(float sz)
     dirty(DIRTY_SCALE);
 }
 
-void Transform::setRotation(const Quaternion& rotation)
+void Transform::setRotation(const kmQuaternion& rotation)
 {
     if (isStatic())
         return;
@@ -666,7 +666,7 @@ void Transform::translateLeft(float amount)
     if (isStatic())
         return;
 
-    // Force the current transform matrix to be updated.
+    // Force the current transform kmMat4 to be updated.
     getMatrix();
 
     kmVec3 left;
@@ -682,7 +682,7 @@ void Transform::translateUp(float amount)
     if (isStatic())
         return;
 
-    // Force the current transform matrix to be updated.
+    // Force the current transform kmMat4 to be updated.
     getMatrix();
 
     kmVec3 up;
@@ -698,7 +698,7 @@ void Transform::translateForward(float amount)
     if (isStatic())
         return;
 
-    // Force the current transform matrix to be updated.
+    // Force the current transform kmMat4 to be updated.
     getMatrix();
 
     kmVec3 forward;

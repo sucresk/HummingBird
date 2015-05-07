@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include "PhysicsConstraint.h"
 #include "Transform.h"
-#include "Vector3.h"
+#include "vec3.h"
 #include "PhysicsCollisionObject.h"
 
 namespace egret
@@ -97,7 +97,7 @@ public:
          */
         Parameters() : mass(0.0f), friction(0.5f), restitution(0.0f),
             linearDamping(0.0f), angularDamping(0.0f),
-            kinematic(false), anisotropicFriction(Vector3::one()), linearFactor(Vector3::one()), angularFactor(Vector3::one())
+			kinematic(false), anisotropicFriction({ 1.0f, 1.0f, 1.0f }), linearFactor({ 1.0f, 1.0f, 1.0f }), angularFactor({ 1.0f, 1.0f, 1.0f })
         {
         }
 
@@ -106,8 +106,8 @@ public:
          */
         Parameters(float mass, float friction = 0.5f, float restitution = 0.0f,
             float linearDamping = 0.0f, float angularDamping = 0.0f, bool kinematic = false,
-            const kmVec3& anisotropicFriction = Vector3::one(), const kmVec3& linearFactor = Vector3::one(), 
-            const kmVec3& angularFactor = Vector3::one())
+			const kmVec3& anisotropicFriction = { 1.0f, 1.0f, 1.0f }, const kmVec3& linearFactor = { 1.0f, 1.0f, 1.0f },
+			const kmVec3& angularFactor = { 1.0f, 1.0f, 1.0f } )
             : mass(mass), friction(friction), restitution(restitution), linearDamping(linearDamping), angularDamping(angularDamping),
               kinematic(kinematic), anisotropicFriction(anisotropicFriction), linearFactor(linearFactor), angularFactor(angularFactor)
         {

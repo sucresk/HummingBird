@@ -50,14 +50,14 @@ Quaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3& 
 {
     GP_ASSERT(node);
 
-    // Create a translation matrix that translates to the given origin.
-    Matrix m;
+    // Create a translation kmMat4 that translates to the given origin.
+    kmMat4 m;
     Matrix::createTranslation(point, &m);
 
     // Calculate the rotation offset to the rigid body by transforming 
-    // the translation matrix above into the rigid body's local space 
+    // the translation kmMat4 above into the rigid body's local space 
     // (multiply by the inverse world matrix) and extracting the rotation.
-    Matrix mi;
+    kmMat4 mi;
     node->getWorldMatrix().invert(&mi);
     mi.multiply(m);
     
@@ -71,14 +71,14 @@ kmVec3 PhysicsConstraint::getTranslationOffset(const Node* node, const kmVec3& p
 {
     GP_ASSERT(node);
 
-    // Create a translation matrix that translates to the given origin.
-    Matrix m;
+    // Create a translation kmMat4 that translates to the given origin.
+    kmMat4 m;
     Matrix::createTranslation(point, &m);
 
     // Calculate the translation offset to the rigid body by transforming 
-    // the translation matrix above into the rigid body's local space 
+    // the translation kmMat4 above into the rigid body's local space 
     // (multiply by the inverse world matrix) and extracting the translation.
-    Matrix mi;
+    kmMat4 mi;
     node->getWorldMatrix().invert(&mi);
     mi.multiply(m);
     
@@ -101,14 +101,14 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3
 {
     GP_ASSERT(node);
 
-    // Create a translation matrix that translates to the given origin.
-    Matrix m;
+    // Create a translation kmMat4 that translates to the given origin.
+    kmMat4 m;
     Matrix::createTranslation(origin, &m);
 
     // Calculate the translation and rotation offset to the rigid body
-    // by transforming the translation matrix above into the rigid body's
-    // local space (multiply by the inverse world matrix and extract components).
-    Matrix mi;
+    // by transforming the translation kmMat4 above into the rigid body's
+    // local space (multiply by the inverse world kmMat4 and extract components).
+    kmMat4 mi;
     node->getWorldMatrix().invert(&mi);
     mi.multiply(m);
 

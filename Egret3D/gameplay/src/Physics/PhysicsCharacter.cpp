@@ -207,7 +207,7 @@ void PhysicsCharacter::rotate(const kmVec3& axis, float angle)
     _node->rotate(axis, angle);
 }
 
-void PhysicsCharacter::rotate(const Quaternion& rotation)
+void PhysicsCharacter::rotate(const kmQuaternion& rotation)
 {
     GP_ASSERT(_node);
     _node->rotate(rotation);
@@ -219,7 +219,7 @@ void PhysicsCharacter::setRotation(const kmVec3& axis, float angle)
     _node->setRotation(axis, angle);
 }
 
-void PhysicsCharacter::setRotation(const Quaternion& rotation)
+void PhysicsCharacter::setRotation(const kmQuaternion& rotation)
 {
     GP_ASSERT(_node);
     _node->setRotation(rotation);

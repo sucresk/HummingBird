@@ -57,7 +57,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     if (_collisionShape->getType() == PhysicsCollisionShape::SHAPE_HEIGHTFIELD)
     {
         // Add a listener on the node's transform so we can track dirty changes to calculate
-        // an inverse matrix for transforming heightfield points between world and local space.
+        // an inverse kmMat4 for transforming heightfield points between world and local space.
         _node->addListener(this);
     }
 }
@@ -299,7 +299,7 @@ float PhysicsRigidBody::getHeight(float x, float z) const
 
     GP_ASSERT(_collisionShape->_shapeData.heightfieldData);
 
-    // Ensure inverse matrix is updated so we can transform from world back into local heightfield coordinates for indexing
+    // Ensure inverse kmMat4 is updated so we can transform from world back into local heightfield coordinates for indexing
     if (_collisionShape->_shapeData.heightfieldData->inverseIsDirty)
     {
         _collisionShape->_shapeData.heightfieldData->inverseIsDirty = false;
@@ -367,7 +367,7 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
     {
         GP_ASSERT(_collisionShape && _collisionShape->_shapeData.heightfieldData);
 
-        // Dirty the heightfield's inverse matrix (used to compute height values from world-space coordinates)
+        // Dirty the heightfield's inverse kmMat4 (used to compute height values from world-space coordinates)
         _collisionShape->_shapeData.heightfieldData->inverseIsDirty = true;
 
         // Update local scaling for the heightfield.

@@ -1321,7 +1321,7 @@ unsigned int Control::drawBorder(Form* form, const Rectangle& clip)
     // Calculate screen-space positions.
     const Theme::Border& border = getBorder(getState());
     const Theme::Padding& padding = getPadding();
-    Vector4 skinColor = _skin->getColor();
+    kmVec4 skinColor = _skin->getColor();
     skinColor.w *= _opacity;
 
     float midWidth = _absoluteBounds.width - border.left - border.right;
@@ -1703,7 +1703,7 @@ void Control::overrideThemedProperties(Properties* properties, unsigned char sta
 
     if (properties->exists("textColor"))
     {
-        Vector4 textColor(0, 0, 0, 1);
+        kmVec4 textColor(0, 0, 0, 1);
         properties->getColor("textColor", &textColor);
         setTextColor(textColor, states);
     }

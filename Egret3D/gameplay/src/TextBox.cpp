@@ -348,14 +348,14 @@ unsigned int TextBox::drawImages(Form* form, const Rectangle& clip)
         if (!region.isEmpty())
         {
             const Theme::UVs& uvs = _caretImage->getUVs();
-            Vector4 color = _caretImage->getColor();
+            kmVec4 color = _caretImage->getColor();
             color.w *= _opacity;
 
             float caretWidth = region.width * _fontSize / region.height;
 
             Font* font = getFont(state);
             unsigned int fontSize = getFontSize(state);
-            Vector2 point;
+            kmVec2 point;
             font->getLocationAtIndex(getDisplayedText().c_str(), _textBounds, fontSize, &point, _caretLocation, 
                  getTextAlignment(state), true, getTextRightToLeft(state));
 
@@ -398,7 +398,7 @@ void TextBox::setCaretLocation(int x, int y)
 {
     Control::State state = getState();
 
-    Vector2 point(x + _absoluteBounds.x, y + _absoluteBounds.y);
+    kmVec2 point(x + _absoluteBounds.x, y + _absoluteBounds.y);
 
     // Get index into string and cursor location from the latest touch location.
     Font* font = getFont(state);

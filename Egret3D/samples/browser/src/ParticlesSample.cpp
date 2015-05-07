@@ -10,7 +10,7 @@ ADD_SAMPLE("Graphics", "Particles", ParticlesSample, 9);
 const float INPUT_SENSITIVITY = 0.05f;
 const float PANNING_SENSITIVITY = 0.01f;
 const float ROTATE_SENSITIVITY = 0.25f;
-const Vector4 BACKGROUND_COLOR = Vector4::zero();
+const kmVec4 BACKGROUND_COLOR = Vector4::zero();
 const float ZOOM_DEFAULT = 4.0f;
 
 ParticlesSample::ParticlesSample()
@@ -54,7 +54,7 @@ void ParticlesSample::addGrid(unsigned int lineCount)
     for (unsigned int i = 0; i < verticesSize; ++i)
     {
         // Default line color is dark grey
-        Vector4 color(0.3f, 0.3f, 0.3f, 1.0f);
+        kmVec4 color(0.3f, 0.3f, 0.3f, 1.0f);
 
         // Every 10th line is brighter grey
         if (((int)value) % 10 == 0)
@@ -310,7 +310,7 @@ std::string ParticlesSample::toString(const kmVec4& v)
     return s.str();
 }
 
-std::string ParticlesSample::toString(const Quaternion& q)
+std::string ParticlesSample::toString(const kmQuaternion& q)
 {
     std::ostringstream s;
     s << q.x << ", " << q.y << ", " << q.z << ", " << q.w;
@@ -429,49 +429,49 @@ void ParticlesSample::controlEvent(Control* control, EventType evt)
     case Listener::VALUE_CHANGED:
         if (control == _startRed)
         {
-            Vector4 startColor = emitter->getColorStart();
+            kmVec4 startColor = emitter->getColorStart();
             startColor.x = _startRed->getValue();
             emitter->setColor(startColor, emitter->getColorStartVariance(), emitter->getColorEnd(), emitter->getColorEndVariance());
         }
         else if (control == _startGreen)
         {
-            Vector4 startColor = emitter->getColorStart();
+            kmVec4 startColor = emitter->getColorStart();
             startColor.y = _startGreen->getValue();
             emitter->setColor(startColor, emitter->getColorStartVariance(), emitter->getColorEnd(), emitter->getColorEndVariance());
         }
         else if (control == _startBlue)
         {
-            Vector4 startColor = emitter->getColorStart();
+            kmVec4 startColor = emitter->getColorStart();
             startColor.z = _startBlue->getValue();
             emitter->setColor(startColor, emitter->getColorStartVariance(), emitter->getColorEnd(), emitter->getColorEndVariance());
         }
         else if (control == _startAlpha)
         {
-            Vector4 startColor = emitter->getColorStart();
+            kmVec4 startColor = emitter->getColorStart();
             startColor.w = _startAlpha->getValue();
             emitter->setColor(startColor, emitter->getColorStartVariance(), emitter->getColorEnd(), emitter->getColorEndVariance());
         }
         else if (control == _endRed)
         {
-            Vector4 endColor = emitter->getColorEnd();
+            kmVec4 endColor = emitter->getColorEnd();
             endColor.x = _endRed->getValue();
             emitter->setColor(emitter->getColorStart(), emitter->getColorStartVariance(), endColor, emitter->getColorEndVariance());
         }
         else if (control == _endGreen)
         {
-            Vector4 endColor = emitter->getColorEnd();
+            kmVec4 endColor = emitter->getColorEnd();
             endColor.y = _endGreen->getValue();
             emitter->setColor(emitter->getColorStart(), emitter->getColorStartVariance(), endColor, emitter->getColorEndVariance());
         }
         else if (control == _endBlue)
         {
-            Vector4 endColor = emitter->getColorEnd();
+            kmVec4 endColor = emitter->getColorEnd();
             endColor.z = _endBlue->getValue();
             emitter->setColor(emitter->getColorStart(), emitter->getColorStartVariance(), endColor, emitter->getColorEndVariance());
         }
         else if (control == _endAlpha)
         {
-            Vector4 endColor = emitter->getColorEnd();
+            kmVec4 endColor = emitter->getColorEnd();
             endColor.w = _endAlpha->getValue();
             emitter->setColor(emitter->getColorStart(), emitter->getColorStartVariance(), endColor, emitter->getColorEndVariance());
         }

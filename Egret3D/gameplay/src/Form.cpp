@@ -245,8 +245,8 @@ unsigned int Form::draw(bool wireframe)
     if (_node)
     {
         // Drawing in 3D.
-        // Setup a projection matrix for drawing the form via the node's world transform.
-        Matrix world(_node->getWorldMatrix());
+        // Setup a projection kmMat4 for drawing the form via the node's world transform.
+        kmMat4 world(_node->getWorldMatrix());
         world.scale(1, -1, 1);
         world.translate(0, -_absoluteClipBounds.height, 0);
         Matrix::multiply(_node->getViewProjectionMatrix(), world, &_projectionMatrix);
@@ -256,7 +256,7 @@ unsigned int Form::draw(bool wireframe)
         // Drawing in 2D, so we need to clear the depth buffer
         Game::getInstance()->clear(Game::CLEAR_DEPTH, Vector4::zero(), 1, 0);
 
-        // Setup an ortho matrix that maps to the current viewport
+        // Setup an ortho kmMat4 that maps to the current viewport
         const Rectangle& viewport = Game::getInstance()->getViewport();
         Matrix::createOrthographicOffCenter(0, viewport.width, viewport.height, 0, 0, 1, &_projectionMatrix);
     }
@@ -826,7 +826,7 @@ bool Form::pollGamepad(Gamepad* gamepad)
     if (!selectButtonDown)
     {
         // Get values of analog joysticks 1 and 2 (assume left and right analog sticks)
-        Vector2 joystick;
+        kmVec2 joystick;
         unsigned int joystickCount = gamepad->getJoystickCount();
         gamepad->getJoystickValues(0, &joystick);
 
@@ -1008,7 +1008,7 @@ bool Form::projectPoint(int x, int y, kmVec3* point)
     if (scene && (camera = scene->getActiveCamera()))
     {
         // Get info about the form's position.
-        Matrix m = _node->getWorldMatrix();
+        kmMat4 m = _node->getWorldMatrix();
         kmVec3 pointOnPlane(0, 0, 0);
         m.transformPoint(&pointOnPlane);
 

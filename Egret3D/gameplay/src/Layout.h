@@ -3,7 +3,7 @@
 
 #include "Ref.h"
 #include "Touch.h"
-#include "Vector2.h"
+#include "vec2.h"
 
 namespace egret
 {

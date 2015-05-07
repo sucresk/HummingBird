@@ -2,7 +2,7 @@
 #define PHYSICSCONSTRAINT_H_
 
 #include "Base.h"
-#include "Vector3.h"
+#include "vec3.h"
 
 namespace egret
 {
@@ -65,7 +65,7 @@ public:
      * @param node The node to calculate a rotation offset for.
      * @param point The point to calculate the rotation offset to.
      */
-    static Quaternion getRotationOffset(const Node* node, const kmVec3& point);
+    static kmQuaternion getRotationOffset(const Node* node, const kmVec3& point);
 
     /**
      * Calculates the translation offset to the given point in the given node's local space.

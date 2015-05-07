@@ -262,7 +262,7 @@ bool Slider::gamepadJoystickEvent(Gamepad* gamepad, unsigned int index)
     // The right analog stick can be used to change a slider's value.
     if (index == 1)
     {
-        Vector2 joy;
+        kmVec2 joy;
         gamepad->getJoystickValues(index, &joy);
         _gamepadValue = _value;
         _delta = joy.x;
@@ -376,10 +376,10 @@ unsigned int Slider::drawImages(Form* form, const Rectangle& clip)
     const Theme::UVs& marker = _markerImage->getUVs();
     const Theme::UVs& track = _trackImage->getUVs();
 
-    Vector4 minCapColor = _minImage->getColor();
-    Vector4 maxCapColor = _maxImage->getColor();
-    Vector4 markerColor = _markerImage->getColor();
-    Vector4 trackColor = _trackImage->getColor();
+    kmVec4 minCapColor = _minImage->getColor();
+    kmVec4 maxCapColor = _maxImage->getColor();
+    kmVec4 markerColor = _markerImage->getColor();
+    kmVec4 trackColor = _trackImage->getColor();
 
     Control::State state = getState();
 
@@ -447,7 +447,7 @@ unsigned int Slider::drawImages(Form* form, const Rectangle& clip)
     float midY = _viewportBounds.y + startY + (endY - startY) * 0.5f;
 
     // Draw track below the slider text
-    Vector2 pos(_viewportBounds.x + minCapRegion.width, midY - trackRegion.height * 0.5f);
+    kmVec2 pos(_viewportBounds.x + minCapRegion.width, midY - trackRegion.height * 0.5f);
     batch->draw(pos.x, pos.y, _viewportBounds.width - minCapRegion.width - maxCapRegion.width, trackRegion.height, track.u1, track.v1, track.u2, track.v2, trackColor, _viewportClipBounds);
 
     // Draw min cap to the left of the track

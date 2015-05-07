@@ -132,7 +132,7 @@ public:
      *
      * @param rotation Quaternion representing the rotation to apply.
      */
-    void rotate(const Quaternion& rotation);
+    void rotate(const kmQuaternion& rotation);
 
     /**
      * Sets the rotation of the character.
@@ -147,7 +147,7 @@ public:
      *
      * @param rotation Quaternion representing the new rotation.
      */
-    void setRotation(const Quaternion& rotation);
+    void setRotation(const kmQuaternion& rotation);
 
     /**
      * Moves the character forward with the given velocity vector.

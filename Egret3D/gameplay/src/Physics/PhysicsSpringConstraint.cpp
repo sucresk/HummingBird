@@ -19,8 +19,8 @@ PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, PhysicsRig
     _constraint = bullet_new<btGeneric6DofSpringConstraint>(*a->_body, *b->_body, getTransformOffset(a->getNode(), origin), getTransformOffset(b->getNode(), origin), true);
 }
 
-PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                                                 PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                                                 PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     GP_ASSERT(a && a->_body && a->getNode());
     GP_ASSERT(b && b->_body && b->getNode());

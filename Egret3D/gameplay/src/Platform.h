@@ -1,7 +1,7 @@
 #ifndef PLATFORM_H_
 #define PLATFORM_H_
 
-#include "Vector2.h"
+#include "vec2.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Touch.h"

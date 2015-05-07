@@ -92,7 +92,7 @@ Text* Text::create(Properties* properties)
     }
 
     // Get text color
-    Vector4 color = Vector4::one();
+    kmVec4 color = Vector4::one();
     if (properties->exists("color"))
     {
         switch (properties->getType("color"))
@@ -235,7 +235,7 @@ unsigned int Text::draw(bool wireframe)
     Rectangle viewport = Game::getInstance()->getViewport();
     kmVec3 position = Vector3::zero();
     
-    // Font is always using a offset projection matrix to top-left. So we need to adjust it back to cartesian
+    // Font is always using a offset projection kmMat4 to top-left. So we need to adjust it back to cartesian
     position.x += viewport.width / 2;
     position.y += viewport.height / 2;
     Rectangle clipViewport = _clip;

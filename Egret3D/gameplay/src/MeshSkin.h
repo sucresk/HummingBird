@@ -1,7 +1,7 @@
 #ifndef MESHSKIN_H_
 #define MESHSKIN_H_
 
-#include "Matrix.h"
+#include "mat4.h"
 #include "Transform.h"
 
 namespace egret
@@ -40,7 +40,7 @@ public:
     /**
      * Sets the bind shape of this skin.
      * 
-     * @param matrix An array of 16 floats.
+     * @param kmMat4 An array of 16 floats.
      */
     void setBindShape(const float* matrix);
 
@@ -91,18 +91,18 @@ public:
     int getJointIndex(Joint* joint) const;
 
     /**
-     * Returns the pointer to the Vector4 array for the purpose of binding to a shader.
+     * Returns the pointer to the kmVec4 array for the purpose of binding to a shader.
      * 
-     * @return The pointer to the matrix palette.
+     * @return The pointer to the kmMat4 palette.
      */
     kmVec4* getMatrixPalette() const;
 
     /**
-     * Returns the number of elements in the matrix palette array.
+     * Returns the number of elements in the kmMat4 palette array.
      * Each element is a kmVec4* that represents a row.
-     * Each matrix palette is represented by 3 rows of Vector4.
+     * Each kmMat4 palette is represented by 3 rows of Vector4.
      * 
-     * @return The matrix palette size.
+     * @return The kmMat4 palette size.
      */
     unsigned int getMatrixPaletteSize() const;
 
@@ -175,7 +175,7 @@ private:
      */
     void clearJoints();
 
-    Matrix _bindShape;
+    kmMat4 _bindShape;
     std::vector<Joint*> _joints;
     Joint* _rootJoint;
     
@@ -186,7 +186,7 @@ private:
 
     // Pointer to the array of palette matrices.
     // This array is passed to the vertex shader as a uniform.
-    // Each 4x3 row-wise matrix is represented as 3 Vector4's.
+    // Each 4x3 row-wise kmMat4 is represented as 3 Vector4's.
     // The number of Vector4's is (_joints.size() * 3).
     kmVec4* _matrixPalette;
     Model* _model;

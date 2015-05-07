@@ -258,7 +258,7 @@ void CharacterGame::update(float elapsedTime)
     }
     if (_gamepad->getJoystickCount() > 1)
     {
-        Vector2 out;
+        kmVec2 out;
         _gamepad->getJoystickValues(1, &out);
        _character->getNode()->rotateY(-MATH_DEG_TO_RAD(out.x * 2.0f));
     }
@@ -359,7 +359,7 @@ void CharacterGame::update(float elapsedTime)
         Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
         if (!rotationVector.isZero())
         {
-            Matrix m;
+            kmMat4 m;
             _basketballNode->getWorldMatrix().transpose(&m);
 
             kmVec3 rotNorm;

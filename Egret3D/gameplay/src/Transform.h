@@ -2,9 +2,9 @@
 #define TRANSFORM_H_
 
 #include "ScriptTarget.h"
-#include "Vector3.h"
+#include "vec3.h"
 #include "Quaternion.h"
-#include "Matrix.h"
+#include "mat4.h"
 #include "AnimationTarget.h"
 
 namespace egret
@@ -23,8 +23,8 @@ class ScriptListener;
  * component is updated (it is not as if the scale, rotate, or translate
  * is applied to the transform's matrix).
  *
- * Note: To construct a Transform from a transformation matrix stored as a Matrix,
- * first decompose the Matrix into its separate translation, scale, and rotation
+ * Note: To construct a Transform from a transformation kmMat4 stored as a Matrix,
+ * first decompose the kmMat4 into its separate translation, scale, and rotation
  * components using matrix.decompose(Vector3, Quaternion, Vector3) and then pass
  * those arguments to the appropriate constructor or set methods of Transform.
  */
@@ -153,7 +153,7 @@ public:
      * @param rotation The rotation quaternion.
      * @param translation The translation vector.
      */
-    Transform(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation);
+	Transform(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation);
 
     /**
      * Constructs a new transform from the specified values.
@@ -185,16 +185,16 @@ public:
     const char* getTypeName() const;
 
     /**
-     * Gets the matrix corresponding to this transform.
+     * Gets the kmMat4 corresponding to this transform.
      *
-     * The matrix returned from this method is mathematically equivalent
+     * The kmMat4 returned from this method is mathematically equivalent
      * to this transform only as long as this transform is not changed
      * (i.e. by calling set(), setScale(), translate(), rotateX(), etc.).
      * Once the transform has been changed, the user must call getMatrix()
      * again to get the updated matrix. Also note that changing the matrix
      * returned from this method does not change this transform.
      *
-     * @return The matrix of this transform.
+     * @return The kmMat4 of this transform.
      */
     const kmMat4& getMatrix() const;
 
@@ -234,19 +234,19 @@ public:
     /**
      * Returns the rotation for this transform.
      */
-    const Quaternion& getRotation() const;
+    const kmQuaternion& getRotation() const;
 
     /**
      * Gets the rotation component of this transform in the specified quaternion.
      *
      * @param rotation The quaternion to store the rotation in.
      */
-    void getRotation(Quaternion* rotation) const;
+    void getRotation(kmQuaternion* rotation) const;
 
     /**
      * Gets the rotation component of this transform in the specified matrix.
      *
-     * @param rotation The matrix to store the rotation in.
+     * @param rotation The kmMat4 to store the rotation in.
      */
     void getRotation(kmMat4* rotation) const;
 
@@ -380,7 +380,7 @@ public:
      *
      * @param rotation The rotation to rotate by (as a quaternion).
      */
-    void rotate(const Quaternion& rotation);
+    void rotate(const kmQuaternion& rotation);
 
     /**
      * Rotates this transform's rotation component by the given rotation
@@ -476,7 +476,7 @@ public:
      * @param rotation The rotation quaternion.
      * @param translation The translation vector.
      */
-    void set(const kmVec3& scale, const Quaternion& rotation, const kmVec3& translation);
+    void set(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation);
 
     /**
      * Sets the transform to the specified values.
@@ -576,7 +576,7 @@ public:
      *
      * @param rotation The rotation as a quaternion.
      */
-    void setRotation(const Quaternion& rotation);
+    void setRotation(const kmQuaternion& rotation);
 
     /**
      * Sets the rotation component for this transform to the
@@ -817,7 +817,7 @@ protected:
     };
 
     /**
-     * Defines the matrix dirty bits for marking the translation, scale and rotation
+     * Defines the kmMat4 dirty bits for marking the translation, scale and rotation
      * components of the Transform.
      */
     enum MatrixDirtyBits
@@ -834,10 +834,10 @@ protected:
     void dirty(char matrixDirtyBits);
 
     /** 
-     * Determines if the specified matrix dirty bit is set.
+     * Determines if the specified kmMat4 dirty bit is set.
      *
-     * @param matrixDirtyBits the matrix dirty bit to check for dirtiness.
-     * @return TRUE if the specified matrix dirty bit is set; FALSE if the specified matrix dirty bit is unset.
+     * @param matrixDirtyBits the kmMat4 dirty bit to check for dirtiness.
+     * @return TRUE if the specified kmMat4 dirty bit is set; FALSE if the specified kmMat4 dirty bit is unset.
      */
     bool isDirty(char matrixDirtyBits) const;
 
@@ -868,7 +868,7 @@ protected:
     /** 
      * The rotation component of the Transform.
      */
-    Quaternion _rotation;
+    kmQuaternion _rotation;
     
     /** 
      * The translation component of the Transform.
@@ -876,12 +876,12 @@ protected:
     kmVec3 _translation;
     
     /** 
-     * The Matrix representation of the Transform.
+     * The kmMat4 representation of the Transform.
      */
-    mutable Matrix _matrix;
+    mutable kmMat4 _matrix;
     
     /** 
-     * Matrix dirty bits flag.
+     * kmMat4 dirty bits flag.
      */
     mutable char _matrixDirtyBits;
     

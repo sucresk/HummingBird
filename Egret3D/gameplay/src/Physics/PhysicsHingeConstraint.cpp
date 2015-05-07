@@ -12,8 +12,8 @@ void PhysicsHingeConstraint::setLimits(float minAngle, float maxAngle, float bou
     ((btHingeConstraint*)_constraint)->setLimit(minAngle, maxAngle, 0.9f, 0.3f, bounciness);
 }
 
-PhysicsHingeConstraint::PhysicsHingeConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-    PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+PhysicsHingeConstraint::PhysicsHingeConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+    PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
     : PhysicsConstraint(a, b)
 {
     GP_ASSERT(a && a->_body && a->getNode());

@@ -276,7 +276,7 @@ private:
 
     static bool pollGamepad(Gamepad* gamepad);
 
-    Matrix _projectionMatrix;           // Projection matrix to be set on SpriteBatch objects when rendering the form
+    kmMat4 _projectionMatrix;           // Projection kmMat4 to be set on SpriteBatch objects when rendering the form
     std::vector<SpriteBatch*> _batches;
     bool _batched;
 };

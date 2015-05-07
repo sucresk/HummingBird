@@ -3,7 +3,7 @@
 
 #include "PhysicsConstraint.h"
 #include "PhysicsRigidBody.h"
-#include "Vector3.h"
+#include "vec3.h"
 
 namespace egret
 {

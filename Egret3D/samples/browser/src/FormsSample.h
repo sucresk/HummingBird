@@ -46,7 +46,7 @@ private:
     unsigned int _formIndex;
     std::vector<const char*> _formFiles;
     std::string _sampleString;
-    Vector2 _joysticks[2];
+    kmVec2 _joysticks[2];
 
 };
 

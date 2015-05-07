@@ -15,7 +15,7 @@ Mesh* createGridMesh(unsigned int lineCount)
     for (unsigned int i = 0; i < verticesSize; ++i)
     {
         // Default line color is dark grey
-        Vector4 color(0.3f, 0.3f, 0.3f, 1.0f);
+        kmVec4 color(0.3f, 0.3f, 0.3f, 1.0f);
 
         // Very 10th line is brighter grey
         if (((int)value) % 10 == 0)

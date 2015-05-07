@@ -35,10 +35,10 @@
 // Matrices are assumed to be stored in column major format according to OpenGL
 // specification.
 
-// Multiplies two 4x4 matrices (a,b) outputting a 4x4 matrix (output)
+// Multiplies two 4x4 matrices (a,b) outputting a 4x4 kmMat4 (output)
 void NEON_Matrix4Mul(const float* a, const float* b, float* output );
 
-// Multiplies a 4x4 matrix (m) with a vector 4 (v), outputting a vector 4
+// Multiplies a 4x4 kmMat4 (m) with a vector 4 (v), outputting a vector 4
 void NEON_Matrix4Vector4Mul(const float* m, const float* v, float* output);
 
 

@@ -639,8 +639,8 @@ unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBo
     Game* game = Game::getInstance();
     Rectangle vp(0, 0, game->getWidth(), game->getHeight());
     kmVec3 corners[8];
-    Vector2 min(FLT_MAX, FLT_MAX);
-    Vector2 max(-FLT_MAX, -FLT_MAX);
+    kmVec2 min(FLT_MAX, FLT_MAX);
+    kmVec2 max(-FLT_MAX, -FLT_MAX);
     worldBounds.getCorners(corners);
     for (unsigned int i = 0; i < 8; ++i)
     {

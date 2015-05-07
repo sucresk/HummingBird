@@ -488,7 +488,7 @@ protected:
     /** 
      * How far this layout has been scrolled in each direction.
      */
-    Vector2 _scrollPosition;
+    kmVec2 _scrollPosition;
     /** 
      * Whether the scrollbars should auto-hide. Default is false.
      */
@@ -540,7 +540,7 @@ protected:
     /** 
      * Speed to continue scrolling at after touch release or a scroll-wheel event.
      */ 
-    Vector2 _scrollingVelocity;
+    kmVec2 _scrollingVelocity;
     /** 
      * Friction dampens velocity.
      */ 

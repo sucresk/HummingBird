@@ -4,7 +4,7 @@
 #include "PhysicsConstraint.h"
 #include "PhysicsRigidBody.h"
 #include "Quaternion.h"
-#include "Vector3.h"
+#include "vec3.h"
 
 namespace egret
 {
@@ -51,8 +51,8 @@ private:
      * @param translationOffsetB The translation offset for the second rigid body
      *      (in its local space) with respect to the constraint joint (optional).
      */
-    PhysicsHingeConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                           PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB);
+    PhysicsHingeConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                           PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB);
 
     /**
      * Destructor.

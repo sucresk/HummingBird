@@ -220,7 +220,7 @@ void FormsSample::update(float elapsedTime)
 
         if (!_joysticks[1].isZero())
         {
-            Matrix m;
+            kmMat4 m;
             _formNodeParent->getWorldMatrix().transpose(&m);
             kmVec3 yaw;
             m.getUpVector(&yaw);
@@ -281,7 +281,7 @@ void FormsSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
                 int deltaX = x - _touchX;
                 _touchX = x;
                 // Yaw in world frame
-                Matrix m;
+                kmMat4 m;
                 _formNodeParent->getWorldMatrix().transpose(&m);
                 kmVec3 yaw;
                 m.getUpVector(&yaw);

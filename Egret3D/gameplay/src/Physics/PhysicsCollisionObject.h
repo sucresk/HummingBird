@@ -2,7 +2,7 @@
 #define PHYSICSCOLLISIONOBJECT_H_
 
 #include "Script.h"
-#include "Vector3.h"
+#include "vec3.h"
 #include "PhysicsCollisionShape.h"
 
 namespace egret
@@ -143,8 +143,8 @@ public:
          */
         virtual void collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
                                     const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const kmVec3& contactPointA = Vector3::zero(),
-                                    const kmVec3& contactPointB = Vector3::zero()) = 0;
+									const kmVec3& contactPointA = {0.0f, 0.0f, 0.0f },
+									const kmVec3& contactPointB = { 0.0f, 0.0f, 0.0f }) = 0;
     };
 
     /**

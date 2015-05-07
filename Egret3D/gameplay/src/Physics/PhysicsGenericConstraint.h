@@ -3,7 +3,7 @@
 
 #include "PhysicsConstraint.h"
 #include "Quaternion.h"
-#include "Vector3.h"
+#include "vec3.h"
 
 namespace egret
 {
@@ -27,14 +27,14 @@ public:
      * 
      * @return The rotation offset.
      */
-    inline const Quaternion& getRotationOffsetA() const;
+    inline const kmQuaternion& getRotationOffsetA() const;
 
     /**
      * Gets the rotation offset for the second rigid body in the constraint.
      * 
      * @return The rotation offset.
      */
-    inline const Quaternion& getRotationOffsetB() const;
+    inline const kmQuaternion& getRotationOffsetB() const;
 
     /**
      * Gets the translation offset for the first rigid body in the constraint.
@@ -87,14 +87,14 @@ public:
      * 
      * @param rotationOffset The rotation offset.
      */
-    inline void setRotationOffsetA(const Quaternion& rotationOffset);
+    inline void setRotationOffsetA(const kmQuaternion& rotationOffset);
 
     /**
      * Sets the rotation offset for the second rigid body in the constraint.
      * 
      * @param rotationOffset The rotation offset.
      */
-    inline void setRotationOffsetB(const Quaternion& rotationOffset);
+    inline void setRotationOffsetB(const kmQuaternion& rotationOffset);
 
     /**
      * Sets the translation offset for the first rigid body in the constraint.
@@ -145,8 +145,8 @@ protected:
      * @param translationOffsetB The translation offset for the second rigid body
      *      (in its local space) with respect to the constraint joint (optional).
      */
-    PhysicsGenericConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                             PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB);
+    PhysicsGenericConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                             PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB);
 
     /**
      * Destructor.
@@ -155,8 +155,8 @@ protected:
 
 private:
 
-    mutable Quaternion* _rotationOffsetA;
-    mutable Quaternion* _rotationOffsetB;
+    mutable kmQuaternion* _rotationOffsetA;
+    mutable kmQuaternion* _rotationOffsetB;
     mutable kmVec3* _translationOffsetA;
     mutable kmVec3* _translationOffsetB;
 };

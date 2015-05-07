@@ -209,7 +209,7 @@ protected:
     /**
      * The previous position of the TextBox's caret.
      */
-    Vector2 _prevCaretLocation;
+    kmVec2 _prevCaretLocation;
     
     /**
      * The last character that was entered into the TextBox.

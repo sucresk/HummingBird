@@ -335,7 +335,7 @@ private:
     std::vector<TerrainPatch*> _patches;
     Texture::Sampler* _normalMap;
     unsigned int _flags;
-    mutable Matrix _inverseWorldMatrix;
+    mutable kmMat4 _inverseWorldMatrix;
     mutable unsigned int _dirtyFlags;
     BoundingBox _boundingBox;
 };

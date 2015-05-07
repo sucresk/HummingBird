@@ -25,7 +25,7 @@ namespace egret
  * pass an array of values as well as a convenient way to support
  * auto-binding of values to a material parameter. For example, by
  * setting the parameter value to a pointer to a Matrix, any changes
- * to the Matrix will automatically be reflected in the technique the
+ * to the kmMat4 will automatically be reflected in the technique the
  * next time the parameter is applied to the render state.
  *
  * Note that for parameter values to arrays or pointers, the 
@@ -81,19 +81,19 @@ public:
     void setValue(const int* values, unsigned int count = 1);
 
     /**
-     * Stores a copy of the specified Vector2 value in this parameter.
+     * Stores a copy of the specified kmVec2 value in this parameter.
      */
     void setValue(const kmVec2& value);
 
     /**
-     * Stores a pointer/array of Vector2 values in this parameter.
+     * Stores a pointer/array of kmVec2 values in this parameter.
      */
     void setValue(const kmVec2* values, unsigned int count = 1);
 
     /**
      * Stores a copy of the specified kmVec3 value in this parameter.
      */
-    void setValue(const kmVec2& value);
+    void setValue(const kmVec3& value);
 
     /**
      * Stores a pointer/array of kmVec3 values in this parameter.
@@ -101,22 +101,22 @@ public:
     void setValue(const kmVec3* values, unsigned int count = 1);
 
     /**
-     * Stores a copy of the specified Vector4 value in this parameter.
+     * Stores a copy of the specified kmVec4 value in this parameter.
      */
     void setValue(const kmVec4& value);
 
     /**
-     * Stores a pointer/array of Vector4 values in this parameter.
+     * Stores a pointer/array of kmVec4 values in this parameter.
      */
     void setValue(const kmVec4* values, unsigned int count = 1);
 
     /**
-     * Stores a copy of the specified Matrix value in this parameter.
+     * Stores a copy of the specified kmMat4 value in this parameter.
      */
     void setValue(const kmMat4& value);
 
     /**
-     * Stores a pointer/array of Matrix values in this parameter.
+     * Stores a pointer/array of kmMat4 values in this parameter.
      */
     void setValue(const kmMat4* values, unsigned int count = 1);
 
@@ -173,14 +173,14 @@ public:
     void setIntArray(const int* values, unsigned int count, bool copy = false);
 
     /**
-     * Stores a Vector2 value in this parameter.
+     * Stores a kmVec2 value in this parameter.
      *
      * @param value The value to set.
      */
     void setVector2(const kmVec2& value);
 
     /**
-     * Stores an array of Vector2 values in this parameter.
+     * Stores an array of kmVec2 values in this parameter.
      *
      * @param values The array of values.
      * @param count The number of values in the array.
@@ -203,14 +203,14 @@ public:
     void setVector3Array(const kmVec3* values, unsigned int count, bool copy = false);
 
     /**
-     * Stores a Vector4 value in this parameter.
+     * Stores a kmVec4 value in this parameter.
      *
      * @param value The value to set.
      */
     void setVector4(const kmVec4& value);
 
     /**
-     * Stores an array of Vector4 values in this parameter.
+     * Stores an array of kmVec4 values in this parameter.
      *
      * @param values The array of values.
      * @param count The number of values in the array.
@@ -221,14 +221,14 @@ public:
     void setVector4Array(const kmVec4* values, unsigned int count, bool copy = false);
 
     /**
-     * Stores a Matrix value in this parameter.
+     * Stores a kmMat4 value in this parameter.
      *
      * @param value The value to set.
      */
     void setMatrix(const kmMat4& value);
 
     /**
-     * Stores an array of Matrix values in this parameter.
+     * Stores an array of kmMat4 values in this parameter.
      *
      * @param values The array of values.
      * @param count The number of values in the array.

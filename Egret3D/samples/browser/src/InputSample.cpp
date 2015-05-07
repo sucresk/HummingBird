@@ -130,7 +130,7 @@ void InputSample::render(float elapsedTime)
 
     // Draw text
     unsigned int fontSize = 18;
-    Vector4 fontColor(1.0f, 1.0f, 1.0f, 1.0f);
+    kmVec4 fontColor(1.0f, 1.0f, 1.0f, 1.0f);
     unsigned int width, height;
     char buffer[50];
 
@@ -325,7 +325,7 @@ bool InputSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelDelta
             _crosshairDstRect.setPosition(_crosshairDstRect.x + x, _crosshairDstRect.y + y);
 
             // Use screen limits to clamp the crosshair position
-            Vector2 pos(_crosshairDstRect.x, _crosshairDstRect.y);
+            kmVec2 pos(_crosshairDstRect.x, _crosshairDstRect.y);
             pos.clamp(_crosshairLowerLimit, _crosshairUpperLimit);
             _crosshairDstRect.setPosition(pos.x, pos.y);
         }

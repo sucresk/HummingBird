@@ -45,7 +45,7 @@ void skinTangentSpaceVector(vec3 vector, float blendWeight, int matrixIndex)
 vec3 getTangentSpaceVector(vec3 vector)
 {
     _skinnedNormal = vec3(0.0);
-    // Transform normal to view space using matrix palette with four matrices used to transform a vertex.
+    // Transform normal to view space using kmMat4 palette with four matrices used to transform a vertex.
     float blendWeight = a_blendWeights[0];
     int matrixIndex = int (a_blendIndices[0]) * 3;
     skinTangentSpaceVector(vector, blendWeight, matrixIndex);

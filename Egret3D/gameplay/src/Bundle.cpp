@@ -1088,7 +1088,7 @@ MeshSkin* Bundle::readMeshSkin()
         {
             if (!readMatrix(m))
             {
-                GP_ERROR("Failed to load joint bind pose matrix (for joint with index %d) in bundle '%s'.", i, _path.c_str());
+                GP_ERROR("Failed to load joint bind pose kmMat4 (for joint with index %d) in bundle '%s'.", i, _path.c_str());
                 SAFE_DELETE(meshSkin);
                 SAFE_DELETE(skinData);
                 return NULL;
@@ -1836,7 +1836,7 @@ void Bundle::setTransform(const float* values, Transform* transform)
     GP_ASSERT(transform);
 
     // Load array into transform.
-    Matrix matrix(values);
+    kmMat4 matrix(values);
     kmVec3 scale, translation;
     Quaternion rotation;
     matrix.decompose(&scale, &rotation, &translation);

@@ -177,11 +177,11 @@ Theme* Theme::create(const char* url)
                 }
             }
 
-            Vector4 regionVector;
+            kmVec4 regionVector;
             space->getVector4("region", &regionVector);
             const Rectangle region(regionVector.x, regionVector.y, regionVector.z, regionVector.w);
 
-            Vector4 color(1, 1, 1, 1);
+            kmVec4 color(1, 1, 1, 1);
             if (space->exists("color"))
             {
                 space->getColor("color", &color);
@@ -219,7 +219,7 @@ Theme* Theme::create(const char* url)
                 const char* innerSpacename = innerSpace->getNamespace();
                 if (strcmpnocase(innerSpacename, "stateNormal") == 0)
                 {
-                    Vector4 textColor(0, 0, 0, 1);
+                    kmVec4 textColor(0, 0, 0, 1);
                     if (innerSpace->exists("textColor"))
                     {
                         innerSpace->getColor("textColor", &textColor);
@@ -305,7 +305,7 @@ Theme* Theme::create(const char* url)
                 {
                     // Either OVERLAY_FOCUS or OVERLAY_ACTIVE.
                     // If a property isn't specified, it inherits from OVERLAY_NORMAL.
-                    Vector4 textColor;
+                    kmVec4 textColor;
                     if (!innerSpace->getColor("textColor", &textColor))
                     {
                         textColor.set(normal->getTextColor());
@@ -597,11 +597,11 @@ Theme::ThemeImage* Theme::ThemeImage::create(float tw, float th, Properties* pro
 {
     GP_ASSERT(properties);
 
-    Vector4 regionVector;                
+    kmVec4 regionVector;                
     properties->getVector4("region", &regionVector);
     const Rectangle region(regionVector.x, regionVector.y, regionVector.z, regionVector.w);
 
-    Vector4 color;
+    kmVec4 color;
     if (properties->exists("color"))
     {
         properties->getColor("color", &color);
@@ -674,7 +674,7 @@ Theme::ImageList* Theme::ImageList::create(float tw, float th, Properties* prope
 {
     GP_ASSERT(properties);
 
-    Vector4 color(1, 1, 1, 1);
+    kmVec4 color(1, 1, 1, 1);
     if (properties->exists("color"))
     {
         properties->getColor("color", &color);

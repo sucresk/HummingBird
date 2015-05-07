@@ -115,7 +115,7 @@ void MeshBatchSample::addTriangle(int x, int y)
     kmVec3 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
 
     // Transform each point to x,y and rotate it randomly.
-    Matrix m;
+    kmMat4 m;
     m.translate(x, y, 0);
     m.rotateZ(MATH_RANDOM_MINUS1_1() * MATH_PI);
     m.transformPoint(p1, &p1);

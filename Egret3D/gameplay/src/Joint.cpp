@@ -72,7 +72,7 @@ void Joint::updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette)
     {
         _jointMatrixDirty = false;
 
-        static Matrix t;
+        static kmMat4 t;
         Matrix::multiply(Node::getWorldMatrix(), getInverseBindPose(), &t);
         Matrix::multiply(t, bindShape, &t);
 

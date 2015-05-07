@@ -43,13 +43,13 @@ typedef struct kmQuaternion {
     kmScalar w;
 } kmQuaternion;
 
-kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns pOut, sets pOut to the conjugate of pIn
+kmQuaternion* kmQuaternionSet(kmQuaternion *pOut, float x, float y, float z, float w);
+
+kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn);
 
 const kmScalar     kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
 
 kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns the exponential of the quaternion
-
-///< Makes the passed quaternion an identity quaternion
 
 kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
 

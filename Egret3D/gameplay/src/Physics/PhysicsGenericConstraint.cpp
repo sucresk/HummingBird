@@ -31,8 +31,8 @@ PhysicsGenericConstraint::PhysicsGenericConstraint(PhysicsRigidBody* a, PhysicsR
     }
 }
 
-PhysicsGenericConstraint::PhysicsGenericConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-    PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+PhysicsGenericConstraint::PhysicsGenericConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+    PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
     : PhysicsConstraint(a, b), _rotationOffsetA(NULL), _rotationOffsetB(NULL), _translationOffsetA(NULL), _translationOffsetB(NULL)
 {
     GP_ASSERT(a && a->_body && a->getNode());

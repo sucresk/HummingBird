@@ -12,9 +12,9 @@ static Mesh* createTriangleMesh()
 {
     // Calculate the vertices of the equilateral triangle.
     float a = 0.5f;     // length of the side
-    Vector2 p1(0.0f,       a / sqrtf(3.0f));
-    Vector2 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
-    Vector2 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
+    kmVec2 p1(0.0f,       a / sqrtf(3.0f));
+    kmVec2 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
+    kmVec2 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
 
     // Create 3 vertices. Each vertex has position (x, y, z) and color (red, green, blue)
     float vertices[] =
@@ -87,7 +87,7 @@ void TriangleSample::render(float elapsedTime)
     // Clear the color and depth buffers
     clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
     
-    // Bind the view projection matrix to the model's parameter. This will transform the vertices when the model is drawn.
+    // Bind the view projection kmMat4 to the model's parameter. This will transform the vertices when the model is drawn.
     _model->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(_worldViewProjectionMatrix);
     _model->draw();
 

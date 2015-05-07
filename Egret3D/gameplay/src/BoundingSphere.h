@@ -149,14 +149,14 @@ public:
     /**
      * Transforms the bounding sphere by the given transformation matrix.
      *
-     * @param matrix The transformation matrix to transform by.
+     * @param kmMat4 The transformation kmMat4 to transform by.
      */
     void transform(const kmMat4& matrix);
 
     /**
      * Transforms this bounding sphere by the given matrix.
      * 
-     * @param matrix The matrix to transform by.
+     * @param kmMat4 The kmMat4 to transform by.
      * @return This bounding sphere, after the transformation occurs.
      */
     inline BoundingSphere& operator*=(const kmMat4& matrix);
@@ -171,7 +171,7 @@ private:
 /**
  * Transforms the given bounding sphere by the given matrix.
  * 
- * @param matrix The matrix to transform by.
+ * @param kmMat4 The kmMat4 to transform by.
  * @param sphere The bounding sphere to transform.
  * @return The resulting transformed bounding sphere.
  */

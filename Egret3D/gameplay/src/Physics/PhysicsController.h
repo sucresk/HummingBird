@@ -207,8 +207,8 @@ public:
      *      (in its local space) with respect to the constraint joint (optional).
      * @return Pointer to the created PhysicsGenericConstraint object.
      */
-    PhysicsGenericConstraint* createGenericConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA, 
-                                                      PhysicsRigidBody* b = NULL, const Quaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
+    PhysicsGenericConstraint* createGenericConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA, 
+                                                      PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
 
     /**
      * Creates a hinge constraint.
@@ -226,8 +226,8 @@ public:
      *      (in its local space) with respect to the constraint joint (optional).
      * @return Pointer to the created PhysicsHingeConstraint object.
      */
-    PhysicsHingeConstraint* createHingeConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                                                  PhysicsRigidBody* b = NULL, const Quaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
+    PhysicsHingeConstraint* createHingeConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                                                  PhysicsRigidBody* b = NULL, const kmQuaternion& rotationOffsetB = Quaternion(), const kmVec3& translationOffsetB = Vector3());
 
     /**
      * Creates a socket constraint so that the rigid body (or bodies) is
@@ -284,8 +284,8 @@ public:
      *      (in its local space) with respect to the constraint joint (optional).
      * @return Pointer to the created PhysicsSpringConstraint object.
      */
-    PhysicsSpringConstraint* createSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,          
-                                                    PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB);
+    PhysicsSpringConstraint* createSpringConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,          
+                                                    PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB);
 
     /**
      * Gets the gravity vector for the simulated physics world.
@@ -304,7 +304,7 @@ public:
     /**
      * Draws debugging information (rigid body outlines, etc.) using the given view projection matrix.
      * 
-     * @param viewProjection The view projection matrix to use when drawing.
+     * @param viewProjection The view projection kmMat4 to use when drawing.
      */
     void drawDebug(const kmMat4& viewProjection);
 

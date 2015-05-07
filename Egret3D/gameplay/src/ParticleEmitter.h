@@ -3,8 +3,8 @@
 
 #include "Transform.h"
 #include "Mesh.h"
-#include "Vector2.h"
-#include "Vector4.h"
+#include "vec2.h"
+#include "vec4.h"
 #include "Texture.h"
 #include "Rectangle.h"
 #include "SpriteBatch.h"
@@ -775,9 +775,9 @@ private:
         kmVec3 _position;
         kmVec3 _velocity;
         kmVec3 _acceleration;
-        Vector4 _colorStart;
-        Vector4 _colorEnd;
-        Vector4 _color;
+        kmVec4 _colorStart;
+        kmVec4 _colorEnd;
+        kmVec4 _color;
         float _rotationPerParticleSpeed;
         kmVec3 _rotationAxis;
         float _rotationSpeed;
@@ -803,10 +803,10 @@ private:
     float _sizeEndMax;
     float _energyMin;
     float _energyMax;
-    Vector4 _colorStart;
-    Vector4 _colorStartVar;
-    Vector4 _colorEnd;
-    Vector4 _colorEndVar;
+    kmVec4 _colorStart;
+    kmVec4 _colorStartVar;
+    kmVec4 _colorEnd;
+    kmVec4 _colorEndVar;
     kmVec3 _position;
     kmVec3 _positionVar;
     kmVec3 _velocity;
@@ -819,7 +819,7 @@ private:
     float _rotationSpeedMax;
     kmVec3 _rotationAxis;
     kmVec3 _rotationAxisVar;
-    Matrix _rotation;
+    kmMat4 _rotation;
     SpriteBatch* _spriteBatch;
     BlendMode _spriteBlendMode;
     float _spriteTextureWidth;

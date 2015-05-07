@@ -121,7 +121,7 @@ void MeshSkin::setJointCount(unsigned int jointCount)
         _joints[i] = NULL;
     }
 
-    // Rebuild the matrix palette. Each matrix is 3 rows of Vector4.
+    // Rebuild the kmMat4 palette. Each kmMat4 is 3 rows of Vector4.
     SAFE_DELETE_ARRAY(_matrixPalette);
 
     if (jointCount > 0)

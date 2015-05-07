@@ -204,14 +204,14 @@ public:
     /**
      * Transforms the bounding box by the given transformation matrix.
      *
-     * @param matrix The transformation matrix to transform by.
+     * @param kmMat4 The transformation kmMat4 to transform by.
      */
     void transform(const kmMat4& matrix);
 
     /**
      * Transforms this bounding box by the given matrix.
      * 
-     * @param matrix The matrix to transform by.
+     * @param kmMat4 The kmMat4 to transform by.
      * @return This bounding box, after the transformation occurs.
      */
     inline BoundingBox& operator*=(const kmMat4& matrix);
@@ -220,7 +220,7 @@ public:
 /**
  * Transforms the given bounding box by the given matrix.
  * 
- * @param matrix The matrix to transform by.
+ * @param kmMat4 The kmMat4 to transform by.
  * @param box The bounding box to transform.
  * @return The resulting transformed bounding box.
  */

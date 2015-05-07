@@ -6,7 +6,7 @@
 #include "AnimationTarget.h"
 #include "Properties.h"
 #include "Rectangle.h"
-#include "Vector4.h"
+#include "vec4.h"
 #include "SpriteBatch.h"
 #include "Effect.h"
 
@@ -383,7 +383,7 @@ private:
     float _width;
     float _height;
     Offset _offset;
-    Vector2 _anchor;
+    kmVec2 _anchor;
     int _flipFlags;
     Rectangle* _frames;
     unsigned int _frameCount;
@@ -392,7 +392,7 @@ private:
     unsigned int _frameIndex;
     SpriteBatch* _batch;
     float _opacity;
-    Vector4 _color;
+    kmVec4 _color;
     BlendMode _blendMode;
 };
 

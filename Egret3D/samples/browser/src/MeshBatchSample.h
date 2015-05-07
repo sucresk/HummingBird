@@ -43,7 +43,7 @@ private:
 
     Font* _font;
     MeshBatch* _meshBatch;
-    Matrix _worldViewProjectionMatrix;
+    kmMat4 _worldViewProjectionMatrix;
     std::vector<Vertex> _vertices;
     double _lastTriangleAdded;
 };

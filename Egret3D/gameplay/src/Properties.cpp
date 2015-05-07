@@ -897,7 +897,7 @@ bool Properties::getVector4(const char* name, kmVec4* out) const
     return parseVector4(getString(name), out);
 }
 
-bool Properties::getQuaternionFromAxisAngle(const char* name, Quaternion* out) const
+bool Properties::getQuaternionFromAxisAngle(const char* name, kmQuaternion* out) const
 {
     return parseAxisAngle(getString(name), out);
 }
@@ -1184,7 +1184,7 @@ bool Properties::parseVector4(const char* str, kmVec4* out)
     return false;
 }
 
-bool Properties::parseAxisAngle(const char* str, Quaternion* out)
+bool Properties::parseAxisAngle(const char* str, kmQuaternion* out)
 {
     if (str)
     {

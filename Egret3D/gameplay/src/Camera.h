@@ -209,16 +209,16 @@ public:
     const kmMat4& getProjectionMatrix() const;
 
     /**
-     * Sets a custom projection matrix to be used by the camera.
+     * Sets a custom projection kmMat4 to be used by the camera.
      *
-     * Setting a custom projection matrix results in the internally
-     * computed projection matrix being completely overridden until
+     * Setting a custom projection kmMat4 results in the internally
+     * computed projection kmMat4 being completely overridden until
      * the resetProjectionMatrix method is called. A custom projection
-     * matrix is normally not necessary, but can be used for special
+     * kmMat4 is normally not necessary, but can be used for special
      * projection effects, such as setting an oblique view frustum
      * for near plane clipping.
      *
-     * @param matrix Custom projection matrix.
+     * @param kmMat4 Custom projection matrix.
      */
     void setProjectionMatrix(const kmMat4& matrix);
 
@@ -366,11 +366,11 @@ private:
     float _aspectRatio;
     float _nearPlane;
     float _farPlane;
-    mutable Matrix _view;
-    mutable Matrix _projection;
-    mutable Matrix _viewProjection;
-    mutable Matrix _inverseView;
-    mutable Matrix _inverseViewProjection;
+    mutable kmMat4 _view;
+    mutable kmMat4 _projection;
+    mutable kmMat4 _viewProjection;
+    mutable kmMat4 _inverseView;
+    mutable kmMat4 _inverseViewProjection;
     mutable Frustum _bounds;
     mutable int _bits;
     Node* _node;

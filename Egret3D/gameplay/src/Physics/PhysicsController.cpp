@@ -94,8 +94,8 @@ PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigi
 }
 
 PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigidBody* a,
-    const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b,
-    const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+    const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b,
+    const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsGenericConstraint* constraint = new PhysicsGenericConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -104,8 +104,8 @@ PhysicsGenericConstraint* PhysicsController::createGenericConstraint(PhysicsRigi
 }
 
 PhysicsHingeConstraint* PhysicsController::createHingeConstraint(PhysicsRigidBody* a,
-    const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b, 
-    const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+    const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA, PhysicsRigidBody* b, 
+    const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsHingeConstraint* constraint = new PhysicsHingeConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -138,8 +138,8 @@ PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidB
     return constraint;
 }
 
-PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,           
-                                                                   PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB)
+PhysicsSpringConstraint* PhysicsController::createSpringConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,           
+                                                                   PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB)
 {
     checkConstraintRigidBodies(a, b);
     PhysicsSpringConstraint* constraint = new PhysicsSpringConstraint(a, rotationOffsetA, translationOffsetA, b, rotationOffsetB, translationOffsetB);
@@ -1128,7 +1128,7 @@ PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const kmVec3& s
     shapeMeshData->vertexData = NULL;
 
     // Copy the scaled vertex position data to the rigid body's local buffer.
-    Matrix m;
+    kmMat4 m;
     Matrix::createScale(scale, &m);
     unsigned int vertexCount = data->vertexCount;
     shapeMeshData->vertexData = new float[vertexCount * 3];

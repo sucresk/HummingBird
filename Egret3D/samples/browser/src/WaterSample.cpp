@@ -37,7 +37,7 @@ void WaterSample::initialize()
     _cameraNode->setTranslation(camStartPosition);
 
     Node* camPitchNode = Node::create();
-    Matrix m;
+    kmMat4 m;
     Matrix::createLookAt(_cameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
     camPitchNode->rotate(m);
     _cameraNode->addChild(camPitchNode);
@@ -118,7 +118,7 @@ void WaterSample::finalize()
 
 void WaterSample::update(float elapsedTime)
 {
-    Vector2 axis;
+    kmVec2 axis;
     const float minVal = 0.1f;
     if (_gamepad && _gamepad->getJoystickCount())
         _gamepad->getJoystickValues(0, &axis);
@@ -149,7 +149,7 @@ void WaterSample::update(float elapsedTime)
 
 void WaterSample::render(float elapsedTime)
 {
-    const Vector4 clearColour(0.84f, 0.89f, 1.f, 1.f);
+    const kmVec4 clearColour(0.84f, 0.89f, 1.f, 1.f);
     
     // Update the refract buffer
     FrameBuffer* defaultBuffer = _refractBuffer->bind();
@@ -167,7 +167,7 @@ void WaterSample::render(float elapsedTime)
     Camera* defaultCamera = _scene->getActiveCamera();
     _scene->setActiveCamera(_reflectCameraNode->getFirstChild()->getCamera());
 
-    // Store the mvp matrix here as it is only valid when reflect camera is active
+    // Store the mvp kmMat4 here as it is only valid when reflect camera is active
     m_worldViewProjectionReflection = _scene->findNode("Water")->getWorldViewProjectionMatrix();
     clear(CLEAR_COLOR_DEPTH, clearColour, 1.0f, 0);
     _scene->visit(this, &WaterSample::drawScene, false);

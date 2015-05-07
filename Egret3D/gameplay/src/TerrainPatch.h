@@ -88,7 +88,7 @@ private:
         int row;
         int column;
         int textureIndex;
-        Vector2 textureRepeat;
+        kmVec2 textureRepeat;
         int blendIndex;
         int blendChannel;
     };

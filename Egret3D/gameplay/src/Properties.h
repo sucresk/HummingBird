@@ -4,6 +4,7 @@
 #include "Base.h"
 #include "mat4.h"
 #include "vec2.h"
+#include "vec4.h"
 #include "Stream.h"
 
 namespace egret
@@ -313,7 +314,7 @@ public:
      * to the identity matrix.
      *
      * @param name The name of the property to interpret, or NULL to return the current property's value.
-     * @param out The matrix to set to this property's interpreted value.
+     * @param out The kmMat4 to set to this property's interpreted value.
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
@@ -369,7 +370,7 @@ public:
      * 
      * @return True on success, false if the property does not exist or could not be scanned.
      */
-    bool getQuaternionFromAxisAngle(const char* name, Quaternion* out) const;
+    bool getQuaternionFromAxisAngle(const char* name, kmQuaternion* out) const;
 
     /**
      * Interpret the value of the given property as an RGB color in hex and write this color to a Vector3.
@@ -435,14 +436,14 @@ public:
     void setVariable(const char* name, const char* value);
 
     /**
-     * Attempts to parse the specified string as a Vector2 value.
+     * Attempts to parse the specified string as a kmVec2 value.
      *
      * On error, false is returned and the output is set to all zero values.
      *
      * @param str The string to parse.
      * @param out The value to populate if successful.
      *
-     * @return True if a valid Vector2 was parsed, false otherwise.
+     * @return True if a valid kmVec2 was parsed, false otherwise.
      */
     static bool parseVector2(const char* str, kmVec2* out);
 
@@ -459,14 +460,14 @@ public:
     static bool parseVector3(const char* str, kmVec3* out);
     
     /**
-     * Attempts to parse the specified string as a Vector4 value.
+     * Attempts to parse the specified string as a kmVec4 value.
      *
      * On error, false is returned and the output is set to all zero values.
      *
      * @param str The string to parse.
      * @param out The value to populate if successful.
      *
-     * @return True if a valid Vector4 was parsed, false otherwise.
+     * @return True if a valid kmVec4 was parsed, false otherwise.
      */
     static bool parseVector4(const char* str, kmVec4* out);
 
@@ -484,7 +485,7 @@ public:
      *
      * @return True if a valid axis-angle was parsed, false otherwise.
      */
-    static bool parseAxisAngle(const char* str, Quaternion* out);
+    static bool parseAxisAngle(const char* str, kmQuaternion* out);
 
     /**
      * Atempts to parse the specified string as an RGB color value.

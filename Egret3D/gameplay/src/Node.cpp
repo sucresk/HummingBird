@@ -436,7 +436,7 @@ const kmMat4& Node::getWorldMatrix() const
                 _world = getMatrix();
             }
 
-            // Our world matrix was just updated, so call getWorldMatrix() on all child nodes
+            // Our world kmMat4 was just updated, so call getWorldMatrix() on all child nodes
             // to force their resolved world matrices to be updated.
             for (Node* child = getFirstChild(); child != NULL; child = child->getNextSibling())
             {
@@ -449,14 +449,14 @@ const kmMat4& Node::getWorldMatrix() const
 
 const kmMat4& Node::getWorldViewMatrix() const
 {
-    static Matrix worldView;
+    static kmMat4 worldView;
     Matrix::multiply(getViewMatrix(), getWorldMatrix(), &worldView);
     return worldView;
 }
 
 const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 {
-    static Matrix invTransWorldView;
+    static kmMat4 invTransWorldView;
     Matrix::multiply(getViewMatrix(), getWorldMatrix(), &invTransWorldView);
     invTransWorldView.invert();
     invTransWorldView.transpose();
@@ -465,7 +465,7 @@ const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 
 const kmMat4& Node::getInverseTransposeWorldMatrix() const
 {
-    static Matrix invTransWorld;
+    static kmMat4 invTransWorld;
     invTransWorld = getWorldMatrix();
     invTransWorld.invert();
     invTransWorld.transpose();
@@ -541,9 +541,9 @@ const kmMat4& Node::getInverseViewProjectionMatrix() const
 
 const kmMat4& Node::getWorldViewProjectionMatrix() const
 {
-    // Always re-calculate worldViewProjection matrix since it's extremely difficult
+    // Always re-calculate worldViewProjection kmMat4 since it's extremely difficult
     // to track whether the camera has changed (it may frequently change every frame).
-    static Matrix worldViewProj;
+    static kmMat4 worldViewProj;
     Matrix::multiply(getViewProjectionMatrix(), getWorldMatrix(), &worldViewProj);
     return worldViewProj;
 }
@@ -876,11 +876,11 @@ const BoundingSphere& Node::getBoundingSphere() const
             if (model && model->getSkin())
             {
                 // Special case: If the root joint of our mesh skin is parented by any nodes, 
-                // multiply the world matrix of the root joint's parent by this node's
-                // world matrix. This computes a final world matrix used for transforming this
+                // multiply the world kmMat4 of the root joint's parent by this node's
+                // world matrix. This computes a final world kmMat4 used for transforming this
                 // node's bounding volume. This allows us to store a much smaller bounding
                 // volume approximation than would otherwise be possible for skinned meshes,
-                // since joint parent nodes that are not in the matrix palette do not need to
+                // since joint parent nodes that are not in the kmMat4 palette do not need to
                 // be considered as directly transforming vertices on the GPU (they can instead
                 // be applied directly to the bounding volume transformation below).
                 GP_ASSERT(model->getSkin()->getRootJoint());
@@ -889,7 +889,7 @@ const BoundingSphere& Node::getBoundingSphere() const
                 {
                     // TODO: Should we protect against the case where joints are nested directly
                     // in the node hierachy of the model (this is normally not the case)?
-                    Matrix boundsMatrix;
+                    kmMat4 boundsMatrix;
                     Matrix::multiply(getWorldMatrix(), jointParent->getWorldMatrix(), &boundsMatrix);
                     _bounds.transform(boundsMatrix);
                     applyWorldTransform = false;

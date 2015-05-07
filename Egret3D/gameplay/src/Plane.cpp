@@ -69,7 +69,7 @@ void Plane::intersection(const Plane& p1, const Plane& p2, const Plane& p3, kmVe
     GP_ASSERT(point);
 
     // The planes' normals must be all normalized (which we guarantee in the Plane class).
-    // Calculate the determinant of the matrix (i.e | n1 n2 n3 |).
+    // Calculate the determinant of the kmMat4 (i.e | n1 n2 n3 |).
     float det = p1._normal.x * (p2._normal.y * p3._normal.z -
                 p2._normal.z * p3._normal.y) - p2._normal.x *(p1._normal.y * p3._normal.z -
                 p1._normal.z * p3._normal.y) + p3._normal.x * (p1._normal.y * p2._normal.z - p1._normal.z * p2._normal.y);
@@ -257,10 +257,10 @@ void Plane::set(const Plane& plane)
 
 void Plane::transform(const kmMat4& matrix)
 {
-    Matrix inverted;
+    kmMat4 inverted;
     if (matrix.invert(&inverted))
     {
-        // Treat the plane as a four-tuple and multiply by the inverse transpose of the matrix to get the transformed plane.
+        // Treat the plane as a four-tuple and multiply by the inverse transpose of the kmMat4 to get the transformed plane.
         // Then we normalize the plane by dividing both the normal and the distance by the length of the normal.
         float nx = _normal.x * inverted.m[0] + _normal.y * inverted.m[1] + _normal.z * inverted.m[2] + _distance * inverted.m[3];
         float ny = _normal.x * inverted.m[4] + _normal.y * inverted.m[5] + _normal.z * inverted.m[6] + _distance * inverted.m[7];

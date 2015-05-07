@@ -4,8 +4,8 @@
 #include "Ref.h"
 #include "Drawable.h"
 #include "Properties.h"
-#include "Vector2.h"
-#include "Vector4.h"
+#include "vec2.h"
+#include "vec4.h"
 #include "SpriteBatch.h"
 #include "Effect.h"
 
@@ -185,7 +185,7 @@ private:
     float _height;
     SpriteBatch* _batch;
     float _opacity;
-    Vector4 _color;
+    kmVec4 _color;
 };
     
 }

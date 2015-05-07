@@ -124,7 +124,7 @@ public:
     void setValue(Uniform* uniform, const int* values, unsigned int count = 1);
 
     /**
-     * Sets a matrix uniform value.
+     * Sets a kmMat4 uniform value.
      *
      * @param uniform The uniform to set.
      * @param value The value to set.
@@ -132,7 +132,7 @@ public:
 	void setValue(Uniform* uniform, const kmMat4& value);
 
     /**
-     * Sets a matrix array uniform value.
+     * Sets a kmMat4 array uniform value.
      *
      * @param uniform The uniform to set.
      * @param values The array to set.

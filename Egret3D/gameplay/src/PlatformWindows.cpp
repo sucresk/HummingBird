@@ -6,7 +6,7 @@
 #include "FileSystem.h"
 #include "Game.h"
 #include "Form.h"
-#include "Vector2.h"
+#include "vec2.h"
 #include "ScriptController.h"
 #include <GL/wglew.h>
 #include <windowsx.h>

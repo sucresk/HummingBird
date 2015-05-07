@@ -341,7 +341,7 @@ private:
         std::string _id;
         Theme::Border _border;
         UVs _uvs[9];
-        Vector4 _color;
+        kmVec4 _color;
         Rectangle _region;
         float _tw, _th;
     };

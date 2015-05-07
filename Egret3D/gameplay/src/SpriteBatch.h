@@ -35,8 +35,8 @@ public:
      *
      * If the effect parameter is NULL, a default effect is used which
      * applies an orthographic projection for the currently bound viewport.
-     * A custom projection matrix can be used with the default effect by passing
-     * a new projection matrix into the SpriteBatch via the setProjectionMatrix
+     * A custom projection kmMat4 can be used with the default effect by passing
+     * a new projection kmMat4 into the SpriteBatch via the setProjectionMatrix
      * method.
      *
      * If a custom effect is specified, it must meet the following requirements:
@@ -62,8 +62,8 @@ public:
      *
      * If the effect parameter is NULL, a default effect is used which
      * applies an orthographic projection for the currently bound viewport.
-     * A custom projection matrix can be used with the default effect by passing
-     * a new projection matrix into the SpriteBatch via the setProjectionMatrix
+     * A custom projection kmMat4 can be used with the default effect by passing
+     * a new projection kmMat4 into the SpriteBatch via the setProjectionMatrix
      * method.
      *
      * If a custom effect is specified, it must meet the following requirements:
@@ -111,7 +111,7 @@ public:
      * @param src The source rectangle.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(const Rectangle& dst, const Rectangle& src, const kmVec4& color = Vector4::one());
+	void draw(const Rectangle& dst, const Rectangle& src, const kmVec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 
     /**
      * Draws a single sprite.
@@ -121,7 +121,7 @@ public:
      * @param scale The X and Y scale.
      * @param color The color to tint the sprite. Use white for no tint.
      */
-    void draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color = Vector4::one());
+	void draw(const kmVec3& dst, const Rectangle& src, const kmVec2& scale, const kmVec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 
     /**
      * Draws a single sprite, rotated around rotationPoint by rotationAngle.
@@ -335,19 +335,19 @@ public:
     Material* getMaterial() const;
 
     /**
-     * Sets a custom projection matrix to use with the sprite batch.
+     * Sets a custom projection kmMat4 to use with the sprite batch.
      *
      * When the default effect is used with a SpriteBatch (i.e. when
      * NULL is passed into the 'effect' parameter of SpriteBatch::create),
-     * this method sets a custom projection matrix to be used instead
+     * this method sets a custom projection kmMat4 to be used instead
      * of the default orthographic projection.
      *
-     * @param matrix The new projection matrix to be used with the default effect.
+     * @param kmMat4 The new projection kmMat4 to be used with the default effect.
      */
     void setProjectionMatrix(const kmMat4& matrix);
 
     /**
-     * Gets the projection matrix for the SpriteBatch.
+     * Gets the projection kmMat4 for the SpriteBatch.
      * 
      * @return The projection matrix.
      */
@@ -407,7 +407,7 @@ private:
     bool _customEffect;
     float _textureWidthRatio;
     float _textureHeightRatio;
-    mutable Matrix _projectionMatrix;
+    mutable kmMat4 _projectionMatrix;
 };
 
 }

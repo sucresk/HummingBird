@@ -44,14 +44,14 @@ void ImageControl::initialize(const char* typeName, Theme::Style* style, Propert
 
 		if (properties->exists("srcRegion"))
 		{
-			Vector4 region;
+			kmVec4 region;
 			properties->getVector4("srcRegion", &region);
 			setRegionSrc(region.x, region.y, region.z, region.w);
 		}
 
 		if (properties->exists("dstRegion"))
 		{
-			Vector4 region;
+			kmVec4 region;
 			properties->getVector4("dstRegion", &region);
 			setRegionDst(region.x, region.y, region.z, region.w);
 		}
@@ -118,7 +118,7 @@ unsigned int ImageControl::drawImages(Form* form, const Rectangle& clip)
 
     startBatch(form, _batch);
 
-    Vector4 color = Vector4::one();
+    kmVec4 color = Vector4::one();
     color.w *= _opacity;
 
     if (_dstRegion.isEmpty())

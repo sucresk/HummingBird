@@ -107,12 +107,12 @@ public:
         WORLD_MATRIX,
 
         /**
-         * Binds the View matrix of the active camera for the node's scene.
+         * Binds the View kmMat4 of the active camera for the node's scene.
          */
         VIEW_MATRIX,
 
         /**
-         * Binds the Projection matrix of the active camera for the node's scene.
+         * Binds the Projection kmMat4 of the active camera for the node's scene.
          */
         PROJECTION_MATRIX,
 
@@ -122,7 +122,7 @@ public:
         WORLD_VIEW_MATRIX,
 
         /**
-         * Binds the ViewProjection matrix of the active camera for the node's scene.
+         * Binds the ViewProjection kmMat4 of the active camera for the node's scene.
          */
         VIEW_PROJECTION_MATRIX,
 
@@ -152,7 +152,7 @@ public:
         CAMERA_VIEW_POSITION,
 
         /**
-         * Binds the matrix palette of MeshSkin attached to a node's model.
+         * Binds the kmMat4 palette of MeshSkin attached to a node's model.
          */
         MATRIX_PALETTE,
 

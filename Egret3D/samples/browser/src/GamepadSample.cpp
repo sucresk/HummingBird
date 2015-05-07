@@ -43,7 +43,7 @@ void GamepadSample::updateGamepad(float elapsedTime, Gamepad* gamepad, unsigned 
     _status += "\n";
     for (unsigned int j = 0; j < gamepad->getJoystickCount(); ++j)
     {
-        Vector2 joystick;
+        kmVec2 joystick;
         gamepad->getJoystickValues(j, &joystick);
         sprintf(s, "Joystick %d: (%f, %f)\n", j, joystick.x, joystick.y);
         _status += s;

@@ -12,7 +12,7 @@
 #include "AIController.h"
 #include "AudioListener.h"
 #include "Rectangle.h"
-#include "Vector4.h"
+#include "vec4.h"
 #include "TimeListener.h"
 
 namespace egret
@@ -754,7 +754,7 @@ private:
     unsigned int _width;                        // The game's display width.
     unsigned int _height;                       // The game's display height.
     Rectangle _viewport;                        // the games's current viewport.
-    Vector4 _clearColor;                        // The clear color value last used for clearing the color buffer.
+    kmVec4 _clearColor;                        // The clear color value last used for clearing the color buffer.
     float _clearDepth;                          // The clear depth value last used for clearing the depth buffer.
     int _clearStencil;                          // The clear stencil value last used for clearing the stencil buffer.
     Properties* _properties;                    // Game configuration properties object.

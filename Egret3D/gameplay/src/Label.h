@@ -134,7 +134,7 @@ protected:
     /**
      * The text color being used to display the label.
      */
-    Vector4 _textColor;
+    kmVec4 _textColor;
 
     /**
      * The position and size of this control's text area, before clipping.  Used for text alignment.

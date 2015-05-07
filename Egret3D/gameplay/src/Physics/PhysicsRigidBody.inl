@@ -54,8 +54,8 @@ inline void PhysicsRigidBody::setDamping(float linearDamping, float angularDampi
 inline kmVec3 PhysicsRigidBody::getLinearVelocity() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& v = _body->getLinearVelocity();
-    return Vector3(v.x(), v.y(), v.z());
+	const btVector3 v = _body->getLinearVelocity();
+	return{ v.x(), v.y(), v.z() };
 }
 
 inline void PhysicsRigidBody::setLinearVelocity(const kmVec3& velocity)
@@ -73,8 +73,8 @@ inline void PhysicsRigidBody::setLinearVelocity(float x, float y, float z)
 inline kmVec3 PhysicsRigidBody::getAngularVelocity() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& v = _body->getAngularVelocity();
-    return Vector3(v.x(), v.y(), v.z());
+	const btVector3& v = _body->getAngularVelocity();
+	return{ v.x(), v.y(), v.z() };
 }
 
 inline void PhysicsRigidBody::setAngularVelocity(const kmVec3& velocity)
@@ -92,8 +92,8 @@ inline void PhysicsRigidBody::setAngularVelocity(float x, float y, float z)
 inline kmVec3 PhysicsRigidBody::getAnisotropicFriction() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& af = _body->getAnisotropicFriction();
-    return Vector3(af.x(), af.y(), af.z());
+	const btVector3& af = _body->getAnisotropicFriction();
+	return{ af.x(), af.y(), af.z() };
 }
 
 inline void PhysicsRigidBody::setAnisotropicFriction(const kmVec3& friction)
@@ -111,8 +111,8 @@ inline void PhysicsRigidBody::setAnisotropicFriction(float x, float y, float z)
 inline kmVec3 PhysicsRigidBody::getGravity() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& g = _body->getGravity();
-    return Vector3(g.x(), g.y(), g.z());
+	const btVector3& g = _body->getGravity();
+	return{ g.x(), g.y(), g.z() };
 }
 
 inline void PhysicsRigidBody::setGravity(const kmVec3& gravity)
@@ -130,8 +130,8 @@ inline void PhysicsRigidBody::setGravity(float x, float y, float z)
 inline kmVec3 PhysicsRigidBody::getAngularFactor() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& f = _body->getAngularFactor();
-    return Vector3(f.x(), f.y(), f.z());
+	const btVector3& f = _body->getAngularFactor();
+	return{ f.x(), f.y(), f.z() };
 }
 
 inline void PhysicsRigidBody::setAngularFactor(const kmVec3& angularFactor)
@@ -149,8 +149,8 @@ inline void PhysicsRigidBody::setAngularFactor(float x, float y, float z)
 inline kmVec3 PhysicsRigidBody::getLinearFactor() const
 {
     GP_ASSERT(_body);
-    const btkmVec3& f = _body->getLinearFactor();
-    return Vector3(f.x(), f.y(), f.z());
+	const btVector3& f = _body->getLinearFactor();
+	return{ f.x(), f.y(), f.z() };
 }
 
 inline void PhysicsRigidBody::setLinearFactor(const kmVec3& angularFactor)

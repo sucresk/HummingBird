@@ -83,7 +83,7 @@ void BillboardSample::update(float elapsedTime)
         _moveFlags |= MOVE_UP;
     else
         _moveFlags &= ~MOVE_UP;
-    Vector2 move;
+    kmVec2 move;
     if (_moveFlags != 0)
     {
         // Forward motion
@@ -123,7 +123,7 @@ void BillboardSample::update(float elapsedTime)
     }
     if (_gamepad->getJoystickCount() > 1)
     {
-        Vector2 joy2;
+        kmVec2 joy2;
         _gamepad->getJoystickValues(1, &joy2);
         _camera.rotate(MATH_DEG_TO_RAD(joy2.x * 2.0f), MATH_DEG_TO_RAD(joy2.y * 2.0f));
     }

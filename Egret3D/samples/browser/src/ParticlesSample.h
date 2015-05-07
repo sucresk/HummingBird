@@ -95,7 +95,7 @@ private:
     
     std::string toString(const kmVec4& v);
     
-    std::string toString(const Quaternion& q);
+    std::string toString(const kmQuaternion& q);
     
     std::string toString(ParticleEmitter::BlendMode blendMode);
 

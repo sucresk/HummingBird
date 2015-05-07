@@ -17,7 +17,7 @@ namespace egret
  * to represent what a "camera" sees in your 3D space.
  *
  * The Frustum class allows you to define a bounding frustum using a combined
- * matrix that is generally the product of a view matrix and a projection matrix.
+ * kmMat4 that is generally the product of a view kmMat4 and a projection matrix.
  *
  * You can query a Frustum object for any one of its bounding planes,
  * for its corners, and for whether it intersects with a given object.
@@ -37,7 +37,7 @@ public:
     /**
      * Constructs a new frustum from the specified view projection matrix.
      *
-     * @param matrix The view projection matrix to create this frustum from.
+     * @param kmMat4 The view projection kmMat4 to create this frustum from.
      */
     Frustum(const kmMat4& matrix);
 
@@ -96,9 +96,9 @@ public:
     const Plane& getTop() const;
 
     /**
-     * Gets the projection matrix corresponding to the frustum in the specified matrix.
+     * Gets the projection kmMat4 corresponding to the frustum in the specified matrix.
      * 
-     * @param dst The projection matrix to copy into.
+     * @param dst The projection kmMat4 to copy into.
      */
     void getMatrix(kmMat4* dst) const;
 
@@ -203,7 +203,7 @@ public:
     /**
      * Sets the frustum to the frustum corresponding to the specified view projection matrix.
      *
-     * @param matrix The view projection matrix.
+     * @param kmMat4 The view projection matrix.
      */
     void set(const kmMat4& matrix);
 

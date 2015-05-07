@@ -166,8 +166,8 @@ private:
      * @param translationOffsetB The translation offset for the second rigid body
      *      (in its local space) with respect to the constraint joint (optional).
      */
-    PhysicsSpringConstraint(PhysicsRigidBody* a, const Quaternion& rotationOffsetA, const kmVec3& translationOffsetA,
-                            PhysicsRigidBody* b, const Quaternion& rotationOffsetB, const kmVec3& translationOffsetB);
+    PhysicsSpringConstraint(PhysicsRigidBody* a, const kmQuaternion& rotationOffsetA, const kmVec3& translationOffsetA,
+                            PhysicsRigidBody* b, const kmQuaternion& rotationOffsetB, const kmVec3& translationOffsetB);
 
     /**
      * Destructor.

@@ -1,7 +1,7 @@
 #ifndef GAMEPAD_H_
 #define GAMEPAD_H_
 
-#include "Vector2.h"
+#include "vec2.h"
 
 namespace egret
 {
@@ -209,7 +209,7 @@ private:
     JoystickControl* _uiJoysticks[2];
     Button* _uiButtons[20];
     unsigned int _buttons;
-    Vector2 _joysticks[2];
+    kmVec2 _joysticks[2];
     float _triggers[2];
 };
 

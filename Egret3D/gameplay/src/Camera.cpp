@@ -240,7 +240,7 @@ const kmMat4& Camera::getViewMatrix() const
     {
         if (_node)
         {
-            // The view matrix is the inverse of our transform matrix.
+            // The view kmMat4 is the inverse of our transform matrix.
             _node->getWorldMatrix().invert(&_view);
         }
         else
@@ -349,7 +349,7 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, float* x
     GP_ASSERT(y);
 
     // Transform the point to clip-space.
-    Vector4 clipPos;
+    kmVec4 clipPos;
     getViewProjectionMatrix().transformVector(Vector4(position.x, position.y, position.z, 1.0f), &clipPos);
 
     // Compute normalized device coordinates.
@@ -389,7 +389,7 @@ void Camera::unproject(const Rectangle& viewport, float x, float y, float depth,
     
     // Create our screen space position in NDC.
     GP_ASSERT(viewport.width != 0.0f && viewport.height != 0.0f);
-    Vector4 screen((x - viewport.x) / viewport.width, ((viewport.height - y) - viewport.y) / viewport.height, depth, 1.0f);
+    kmVec4 screen((x - viewport.x) / viewport.width, ((viewport.height - y) - viewport.y) / viewport.height, depth, 1.0f);
 
     // Map to range -1 to 1.
     screen.x = screen.x * 2.0f - 1.0f;

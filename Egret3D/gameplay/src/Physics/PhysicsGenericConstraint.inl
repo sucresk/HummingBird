@@ -3,21 +3,21 @@
 namespace egret
 {
 
-inline const Quaternion& PhysicsGenericConstraint::getRotationOffsetA() const
+inline const kmQuaternion& PhysicsGenericConstraint::getRotationOffsetA() const
 {
     if (!_rotationOffsetA)
-        _rotationOffsetA = new Quaternion();
+        _rotationOffsetA = new kmQuaternion();
 
     GP_ASSERT(_constraint);
     btQuaternion ro = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetA().getRotation();
-    _rotationOffsetA->set(ro.x(), ro.y(), ro.z(), ro.w());
+	_rotationOffsetA = kmQuaternionSet(_rotationOffsetA, ro.x(), ro.y(), ro.z(), ro.w());
     return *_rotationOffsetA;
 }
 
-inline const Quaternion& PhysicsGenericConstraint::getRotationOffsetB() const
+inline const kmQuaternion& PhysicsGenericConstraint::getRotationOffsetB() const
 {
     if (!_rotationOffsetB)
-        _rotationOffsetB = new Quaternion();
+        _rotationOffsetB = new kmQuaternion();
 
     GP_ASSERT(_constraint);
     btQuaternion ro = static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetB().getRotation();
@@ -71,13 +71,13 @@ inline void PhysicsGenericConstraint::setLinearUpperLimit(const kmVec3& limits)
     ((btGeneric6DofConstraint*)_constraint)->setLinearUpperLimit(BV(limits));
 }
 
-inline void PhysicsGenericConstraint::setRotationOffsetA(const Quaternion& rotationOffset)
+inline void PhysicsGenericConstraint::setRotationOffsetA(const kmQuaternion& rotationOffset)
 {
     GP_ASSERT(_constraint);
     static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetA().setRotation(BQ(rotationOffset));
 }
 
-inline void PhysicsGenericConstraint::setRotationOffsetB(const Quaternion& rotationOffset)
+inline void PhysicsGenericConstraint::setRotationOffsetB(const kmQuaternion& rotationOffset)
 {
     GP_ASSERT(_constraint);
     static_cast<btGeneric6DofConstraint*>(_constraint)->getFrameOffsetB().setRotation(BQ(rotationOffset));

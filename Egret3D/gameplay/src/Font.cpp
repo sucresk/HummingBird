@@ -194,12 +194,12 @@ void Font::lazyStart()
     if (_batch->isStarted())
         return; // already started
 
-    // Update the projection matrix for our batch to match the current viewport
+    // Update the projection kmMat4 for our batch to match the current viewport
     const Rectangle& vp = Game::getInstance()->getViewport();
     if (!vp.isEmpty())
     {
         Game* game = Game::getInstance();
-        Matrix projectionMatrix;
+        kmMat4 projectionMatrix;
         Matrix::createOrthographicOffCenter(vp.x, vp.width, vp.height, vp.y, 0, 1, &projectionMatrix);
         _batch->setProjectionMatrix(projectionMatrix);
     }

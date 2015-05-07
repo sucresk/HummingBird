@@ -204,15 +204,15 @@ void SpriteBatch::draw(float x, float y, float z, float width, float height, flo
     float x2 = x + width;
     float y2 = y + height;
     
-    Vector2 upLeft(x, y);
-    Vector2 upRight(x2, y);
-    Vector2 downLeft(x, y2);
-    Vector2 downRight(x2, y2);
+    kmVec2 upLeft(x, y);
+    kmVec2 upRight(x2, y);
+    kmVec2 downLeft(x, y2);
+    kmVec2 downRight(x2, y2);
 
     // Rotate points around rotationAxis by rotationAngle.
     if (rotationAngle != 0)
     {
-        Vector2 pivotPoint(rotationPoint);
+        kmVec2 pivotPoint(rotationPoint);
         pivotPoint.x *= width;
         pivotPoint.y *= height;
         pivotPoint.x += x;
@@ -272,7 +272,7 @@ void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3
         // Rotate all points the specified amount about the given point (about the up vector).
         static kmVec3 u;
         Vector3::cross(right, forward, &u);
-        static Matrix rotation;
+        static kmMat4 rotation;
         Matrix::createRotation(u, rotationAngle, &rotation);
         p0 -= rp;
         p0 *= rotation;

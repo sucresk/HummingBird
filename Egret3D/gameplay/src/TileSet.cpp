@@ -102,7 +102,7 @@ TileSet* TileSet::create(Properties* properties)
     // Get color
     if (properties->exists("color"))
     {
-        Vector4 color;
+        kmVec4 color;
         switch (properties->getType("color"))
         {
         case Properties::VECTOR3:
@@ -133,8 +133,8 @@ TileSet* TileSet::create(Properties* properties)
     {
         if (strcmp(tileProperties->getNamespace(), "tile") == 0)
         {
-            Vector2 cell;
-            Vector2 source;
+            kmVec2 cell;
+            kmVec2 source;
             if (tileProperties->getVector2("cell", &cell) && tileProperties->getVector2("source", &source) &&
                 (cell.x >= 0 && cell.y >= 0 && cell.x < set->_columnCount && cell.y < set->_rowCount))
             {
@@ -227,7 +227,7 @@ unsigned int TileSet::draw(bool wireframe)
             if (cameraNode)
             {
                 // Scene projection
-                Matrix projectionMatrix;
+                kmMat4 projectionMatrix;
                 projectionMatrix = _node->getProjectionMatrix();
                 _batch->setProjectionMatrix(projectionMatrix);
 
@@ -251,7 +251,7 @@ unsigned int TileSet::draw(bool wireframe)
     {
         for (unsigned int col = 0; col < _columnCount; col++)
         {
-            Vector2 scale = Vector2(_tileWidth, _tileHeight);
+            kmVec2 scale = Vector2(_tileWidth, _tileHeight);
             
             // Negative values are skipped to allow blank tiles
             if (_tiles[row * _columnCount + col].x >= 0 &&

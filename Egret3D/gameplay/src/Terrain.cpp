@@ -110,7 +110,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         else if (ext == ".RAW" || ext == ".R16")
         {
             // Require additional properties to be specified for RAW files
-            Vector2 imageSize;
+            kmVec2 imageSize;
             if (!pHeightmap->getVector2("size", &imageSize))
             {
                 GP_WARN("Invalid or missing 'size' attribute in heightmap defintion of terrain definition: %s", path);
@@ -315,10 +315,10 @@ Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
                 const char* textureMapPtr = NULL;
                 std::string blendMap;
                 const char* blendMapPtr = NULL;
-                Vector2 textureRepeat;
+                kmVec2 textureRepeat;
                 int blendChannel = 0;
                 int row = -1, column = -1;
-                Vector4 temp;
+                kmVec4 temp;
 
                 // Read layer textures
                 Properties* t = lp->getNamespace("texture", true);
@@ -505,7 +505,7 @@ float Terrain::getHeight(float x, float z) const
     GP_ASSERT(rows > 0);
 
     // Since the specified coordinates are in world space, we need to use the 
-    // inverse of our world matrix to transform the world x,z coords back into
+    // inverse of our world kmMat4 to transform the world x,z coords back into
     // local heightfield coordinates for indexing into the height array.
     kmVec3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
     x = v.x + (cols - 1) * 0.5f;

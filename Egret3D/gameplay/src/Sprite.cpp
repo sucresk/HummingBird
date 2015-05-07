@@ -312,7 +312,7 @@ Sprite* Sprite::create(Properties* properties)
     }
 
     // Get anchor
-    Vector4 vect;
+    kmVec4 vect;
     if (properties->getVector2("anchor", (kmVec2*)&vect))
     {
         sprite->setAnchor(*((kmVec2*)&vect));
@@ -574,7 +574,7 @@ unsigned int Sprite::draw(bool wireframe)
             if (cameraNode)
             {
                 // Scene projection
-                Matrix projectionMatrix;
+                kmMat4 projectionMatrix;
                 projectionMatrix = _node->getProjectionMatrix();
                 _batch->setProjectionMatrix(projectionMatrix);
                 
@@ -609,11 +609,11 @@ unsigned int Sprite::draw(bool wireframe)
     
     // Apply node scale and rotation
     float rotationAngle = 0.0f;
-    Vector2 scale = Vector2(_width, _height);
+    kmVec2 scale = Vector2(_width, _height);
     if (_node)
     {
         // Apply node rotation
-        const Quaternion& rot = _node->getRotation();
+        const kmQuaternion& rot = _node->getRotation();
         if (rot.x != 0.0f || rot.y != 0.0f || rot.z != 0.0f)
             rotationAngle = rot.toAxisAngle(NULL);
         

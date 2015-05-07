@@ -38,7 +38,7 @@ kmMat3* const kmMat3Fill(kmMat3* pOut, const kmScalar* pMat)
     return pOut;
 }
 
-/** Sets pOut to an identity matrix returns pOut*/
+/** Sets pOut to an identity kmMat4 returns pOut*/
 kmMat3* const kmMat3Identity(kmMat3* pOut)
 {
     memset(pOut->mat, 0, sizeof(float) * 9);
@@ -100,7 +100,7 @@ kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmM
     return pOut;
 }
 
-/** Returns true if pIn is an identity matrix */
+/** Returns true if pIn is an identity kmMat4 */
 const int kmMat3IsIdentity(const kmMat3* pIn)
 {
     static const float identity [] = {     1.0f, 0.0f, 0.0f,
@@ -214,7 +214,7 @@ kmMat3* const kmMat3Rotation(kmMat3* pOut, const float radians)
     return pOut;
 }
 
-/** Builds a scaling matrix */
+/** Builds a scaling kmMat4 */
 kmMat3* const kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
 //    memset(pOut->mat, 0, sizeof(float) * 9);
@@ -291,7 +291,7 @@ kmVec3* const kmMat3RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const 
 }
 
 /**
- * Builds an X-axis rotation matrix and stores it in pOut, returns pOut
+ * Builds an X-axis rotation kmMat4 and stores it in pOut, returns pOut
  */
 kmMat3* const kmMat3RotationX(kmMat3* pOut, const float radians)
 {
@@ -318,7 +318,7 @@ kmMat3* const kmMat3RotationX(kmMat3* pOut, const float radians)
 }
 
 /**
- * Builds a rotation matrix using the rotation around the Y-axis
+ * Builds a rotation kmMat4 using the rotation around the Y-axis
  * The result is stored in pOut, pOut is returned.
  */
 kmMat3* const kmMat3RotationY(kmMat3* pOut, const float radians)
@@ -345,8 +345,8 @@ kmMat3* const kmMat3RotationY(kmMat3* pOut, const float radians)
 }
 
 /**
- * Builds a rotation matrix around the Z-axis. The resulting
- * matrix is stored in pOut. pOut is returned.
+ * Builds a rotation kmMat4 around the Z-axis. The resulting
+ * kmMat4 is stored in pOut. pOut is returned.
  */
 kmMat3* const kmMat3RotationZ(kmMat3* pOut, const float radians)
 {

@@ -1,3 +1,4 @@
+w
 /*
 Copyright (c) 2008, Luke Benstead.
 All rights reserved.
@@ -36,6 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef NULL
 #define NULL    ((void *)0)
 #endif
+
+kmQuaternion* kmQuaternionSet(kmQuaternion *pOut, float x, float y, float z, float w)
+{
+	pOut->x = x; 
+	pOut->y = y;
+	pOut->z = z;
+	pOut->w = w;
+	return pOut;
+}
 
 ///< Returns pOut, sets pOut to the conjugate of pIn
 kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn)
@@ -186,7 +196,7 @@ kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut,
 {
 /*
 Note: The OpenGL matrices are transposed from the description below
-taken from the Matrix and Quaternion FAQ
+taken from the kmMat4 and Quaternion FAQ
 
     if ( mat[0] > mat[5] && mat[0] > mat[10] )  {    // Column 0:
         S  = sqrt( 1.0 + mat[0] - mat[5] - mat[10] ) * 2;

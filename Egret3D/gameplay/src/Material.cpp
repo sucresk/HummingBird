@@ -391,7 +391,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::VECTOR2:
             {
-                Vector2 vector2;
+                kmVec2 vector2;
                 if (properties->getVector2(NULL, &vector2))
                 {
                     GP_ASSERT(renderState->getParameter(name));
@@ -411,7 +411,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::VECTOR4:
             {
-                Vector4 vector4;
+                kmVec4 vector4;
                 if (properties->getVector4(NULL, &vector4))
                 {
                     GP_ASSERT(renderState->getParameter(name));
@@ -421,7 +421,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::MATRIX:
             {
-                Matrix matrix;
+                kmMat4 matrix;
                 if (properties->getMatrix(NULL, &matrix))
                 {
                     GP_ASSERT(renderState->getParameter(name));

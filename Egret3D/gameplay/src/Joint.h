@@ -35,7 +35,7 @@ public:
     Scene* getScene() const;
 
     /**
-     * Returns the inverse bind pose matrix for this joint.
+     * Returns the inverse bind pose kmMat4 for this joint.
      * 
      * @return Inverse bind pose matrix.
      */
@@ -75,7 +75,7 @@ protected:
     /**
      * Sets the inverse bind pose matrix.
      * 
-     * @param m Matrix representing the inverse bind pose for this Joint.
+     * @param m kmMat4 representing the inverse bind pose for this Joint.
      */
     void setInverseBindPose(const kmMat4& m);
 
@@ -83,7 +83,7 @@ protected:
      * Updates the joint matrix.
      * 
      * @param bindShape The bind shape matrix.
-     * @param matrixPalette The matrix palette to update.
+     * @param matrixPalette The kmMat4 palette to update.
      */
     void updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette);
 
@@ -121,12 +121,12 @@ private:
     void removeSkin(MeshSkin* skin);
 
     /** 
-     * The Matrix representation of the Joint's bind pose.
+     * The kmMat4 representation of the Joint's bind pose.
      */
-    Matrix _bindPose;
+    kmMat4 _bindPose;
 
     /**
-     * Flag used to mark if the Joint's matrix is dirty.
+     * Flag used to mark if the Joint's kmMat4 is dirty.
      */
     bool _jointMatrixDirty;
 

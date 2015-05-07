@@ -226,15 +226,15 @@ void JoystickControl::getRegion(kmVec2& regionOut, int& regionBoundsBitsOut, con
     setBoundsBit(isHeightPercent, regionBoundsBitsOut, BOUNDS_HEIGHT_PERCENTAGE_BIT);
 }
 
-Vector2 JoystickControl::getPixelSize(const kmVec2& region, const int regionBoundsBits) const
+kmVec2 JoystickControl::getPixelSize(const kmVec2& region, const int regionBoundsBits) const
 {
-    Vector2 size;
+    kmVec2 size;
     size.x = regionBoundsBits & BOUNDS_WIDTH_PERCENTAGE_BIT ? _absoluteBounds.width * region.x : region.x;
     size.y = regionBoundsBits & BOUNDS_HEIGHT_PERCENTAGE_BIT ? _absoluteBounds.height * region.y: region.y;
     return size;
 }
 
-Vector2 JoystickControl::getPixelSize(const Theme::ThemeImage* image) const
+kmVec2 JoystickControl::getPixelSize(const Theme::ThemeImage* image) const
 {
     Rectangle rect = image->getRegion();
     rect.width = isWidthPercentage() ? (_absoluteBounds.width / rect.width) * rect.width : rect.width;
@@ -332,7 +332,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                 // If the displacement is greater than the radius, then cap the displacement to the
                 // radius.
 
-                Vector2 value;
+                kmVec2 value;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
                     _displacement.normalize();
@@ -367,7 +367,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
 
                 _displacement.set(dx, dy);
 
-                Vector2 value;
+                kmVec2 value;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
                     _displacement.normalize();
@@ -400,7 +400,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
 
                 // Reset displacement and direction vectors.
                 _displacement.set(0.0f, 0.0f);
-                Vector2 value(_displacement);
+                kmVec2 value(_displacement);
                 if (_value != value)
                 {
                     _value.set(value);
@@ -441,7 +441,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
             const Theme::UVs& uvs = outer->getUVs();
             const kmVec4& color = outer->getColor();
 
-            Vector2 position(_screenRegionPixels.x, _screenRegionPixels.y);
+            kmVec2 position(_screenRegionPixels.x, _screenRegionPixels.y);
 
             if(_outerRegionCoord)
             {
@@ -460,7 +460,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
         if (_innerSizePixels)
         {
             Theme::ThemeImage* inner = getImage("inner", state);
-            Vector2 position(_screenRegionPixels.x, _screenRegionPixels.y);
+            kmVec2 position(_screenRegionPixels.x, _screenRegionPixels.y);
 
             // Adjust position to reflect displacement.
             position.x += _displacement.x;

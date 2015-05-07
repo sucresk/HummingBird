@@ -32,7 +32,7 @@ private:
     Font* _font;
     Model* _model;
     float _spinDirection;
-    Matrix _worldViewProjectionMatrix;
+    kmMat4 _worldViewProjectionMatrix;
 };
 
 #endif

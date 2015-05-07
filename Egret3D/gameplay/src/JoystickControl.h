@@ -209,9 +209,9 @@ private:
 
     void getRegion(kmVec2& regionOut, int& regionBoundsBitsOut, const char* regionPropertyId);
 
-    Vector2 getPixelSize(const kmVec2& region, const int regionBoundsBits) const;
+    kmVec2 getPixelSize(const kmVec2& region, const int regionBoundsBits) const;
 
-    Vector2 getPixelSize(const Theme::ThemeImage* image) const;
+    kmVec2 getPixelSize(const Theme::ThemeImage* image) const;
 
     Theme::ThemeImage * getNonEmptyImage(const char* id, Control::State state);
 
@@ -229,8 +229,8 @@ private:
     kmVec2* _outerSizePixels;
     Rectangle _screenRegionPixels;
     bool _relative;
-    Vector2 _value;
-    Vector2 _displacement;
+    kmVec2 _value;
+    kmVec2 _displacement;
     unsigned int _index;
 };
 

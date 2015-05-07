@@ -39,9 +39,9 @@ private:
     Model* _lineStrip;
     Model* _lines;
     Model* _points;
-    Matrix _viewProjectionMatrix;
-    Vector2 _touchPoint;
-    Vector2 _tilt;
+    kmMat4 _viewProjectionMatrix;
+    kmVec2 _touchPoint;
+    kmVec2 _tilt;
     std::list<Text*> _text;
 };
 

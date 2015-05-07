@@ -243,7 +243,7 @@ void PhysicsCollisionObject::PhysicsMotionState::setWorldTransform(const btTrans
 
     _worldTransform = transform * _centerOfMassOffset;
         
-    const btQuaternion& rot = _worldTransform.getRotation();
+    const btkmQuaternion& rot = _worldTransform.getRotation();
     const btkmVec3& pos = _worldTransform.getOrigin();
 
     _node->setRotation(rot.x(), rot.y(), rot.z(), rot.w());

@@ -209,14 +209,14 @@ public:
     /**
      * Transforms this plane by the given transformation matrix.
      *
-     * @param matrix The transformation matrix to transform by.
+     * @param kmMat4 The transformation kmMat4 to transform by.
      */
     void transform(const kmMat4& matrix);
 
     /**
      * Transforms this plane by the given matrix.
      * 
-     * @param matrix The matrix to transform by.
+     * @param kmMat4 The kmMat4 to transform by.
      * @return This plane, after the transformation occurs.
      */
     inline Plane& operator*=(const kmMat4& matrix);
@@ -235,7 +235,7 @@ private:
 /**
  * Transforms the given plane by the given matrix.
  * 
- * @param matrix The matrix to transform by.
+ * @param kmMat4 The kmMat4 to transform by.
  * @param plane The plane to transform.
  * @return The resulting transformed plane.
  */

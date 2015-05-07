@@ -143,10 +143,10 @@ ParticleEmitter* ParticleEmitter::create(Properties* properties)
     long energyMin = properties->getLong("energyMin");
     long energyMax = properties->getLong("energyMax");
 
-    Vector4 colorStart;
-    Vector4 colorStartVar;
-    Vector4 colorEnd;
-    Vector4 colorEndVar;
+    kmVec4 colorStart;
+    kmVec4 colorStartVar;
+    kmVec4 colorEnd;
+    kmVec4 colorEndVar;
     properties->getVector4("colorStart", &colorStart);
     properties->getVector4("colorStartVar", &colorStartVar);
     properties->getVector4("colorEnd", &colorEnd);
@@ -309,10 +309,10 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
     }
 
     kmVec3 translation;
-    Matrix world = _node->getWorldMatrix();
+    kmMat4 world = _node->getWorldMatrix();
     world.getTranslation(&translation);
 
-    // Take translation out of world matrix so it can be used to rotate orbiting properties.
+    // Take translation out of world kmMat4 so it can be used to rotate orbiting properties.
     world.m[12] = 0.0f;
     world.m[13] = 0.0f;
     world.m[14] = 0.0f;
@@ -990,7 +990,7 @@ unsigned int ParticleEmitter::draw(bool wireframe)
         GP_ASSERT(_particles);
         GP_ASSERT(_spriteTextureCoords);
 
-        // Set our node's view projection matrix to this emitter's effect.
+        // Set our node's view projection kmMat4 to this emitter's effect.
         if (_node)
         {
             _spriteBatch->setProjectionMatrix(_node->getViewProjectionMatrix());
@@ -1000,7 +1000,7 @@ unsigned int ParticleEmitter::draw(bool wireframe)
         _spriteBatch->start();
 
         // 2D Rotation.
-        static const Vector2 pivot(0.5f, 0.5f);
+        static const kmVec2 pivot(0.5f, 0.5f);
 
         // 3D Rotation so that particles always face the camera.
         GP_ASSERT(_node && _node->getScene() && _node->getScene()->getActiveCamera() && _node->getScene()->getActiveCamera()->getNode());

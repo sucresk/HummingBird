@@ -14,7 +14,7 @@ PhysicsCollisionObjectSample::PhysicsCollisionObjectSample()
     _nodeIds.assign(nodeIds, nodeIds + 4);
     const char* nodeNames[] = {"Sphere", "Box", "Capsule", "Duck"};
     _nodeNames.assign(nodeNames, nodeNames + 4);
-    Vector4 colors[] = {Vector4(1, 0, 0, 1), Vector4(0.1f, 0.6f, 0.1f, 1), Vector4(0, 0, 1, 1), Vector4(1, 1, 0, 1)};
+    kmVec4 colors[] = {Vector4(1, 0, 0, 1), Vector4(0.1f, 0.6f, 0.1f, 1), Vector4(0, 0, 1, 1), Vector4(1, 1, 0, 1)};
     _colors.assign(colors, colors + 4);
 }
 

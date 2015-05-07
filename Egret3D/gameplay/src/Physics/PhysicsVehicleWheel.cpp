@@ -211,7 +211,7 @@ void PhysicsVehicleWheel::update(float elapsedTime)
     GP_ASSERT(_host->_vehicle);
 
     const btTransform& trans = _host->_vehicle->getWheelInfo(_indexInHost).m_worldTransform;
-    const btQuaternion& rot = trans.getRotation();
+    const btkmQuaternion& rot = trans.getRotation();
     const btkmVec3& pos = trans.getOrigin();
     _orientation.set(rot.x(), rot.y(), rot.z(), rot.w());
 
