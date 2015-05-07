@@ -68,7 +68,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GP_USE_GAMEPAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\gameplay\src;..\..\external-deps\include;..\..\gameplay\stage\include;..\..\gameplay\src\Math;..\..\gameplay\src\Physics;$(MSBuildProgramFiles32)\Microsoft DirectX SDK (June 2010)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\gameplay\src;..\..\external-deps\include;..\..\gameplay\stage\include;..\..\gameplay\src\Math;..\..\gameplay\src\Physics;..\..\Stage3D;$(MSBuildProgramFiles32)\Microsoft DirectX SDK (June 2010)\include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>

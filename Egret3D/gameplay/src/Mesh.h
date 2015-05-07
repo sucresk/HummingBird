@@ -3,7 +3,7 @@
 
 #include "Ref.h"
 #include "VertexFormat.h"
-#include "Vector3.h"
+#include "vec3.h"
 #include "BoundingBox.h"
 #include "BoundingSphere.h"
 

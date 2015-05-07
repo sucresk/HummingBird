@@ -16,14 +16,14 @@
     <Filter Include="res\ui">
       <UniqueIdentifier>{eb377577-593a-469f-9361-b6950a99e431}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{0da317a8-b635-4677-ae64-9ada95bd0ac3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Physics">
       <UniqueIdentifier>{e6445c7d-51de-42ff-90b9-cfce2272edc8}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
       <UniqueIdentifier>{e3b8b50b-fb3d-4abe-a4e9-9c8cb45ac94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kazmath">
+      <UniqueIdentifier>{c9f1066e-17bb-4bad-ae14-347bb1ca62a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -306,21 +306,6 @@
     <ClCompile Include="src\Drawable.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\MathUtil.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Matrix.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector2.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector3.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector4.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\Physics\PhysicsCharacter.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -369,8 +354,44 @@
     <ClCompile Include="Stage\Context3D.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\Quaternion.cpp">
-      <Filter>Math</Filter>
+    <ClCompile Include="src\kazmath\aabb.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\mat3.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\mat4.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\neon_matrix_impl.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\plane.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\quaternion.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\ray2.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\utility.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\vec2.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\vec3.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\vec4.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\GL\mat4stack.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kazmath\GL\matrix1.c">
+      <Filter>kazmath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -659,21 +680,6 @@
     <ClInclude Include="src\Drawable.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\MathUtil.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Matrix.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Vector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Vector3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Vector4.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="src\Physics\PhysicsCharacter.h">
       <Filter>Physics</Filter>
     </ClInclude>
@@ -719,8 +725,47 @@
     <ClInclude Include="Stage\Context3D.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\Quaternion.h">
-      <Filter>Math</Filter>
+    <ClInclude Include="src\kazmath\aabb.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\kazmath.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\mat3.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\mat4.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\neon_matrix_impl.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\plane.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\quaternion.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\ray2.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\utility.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\vec2.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\vec3.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\vec4.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\GL\mat4stack.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\GL\matrix1.h">
+      <Filter>kazmath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -796,24 +841,6 @@
     <None Include="res\ui\default.theme">
       <Filter>res\ui</Filter>
     </None>
-    <None Include="src\Math\MathUtil.inl">
-      <Filter>Math</Filter>
-    </None>
-    <None Include="src\Math\MathUtilNeon.inl">
-      <Filter>Math</Filter>
-    </None>
-    <None Include="src\Math\Matrix.inl">
-      <Filter>Math</Filter>
-    </None>
-    <None Include="src\Math\Vector2.inl">
-      <Filter>Math</Filter>
-    </None>
-    <None Include="src\Math\Vector3.inl">
-      <Filter>Math</Filter>
-    </None>
-    <None Include="src\Math\Vector4.inl">
-      <Filter>Math</Filter>
-    </None>
     <None Include="src\Physics\PhysicsConstraint.inl">
       <Filter>Physics</Filter>
     </None>
@@ -828,9 +855,6 @@
     </None>
     <None Include="src\Physics\PhysicsSpringConstraint.inl">
       <Filter>Physics</Filter>
-    </None>
-    <None Include="src\Math\Quaternion.inl">
-      <Filter>Math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

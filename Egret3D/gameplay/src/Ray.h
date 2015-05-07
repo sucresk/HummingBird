@@ -1,7 +1,7 @@
 #ifndef RAY_H_
 #define RAY_H_
 
-#include "Vector3.h"
+#include "vec3.h"
 
 namespace egret
 {
@@ -37,7 +37,7 @@ public:
      * @param origin The ray's origin.
      * @param direction The ray's direction.
      */
-    Ray(const Vector3& origin, const Vector3& direction);
+    Ray(const kmVec3& origin, const kmVec3& direction);
 
     /**
      * Constructs a new ray initialized to the specified values.
@@ -68,14 +68,14 @@ public:
      *
      * @return The ray's origin.
      */
-    const Vector3& getOrigin() const;
+    const kmVec3& getOrigin() const;
 
     /**
      * Sets the ray's origin to the given point.
      *
      * @param origin The new origin.
      */
-    void setOrigin(const Vector3& origin);
+    void setOrigin(const kmVec3& origin);
 
     /**
      * Sets the ray's origin.
@@ -91,14 +91,14 @@ public:
      *
      * @return The ray's direction.
      */
-    const Vector3& getDirection() const;
+    const kmVec3& getDirection() const;
 
     /**
      * Sets the ray's direction to the given vector.
      *
      * @param direction The new direction vector.
      */
-    void setDirection(const Vector3& direction);
+    void setDirection(const kmVec3& direction);
 
     /**
      * Sets the ray's direction.
@@ -156,7 +156,7 @@ public:
      * @param origin The ray's origin.
      * @param direction The ray's direction.
      */
-    void set(const Vector3& origin, const Vector3& direction);
+    void set(const kmVec3& origin, const kmVec3& direction);
 
     /**
      * Sets this ray to the given ray.
@@ -170,7 +170,7 @@ public:
      *
      * @param matrix The transformation matrix to transform by.
      */
-    void transform(const Matrix& matrix);
+    void transform(const kmMat4& matrix);
 
     /**
      * Transforms this ray by the given matrix.
@@ -178,7 +178,7 @@ public:
      * @param matrix The matrix to transform by.
      * @return This ray, after the transformation occurs.
      */
-    inline Ray& operator*=(const Matrix& matrix);
+    inline Ray& operator*=(const kmMat4& matrix);
 
 private:
 
@@ -187,8 +187,8 @@ private:
      */
     void normalize();
 
-    Vector3 _origin;        // The ray origin position.
-    Vector3 _direction;     // The ray direction vector.
+    kmVec3 _origin;        // The ray origin position.
+    kmVec3 _direction;     // The ray direction vector.
 };
 
 /**
@@ -198,7 +198,7 @@ private:
  * @param ray The ray to transform.
  * @return The resulting transformed ray.
  */
-inline const Ray operator*(const Matrix& matrix, const Ray& ray);
+inline const Ray operator*(const kmMat4& matrix, const Ray& ray);
 
 }
 

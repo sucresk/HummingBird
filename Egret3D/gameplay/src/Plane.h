@@ -1,7 +1,7 @@
 #ifndef PLANE_H_
 #define PLANE_H_
 
-#include "Matrix.h"
+#include "mat4.h"
 
 namespace egret
 {
@@ -47,7 +47,7 @@ public:
      * @param normal The normal vector of this plane.
      * @param distance The distance from this plane along its (unit) normal to the origin.
      */
-    Plane(const Vector3& normal, float distance);
+    Plane(const kmVec3& normal, float distance);
 
     /**
      * Constructs a new plane from the specified values.
@@ -76,14 +76,14 @@ public:
      *
      * @return normal The plane's normal.
      */
-    const Vector3& getNormal() const;
+    const kmVec3& getNormal() const;
 
     /**
      * Sets the plane's normal to the given vector.
      *
      * @param normal The new normal vector.
      */
-    void setNormal(const Vector3& normal);
+    void setNormal(const kmVec3& normal);
 
     /**
      * Sets the plane's normal.
@@ -113,7 +113,7 @@ public:
      *
      * @param point The point to calculate distance to.
      */
-    float distance(const Vector3& point) const;
+    float distance(const kmVec3& point) const;
 
     /**
      * Calculates the point of intersection of the given three planes and stores it in the given point.
@@ -125,7 +125,7 @@ public:
      *  (this is left unmodified if the planes do not all intersect or if
      *  they are all parallel along one vector and intersect along a line).
      */
-    static void intersection(const Plane& p1, const Plane& p2, const Plane& p3, Vector3* point);
+    static void intersection(const Plane& p1, const Plane& p2, const Plane& p3, kmVec3* point);
 
     /**
      * Tests whether this plane intersects the specified bounding sphere.
@@ -197,7 +197,7 @@ public:
      * @param normal The normal vector of this plane.
      * @param distance The distance to this plane along its normal to the origin.
      */
-    void set(const Vector3& normal, float distance);
+    void set(const kmVec3& normal, float distance);
 
     /**
      * Sets this plane to the given plane.
@@ -211,7 +211,7 @@ public:
      *
      * @param matrix The transformation matrix to transform by.
      */
-    void transform(const Matrix& matrix);
+    void transform(const kmMat4& matrix);
 
     /**
      * Transforms this plane by the given matrix.
@@ -219,7 +219,7 @@ public:
      * @param matrix The matrix to transform by.
      * @return This plane, after the transformation occurs.
      */
-    inline Plane& operator*=(const Matrix& matrix);
+    inline Plane& operator*=(const kmMat4& matrix);
 
 private:
 

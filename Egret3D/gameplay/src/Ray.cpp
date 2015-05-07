@@ -163,7 +163,7 @@ void Ray::set(const Ray& ray)
     normalize();
 }
 
-void Ray::transform(const Matrix& matrix)
+void Ray::transform(const kmMat4& matrix)
 {
     matrix.transformPoint(&_origin);
     matrix.transformVector(&_direction);

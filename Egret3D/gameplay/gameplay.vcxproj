@@ -59,17 +59,24 @@
     <ClCompile Include="src\ImageControl.cpp" />
     <ClCompile Include="src\Joint.cpp" />
     <ClCompile Include="src\JoystickControl.cpp" />
+    <ClCompile Include="src\kazmath\aabb.c" />
+    <ClCompile Include="src\kazmath\GL\mat4stack.c" />
+    <ClCompile Include="src\kazmath\GL\matrix1.c" />
+    <ClCompile Include="src\kazmath\mat3.c" />
+    <ClCompile Include="src\kazmath\mat4.c" />
+    <ClCompile Include="src\kazmath\neon_matrix_impl.c" />
+    <ClCompile Include="src\kazmath\plane.c" />
+    <ClCompile Include="src\kazmath\quaternion.c" />
+    <ClCompile Include="src\kazmath\ray2.c" />
+    <ClCompile Include="src\kazmath\utility.c" />
+    <ClCompile Include="src\kazmath\vec2.c" />
+    <ClCompile Include="src\kazmath\vec3.c" />
+    <ClCompile Include="src\kazmath\vec4.c" />
     <ClCompile Include="src\Label.cpp" />
     <ClCompile Include="src\Layout.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\Math\MathUtil.cpp" />
-    <ClCompile Include="src\Math\Matrix.cpp" />
-    <ClCompile Include="src\Math\Quaternion.cpp" />
-    <ClCompile Include="src\Math\Vector2.cpp" />
-    <ClCompile Include="src\Math\Vector3.cpp" />
-    <ClCompile Include="src\Math\Vector4.cpp" />
     <ClCompile Include="src\MeshBatch.cpp" />
     <ClCompile Include="src\Pass.cpp" />
     <ClCompile Include="src\MaterialParameter.cpp" />
@@ -176,18 +183,26 @@
     <ClInclude Include="src\ImageControl.h" />
     <ClInclude Include="src\Joint.h" />
     <ClInclude Include="src\JoystickControl.h" />
+    <ClInclude Include="src\kazmath\aabb.h" />
+    <ClInclude Include="src\kazmath\GL\mat4stack.h" />
+    <ClInclude Include="src\kazmath\GL\matrix1.h" />
+    <ClInclude Include="src\kazmath\kazmath.h" />
+    <ClInclude Include="src\kazmath\mat3.h" />
+    <ClInclude Include="src\kazmath\mat4.h" />
+    <ClInclude Include="src\kazmath\neon_matrix_impl.h" />
+    <ClInclude Include="src\kazmath\plane.h" />
+    <ClInclude Include="src\kazmath\quaternion.h" />
+    <ClInclude Include="src\kazmath\ray2.h" />
+    <ClInclude Include="src\kazmath\utility.h" />
+    <ClInclude Include="src\kazmath\vec2.h" />
+    <ClInclude Include="src\kazmath\vec3.h" />
+    <ClInclude Include="src\kazmath\vec4.h" />
     <ClInclude Include="src\Keyboard.h" />
     <ClInclude Include="src\Label.h" />
     <ClInclude Include="src\Layout.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Material.h" />
-    <ClInclude Include="src\Math\MathUtil.h" />
-    <ClInclude Include="src\Math\Matrix.h" />
-    <ClInclude Include="src\Math\Quaternion.h" />
-    <ClInclude Include="src\Math\Vector2.h" />
-    <ClInclude Include="src\Math\Vector3.h" />
-    <ClInclude Include="src\Math\Vector4.h" />
     <ClInclude Include="src\MeshBatch.h" />
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\Pass.h" />
@@ -272,13 +287,6 @@
     <None Include="src\BoundingSphere.inl" />
     <None Include="src\Game.inl" />
     <None Include="src\Image.inl" />
-    <None Include="src\Math\MathUtil.inl" />
-    <None Include="src\Math\MathUtilNeon.inl" />
-    <None Include="src\Math\Matrix.inl" />
-    <None Include="src\Math\Quaternion.inl" />
-    <None Include="src\Math\Vector2.inl" />
-    <None Include="src\Math\Vector3.inl" />
-    <None Include="src\Math\Vector4.inl" />
     <None Include="src\MeshBatch.inl" />
     <None Include="src\Physics\PhysicsConstraint.inl" />
     <None Include="src\Physics\PhysicsFixedConstraint.inl" />
@@ -349,7 +357,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;GP_USE_GAMEPAD;GP_NO_LUA_BINDINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;$(ProjectDir)stage;$(ProjectDir)src\Math;$(ProjectDir)src\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;$(ProjectDir)stage;$(ProjectDir)src\kazmath;$(ProjectDir)src\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

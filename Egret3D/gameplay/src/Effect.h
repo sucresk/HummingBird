@@ -2,10 +2,10 @@
 #define EFFECT_H_
 
 #include "Ref.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
-#include "Matrix.h"
+#include "vec2.h"
+#include "vec3.h"
+#include "vec4.h"
+#include "mat4.h"
 #include "Texture.h"
 
 namespace egret
@@ -129,7 +129,7 @@ public:
      * @param uniform The uniform to set.
      * @param value The value to set.
      */
-    void setValue(Uniform* uniform, const Matrix& value);
+	void setValue(Uniform* uniform, const kmMat4& value);
 
     /**
      * Sets a matrix array uniform value.
@@ -138,7 +138,7 @@ public:
      * @param values The array to set.
      * @param count The number of elements in the array.
      */
-    void setValue(Uniform* uniform, const Matrix* values, unsigned int count = 1);
+	void setValue(Uniform* uniform, const kmMat4* values, unsigned int count = 1);
 
     /**
      * Sets a vector uniform value.
@@ -146,7 +146,7 @@ public:
      * @param uniform The uniform to set.
      * @param value The value to set.
      */
-    void setValue(Uniform* uniform, const Vector2& value);
+	void setValue(Uniform* uniform, const kmVec2& value);
 
     /**
      * Sets a vector array uniform value.
@@ -155,7 +155,7 @@ public:
      * @param values The array to set.
      * @param count The number of elements in the array.
      */
-    void setValue(Uniform* uniform, const Vector2* values, unsigned int count = 1);
+	void setValue(Uniform* uniform, const kmVec2* values, unsigned int count = 1);
 
     /**
      * Sets a vector uniform value.
@@ -163,7 +163,7 @@ public:
      * @param uniform The uniform to set.
      * @param value The value to set.
      */
-    void setValue(Uniform* uniform, const Vector3& value);
+	void setValue(Uniform* uniform, const kmVec3& value);
 
     /**
      * Sets a vector array uniform value.
@@ -172,7 +172,7 @@ public:
      * @param values The array to set.
      * @param count The number of elements in the array.
      */
-    void setValue(Uniform* uniform, const Vector3* values, unsigned int count = 1);
+	void setValue(Uniform* uniform, const kmVec3* values, unsigned int count = 1);
 
     /**
      * Sets a vector uniform value.
@@ -180,7 +180,7 @@ public:
      * @param uniform The uniform to set.
      * @param value The value to set.
      */
-    void setValue(Uniform* uniform, const Vector4& value);
+	void setValue(Uniform* uniform, const kmVec4& value);
 
     /**
      * Sets a vector array uniform value.
@@ -189,7 +189,7 @@ public:
      * @param values The array to set.
      * @param count The number of elements in the array.
      */
-    void setValue(Uniform* uniform, const Vector4* values, unsigned int count = 1);
+	void setValue(Uniform* uniform, const kmVec4* values, unsigned int count = 1);
 
     /**
      * Sets a sampler uniform value.
