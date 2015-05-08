@@ -382,7 +382,7 @@ const kmVec3& Scene::getAmbientColor() const
 
 void Scene::setAmbientColor(float red, float green, float blue)
 {
-    _ambientColor.set(red, green, blue);
+	_ambientColor = { red, green, blue };
 }
 
 void Scene::update(float elapsedTime)

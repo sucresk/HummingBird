@@ -323,52 +323,52 @@ void RenderState::applyAutoBinding(const char* uniformName, const char* autoBind
 
 const kmMat4& RenderState::autoBindingGetWorldMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getWorldMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getWorldMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetViewMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getViewMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getViewMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetProjectionMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getProjectionMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getProjectionMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetWorldViewMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getWorldViewMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getWorldViewMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetViewProjectionMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getViewProjectionMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getViewProjectionMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetWorldViewProjectionMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getWorldViewProjectionMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getWorldViewProjectionMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetInverseTransposeWorldMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getInverseTransposeWorldMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldMatrix() : matIdentity;
 }
 
 const kmMat4& RenderState::autoBindingGetInverseTransposeWorldViewMatrix() const
 {
-    return _nodeBinding ? _nodeBinding->getInverseTransposeWorldViewMatrix() : Matrix::identity();
+	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldViewMatrix() : matIdentity;
 }
 
 kmVec3 RenderState::autoBindingGetCameraWorldPosition() const
 {
-    return _nodeBinding ? _nodeBinding->getActiveCameraTranslationWorld() : Vector3::zero();
+    return _nodeBinding ? _nodeBinding->getActiveCameraTranslationWorld() : vec3Zero;
 }
 
 kmVec3 RenderState::autoBindingGetCameraViewPosition() const
 {
-    return _nodeBinding ? _nodeBinding->getActiveCameraTranslationView() : Vector3::zero();
+    return _nodeBinding ? _nodeBinding->getActiveCameraTranslationView() : vec3Zero;
 }
 
 const kmVec4* RenderState::autoBindingGetMatrixPalette() const
@@ -398,7 +398,7 @@ unsigned int RenderState::autoBindingGetMatrixPaletteSize() const
 const kmVec3& RenderState::autoBindingGetAmbientColor() const
 {
     Scene* scene = _nodeBinding ? _nodeBinding->getScene() : NULL;
-    return scene ? scene->getAmbientColor() : Vector3::zero();
+    return scene ? scene->getAmbientColor() :vec3Zero;
 }
 
 void RenderState::bind(Pass* pass)
