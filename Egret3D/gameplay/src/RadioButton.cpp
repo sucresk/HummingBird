@@ -151,12 +151,12 @@ void RadioButton::updateBounds()
     if (_selected)
     {
         const Rectangle& selectedRegion = getImageRegion("selected", NORMAL);
-        size.set(selectedRegion.width, selectedRegion.height);
+		size = { selectedRegion.width, selectedRegion.height };
     }
     else
     {
         const Rectangle& unselectedRegion = getImageRegion("unselected", NORMAL);
-        size.set(unselectedRegion.width, unselectedRegion.height);
+		size = { unselectedRegion.width, unselectedRegion.height };
     }
 
     if (_autoSize & AUTO_SIZE_HEIGHT)
@@ -193,7 +193,7 @@ unsigned int RadioButton::drawImages(Form* form, const Rectangle& clip)
     kmVec4 color = _image->getColor();
     color.w *= _opacity;
 
-    kmVec2 pos(_viewportBounds.x, _viewportBounds.y);
+	kmVec2 pos = { _viewportBounds.x, _viewportBounds.y };
 
     SpriteBatch* batch = _style->getTheme()->getSpriteBatch();
     startBatch(form, batch);
