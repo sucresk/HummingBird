@@ -2,6 +2,7 @@
 #define PLANE_H_
 
 #include "mat4.h"
+#include "vec3.h"
 
 namespace egret
 {

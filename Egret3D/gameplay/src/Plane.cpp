@@ -9,8 +9,9 @@ namespace egret
 {
 
 Plane::Plane()
-    : _normal(0, 1, 0), _distance(0)
+	: _distance(0)
 {
+	_normal = { 0, 1, 0 };
 }
 
 Plane::Plane(const kmVec3& normal, float distance)
@@ -20,7 +21,7 @@ Plane::Plane(const kmVec3& normal, float distance)
 
 Plane::Plane(float normalX, float normalY, float normalZ, float distance)
 {
-    set(Vector3(normalX, normalY, normalZ), distance);
+	set({ normalX, normalY, normalZ }, distance);
 }
 
 Plane::Plane(const Plane& copy)
@@ -45,7 +46,7 @@ void Plane::setNormal(const kmVec3& normal)
 
 void Plane::setNormal(float x, float y, float z)
 {
-    _normal.set(x, y, z);
+	_normal = { x, y, z };
     normalize();
 }
 
@@ -179,7 +180,7 @@ float Plane::intersects(const Plane& plane) const
     }
 
     // Calculate the point where the given plane's normal vector intersects the given plane.
-    kmVec3 point(plane._normal.x * -plane._distance, plane._normal.y * -plane._distance, plane._normal.z * -plane._distance);
+	kmVec3 point = { plane._normal.x * -plane._distance, plane._normal.y * -plane._distance, plane._normal.z * -plane._distance };
 
     // Calculate whether the given plane is in the positive or negative half-space of this plane
     // (corresponds directly to the sign of the distance from the point calculated above to this plane).
@@ -258,14 +259,15 @@ void Plane::set(const Plane& plane)
 void Plane::transform(const kmMat4& matrix)
 {
     kmMat4 inverted;
-    if (matrix.invert(&inverted))
+    //if (matrix.invert(&inverted))
+	if (kmMat4Invert(&inverted, &matrix ))
     {
         // Treat the plane as a four-tuple and multiply by the inverse transpose of the kmMat4 to get the transformed plane.
         // Then we normalize the plane by dividing both the normal and the distance by the length of the normal.
-        float nx = _normal.x * inverted.m[0] + _normal.y * inverted.m[1] + _normal.z * inverted.m[2] + _distance * inverted.m[3];
-        float ny = _normal.x * inverted.m[4] + _normal.y * inverted.m[5] + _normal.z * inverted.m[6] + _distance * inverted.m[7];
-        float nz = _normal.x * inverted.m[8] + _normal.y * inverted.m[9] + _normal.z * inverted.m[10] + _distance * inverted.m[11];
-        float d = _normal.x * inverted.m[12]+ _normal.y * inverted.m[13] + _normal.z * inverted.m[14] + _distance * inverted.m[15];
+        float nx = _normal.x * inverted.mat[0] + _normal.y * inverted.mat[1] + _normal.z * inverted.mat[2] + _distance * inverted.mat[3];
+        float ny = _normal.x * inverted.mat[4] + _normal.y * inverted.mat[5] + _normal.z * inverted.mat[6] + _distance * inverted.mat[7];
+        float nz = _normal.x * inverted.mat[8] + _normal.y * inverted.mat[9] + _normal.z * inverted.mat[10] + _distance * inverted.mat[11];
+        float d = _normal.x * inverted.mat[12]+ _normal.y * inverted.mat[13] + _normal.z * inverted.mat[14] + _distance * inverted.mat[15];
         float divisor = sqrt(nx * nx + ny * ny + nz * nz);
         GP_ASSERT(divisor);
         float factor = 1.0f / divisor;
@@ -279,7 +281,7 @@ void Plane::transform(const kmMat4& matrix)
 
 void Plane::normalize()
 {
-    if (_normal.isZero())
+    if (kmVec3IsZero(& _normal) )
         return;
 
     // Normalize the plane's normal.
