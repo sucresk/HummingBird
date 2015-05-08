@@ -1241,10 +1241,17 @@ void Curve::interpolateLinear(float s, Point* from, Point* to, float* dst) const
 void Curve::interpolateQuaternion(float s, float* from, float* to, float* dst) const
 {
     // Evaluate.
-    if (s >= 0)
-        Quaternion::slerp(from[0], from[1], from[2], from[3], to[0], to[1], to[2], to[3], s, dst, dst + 1, dst + 2, dst + 3);
-    else
-        Quaternion::slerp(to[0], to[1], to[2], to[3], from[0], from[1], from[2], from[3], s, dst, dst + 1, dst + 2, dst + 3);
+	if (s >= 0)
+	{
+		//Quaternion::slerp(from[0], from[1], from[2], from[3], to[0], to[1], to[2], to[3], s, dst, dst + 1, dst + 2, dst + 3);
+		kmQuaternionSlerpNum(from[0], from[1], from[2], from[3], to[0], to[1], to[2], to[3], s, dst, dst + 1, dst + 2, dst + 3);
+	}
+	else
+	{
+		//Quaternion::slerp(to[0], to[1], to[2], to[3], from[0], from[1], from[2], from[3], s, dst, dst + 1, dst + 2, dst + 3);
+		kmQuaternionSlerpNum(to[0], to[1], to[2], to[3], from[0], from[1], from[2], from[3], s, dst, dst + 1, dst + 2, dst + 3);
+
+	}
 }
 
 int Curve::determineIndex(float time, unsigned int min, unsigned int max) const

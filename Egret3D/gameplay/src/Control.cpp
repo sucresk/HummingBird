@@ -1703,7 +1703,7 @@ void Control::overrideThemedProperties(Properties* properties, unsigned char sta
 
     if (properties->exists("textColor"))
     {
-        kmVec4 textColor(0, 0, 0, 1);
+		kmVec4 textColor = { 0, 0, 0, 1 };
         properties->getColor("textColor", &textColor);
         setTextColor(textColor, states);
     }

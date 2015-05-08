@@ -47,6 +47,13 @@ kmScalar kmVec2LengthSq(const kmVec2* pIn)
     return kmSQR(pIn->x) + kmSQR(pIn->y);
 }
 
+kmScalar kmVec2Distance(const kmVec2* pV1, const kmVec2* pV2
+{
+	float dx = pV1->x - pV2->x;
+	float dy = pV1->y - pV2->y;
+	return sqrt(dx * dx + dy * dy);
+}
+
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
     kmScalar l = 1.0f / kmVec2Length(pIn);

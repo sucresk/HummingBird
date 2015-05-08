@@ -200,8 +200,9 @@ void Font::lazyStart()
     {
         Game* game = Game::getInstance();
         kmMat4 projectionMatrix;
-        Matrix::createOrthographicOffCenter(vp.x, vp.width, vp.height, vp.y, 0, 1, &projectionMatrix);
-        _batch->setProjectionMatrix(projectionMatrix);
+        //Matrix::createOrthographicOffCenter(vp.x, vp.width, vp.height, vp.y, 0, 1, &projectionMatrix);
+		kmMat4OrthographicProjection(&projectionMatrix, vp.x, vp.width, vp.height, vp.y, 0, 1);
+		_batch->setProjectionMatrix(projectionMatrix);
     }
 
     _batch->start();
@@ -366,7 +367,7 @@ void Font::drawText(const char* text, int x, int y, const kmVec4& color, unsigne
                         if (_cutoffParam == NULL)
                             _cutoffParam = _batch->getMaterial()->getParameter("u_cutoff");
                         // TODO: Fix me so that smaller font are much smoother
-                        _cutoffParam->setVector2(Vector2(1.0, 1.0));
+						_cutoffParam->setVector2({ 1.0, 1.0 });
                     }
                     _batch->draw(xPos + (int)(g.bearingX * scale), yPos, g.width * scale, size, g.uvs[0], g.uvs[1], g.uvs[2], g.uvs[3], color);
                     xPos += floor(g.advance * scale + spacing);
@@ -389,7 +390,7 @@ void Font::drawText(const char* text, int x, int y, const kmVec4& color, unsigne
 
 void Font::drawText(const char* text, int x, int y, float red, float green, float blue, float alpha, unsigned int size, bool rightToLeft)
 {
-    drawText(text, x, y, Vector4(red, green, blue, alpha), size, rightToLeft);
+	drawText(text, x, y, { red, green, blue, alpha }, size, rightToLeft);
 }
 
 void Font::drawText(const char* text, const Rectangle& area, const kmVec4& color, unsigned int size, Justify justify, bool wrap, bool rightToLeft, const Rectangle& clip)
@@ -530,7 +531,7 @@ void Font::drawText(const char* text, const Rectangle& area, const kmVec4& color
                             if (_cutoffParam == NULL)
                                 _cutoffParam = _batch->getMaterial()->getParameter("u_cutoff");
                             // TODO: Fix me so that smaller font are much smoother
-                            _cutoffParam->setVector2(Vector2(1.0, 1.0));
+							_cutoffParam->setVector2({ 1.0, 1.0 });
                         }
                         if (clip != Rectangle(0, 0, 0, 0))
                         {
@@ -708,7 +709,7 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
 
     const char* token = text;
     std::vector<bool> emptyLines;
-    std::vector<Vector2> lines;
+    std::vector<kmVec2> lines;
 
     unsigned int lineWidth = 0;
     int yPos = clip.y + size;
@@ -754,13 +755,13 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
 
                             // Record this line's size.
                             emptyLines.push_back(false);
-                            lines.push_back(Vector2(xPos, lineWidth));
+							lines.push_back({ xPos, lineWidth });
                         }
                         else
                         {
                             // Record the existence of an empty line.
                             emptyLines.push_back(true);
-                            lines.push_back(Vector2(FLT_MAX, 0));
+							lines.push_back({ FLT_MAX, 0 });
                         }
 
                         lineWidth = 0;
@@ -812,7 +813,7 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
 
                 // Record this line's size.
                 emptyLines.push_back(false);
-                lines.push_back(Vector2(xPos, lineWidth));
+				lines.push_back({ xPos, lineWidth });
                 lineWidth = 0;
             }
             else
@@ -848,7 +849,7 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
                     // Record the existence of an empty line.
                     ++emptyLinesCount;
                     emptyLines.push_back(true);
-                    lines.push_back(Vector2(FLT_MAX, 0));
+					lines.push_back({ FLT_MAX, 0 } );
                 }
 
                 token++;
@@ -871,7 +872,7 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
             }
 
             // Record this line's size.
-            lines.push_back(Vector2(xPos, lineWidth));
+			lines.push_back({ xPos, lineWidth } );
 
             token += tokenLength;
         }
@@ -893,7 +894,7 @@ void Font::measureText(const char* text, const Rectangle& clip, unsigned int siz
             xPos += hWhitespace;
         }
 
-        lines.push_back(Vector2(xPos, lineWidth));
+		lines.push_back({ xPos, lineWidth } );
     }
 
     int x = INT_MAX;

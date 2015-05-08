@@ -359,7 +359,8 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, float* x
 
     // Transform the point to clip-space.
     kmVec4 clipPos;
-    getViewProjectionMatrix().transformVector(Vector4(position.x, position.y, position.z, 1.0f), &clipPos);
+    //getViewProjectionMatrix().transformVector(Vector4(position.x, position.y, position.z, 1.0f), &clipPos);
+	kmMat4Transform(&clipPos, &getViewProjectionMatrix(), position.x, position.y, position.z, 1.0f);
 
     // Compute normalized device coordinates.
     GP_ASSERT(clipPos.w != 0.0f);
@@ -381,7 +382,8 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, kmVec2* 
     GP_ASSERT(out);
     float x, y;
     project(viewport, position, &x, &y);
-    out->set(x, y);
+    //out->set(x, y);
+	kmVec2Fill(out, x, y);
 }
 
 void Camera::project(const Rectangle& viewport, const kmVec3& position, kmVec3* out) const
@@ -389,7 +391,8 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, kmVec3* 
     GP_ASSERT(out);
     float x, y, depth;
     project(viewport, position, &x, &y, &depth);
-    out->set(x, y, depth);
+    //out->set(x, y, depth);
+	kmVec3Fill(out, x, y, depth);
 }
 
 void Camera::unproject(const Rectangle& viewport, float x, float y, float depth, kmVec3* dst) const
@@ -398,7 +401,7 @@ void Camera::unproject(const Rectangle& viewport, float x, float y, float depth,
     
     // Create our screen space position in NDC.
     GP_ASSERT(viewport.width != 0.0f && viewport.height != 0.0f);
-    kmVec4 screen((x - viewport.x) / viewport.width, ((viewport.height - y) - viewport.y) / viewport.height, depth, 1.0f);
+	kmVec4 screen = { (x - viewport.x) / viewport.width, ((viewport.height - y) - viewport.y) / viewport.height, depth, 1.0f };
 
     // Map to range -1 to 1.
     screen.x = screen.x * 2.0f - 1.0f;
@@ -406,7 +409,8 @@ void Camera::unproject(const Rectangle& viewport, float x, float y, float depth,
     screen.z = screen.z * 2.0f - 1.0f;
 
     // Transform the screen-space NDC by our inverse view projection matrix.
-    getInverseViewProjectionMatrix().transformVector(screen, &screen);
+    //getInverseViewProjectionMatrix().transformVector(screen, &screen);
+	kmMat4Transform(&screen, &getInverseViewProjectionMatrix(), screen.x, screen.y, screen.z, screen.w);
 
     // Divide by our W coordinate.
     if (screen.w != 0.0f)
@@ -416,7 +420,9 @@ void Camera::unproject(const Rectangle& viewport, float x, float y, float depth,
         screen.z /= screen.w;
     }
 
-    dst->set(screen.x, screen.y, screen.z);
+    //dst->set(screen.x, screen.y, screen.z);
+	kmVec3Fill(dst, screen.x, screen.y, screen.z);
+	return;
 }
 
 void Camera::pickRay(const Rectangle& viewport, float x, float y, Ray* dst) const
@@ -433,8 +439,10 @@ void Camera::pickRay(const Rectangle& viewport, float x, float y, Ray* dst) cons
 
     // Set the direction of the ray.
     kmVec3 direction;
-    Vector3::subtract(farPoint, nearPoint, &direction);
-    direction.normalize();
+    //Vector3::subtract(farPoint, nearPoint, &direction);
+	kmVec3Subtract(&direction, &farPoint, &nearPoint);
+    //direction.normalize();
+	kmVec3Normalize(&direction, &direction);
 
     dst->set(nearPoint, direction);
 }

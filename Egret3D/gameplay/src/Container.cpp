@@ -48,11 +48,11 @@ void Container::clearContacts()
 Container::Container()
     : _layout(NULL), _activeControl(NULL), _scrollBarTopCap(NULL), _scrollBarVertical(NULL), _scrollBarBottomCap(NULL),
       _scrollBarLeftCap(NULL), _scrollBarHorizontal(NULL), _scrollBarRightCap(NULL),
-      _scroll(SCROLL_NONE), _scrollBarBounds(Rectangle::empty()), _scrollPosition(Vector2::zero()),
+	  _scroll(SCROLL_NONE), _scrollBarBounds(Rectangle::empty()), _scrollPosition({ 0.0f, 0.0f }),
       _scrollBarsAutoHide(false), _scrollBarOpacity(1.0f), _scrolling(false),
       _scrollingVeryFirstX(0), _scrollingVeryFirstY(0), _scrollingFirstX(0), _scrollingFirstY(0), _scrollingLastX(0), _scrollingLastY(0),
       _scrollingStartTimeX(0), _scrollingStartTimeY(0), _scrollingLastTime(0),
-      _scrollingVelocity(Vector2::zero()), _scrollingFriction(1.0f), _scrollWheelSpeed(400.0f),
+	  _scrollingVelocity({ 0.0f, 0.0f }), _scrollingFriction(1.0f), _scrollWheelSpeed(400.0f),
       _scrollingRight(false), _scrollingDown(false),
       _scrollingMouseVertically(false), _scrollingMouseHorizontally(false),
       _scrollBarOpacityClip(NULL), _zIndexDefault(0),
@@ -370,7 +370,8 @@ void Container::setScroll(Scroll scroll)
 
         if (_scroll == SCROLL_NONE)
         {
-            _scrollPosition.set(0, 0);
+            //_scrollPosition.set(0, 0);
+			kmVec2Fill(&_scrollPosition, 0, 0);
         }
         else
         {
@@ -908,16 +909,20 @@ bool Container::moveFocusDirectional(Direction direction)
 	switch (direction)
 	{
 	case UP:
-		vStart.set(startBounds.x + startBounds.width * 0.5f, startBounds.y);
+		//vStart.set(startBounds.x + startBounds.width * 0.5f, startBounds.y);
+		kmVec2Fill(&vStart, startBounds.x + startBounds.width * 0.5, startBounds.y);
 		break;
 	case DOWN:
-		vStart.set(startBounds.x + startBounds.width * 0.5f, startBounds.bottom());
+		//vStart.set(startBounds.x + startBounds.width * 0.5f, startBounds.bottom());
+		kmVec2Fill( &vStart, startBounds.x + startBounds.width * 0.5f, startBounds.bottom());
 		break;
 	case LEFT:
-		vStart.set(startBounds.x, startBounds.y + startBounds.height * 0.5f);
+		//vStart.set(startBounds.x, startBounds.y + startBounds.height * 0.5f);
+		kmVec2Fill(&vStart, startBounds.x, startBounds.y + startBounds.height * 0.5f);
 		break;
 	case RIGHT:
-		vStart.set(startBounds.right(), startBounds.y + startBounds.height * 0.5f);
+		//vStart.set(startBounds.right(), startBounds.y + startBounds.height * 0.5f);
+		kmVec2Fill(&vStart, startBounds.right(), startBounds.y + startBounds.height * 0.5f);
 		break;
 	}
 
@@ -931,28 +936,33 @@ bool Container::moveFocusDirectional(Direction direction)
 		switch (direction)
 		{
 		case UP:
-			vNext.set(nextBounds.x + nextBounds.width * 0.5f, nextBounds.bottom());
+			//vNext.set(nextBounds.x + nextBounds.width * 0.5f, nextBounds.bottom());
+			kmVec2Fill(&vNext, nextBounds.x + nextBounds.width * 0.5f, nextBounds.bottom());
 			if (vNext.y > vStart.y)
 				continue;
 			break;
 		case DOWN:
-			vNext.set(nextBounds.x + nextBounds.width * 0.5f, nextBounds.y);
+			//vNext.set(nextBounds.x + nextBounds.width * 0.5f, nextBounds.y);
+			kmVec2Fill(&vNext, nextBounds.x + nextBounds.width * 0.5f, nextBounds.y);
 			if (vNext.y < vStart.y)
 				continue;
 			break;
 		case LEFT:
-			vNext.set(nextBounds.right(), nextBounds.y + nextBounds.height * 0.5f);
+			//vNext.set(nextBounds.right(), nextBounds.y + nextBounds.height * 0.5f);
+			kmVec2Fill(&vNext, nextBounds.right(), nextBounds.y + nextBounds.height * 0.5f);
 			if (vNext.x > vStart.x)
 				continue;
 			break;
 		case RIGHT:
-			vNext.set(nextBounds.x, nextBounds.y + nextBounds.height * 0.5f);
+			//vNext.set(nextBounds.x, nextBounds.y + nextBounds.height * 0.5f);
+			kmVec2Fill(&vNext, nextBounds.x, nextBounds.y + nextBounds.height * 0.5f);
 			if (vNext.x < vStart.x)
 				continue;
 			break;
 		}
 
-		float nextDistance = vStart.distance(vNext);
+		//float nextDistance = vStart.distance(vNext);
+		float nextDistance = kmVec2Distance(&vStart, &vNext);
 		if (std::fabs(nextDistance) < distance)
 		{
 			distance = nextDistance;
@@ -984,7 +994,8 @@ bool Container::moveFocusDirectional(Direction direction)
 
 void Container::startScrolling(float x, float y, bool resetTime)
 {
-    _scrollingVelocity.set(-x, y);
+    //_scrollingVelocity.set(-x, y);
+	kmVec2Fill(&_scrollingVelocity, -x, y);
     _scrolling = true;
     _scrollBarOpacity = 1.0f;
     setDirty(DIRTY_BOUNDS);
@@ -1003,7 +1014,8 @@ void Container::startScrolling(float x, float y, bool resetTime)
 
 void Container::stopScrolling()
 {
-    _scrollingVelocity.set(0, 0);
+    //_scrollingVelocity.set(0, 0);
+	kmVec2Fill(&_scrollingVelocity, 0, 0);
     _scrolling = false;
     setDirty(DIRTY_BOUNDS);
 
@@ -1109,7 +1121,7 @@ void Container::updateScroll()
     bool dirty = false;
 
     // Apply and dampen inertia.
-    if (!_scrollingVelocity.isZero())
+    if (!(_scrollingVelocity.x == 0.0f && _scrollingVelocity.y == 0.0f ))
     {
         // Calculate the time passed since last update.
         float elapsedSecs = (float)elapsedTime * 0.001f;
@@ -1174,7 +1186,7 @@ void Container::updateScroll()
                          scrollWidth, scrollHeight);
 
     // If scroll velocity is 0 and scrollbars are not always visible, trigger fade-out animation.
-    if (!_scrolling && _scrollingVelocity.isZero() && _scrollBarsAutoHide && _scrollBarOpacity == 1.0f)
+    if (!_scrolling && (_scrollingVelocity.x == 0.0f && _scrollingVelocity.y == 0.0f) && _scrollBarsAutoHide && _scrollBarOpacity == 1.0f)
     {
         float to = 0;
         _scrollBarOpacity = 0.99f;
@@ -1210,11 +1222,12 @@ bool Container::touchEventScroll(Touch::TouchEvent evt, int x, int y, unsigned i
     case Touch::TOUCH_PRESS:
         if (_contactIndex == INVALID_CONTACT_INDEX)
         {
-            bool dirty = !_scrollingVelocity.isZero();
+            bool dirty = !(_scrollingVelocity.x == 0.0f && _scrollingVelocity.y == 0.0f );
             _contactIndex = (int)contactIndex;
             _scrollingLastX = _scrollingFirstX = _scrollingVeryFirstX = x;
             _scrollingLastY = _scrollingFirstY = _scrollingVeryFirstY = y;
-            _scrollingVelocity.set(0, 0);
+            //_scrollingVelocity.set(0, 0);
+			kmVec2Fill(&_scrollingVelocity, 0, 0);
             _scrolling = true;
             _scrollingStartTimeX = _scrollingStartTimeY = 0;
 
@@ -1243,7 +1256,8 @@ bool Container::touchEventScroll(Touch::TouchEvent evt, int x, int y, unsigned i
                 float yRatio = _totalHeight / _absoluteBounds.height;
                 vy *= yRatio;
 
-                _scrollingVelocity.set(0, -vy);
+                //_scrollingVelocity.set(0, -vy);
+				kmVec2Fill( &_scrollingVelocity, 0, -vy);
                 _scrollPosition.y -= vy;
             }
             else if (_scrollingMouseHorizontally)
@@ -1251,12 +1265,14 @@ bool Container::touchEventScroll(Touch::TouchEvent evt, int x, int y, unsigned i
                 float xRatio = _totalWidth / _absoluteBounds.width;
                 vx *= xRatio;
 
-                _scrollingVelocity.set(-vx, 0);
+                //_scrollingVelocity.set(-vx, 0);
+				kmVec2Fill(&_scrollingVelocity, -vx, 0);
                 _scrollPosition.x -= vx;
             }
             else
             {
-                _scrollingVelocity.set(vx, vy);
+                //_scrollingVelocity.set(vx, vy);
+				kmVec2Fill(&_scrollingVelocity, vx, vy);
                 _scrollPosition.x += vx;
                 _scrollPosition.y += vy;
             }
@@ -1303,7 +1319,8 @@ bool Container::touchEventScroll(Touch::TouchEvent evt, int x, int y, unsigned i
             float timeSinceLastMove = (float)(gameTime - _scrollingLastTime);
             if (timeSinceLastMove > SCROLL_INERTIA_DELAY)
             {
-                _scrollingVelocity.set(0, 0);
+                //_scrollingVelocity.set(0, 0);
+				kmVec2Fill(&_scrollingVelocity, 0, 0);
                 _scrollingMouseVertically = _scrollingMouseHorizontally = false;
                 return false;
             }
@@ -1327,17 +1344,20 @@ bool Container::touchEventScroll(Touch::TouchEvent evt, int x, int y, unsigned i
             {
                 float yRatio = _totalHeight / _absoluteBounds.height;
                 vy *= yRatio;
-                _scrollingVelocity.set(0, -vy);
+                //_scrollingVelocity.set(0, -vy);
+				kmVec2Fill(&_scrollingVelocity, 0, -vy);
             }
             else if (_scrollingMouseHorizontally)
             {
                 float xRatio = _totalWidth / _absoluteBounds.width;
                 vx *= xRatio;
-                _scrollingVelocity.set(-vx, 0);
+                //_scrollingVelocity.set(-vx, 0);
+				kmVec2Fill(&_scrollingVelocity, -vx, 0);
             }
             else
             {
-                _scrollingVelocity.set(vx, vy);
+                //_scrollingVelocity.set(vx, vy);
+				kmVec2Fill(&_scrollingVelocity, vx, vy);
             }
 
             _scrollingMouseVertically = _scrollingMouseHorizontally = false;
@@ -1437,7 +1457,7 @@ bool Container::mouseEventScroll(Mouse::MouseEvent evt, int x, int y, int wheelD
 
         case Mouse::MOUSE_WHEEL:
         {
-            if (_scrollingVelocity.isZero())
+            if (_scrollingVelocity.x ==0.0f && _scrollingVelocity.y == 0.0f )
             {
                 _lastFrameTime = Game::getAbsoluteTime();
             }

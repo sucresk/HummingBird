@@ -60,7 +60,7 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 
 ///< Returns true if the quaternion is an identity quaternion
 
-int kmQuaternionIsIdentity(const kmQuaternion* pIn);
+int  kmQuaternionIsIdentity(const kmQuaternion* pIn);
 
 ///< Returns the length of the quaternion
 
@@ -95,6 +95,8 @@ kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut, const struct kmMat3
 kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
 ///< Interpolate between 2 quaternions
 kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
+void kmQuaternionSlerpNum(float q1x, float q1y, float q1z, float q1w, float q2x, float q2y, float q2z, float q2w, float t, float* dstx, float* dsty, float* dstz, float* dstw);
+
 
 ///< Get the axis and angle of rotation from a quaternion
 void kmQuaternionToAxisAngle(const kmQuaternion* pIn, struct kmVec3* pVector, kmScalar* pAngle);
