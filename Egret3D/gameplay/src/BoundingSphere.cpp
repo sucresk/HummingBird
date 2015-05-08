@@ -297,7 +297,8 @@ void BoundingSphere::transform(const kmMat4& matrix)
 
     // Scale the sphere's radius by the scale fo the matrix
     kmVec3 scale;
-    matrix.decompose(&scale, NULL, NULL);
+    //matrix.decompose(&scale, NULL, NULL);
+	kmMat4Decompose(&matrix, &scale, NULL, NULL);
     float r = radius * scale.x;
     r = max(r, radius * scale.y);
     r = max(r, radius * scale.z);

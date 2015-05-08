@@ -41,6 +41,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 kmMat4 gkmMat4; // ±£´æ¾ØÕóÆ½ÒÆÐý×ª
 
+#define MATH_FLOAT_SMALL            1.0e-37f
+#define MATH_TOLERANCE              2e-37f
+#define MATH_EPSILON                0.000001f
+
 /**
  * Fills a kmMat4 structure with the values from a 16
  * element array of floats
@@ -589,9 +593,9 @@ const int kmMat4Decompose(const kmMat4* pIn, struct kmVec3* scale, struct kmQuat
 	if (translation)
 	{
 		// Extract the translation.
-		translation->x = m[12];
-		translation->y = m[13];
-		translation->z = m[14];
+		translation->x = pIn->mat[12];
+		translation->y = pIn->mat[13];
+		translation->z = pIn->mat[14];
 	}
 
 	// Nothing left to do.
@@ -600,14 +604,17 @@ const int kmMat4Decompose(const kmMat4* pIn, struct kmVec3* scale, struct kmQuat
 
 	// Extract the scale.
 	// This is simply the length of each axis (row/column) in the matrix.
-	kmVec3 xaxis = { m[0], m[1], m[2] };
-	float scaleX = xaxis.length();
+	kmVec3 xaxis = { pIn->mat[0], pIn->mat[1], pIn->mat[2] };
+	//float scaleX = xaxis.length();
+	float scaleX = kmVec3Length(&xaxis);
 
-	Vector3 yaxis(m[4], m[5], m[6]);
-	float scaleY = yaxis.length();
+	kmVec3 yaxis = { pIn->mat[4], pIn->mat[5], pIn->mat[6] };
+	//float scaleY = yaxis.length();
+	float scaleY = kmVec3Length(&yaxis);
 
-	Vector3 zaxis(m[8], m[9], m[10]);
-	float scaleZ = zaxis.length();
+	kmVec3 zaxis = { pIn->mat[8], pIn->mat[9], pIn->mat[10] };
+	//float scaleZ = zaxis.length();
+	float scaleZ = kmVec3Length(&zaxis);
 
 	// Determine if we have a negative scale (true if determinant is less than zero).
 	// In this case, we simply negate a single axis of the scale.
@@ -624,11 +631,11 @@ const int kmMat4Decompose(const kmMat4* pIn, struct kmVec3* scale, struct kmQuat
 
 	// Nothing left to do.
 	if (rotation == NULL)
-		return true;
+		return 1;
 
 	// Scale too close to zero, can't decompose rotation.
 	if (scaleX < MATH_TOLERANCE || scaleY < MATH_TOLERANCE || fabs(scaleZ) < MATH_TOLERANCE)
-		return false;
+		return 0;
 
 	float rn;
 
