@@ -247,18 +247,26 @@ unsigned int Form::draw(bool wireframe)
         // Drawing in 3D.
         // Setup a projection kmMat4 for drawing the form via the node's world transform.
         kmMat4 world(_node->getWorldMatrix());
-        world.scale(1, -1, 1);
-        world.translate(0, -_absoluteClipBounds.height, 0);
-        Matrix::multiply(_node->getViewProjectionMatrix(), world, &_projectionMatrix);
+		kmMat4 scale;
+		kmMat4Scaling(&scale, 1, -1, 1);
+		kmMat4Multiply(&world, &world, &scale);
+        //world.scale(1, -1, 1);
+		kmMat4 translate;
+		kmMat4Translation(&translate, 0, -_absoluteClipBounds.height, 0);
+		kmMat4Multiply(&world, &world, &translate);
+        //world.translate(0, -_absoluteClipBounds.height, 0);
+        //Matrix::multiply(_node->getViewProjectionMatrix(), world, &_projectionMatrix);
+		kmMat4Multiply(&_projectionMatrix, &_node->getViewProjectionMatrix(), &world);
     }
     else
     {
         // Drawing in 2D, so we need to clear the depth buffer
-        Game::getInstance()->clear(Game::CLEAR_DEPTH, Vector4::zero(), 1, 0);
+		Game::getInstance()->clear(Game::CLEAR_DEPTH, { 0.0f, 0.0f, 0.0f, 0.0f }, 1, 0);
 
         // Setup an ortho kmMat4 that maps to the current viewport
         const Rectangle& viewport = Game::getInstance()->getViewport();
-        Matrix::createOrthographicOffCenter(0, viewport.width, viewport.height, 0, 0, 1, &_projectionMatrix);
+        //Matrix::createOrthographicOffCenter(0, viewport.width, viewport.height, 0, 0, 1, &_projectionMatrix);
+		kmMat4OrthographicProjection(&_projectionMatrix, 0, viewport.width, viewport.height, 0, 0, 1);
     }
 
     // Draw the form
@@ -1009,19 +1017,23 @@ bool Form::projectPoint(int x, int y, kmVec3* point)
     {
         // Get info about the form's position.
         kmMat4 m = _node->getWorldMatrix();
-        kmVec3 pointOnPlane(0, 0, 0);
-        m.transformPoint(&pointOnPlane);
+		kmVec3 pointOnPlane = { 0, 0, 0 };
+        //m.transformPoint(&pointOnPlane);
+		kmMat3Transform(&pointOnPlane, &m, pointOnPlane.x, pointOnPlane.y, pointOnPlane.z, 1.0f );
 
         // Unproject point into world space.
         Ray ray;
         camera->pickRay(Game::getInstance()->getViewport(), x, y, &ray);
 
         // Find the quad's plane.  We know its normal is the quad's forward vector.
-        kmVec3 normal = _node->getForwardVectorWorld().normalize();
+        //kmVec3 normal = _node->getForwardVectorWorld().normalize();
+		kmVec3 normal;
+		kmVec3Normalize(&normal, &_node->getForwardVectorView());
 
         // To get the plane's distance from the origin, we project a point on the
         // plane onto the plane's normal vector.
-        const float distance = Vector3::dot(pointOnPlane, normal);
+        //const float distance = Vector3::dot(pointOnPlane, normal);
+		const float distance = kmVec3Dot(&pointOnPlane, &normal);
         Plane plane(normal, -distance);
 
         // Check for collision with plane.
@@ -1029,11 +1041,18 @@ bool Form::projectPoint(int x, int y, kmVec3* point)
         if (collisionDistance != Ray::INTERSECTS_NONE)
         {
             // Multiply the ray's direction vector by collision distance and add that to the ray's origin.
-            point->set(ray.getOrigin() + collisionDistance*ray.getDirection());
+			kmVec3 scale;
+			kmVec3Scale(&scale, &ray.getDirection(), collisionDistance);
+			kmVec3Add(point, &ray.getOrigin(), &scale);
+			//point = ray.getOrigin() + collisionDistance*ray.getDirection();
+
 
             // Project this point into the plane.
-            m.invert();
-            m.transformPoint(point);
+            //m.invert();
+			kmMat4Invert(&m, &m);
+            //m.transformPoint(point);
+			kmMat3Transform( point, &m, point->x, point->y, point->z, 1.0f);
+
 
             return true;
         }

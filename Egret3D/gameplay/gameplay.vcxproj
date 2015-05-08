@@ -64,6 +64,7 @@
     <ClCompile Include="src\kazmath\GL\matrix1.c" />
     <ClCompile Include="src\kazmath\mat3.c" />
     <ClCompile Include="src\kazmath\mat4.c" />
+    <ClCompile Include="src\kazmath\MathUtil.cpp" />
     <ClCompile Include="src\kazmath\neon_matrix_impl.c" />
     <ClCompile Include="src\kazmath\plane.c" />
     <ClCompile Include="src\kazmath\quaternion.c" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\kazmath\kazmath.h" />
     <ClInclude Include="src\kazmath\mat3.h" />
     <ClInclude Include="src\kazmath\mat4.h" />
+    <ClInclude Include="src\kazmath\MathUtil.h" />
     <ClInclude Include="src\kazmath\neon_matrix_impl.h" />
     <ClInclude Include="src\kazmath\plane.h" />
     <ClInclude Include="src\kazmath\quaternion.h" />
@@ -287,6 +289,7 @@
     <None Include="src\BoundingSphere.inl" />
     <None Include="src\Game.inl" />
     <None Include="src\Image.inl" />
+    <None Include="src\kazmath\MathUtil.inl" />
     <None Include="src\MeshBatch.inl" />
     <None Include="src\Physics\PhysicsConstraint.inl" />
     <None Include="src\Physics\PhysicsFixedConstraint.inl" />

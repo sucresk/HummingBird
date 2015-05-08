@@ -393,6 +393,9 @@
     <ClCompile Include="src\kazmath\GL\matrix1.c">
       <Filter>kazmath</Filter>
     </ClCompile>
+    <ClCompile Include="src\kazmath\MathUtil.cpp">
+      <Filter>kazmath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
@@ -767,6 +770,9 @@
     <ClInclude Include="src\kazmath\GL\matrix1.h">
       <Filter>kazmath</Filter>
     </ClInclude>
+    <ClInclude Include="src\kazmath\MathUtil.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ScriptController.inl">
@@ -855,6 +861,9 @@
     </None>
     <None Include="src\Physics\PhysicsSpringConstraint.inl">
       <Filter>Physics</Filter>
+    </None>
+    <None Include="src\kazmath\MathUtil.inl">
+      <Filter>kazmath</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

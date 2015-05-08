@@ -103,39 +103,39 @@ Material* TerrainPatch::getMaterial(int index) const
 }
 
 void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int height,
-                          unsigned int x1, unsigned int z1, unsigned int x2, unsigned int z2,
-                          float xOffset, float zOffset,
-                          unsigned int step, float verticalSkirtSize)
+	unsigned int x1, unsigned int z1, unsigned int x2, unsigned int z2,
+	float xOffset, float zOffset,
+	unsigned int step, float verticalSkirtSize)
 {
-    // Allocate vertex data for this patch
-    unsigned int patchWidth;
-    unsigned int patchHeight;
-    if (step == 1)
-    {
-        patchWidth = (x2 - x1) + 1;
-        patchHeight = (z2 - z1) + 1;
-    }
-    else
-    {
-        patchWidth = (x2 - x1) / step + ((x2 - x1) %step == 0 ? 0 : 1) + 1;
-        patchHeight = (z2 - z1) / step + ((z2 - z1) % step == 0 ? 0 : 1) + 1;
-    }
+	// Allocate vertex data for this patch
+	unsigned int patchWidth;
+	unsigned int patchHeight;
+	if (step == 1)
+	{
+		patchWidth = (x2 - x1) + 1;
+		patchHeight = (z2 - z1) + 1;
+	}
+	else
+	{
+		patchWidth = (x2 - x1) / step + ((x2 - x1) % step == 0 ? 0 : 1) + 1;
+		patchHeight = (z2 - z1) / step + ((z2 - z1) % step == 0 ? 0 : 1) + 1;
+	}
 
-    if (patchWidth < 2 || patchHeight < 2)
-        return; // ignore this level, not enough geometry
+	if (patchWidth < 2 || patchHeight < 2)
+		return; // ignore this level, not enough geometry
 
-    if (verticalSkirtSize > 0.0f)
-    {
-        patchWidth += 2;
-        patchHeight += 2;
-    }
+	if (verticalSkirtSize > 0.0f)
+	{
+		patchWidth += 2;
+		patchHeight += 2;
+	}
 
-    unsigned int vertexCount = patchHeight * patchWidth;
-    unsigned int vertexElements = _terrain->_normalMap ? 5 : 8; //<x,y,z>[i,j,k]<u,v>
-    float* vertices = new float[vertexCount * vertexElements];
-    unsigned int index = 0;
-    kmVec3 min(FLT_MAX, FLT_MAX, FLT_MAX);
-    kmVec3 max(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+	unsigned int vertexCount = patchHeight * patchWidth;
+	unsigned int vertexElements = _terrain->_normalMap ? 5 : 8; //<x,y,z>[i,j,k]<u,v>
+	float* vertices = new float[vertexCount * vertexElements];
+	unsigned int index = 0;
+	kmVec3 min = { FLT_MAX, FLT_MAX, FLT_MAX };
+	kmVec3 max = {-FLT_MAX, -FLT_MAX, -FLT_MAX};
     float stepXScaled = step * _terrain->_localScale.x;
     float stepZScaled = step * _terrain->_localScale.z;
     bool zskirt = verticalSkirtSize > 0 ? true : false;
@@ -176,7 +176,7 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
             // Compute normal
             if (!_terrain->_normalMap)
             {
-                kmVec3 p(v[0], computeHeight(heights, width, x, z), v[2]);
+				kmVec3 p = { v[0], computeHeight(heights, width, x, z), v[2] };
                 kmVec3 w(Vector3(x>=step ? v[0]-stepXScaled : v[0], computeHeight(heights, width, x>=step ? x-step : x, z), v[2]), p);
                 kmVec3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
                 kmVec3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
