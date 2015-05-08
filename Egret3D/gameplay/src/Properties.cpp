@@ -2,6 +2,7 @@
 #include "Properties.h"
 #include "FileSystem.h"
 #include "Quaternion.h"
+#include "vec3.h"
 
 namespace egret
 {
@@ -870,15 +871,18 @@ bool Properties::getMatrix(const char* name, kmMat4* out) const
         if (scanned != 16)
         {
             GP_ERROR("Error attempting to parse property '%s' as a matrix.", name);
-            out->setIdentity();
+			kmMat4Identity(out);
+            //out->setIdentity();
             return false;
         }
 
-        out->set(m);
+		//out->set(m);
+		memcpy(out->mat, m, sizeof(float) * 16);
         return true;
     }
 
-    out->setIdentity();
+    //out->setIdentity();
+	kmMat4Identity(out);
     return false;
 }
 
@@ -1125,8 +1129,11 @@ bool Properties::parseVector2(const char* str, kmVec2* out)
         float x, y;
         if (sscanf(str, "%f,%f", &x, &y) == 2)
         {
-            if (out)
-                out->set(x, y);
+			if (out)
+			{
+				//out->set(x, y);
+				kmVec2Fill(out, x, y);
+			}
             return true;
         }
         else
@@ -1135,8 +1142,11 @@ bool Properties::parseVector2(const char* str, kmVec2* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f);
+		kmVec2Fill(out, 0.0f, 0.0f);
+	}
     return false;
 }
 
@@ -1147,8 +1157,11 @@ bool Properties::parseVector3(const char* str, kmVec3* out)
         float x, y, z;
         if (sscanf(str, "%f,%f,%f", &x, &y, &z) == 3)
         {
-            if (out)
-                out->set(x, y, z);
+			if (out)
+			{
+				//out->set(x, y, z);
+				kmVec3Fill(out, x, y, z);
+			}
             return true;
         }
         else
@@ -1157,8 +1170,11 @@ bool Properties::parseVector3(const char* str, kmVec3* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f, 0.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f, 0.0f);
+		kmVec3Fill(out, 0.0f, 0.0f, 0.0f);
+	}
     return false;
 }
 
@@ -1169,8 +1185,11 @@ bool Properties::parseVector4(const char* str, kmVec4* out)
         float x, y, z, w;
         if (sscanf(str, "%f,%f,%f,%f", &x, &y, &z, &w) == 4)
         {
-            if (out)
-                out->set(x, y, z, w);
+			if (out)
+			{
+				//out->set(x, y, z, w);
+				kmVec4Fill(out, x, y, z, w);
+			}
             return true;
         }
         else
@@ -1179,8 +1198,11 @@ bool Properties::parseVector4(const char* str, kmVec4* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f, 0.0f, 0.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f, 0.0f, 0.0f);
+		kmVec4Fill(out, 0.0f, 0.0f, 0.0f, 0.0f);
+	}
     return false;
 }
 
@@ -1191,8 +1213,11 @@ bool Properties::parseAxisAngle(const char* str, kmQuaternion* out)
         float x, y, z, theta;
         if (sscanf(str, "%f,%f,%f,%f", &x, &y, &z, &theta) == 4)
         {
-            if (out)
-                out->set(Vector3(x, y, z), MATH_DEG_TO_RAD(theta));
+			if (out)
+			{
+				//out->set(Vector3(x, y, z), MATH_DEG_TO_RAD(theta));
+				kmQuaternionSet(out, x, y, z, MATH_DEG_TO_RAD(theta));
+			}
             return true;
         }
         else
@@ -1201,8 +1226,11 @@ bool Properties::parseAxisAngle(const char* str, kmQuaternion* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f, 0.0f, 1.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f, 0.0f, 1.0f);
+		kmQuaternionSet(out, 0.0f, 0.0f, 0.0f, 1.0f);
+	}
     return false;
 }
 
@@ -1216,8 +1244,11 @@ bool Properties::parseColor(const char* str, kmVec3* out)
             unsigned int color;
             if (sscanf(str + 1, "%x", &color) == 1)
             {
-                if (out)
-                    out->set(Vector3::fromColor(color));
+				if (out)
+				{
+					//out->set(Vector3::fromColor(color));
+					kmVec3FromColor(out, color);
+				}
                 return true;
             }
             else
@@ -1233,8 +1264,11 @@ bool Properties::parseColor(const char* str, kmVec3* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f, 0.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f, 0.0f);
+		kmVec3Fill(out, 0.0f, 0.0f, 0.0f);
+	}
     return false;
 }
 
@@ -1248,8 +1282,11 @@ bool Properties::parseColor(const char* str, kmVec4* out)
             unsigned int color;
             if (sscanf(str + 1, "%x", &color) == 1)
             {
-                if (out)
-                    out->set(Vector4::fromColor(color));
+				if (out)
+				{
+					//out->set(Vector4::fromColor(color));
+					kmVec4FromColor(out, color);
+				}
                 return true;
             }
             else
@@ -1265,8 +1302,11 @@ bool Properties::parseColor(const char* str, kmVec4* out)
         }
     }
 
-    if (out)
-        out->set(0.0f, 0.0f, 0.0f, 0.0f);
+	if (out)
+	{
+		//out->set(0.0f, 0.0f, 0.0f, 0.0f);
+		kmVec4Fill(out, 0.0f, 0.0f, 0.0f, 0.0f);
+	}
     return false;
 }
 

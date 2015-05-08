@@ -155,3 +155,18 @@ kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn) {
     return pOut;
 }
 
+kmVec4* kmVec4FromColor(kmVec4* pOut, unsigned int color)
+{
+	float components[4];
+	int componentIndex = 0;
+	for (int i = 3; i >= 0; --i)
+	{
+		int component = (color >> i * 8) & 0x000000ff;
+
+		components[componentIndex++] = (float)((component) / 255.0f);
+	}
+	//Vector4 value(components);
+	kmVec4Fill(pOut, components[0], components[1], components[2], components[3]);
+	return pOut;
+}
+

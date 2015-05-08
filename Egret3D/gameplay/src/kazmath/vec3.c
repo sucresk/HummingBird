@@ -324,3 +324,17 @@ int kmVec3IsZero(kmVec3* pIn)
 {
 	return pIn->x == 0.0f && pIn->y == 0.0f && pIn->z == 0.0f;
 }
+
+kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color)
+{
+	float components[3];
+	int componentIndex = 0;
+	for (int i = 2; i >= 0; --i)
+	{
+		int component = (color >> i * 8) & 0x0000ff;
+
+		components[componentIndex++] = (float)((component) / 255.0f);
+	}
+	kmVec3Fill(pOut, components[0], components[1], components[2]);
+	return pOut;
+}

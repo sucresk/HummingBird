@@ -64,6 +64,8 @@ kmVec4* kmVec4TransformArray(kmVec4* pOut, unsigned int outStride,
             const kmVec4* pV, unsigned int vStride, const struct kmMat4* pM, unsigned int count);
 int     kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2);
 kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn);
+//add by hgl
+kmVec4* kmVec4FromColor(kmVec4* pOut, unsigned int color);
 
 #ifdef __cplusplus
 }
