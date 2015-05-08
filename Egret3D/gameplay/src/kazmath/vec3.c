@@ -319,3 +319,8 @@ kmVec3* kmVec3Zero(kmVec3* pOut) {
 
     return pOut;
 }
+
+int kmVec3IsZero(kmVec3* pIn)
+{
+	return pIn->x == 0.0f && pIn->y == 0.0f && pIn->z == 0.0f;
+}

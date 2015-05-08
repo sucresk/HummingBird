@@ -3,8 +3,10 @@
 #include "Game.h"
 #include "Node.h"
 #include "Scene.h"
-#include "Quaternion.h"
+#include "quaternion.h"
 #include "Properties.h"
+#include "kazmath/MathUtil.h"
+
 
 #define PARTICLE_COUNT_MAX                       100
 #define PARTICLE_EMISSION_RATE                   10
@@ -20,12 +22,12 @@ ParticleEmitter::ParticleEmitter(unsigned int particleCountMax) : Drawable(),
     _sizeStartMin(1.0f), _sizeStartMax(1.0f), _sizeEndMin(1.0f), _sizeEndMax(1.0f),
     _energyMin(1000L), _energyMax(1000L),
     _colorStart(vec4Zero), _colorStartVar(vec4Zero), _colorEnd(vec4One), _colorEndVar(vec4Zero),
-    _position(Vector3::zero()), _positionVar(Vector3::zero()),
-    _velocity(Vector3::zero()), _velocityVar(Vector3::one()),
-    _acceleration(Vector3::zero()), _accelerationVar(Vector3::zero()),
+    _position(vec3Zero), _positionVar(vec3Zero),
+    _velocity(vec3Zero), _velocityVar(vec3One),
+    _acceleration(vec3Zero), _accelerationVar(vec3Zero),
     _rotationPerParticleSpeedMin(0.0f), _rotationPerParticleSpeedMax(0.0f),
     _rotationSpeedMin(0.0f), _rotationSpeedMax(0.0f),
-    _rotationAxis(Vector3::zero()), _rotation(Matrix::identity()),
+	_rotationAxis(vec3Zero), _rotation(matIdentity),
     _spriteBatch(NULL), _spriteBlendMode(BLEND_ALPHA),  _spriteTextureWidth(0), _spriteTextureHeight(0), _spriteTextureWidthRatio(0), _spriteTextureHeightRatio(0), _spriteTextureCoords(NULL),
     _spriteAnimated(false),  _spriteLooped(false), _spriteFrameCount(1), _spriteFrameRandomOffset(0),_spriteFrameDuration(0L), _spriteFrameDurationSecs(0.0f), _spritePercentPerFrame(0.0f),
     _orbitPosition(false), _orbitVelocity(false), _orbitAcceleration(false),
@@ -310,12 +312,13 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
 
     kmVec3 translation;
     kmMat4 world = _node->getWorldMatrix();
-    world.getTranslation(&translation);
+    //world.getTranslation(&translation);
+	kmMat4Decompose(&world, NULL, NULL, &translation);
 
     // Take translation out of world kmMat4 so it can be used to rotate orbiting properties.
-    world.m[12] = 0.0f;
-    world.m[13] = 0.0f;
-    world.m[14] = 0.0f;
+    world.mat[12] = 0.0f;
+    world.mat[13] = 0.0f;
+    world.mat[14] = 0.0f;
 
     // Emit the new particles.
     for (unsigned int i = 0; i < particleCount; i++)
@@ -324,7 +327,7 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
 
         generateColor(_colorStart, _colorStartVar, &p->_colorStart);
         generateColor(_colorEnd, _colorEndVar, &p->_colorEnd);
-        p->_color.set(p->_colorStart);
+        p->_color = p->_colorStart;
 
         p->_energy = p->_energyStart = generateScalar(_energyMin, _energyMax);
         p->_size = p->_sizeStart = generateScalar(_sizeStartMin, _sizeStartMax);
@@ -343,27 +346,34 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
         // Rotate specified properties by the node's rotation.
         if (_orbitPosition)
         {
-            world.transformPoint(p->_position, &p->_position);
+            //world.transformPoint(p->_position, &p->_position);
+			kmMat3Transform(&p->_position, &world, p->_position.x, p->_position.y, p->_position.z, 1.0f);
         }
 
         if (_orbitVelocity)
         {
-            world.transformPoint(p->_velocity, &p->_velocity);
+            //world.transformPoint(p->_velocity, &p->_velocity);
+			kmMat3Transform(&p->_velocity, &world, p->_velocity.x, p->_velocity.y, p->_velocity.z, 1.0f);
         }
 
         if (_orbitAcceleration)
         {
-            world.transformPoint(p->_acceleration, &p->_acceleration);
+            //world.transformPoint(p->_acceleration, &p->_acceleration);
+			kmMat3Transform(&p->_acceleration, &world,
+				p->_acceleration.x, p->_acceleration.y, p->_acceleration.z, 1.0f);
         }
 
         // The rotation axis always orbits the node.
-        if (p->_rotationSpeed != 0.0f && !p->_rotationAxis.isZero())
+        if (p->_rotationSpeed != 0.0f && !kmVec3IsZero(&p->_rotationAxis))
         {
-            world.transformPoint(p->_rotationAxis, &p->_rotationAxis);
+            //world.transformPoint(p->_rotationAxis, &p->_rotationAxis);
+			kmMat3Transform(&p->_rotationAxis, &world,
+				p->_rotationAxis.x, p->_rotationAxis.y, p->_rotationAxis.z, 1.0f);
         }
 
         // Translate position relative to the node's world space.
-        p->_position.add(translation);
+        //p->_position.add(translation);
+		kmVec3Add(&p->_position, &p->_position, &translation);
 
         // Initial sprite frame.
         if (_spriteFrameRandomOffset > 0)
@@ -441,10 +451,10 @@ long ParticleEmitter::getEnergyMax() const
 
 void ParticleEmitter::setColor(const kmVec4& startColor, const kmVec4& startColorVar, const kmVec4& endColor, const kmVec4& endColorVar)
 {
-    _colorStart.set(startColor);
-    _colorStartVar.set(startColorVar);
-    _colorEnd.set(endColor);
-    _colorEndVar.set(endColorVar);
+    _colorStart = startColor;
+    _colorStartVar = startColorVar;
+    _colorEnd = endColor;
+    _colorEndVar = endColorVar;
 }
 
 const kmVec4& ParticleEmitter::getColorStart() const
@@ -469,8 +479,8 @@ const kmVec4& ParticleEmitter::getColorEndVariance() const
 
 void ParticleEmitter::setPosition(const kmVec3& position, const kmVec3& positionVar)
 {
-    _position.set(position);
-    _positionVar.set(positionVar);
+    _position= position;
+    _positionVar = positionVar;
 }
 
 const kmVec3& ParticleEmitter::getPosition() const
@@ -495,8 +505,8 @@ const kmVec3& ParticleEmitter::getVelocityVariance() const
 
 void ParticleEmitter::setVelocity(const kmVec3& velocity, const kmVec3& velocityVar)
 {
-    _velocity.set(velocity);
-    _velocityVar.set(velocityVar);
+    _velocity = velocity;
+    _velocityVar = velocityVar;
 }
 
 const kmVec3& ParticleEmitter::getAcceleration() const
@@ -511,8 +521,8 @@ const kmVec3& ParticleEmitter::getAccelerationVariance() const
 
 void ParticleEmitter::setAcceleration(const kmVec3& acceleration, const kmVec3& accelerationVar)
 {
-    _acceleration.set(acceleration);
-    _accelerationVar.set(accelerationVar);
+    _acceleration = acceleration;
+    _accelerationVar = accelerationVar;
 }
 
 void ParticleEmitter::setRotationPerParticle(float speedMin, float speedMax)
@@ -535,8 +545,8 @@ void ParticleEmitter::setRotation(float speedMin, float speedMax, const kmVec3& 
 {
     _rotationSpeedMin = speedMin;
     _rotationSpeedMax = speedMax;
-    _rotationAxis.set(axis);
-    _rotationAxisVar.set(axisVariance);
+    _rotationAxis = axis;
+    _rotationAxisVar = axisVariance;
 }
 
 float ParticleEmitter::getRotationSpeedMin() const
@@ -787,7 +797,7 @@ void ParticleEmitter::generateVectorInEllipsoid(const kmVec3& center, const kmVe
         dst->x = MATH_RANDOM_MINUS1_1();
         dst->y = MATH_RANDOM_MINUS1_1();
         dst->z = MATH_RANDOM_MINUS1_1();
-    } while (dst->length() > 1.0f);
+    } while (kmVec3Length(dst) > 1.0f);
     
     // Scale this point by the scaling vector.
     dst->x *= scale.x;
@@ -795,7 +805,8 @@ void ParticleEmitter::generateVectorInEllipsoid(const kmVec3& center, const kmVe
     dst->z *= scale.z;
 
     // Translate by the center point.
-    dst->add(center);
+    //dst->add(center);
+	kmVec3Add(dst, dst, &center);
 }
 
 void ParticleEmitter::generateVector(const kmVec3& base, const kmVec3& variance, kmVec3* dst, bool ellipsoid)
@@ -902,12 +913,16 @@ void ParticleEmitter::update(float elapsedTime)
 
         if (p->_energy > 0L)
         {
-            if (p->_rotationSpeed != 0.0f && !p->_rotationAxis.isZero())
+            if (p->_rotationSpeed != 0.0f && !kmVec3IsZero(& p->_rotationAxis) )
             {
-                Matrix::createRotation(p->_rotationAxis, p->_rotationSpeed * elapsedSecs, &_rotation);
-
-                _rotation.transformPoint(p->_velocity, &p->_velocity);
-                _rotation.transformPoint(p->_acceleration, &p->_acceleration);
+                //Matrix::createRotation(p->_rotationAxis, p->_rotationSpeed * elapsedSecs, &_rotation);
+				kmMat4CreateRotation(&_rotation, &p->_rotationAxis, p->_rotationSpeed);
+                //_rotation.transformPoint(p->_velocity, &p->_velocity);
+                //_rotation.transformPoint(p->_acceleration, &p->_acceleration);
+				kmMat3Transform(&p->_velocity, &_rotation,
+					p->_velocity.x, p->_velocity.y, p->_velocity.z, 1.0f);
+				kmMat3Transform(&p->_acceleration, &_rotation,
+					p->_acceleration.x, p->_acceleration.y, p->_acceleration.z, 1.0f);
             }
 
             // Particle is still alive.
@@ -1000,16 +1015,18 @@ unsigned int ParticleEmitter::draw(bool wireframe)
         _spriteBatch->start();
 
         // 2D Rotation.
-        static const kmVec2 pivot(0.5f, 0.5f);
+		static const kmVec2 pivot = { 0.5f, 0.5f };
 
         // 3D Rotation so that particles always face the camera.
         GP_ASSERT(_node && _node->getScene() && _node->getScene()->getActiveCamera() && _node->getScene()->getActiveCamera()->getNode());
         const kmMat4& cameraWorldMatrix = _node->getScene()->getActiveCamera()->getNode()->getWorldMatrix();
 
         kmVec3 right;
-        cameraWorldMatrix.getRightVector(&right);
+        //cameraWorldMatrix.getRightVector(&right);
         kmVec3 up;
-        cameraWorldMatrix.getUpVector(&up);
+        //cameraWorldMatrix.getUpVector(&up);
+		kmMat4GetRight(&right, &cameraWorldMatrix);
+		kmMat4GetUp(&up, &cameraWorldMatrix);
 
         for (unsigned int i = 0; i < _particleCount; i++)
         {

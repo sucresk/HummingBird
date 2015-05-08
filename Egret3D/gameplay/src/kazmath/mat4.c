@@ -1032,3 +1032,63 @@ kmPlane* const kmMat4ExtractPlane(kmPlane* pOut, const kmMat4* pIn, const kmEnum
 
     return pOut;
 }
+
+kmMat4* const kmMat4CreateRotation(kmMat4* pOut, const kmVec3* axis, float angle)
+{
+	float x = axis->x;
+	float y = axis->y;
+	float z = axis->z;
+
+	// Make sure the input axis is normalized.
+	float n = x*x + y*y + z*z;
+	if (n != 1.0f)
+	{
+		// Not normalized.
+		n = sqrt(n);
+		// Prevent divide too close to zero.
+		if (n > 0.000001f)
+		{
+			n = 1.0f / n;
+			x *= n;
+			y *= n;
+			z *= n;
+		}
+	}
+
+	float c = cos(angle);
+	float s = sin(angle);
+
+	float t = 1.0f - c;
+	float tx = t * x;
+	float ty = t * y;
+	float tz = t * z;
+	float txy = tx * y;
+	float txz = tx * z;
+	float tyz = ty * z;
+	float sx = s * x;
+	float sy = s * y;
+	float sz = s * z;
+
+	dst->mat[0] = c + tx*x;
+	dst->mat[1] = txy + sz;
+	dst->mat[2] = txz - sy;
+	dst->mat[3] = 0.0f;
+
+	dst->mat[4] = txy - sz;
+	dst->mat[5] = c + ty*y;
+	dst->mat[6] = tyz + sx;
+	dst->mat[7] = 0.0f;
+
+	dst->mat[8] = txz + sy;
+	dst->mat[9] = tyz - sx;
+	dst->mat[10] = c + tz*z;
+	dst->mat[11] = 0.0f;
+
+	dst->mat[12] = 0.0f;
+	dst->mat[13] = 0.0f;
+	dst->mat[14] = 0.0f;
+	dst->mat[15] = 1.0f;
+	return dst;
+}
+
+
