@@ -9,7 +9,7 @@
 #include "Gamepad.h"
 #include "FileSystem.h"
 #include "Bundle.h"
-#include "MathUtil.h"
+//#include "MathUtil.h"
 #include "Logger.h"
 
 // Math
@@ -18,7 +18,7 @@
 #include "vec3.h"
 #include "vec4.h"
 #include "Quaternion.h"
-#include "Matrix.h"
+//#include "Matrix.h"
 #include "Transform.h"
 #include "Ray.h"
 #include "Plane.h"

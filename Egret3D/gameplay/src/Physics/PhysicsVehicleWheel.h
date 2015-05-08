@@ -361,7 +361,7 @@ private:
     unsigned int _indexInHost;
     kmVec3 _initialOffset;
     kmVec3 _positionDelta;
-    Quaternion _orientation;
+    kmQuaternion _orientation;
 };
 
 }

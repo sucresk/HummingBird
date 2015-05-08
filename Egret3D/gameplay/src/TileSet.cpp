@@ -1,6 +1,5 @@
 #include "Base.h"
 #include "TileSet.h"
-#include "Matrix.h"
 #include "Scene.h"
 
 namespace egret
@@ -9,7 +8,7 @@ namespace egret
 TileSet::TileSet() : Drawable(),
     _tiles(NULL), _tileWidth(0), _tileHeight(0),
     _rowCount(0), _columnCount(0), _width(0), _height(0),
-    _opacity(1.0f), _color(Vector4::one()), _batch(NULL)
+	_opacity(1.0f), _color({ 1.0f, 1.0f, 1.0f, 1.0f }), _batch(NULL)
 {
 }
 
@@ -40,7 +39,7 @@ TileSet* TileSet::create(const char* imagePath,
     
     TileSet* tileset = new TileSet();
     tileset->_batch = batch;
-    tileset->_tiles = new Vector2[rowCount * columnCount];
+    tileset->_tiles = new kmVec2[rowCount * columnCount];
     memset(tileset->_tiles, -1, sizeof(float) * rowCount * columnCount * 2);
     tileset->_tileWidth = tileWidth;
     tileset->_tileHeight = tileHeight;
@@ -217,7 +216,7 @@ const kmVec4& TileSet::getColor() const
 unsigned int TileSet::draw(bool wireframe)
 {
     // Apply scene camera projection and translation offsets
-    kmVec3 position = Vector3::zero();
+	kmVec3 position = { 0.0f, 0.0f, 0.0f };
     if (_node && _node->getScene())
     {
         Camera* activeCamera = _node->getScene()->getActiveCamera();
@@ -251,7 +250,7 @@ unsigned int TileSet::draw(bool wireframe)
     {
         for (unsigned int col = 0; col < _columnCount; col++)
         {
-            kmVec2 scale = Vector2(_tileWidth, _tileHeight);
+			kmVec2 scale = { _tileWidth, _tileHeight };
             
             // Negative values are skipped to allow blank tiles
             if (_tiles[row * _columnCount + col].x >= 0 &&
@@ -259,8 +258,8 @@ unsigned int TileSet::draw(bool wireframe)
             {
                 Rectangle source = Rectangle(_tiles[row * _columnCount + col].x,
                                              _tiles[row * _columnCount + col].y, _tileWidth, _tileHeight);
-                _batch->draw(position, source, scale, Vector4(_color.x, _color.y, _color.z, _color.w * _opacity),
-                             Vector2(0.5f, 0.5f), 0);
+				_batch->draw(position, source, scale, { _color.x, _color.y, _color.z, _color.w * _opacity },
+				{ 0.5f, 0.5f }, 0);
             }
             
             position.x += _tileWidth;
@@ -277,9 +276,9 @@ Drawable* TileSet::clone(NodeCloneContext& context)
     TileSet* tilesetClone = new TileSet();
 
     // Clone properties
-    tilesetClone->_tiles = new Vector2[tilesetClone->_rowCount * tilesetClone->_columnCount];
+    tilesetClone->_tiles = new kmVec2[tilesetClone->_rowCount * tilesetClone->_columnCount];
     memset(tilesetClone->_tiles, -1, sizeof(float) * tilesetClone->_rowCount * tilesetClone->_columnCount * 2);
-    memcpy(tilesetClone->_tiles, _tiles, sizeof(Vector2) * tilesetClone->_rowCount * tilesetClone->_columnCount);
+    memcpy(tilesetClone->_tiles, _tiles, sizeof(kmVec2) * tilesetClone->_rowCount * tilesetClone->_columnCount);
     tilesetClone->_tileWidth = _tileWidth;
     tilesetClone->_tileHeight = _tileHeight;
     tilesetClone->_rowCount = _rowCount;

@@ -398,7 +398,7 @@ void TextBox::setCaretLocation(int x, int y)
 {
     Control::State state = getState();
 
-    kmVec2 point(x + _absoluteBounds.x, y + _absoluteBounds.y);
+	kmVec2 point = { x + _absoluteBounds.x, y + _absoluteBounds.y };
 
     // Get index into string and cursor location from the latest touch location.
     Font* font = getFont(state);

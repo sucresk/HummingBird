@@ -76,7 +76,7 @@ Theme* Theme::getDefault()
             __defaultTheme = new Theme();
             unsigned int color = 0x00000000;
             __defaultTheme->_texture = Texture::create(Texture::RGBA, 1, 1, (unsigned char*)&color, false);
-            __defaultTheme->_emptyImage = new Theme::ThemeImage(1.0f, 1.0f, Rectangle::empty(), Vector4::zero());
+			__defaultTheme->_emptyImage = new Theme::ThemeImage(1.0f, 1.0f, Rectangle::empty(), { 0.0f, 0.0f, 0.0f, 0.0f });
             __defaultTheme->_spriteBatch = SpriteBatch::create(__defaultTheme->_texture);
             __defaultTheme->_spriteBatch->getSampler()->setFilterMode(Texture::LINEAR_MIPMAP_LINEAR, Texture::LINEAR);
             __defaultTheme->_spriteBatch->getSampler()->setWrapMode(Texture::CLAMP, Texture::CLAMP);
@@ -145,7 +145,7 @@ Theme* Theme::create(const char* url)
     float tw = 1.0f / theme->_texture->getWidth();
     float th = 1.0f / theme->_texture->getHeight();
 
-    theme->_emptyImage = new Theme::ThemeImage(tw, th, Rectangle::empty(), Vector4::zero());
+	theme->_emptyImage = new Theme::ThemeImage(tw, th, Rectangle::empty(), { 0.0f, 0.0f, 0.0f, 0.0f });
 
     Properties* space = themeProperties->getNextNamespace();
     while (space != NULL)
@@ -155,7 +155,7 @@ Theme* Theme::create(const char* url)
             
         if (strcmpnocase(spacename, "image") == 0)
         {
-            theme->_images.push_back(ThemeImage::create(tw, th, space, Vector4::one()));
+			theme->_images.push_back(ThemeImage::create(tw, th, space, { 1.0f, 1.0f, 1.0f, 1.0f }));
         }
         else if (strcmpnocase(spacename, "imageList") == 0)
         {
@@ -181,7 +181,7 @@ Theme* Theme::create(const char* url)
             space->getVector4("region", &regionVector);
             const Rectangle region(regionVector.x, regionVector.y, regionVector.z, regionVector.w);
 
-            kmVec4 color(1, 1, 1, 1);
+			kmVec4 color = { 1, 1, 1, 1 };
             if (space->exists("color"))
             {
                 space->getColor("color", &color);
@@ -219,7 +219,7 @@ Theme* Theme::create(const char* url)
                 const char* innerSpacename = innerSpace->getNamespace();
                 if (strcmpnocase(innerSpacename, "stateNormal") == 0)
                 {
-                    kmVec4 textColor(0, 0, 0, 1);
+					kmVec4 textColor = { 0, 0, 0, 1 };
                     if (innerSpace->exists("textColor"))
                     {
                         innerSpace->getColor("textColor", &textColor);
@@ -308,7 +308,7 @@ Theme* Theme::create(const char* url)
                     kmVec4 textColor;
                     if (!innerSpace->getColor("textColor", &textColor))
                     {
-                        textColor.set(normal->getTextColor());
+                        textColor = normal->getTextColor();
                     }
 
                     Font* font = NULL;
@@ -608,7 +608,7 @@ Theme::ThemeImage* Theme::ThemeImage::create(float tw, float th, Properties* pro
     }
     else
     {
-        color.set(defaultColor);
+        color = defaultColor;
     }
 
     ThemeImage* image = new ThemeImage(tw, th, region, color);
@@ -674,7 +674,7 @@ Theme::ImageList* Theme::ImageList::create(float tw, float th, Properties* prope
 {
     GP_ASSERT(properties);
 
-    kmVec4 color(1, 1, 1, 1);
+	kmVec4 color = { 1, 1, 1, 1 };
     if (properties->exists("color"))
     {
         properties->getColor("color", &color);

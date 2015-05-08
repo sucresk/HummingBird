@@ -172,7 +172,7 @@ public:
      * @return A new Terrain.
      * @script{create}
      */
-    static Terrain* create(HeightField* heightfield, const kmVec3& scale = Vector3::one(), unsigned int patchSize = 32,
+	static Terrain* create(HeightField* heightfield, const kmVec3& scale = {1.0f, 1.0f, 1.0f }, unsigned int patchSize = 32,
                            unsigned int detailLevels = 1, float skirtScale = 0.0f, const char* normalMapPath = NULL,
                            const char* materialPath = NULL);
 
@@ -258,7 +258,7 @@ public:
      *
      * @script{ignore}
      */
-    bool setLayer(int index, const char* texturePath, const kmVec2& textureRepeat = Vector2::one(),
+	bool setLayer(int index, const char* texturePath, const kmVec2& textureRepeat = { 1.0f, 1.0f },
                   const char* blendPath = NULL, int blendChannel = 0,
                   int row = -1, int column = -1);
 

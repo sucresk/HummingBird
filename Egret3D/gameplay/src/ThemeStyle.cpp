@@ -98,7 +98,7 @@ Theme::Style::Overlay* Theme::Style::Overlay::create()
 
 Theme::Style::Overlay::Overlay()
     : _skin(NULL), _cursor(NULL), _imageList(NULL), _font(NULL),
-    _fontSize(0), _alignment(Font::ALIGN_TOP_LEFT), _textRightToLeft(false), _textColor(Vector4::one()), _opacity(1.0f)
+	_fontSize(0), _alignment(Font::ALIGN_TOP_LEFT), _textRightToLeft(false), _textColor({ 1.0f, 1.0f, 1.0f ,1.0f }), _opacity(1.0f)
 {
 }
 
@@ -121,7 +121,7 @@ Theme::Style::Overlay::Overlay(const Overlay& copy) : _skin(NULL), _cursor(NULL)
     _fontSize = copy._fontSize;
     _alignment = copy._alignment;
     _textRightToLeft = copy._textRightToLeft;
-    _textColor = Vector4(copy._textColor);
+    _textColor = copy._textColor;
     _opacity = copy._opacity;
 
     if (_font)
@@ -175,7 +175,7 @@ void Theme::Style::Overlay::setSkinColor(const kmVec4& color)
 {
     if (_skin)
     {
-        _skin->_color.set(color);
+        _skin->_color = color;
     }
 }
 
@@ -186,7 +186,7 @@ const kmVec4& Theme::Style::Overlay::getSkinColor() const
         return _skin->getColor();
     }
 
-    return Vector4::one();
+	return{ 1.0f, 1.0f, 1.0f, 1.0f };
 }
 
 void Theme::Style::Overlay::setSkinRegion(const Rectangle& region, float tw, float th)
@@ -312,7 +312,7 @@ const kmVec4& Theme::Style::Overlay::getImageColor(const char* id) const
     }
     else
     {
-        return Vector4::zero();
+		return{ 0.0f, 0.0f, 0.0f, 0.0f };
     }
 }
 
@@ -321,7 +321,7 @@ void Theme::Style::Overlay::setImageColor(const char* id, const kmVec4& color)
     GP_ASSERT(_imageList);
     ThemeImage* image = _imageList->getImage(id);
     GP_ASSERT(image);
-    image->_color.set(color);
+    image->_color = color;
 }
 
 const Theme::UVs& Theme::Style::Overlay::getImageUVs(const char* id) const
@@ -365,14 +365,14 @@ const kmVec4& Theme::Style::Overlay::getCursorColor() const
     }
     else
     {
-        return Vector4::zero();
+		return{0.0f, 0.0f, 0.0f, 0.0f };
     }
 }
 
 void Theme::Style::Overlay::setCursorColor(const kmVec4& color)
 {
     GP_ASSERT(_cursor);
-    _cursor->_color.set(color);
+    _cursor->_color = color;
 }
 
 const Theme::UVs& Theme::Style::Overlay::getCursorUVs() const

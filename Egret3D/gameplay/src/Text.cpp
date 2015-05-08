@@ -1,6 +1,5 @@
 #include "Base.h"
 #include "Text.h"
-#include "Matrix.h"
 #include "Scene.h"
 
 namespace egret
@@ -9,7 +8,7 @@ namespace egret
 Text::Text() :
     _font(NULL), _drawFont(NULL), _text(""), _size(0), _width(0), _height(0), _wrap(true), _rightToLeft(false),
     _align(Font::ALIGN_TOP_LEFT), _clip(Rectangle(0, 0, 0, 0)),
-    _opacity(1.0f), _color(Vector4::one())
+	_opacity(1.0f), _color({ 1.0f, 1.0f, 1.0f, 1.0f })
 {
 }
 
@@ -92,7 +91,7 @@ Text* Text::create(Properties* properties)
     }
 
     // Get text color
-    kmVec4 color = Vector4::one();
+	kmVec4 color = { 1.0f, 1.0f ,1.0f, 1.0f };
     if (properties->exists("color"))
     {
         switch (properties->getType("color"))
@@ -233,7 +232,7 @@ unsigned int Text::draw(bool wireframe)
 {
     // Apply scene camera projection and translation offsets
     Rectangle viewport = Game::getInstance()->getViewport();
-    kmVec3 position = Vector3::zero();
+	kmVec3 position = { 0.0f, 0.0f, 0.0f };
     
     // Font is always using a offset projection kmMat4 to top-left. So we need to adjust it back to cartesian
     position.x += viewport.width / 2;
@@ -266,7 +265,7 @@ unsigned int Text::draw(bool wireframe)
     }
     _drawFont->start();
     _drawFont->drawText(_text.c_str(), Rectangle(position.x, position.y, _width, _height),
-                    Vector4(_color.x, _color.y, _color.z, _color.w * _opacity), _size,
+	{ _color.x, _color.y, _color.z, _color.w * _opacity }, _size,
                     _align, _wrap, _rightToLeft, clipViewport);
     _drawFont->finish();
     return 1;
@@ -334,10 +333,10 @@ void Text::setAnimationPropertyValue(int propertyId, AnimationValue* value, floa
             setOpacity(Curve::lerp(blendWeight, _opacity, value->getFloat(0)));
             break;
         case ANIMATE_COLOR:
-            setColor(Vector4(Curve::lerp(blendWeight, _color.x, value->getFloat(0)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(1)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(2)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(3))));
+			setColor({ Curve::lerp(blendWeight, _color.x, value->getFloat(0)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(1)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(2)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(3)) });
             break;
         default:
             break;

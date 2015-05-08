@@ -495,7 +495,8 @@ void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, i
             clearColor.w != _clearColor.w )
         {
             gContext3D.EgClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
-            _clearColor.set(clearColor);
+            //_clearColor.set(clearColor);
+			kmVec4Fill(&_clearColor, clearColor.x, clearColor.y, clearColor.z, clearColor.w);
         }
         bits |= GL_COLOR_BUFFER_BIT;
     }
@@ -529,7 +530,7 @@ void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, i
 
 void Game::clear(ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil)
 {
-    clear(flags, Vector4(red, green, blue, alpha), clearDepth, clearStencil);
+	clear(flags, { red, green, blue, alpha }, clearDepth, clearStencil);
 }
 
 AudioListener* Game::getAudioListener()

@@ -118,7 +118,7 @@ unsigned int ImageControl::drawImages(Form* form, const Rectangle& clip)
 
     startBatch(form, _batch);
 
-    kmVec4 color = Vector4::one();
+	kmVec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
     color.w *= _opacity;
 
     if (_dstRegion.isEmpty())

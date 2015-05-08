@@ -306,16 +306,19 @@ void Gamepad::getJoystickValues(unsigned int joystickId, kmVec2* outValue) const
         if (joystick)
         {
             const kmVec2& value = joystick->getValue();
-            outValue->set(value.x, value.y);
+            //outValue->set(value.x, value.y);
+			kmVec2Fill(outValue, value.x, value.y);
         }
         else
         {
-            outValue->set(0.0f, 0.0f);
+            //outValue->set(0.0f, 0.0f);
+			kmVec2Fill(outValue, 0.0f, 0.0f);
         }
     }
     else
     {
-        outValue->set(_joysticks[joystickId]);
+        //outValue->set(_joysticks[joystickId]);
+		kmVec2Fill(outValue, _joysticks[joystickId].x, _joysticks[joystickId].y);
     }
 }
 
@@ -363,7 +366,8 @@ void Gamepad::setJoystickValue(unsigned int index, float x, float y)
 {
     if (_joysticks[index].x != x || _joysticks[index].y != y)
     {
-        _joysticks[index].set(x, y);
+        //_joysticks[index].set(x, y);
+		kmVec2Fill(&_joysticks[index], x, y);
         Form::gamepadJoystickEventInternal(this, index);
     }
 }

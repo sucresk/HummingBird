@@ -15,7 +15,8 @@ Transform::Transform()
     GP_REGISTER_SCRIPT_EVENTS();
 
     _targetType = AnimationTarget::TRANSFORM;
-    _scale.set(Vector3::one());
+    //_scale.set(Vector3::one());
+	kmVec3Fill(&_scale, 1.0f, 1.0f, 1.0f);
 }
 
 Transform::Transform(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation)
