@@ -9,8 +9,8 @@ namespace egret
 {
 
 Ray::Ray()
-    : _direction(0, 0, 1)
 {
+	_direction = { 0.0f, 1.0f, 0.0f };
 }
 
 Ray::Ray(const kmVec3& origin, const kmVec3& direction)
@@ -20,7 +20,7 @@ Ray::Ray(const kmVec3& origin, const kmVec3& direction)
 
 Ray::Ray(float originX, float originY, float originZ, float dirX, float dirY, float dirZ)
 {
-    set(Vector3(originX, originY, originZ), Vector3(dirX, dirY, dirZ));
+	set({ originX, originY, originZ }, { dirX, dirY, dirZ });
 }
 
 Ray::Ray(const Ray& copy)
@@ -44,7 +44,7 @@ void Ray::setOrigin(const kmVec3& origin)
 
 void Ray::setOrigin(float x, float y, float z)
 {
-    _origin.set(x, y, z);
+	_origin = { x, y, z };
 }
 
 const kmVec3& Ray::getDirection() const
@@ -60,7 +60,7 @@ void Ray::setDirection(const kmVec3& direction)
 
 void Ray::setDirection(float x, float y, float z)
 {
-    _direction.set(x, y, z);
+	_direction = { x, y, z };
     normalize();
 }
 
@@ -124,13 +124,15 @@ float Ray::intersects(const Plane& plane) const
 {
     const kmVec3& normal = plane.getNormal();
     // If the origin of the ray is on the plane then the distance is zero.
-    float alpha = (normal.dot(_origin) + plane.getDistance());
+    //float alpha = (normal.dot(_origin) + plane.getDistance());
+	float alpha = (kmVec3Dot(&normal, &_origin) + plane.getDistance());
     if (fabs(alpha) < MATH_EPSILON)
     {
         return 0.0f;
     }
 
-    float dot = normal.dot(_direction);
+    //float dot = normal.dot(_direction);
+	float dot = kmVec3Dot(&normal, &_direction);
     
     // If the dot product of the plane's normal and this ray's direction is zero,
     // then the ray is parallel to the plane and does not intersect it.
@@ -165,14 +167,18 @@ void Ray::set(const Ray& ray)
 
 void Ray::transform(const kmMat4& matrix)
 {
-    matrix.transformPoint(&_origin);
-    matrix.transformVector(&_direction);
-    _direction.normalize();
+    //matrix.transformPoint(&_origin);
+    //matrix.transformVector(&_direction);
+    //_direction.normalize();
+	kmMat3Transform(&_origin, &matrix, _origin.x, _origin.y, _origin.z, 1.0f);
+	kmMat3Transform(&_direction, &matrix, _origin.x, _origin.y, _origin.z, 1.0f);
+	kmVec3Normalize(&_direction, &_direction);
 }
 
 void Ray::normalize()
 {
-    if (_direction.isZero())
+    //if (_direction.isZero())
+	if ( kmVec3IsZero( &_direction) )
     {
         GP_ERROR("Invalid ray object; a ray's direction must be non-zero.");
         return;
