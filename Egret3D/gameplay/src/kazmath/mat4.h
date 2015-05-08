@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 
 struct kmVec3;
+struct kmVec4;
 struct kmMat3;
 struct kmQuaternion;
 struct kmPlane;
@@ -55,6 +56,7 @@ extern kmMat4 gkmMat4;
  kmMat4* const kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
  kmMat4* const kmMat4Identity(kmMat4* pOut);
  kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
+ kmMat4* const kmMat4Invert(kmMat4 *pOut, const kmMat4* pM);
  const int kmMat4IsIdentity(const kmMat4* pIn);
  kmMat4* const kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
  kmMat4* const kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
@@ -73,6 +75,7 @@ extern kmMat4 gkmMat4;
  struct kmVec3* const kmMat4GetRightVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat3Transform(struct kmVec3* pOut, const kmMat4* pIn, float x, float y, float z, float w);
+ struct kmVec4* const kmMat4Transform(struct kmVec4* pOut, const kmMat4* pIn, float x, float y, float z, float w);
  const int kmMat4Decompose( const kmMat4* pIn, struct kmVec3* scale, struct kmQuaternion* rotation, struct kmVec3* translation);
 
  kmMat4* const kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar);

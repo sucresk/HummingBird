@@ -241,11 +241,13 @@ const kmMat4& Camera::getViewMatrix() const
         if (_node)
         {
             // The view kmMat4 is the inverse of our transform matrix.
-            _node->getWorldMatrix().invert(&_view);
+            //_node->getWorldMatrix().invert(&_view);
+			kmMat4Invert(&_view, &_node->getWorldMatrix());
         }
         else
         {
-            _view.setIdentity();
+            //_view.setIdentity();
+			kmMat4Identity(&_view);
         }
 
         _bits &= ~CAMERA_DIRTY_VIEW;
@@ -258,7 +260,8 @@ const kmMat4& Camera::getInverseViewMatrix() const
 {
     if (_bits & CAMERA_DIRTY_INV_VIEW)
     {
-        getViewMatrix().invert(&_inverseView);
+        //getViewMatrix().invert(&_inverseView);
+		kmMat4Invert(&_inverseView, &getViewMatrix());
 
         _bits &= ~CAMERA_DIRTY_INV_VIEW;
     }
@@ -272,12 +275,17 @@ const kmMat4& Camera::getProjectionMatrix() const
     {
         if (_type == PERSPECTIVE)
         {
-            Matrix::createPerspective(_fieldOfView, _aspectRatio, _nearPlane, _farPlane, &_projection);
+            //Matrix::createPerspective(_fieldOfView, _aspectRatio, _nearPlane, _farPlane, &_projection);
+			kmMat4PerspectiveProjection(&_projection, _fieldOfView, _aspectRatio, _nearPlane, _farPlane);
         }
         else
         {
             // Create an ortho projection with the origin at the bottom left of the viewport, +X to the right and +Y up.
-            Matrix::createOrthographic(_zoom[0], _zoom[1], _nearPlane, _farPlane, &_projection);
+            //Matrix::createOrthographic(_zoom[0], _zoom[1], _nearPlane, _farPlane, &_projection);
+			float halfWidth =  _zoom[0] / 2.0f;
+			float halfHeight = _zoom[1] / 2.0f;
+			kmMat4OrthographicProjection(&_projection, -halfWidth, halfWidth,
+				-halfHeight, halfHeight, _nearPlane, _farPlane );
         }
 
         _bits &= ~CAMERA_DIRTY_PROJ;
@@ -310,8 +318,8 @@ const kmMat4& Camera::getViewProjectionMatrix() const
 {
     if (_bits & CAMERA_DIRTY_VIEW_PROJ)
     {
-        Matrix::multiply(getProjectionMatrix(), getViewMatrix(), &_viewProjection);
-
+        //Matrix::multiply(getProjectionMatrix(), getViewMatrix(), &_viewProjection);
+		kmMat4Multiply(&_viewProjection, &getProjectionMatrix(), &getViewMatrix());
         _bits &= ~CAMERA_DIRTY_VIEW_PROJ;
     }
 
@@ -322,7 +330,8 @@ const kmMat4& Camera::getInverseViewProjectionMatrix() const
 {
     if (_bits & CAMERA_DIRTY_INV_VIEW_PROJ)
     {
-        getViewProjectionMatrix().invert(&_inverseViewProjection);
+        //getViewProjectionMatrix().invert(&_inverseViewProjection);
+		kmMat4Invert(&_inverseViewProjection, &getViewProjectionMatrix());
 
         _bits &= ~CAMERA_DIRTY_INV_VIEW_PROJ;
     }

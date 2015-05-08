@@ -32,6 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kazmath/utility.h"
 #include "kazmath/vec3.h"
+#include "kazmath/vec4.h"
 #include "kazmath/mat4.h"
 #include "kazmath/mat3.h"
 #include "kazmath/quaternion.h"
@@ -186,6 +187,61 @@ kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
     kmMat4Assign(pOut, &inv);
     return pOut;
 }
+
+kmMat4* const kmMat4Invert(kmMat4 *pOut, const kmMat4* pM)
+{
+	float a0 = pM->mat[0] * pM->mat[5] - pM->mat[1] * pM->mat[4];
+	float a1 = pM->mat[0] * pM->mat[6] - pM->mat[2] * pM->mat[4];
+	float a2 = pM->mat[0] * pM->mat[7] - pM->mat[3] * pM->mat[4];
+	float a3 = pM->mat[1] * pM->mat[6] - pM->mat[2] * pM->mat[5];
+	float a4 = pM->mat[1] * pM->mat[7] - pM->mat[3] * pM->mat[5];
+	float a5 = pM->mat[2] * pM->mat[7] - pM->mat[3] * pM->mat[6];
+	float b0 = pM->mat[8] * pM->mat[13] - pM->mat[9] * pM->mat[12];
+	float b1 = pM->mat[8] * pM->mat[14] - pM->mat[10] * pM->mat[12];
+	float b2 = pM->mat[8] * pM->mat[15] - pM->mat[11] * pM->mat[12];
+	float b3 = pM->mat[9] * pM->mat[14] - pM->mat[10] * pM->mat[13];
+	float b4 = pM->mat[9] * pM->mat[15] - pM->mat[11] * pM->mat[13];
+	float b5 = pM->mat[10] * pM->mat[15] - pM->mat[11] * pM->mat[14];
+
+	// Calculate the determinant.
+	float det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
+
+	// Close to zero, can't invert.
+	if (fabs(det) <= MATH_TOLERANCE)
+		return NULL;
+
+	// Support the case where m == dst.
+	kmMat4 inverse;
+	inverse.mat[0] = pM->mat[5] * b5 - pM->mat[6] * b4 + pM->mat[7] * b3;
+	inverse.mat[1] = -pM->mat[1] * b5 + pM->mat[2] * b4 - pM->mat[3] * b3;
+	inverse.mat[2] = pM->mat[13] * a5 - pM->mat[14] * a4 + pM->mat[15] * a3;
+	inverse.mat[3] = -pM->mat[9] * a5 + pM->mat[10] * a4 - pM->mat[11] * a3;
+
+	inverse.mat[4] = -pM->mat[4] * b5 + pM->mat[6] * b2 - pM->mat[7] * b1;
+	inverse.mat[5] = pM->mat[0] * b5 - pM->mat[2] * b2 + pM->mat[3] * b1;
+	inverse.mat[6] = -pM->mat[12] * a5 + pM->mat[14] * a2 - pM->mat[15] * a1;
+	inverse.mat[7] = pM->mat[8] * a5 - pM->mat[10] * a2 + pM->mat[11] * a1;
+
+	inverse.mat[8] = pM->mat[4] * b4 - pM->mat[5] * b2 + pM->mat[7] * b0;
+	inverse.mat[9] = -pM->mat[0] * b4 + pM->mat[1] * b2 - pM->mat[3] * b0;
+	inverse.mat[10] = pM->mat[12] * a4 - pM->mat[13] * a2 + pM->mat[15] * a0;
+	inverse.mat[11] = -pM->mat[8] * a4 + pM->mat[9] * a2 - pM->mat[11] * a0;
+
+	inverse.mat[12] = -pM->mat[4] * b3 + pM->mat[5] * b1 - pM->mat[6] * b0;
+	inverse.mat[13] = pM->mat[0] * b3 - pM->mat[1] * b1 + pM->mat[2] * b0;
+	inverse.mat[14] = -pM->mat[12] * a3 + pM->mat[13] * a1 - pM->mat[14] * a0;
+	inverse.mat[15] = pM->mat[8] * a3 - pM->mat[9] * a1 + pM->mat[10] * a0;
+
+	float invert = 1.0f / det;
+	for (int i = 0; i < 16; i++ )
+	{
+		pOut->mat[i] = inverse.mat[i] * invert;
+	}
+	return pOut;
+	//multiply(inverse, 1.0f / det, dst);
+
+}
+
 /**
  * Returns KM_TRUE if pIn is an identity matrix
  * KM_FALSE otherwise
@@ -585,6 +641,15 @@ struct kmVec3* const kmMat3Transform( kmVec3* pOut, const kmMat4* pIn, float x, 
 	pOut->x = x * pIn->mat[0] + y * pIn->mat[4] + z * pIn->mat[8] + w * pIn->mat[12];
 	pOut->y = x * pIn->mat[1] + y * pIn->mat[5] + z * pIn->mat[9] + w * pIn->mat[13];
 	pOut->z = x * pIn->mat[2] + y * pIn->mat[6] + z * pIn->mat[10] + w * pIn->mat[14];
+	return pOut;
+}
+
+struct kmVec4* const kmMat4Transform(kmVec4* pOut, const kmMat4* pIn, float x, float y, float z, float w)
+{
+	pOut->x = x * pIn->mat[0] + y * pIn->mat[4] + z * pIn->mat[8] + w * pIn->mat[12];
+	pOut->y = x * pIn->mat[1] + y * pIn->mat[5] + z * pIn->mat[9] + w * pIn->mat[13];
+	pOut->z = x * pIn->mat[2] + y * pIn->mat[6] + z * pIn->mat[10] + w * pIn->mat[14];
+	pOut->w = x * pIn->mat[3] + y * pIn->mat[7] + z * pIn->mat[11] + w * pIn->mat[15];
 	return pOut;
 }
 

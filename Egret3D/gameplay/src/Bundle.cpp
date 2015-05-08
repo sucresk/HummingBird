@@ -925,7 +925,7 @@ Light* Bundle::readLight()
         GP_ERROR("Failed to load light color in bundle '%s'.", _path.c_str());
         return NULL;
     }
-    kmVec3 color(red, blue, green);
+	kmVec3 color = { red, blue, green };
 
     Light* light = NULL;
     if (type == Light::DIRECTIONAL)
@@ -1083,17 +1083,18 @@ MeshSkin* Bundle::readMeshSkin()
     if (jointsBindPosesCount > 0)
     {
         GP_ASSERT(jointCount * 16 == jointsBindPosesCount);
-        float m[16];
+        //float m[16];
+		kmMat4 mat4;
         for (unsigned int i = 0; i < jointCount; i++)
         {
-            if (!readMatrix(m))
+            if (!readMatrix(mat4.mat))
             {
                 GP_ERROR("Failed to load joint bind pose kmMat4 (for joint with index %d) in bundle '%s'.", i, _path.c_str());
                 SAFE_DELETE(meshSkin);
                 SAFE_DELETE(skinData);
                 return NULL;
             }
-            skinData->inverseBindPoseMatrices.push_back(m);
+            skinData->inverseBindPoseMatrices.push_back( mat4 );
         }
     }
 
@@ -1836,10 +1837,13 @@ void Bundle::setTransform(const float* values, Transform* transform)
     GP_ASSERT(transform);
 
     // Load array into transform.
-    kmMat4 matrix(values);
+    //kmMat4 matrix(values);
+	kmMat4 matrix;
+	memcpy(matrix.mat, values, sizeof(float) * 16);
     kmVec3 scale, translation;
-    Quaternion rotation;
-    matrix.decompose(&scale, &rotation, &translation);
+    kmQuaternion rotation;
+    //matrix.decompose(&scale, &rotation, &translation);
+	kmMat4Decompose(&matrix, &scale, &rotation, &translation);
     transform->setScale(scale);
     transform->setTranslation(translation);
     transform->setRotation(rotation);
