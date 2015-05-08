@@ -425,7 +425,7 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
         }
         case SceneNodeProperty::ROTATE:
         {
-            Quaternion r;
+            kmQuaternion r;
             if (Properties::parseAxisAngle(snp._value.c_str(), &r))
                 node->rotate(r);
             break;
@@ -901,7 +901,7 @@ PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constrai
     PhysicsGenericConstraint* physicsConstraint = NULL;
 
     // Create the constraint from the specified properties.
-    Quaternion roA;
+    kmQuaternion roA;
     kmVec3 toA;
     bool offsetSpecified = constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     offsetSpecified |= constraint->getVector3("translationOffsetA", &toA);
@@ -910,7 +910,7 @@ PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constrai
     {
         if (rbB)
         {
-            Quaternion roB;
+            kmQuaternion roB;
             kmVec3 toB;
             constraint->getQuaternionFromAxisAngle("rotationOffsetB", &roB);
             constraint->getVector3("translationOffsetB", &toB);
@@ -950,13 +950,13 @@ PhysicsConstraint* SceneLoader::loadHingeConstraint(const Properties* constraint
     PhysicsHingeConstraint* physicsConstraint = NULL;
 
     // Create the constraint from the specified properties.
-    Quaternion roA;
+    kmQuaternion roA;
     kmVec3 toA;
     constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     constraint->getVector3("translationOffsetA", &toA);
     if (rbB)
     {
-        Quaternion roB;
+        kmQuaternion roB;
         kmVec3 toB;
         constraint->getQuaternionFromAxisAngle("rotationOffsetB", &roB);
         constraint->getVector3("translationOffsetB", &toB);
@@ -1220,7 +1220,7 @@ PhysicsConstraint* SceneLoader::loadSpringConstraint(const Properties* constrain
     PhysicsSpringConstraint* physicsConstraint = NULL;
 
     // Create the constraint from the specified properties.
-    Quaternion roA, roB;
+    kmQuaternion roA, roB;
     kmVec3 toA, toB;
     bool offsetsSpecified = constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     offsetsSpecified |= constraint->getVector3("translationOffsetA", &toA);

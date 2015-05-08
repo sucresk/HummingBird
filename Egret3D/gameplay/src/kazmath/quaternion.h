@@ -107,7 +107,8 @@ kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn);
 kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2);
 kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
 struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
-
+//add by hgl
+kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, kmScalar* pAngle, const kmQuaternion* pIn );
 #ifdef __cplusplus
 }
 #endif

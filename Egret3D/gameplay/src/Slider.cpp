@@ -447,7 +447,7 @@ unsigned int Slider::drawImages(Form* form, const Rectangle& clip)
     float midY = _viewportBounds.y + startY + (endY - startY) * 0.5f;
 
     // Draw track below the slider text
-    kmVec2 pos(_viewportBounds.x + minCapRegion.width, midY - trackRegion.height * 0.5f);
+	kmVec2 pos = { _viewportBounds.x + minCapRegion.width, midY - trackRegion.height * 0.5f };
     batch->draw(pos.x, pos.y, _viewportBounds.width - minCapRegion.width - maxCapRegion.width, trackRegion.height, track.u1, track.v1, track.u2, track.v2, trackColor, _viewportClipBounds);
 
     // Draw min cap to the left of the track

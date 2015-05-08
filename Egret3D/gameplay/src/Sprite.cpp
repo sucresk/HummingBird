@@ -6,9 +6,9 @@ namespace egret
 {
 
 Sprite::Sprite() : Drawable(),
-    _width(0), _height(0), _offset(OFFSET_BOTTOM_LEFT), _anchor(Vector2(0.5f, 0.5f)), _flipFlags(FLIP_NONE),
+_width(0), _height(0), _offset(OFFSET_BOTTOM_LEFT), _anchor({ 0.5f, 0.5f }), _flipFlags(FLIP_NONE),
     _frames(NULL), _frameCount(1), _frameStride(0), _framePadding(1), _frameIndex(0),
-    _opacity(1.0f), _color(Vector4::one()), _blendMode(BLEND_ALPHA), _batch(NULL)
+    _opacity(1.0f), _color(vec4One), _blendMode(BLEND_ALPHA), _batch(NULL)
 {
 }
 
@@ -564,7 +564,7 @@ Material* Sprite::getMaterial() const
 unsigned int Sprite::draw(bool wireframe)
 {
     // Apply scene camera projection and translation offsets
-    kmVec3 position = Vector3::zero();
+    kmVec3 position = vec3Zero;
     if (_node && _node->getScene())
     {
         Camera* activeCamera = _node->getScene()->getActiveCamera();
@@ -609,13 +609,13 @@ unsigned int Sprite::draw(bool wireframe)
     
     // Apply node scale and rotation
     float rotationAngle = 0.0f;
-    kmVec2 scale = Vector2(_width, _height);
+	kmVec2 scale = { _width, _height };
     if (_node)
     {
         // Apply node rotation
         const kmQuaternion& rot = _node->getRotation();
-        if (rot.x != 0.0f || rot.y != 0.0f || rot.z != 0.0f)
-            rotationAngle = rot.toAxisAngle(NULL);
+		if (rot.x != 0.0f || rot.y != 0.0f || rot.z != 0.0f)
+			rotationAngle = kmQuatToAxisAngle(NULL, &rotationAngle, &rot);
         
         // Apply node scale
         if (_node->getScaleX() != 1.0f)
@@ -638,7 +638,7 @@ unsigned int Sprite::draw(bool wireframe)
     
     // TODO: Proper batching from cache based on batching rules (image, layers, etc)
     _batch->start();
-    _batch->draw(position, _frames[_frameIndex], scale, Vector4(_color.x, _color.y, _color.z, _color.w * _opacity),
+	_batch->draw(position, _frames[_frameIndex], scale, { _color.x, _color.y, _color.z, _color.w * _opacity },
                  _anchor, rotationAngle);
     _batch->finish();
     
@@ -753,10 +753,10 @@ void Sprite::setAnimationPropertyValue(int propertyId, AnimationValue* value, fl
             setOpacity(Curve::lerp(blendWeight, _opacity, value->getFloat(0)));
             break;
         case ANIMATE_COLOR:
-            setColor(Vector4(Curve::lerp(blendWeight, _color.x, value->getFloat(0)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(1)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(2)),
-                             Curve::lerp(blendWeight, _color.x, value->getFloat(3))));
+			setColor({ Curve::lerp(blendWeight, _color.x, value->getFloat(0)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(1)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(2)),
+				Curve::lerp(blendWeight, _color.x, value->getFloat(3)) });
             break;
         case ANIMATE_KEYFRAME:
             _frameIndex = (unsigned int)value->getFloat(0);

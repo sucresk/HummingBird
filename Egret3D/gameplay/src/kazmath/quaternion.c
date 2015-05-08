@@ -687,3 +687,18 @@ kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVe
     return pOut;
 }
 
+kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, kmScalar* pAngle, const kmQuaternion* pIn)
+{
+	kmQuaternion q;
+	kmQuaternionNormalize(&q, pIn);
+	if (pOut)
+	{
+		pOut->x = q.x;
+		pOut->y = q.y;
+		pOut->z = q.z;
+		kmVec3Normalize(pOut, pOut);
+	}
+	*pAngle = 2.0f * acos(q.w);
+	return *pAngle;
+}
+
