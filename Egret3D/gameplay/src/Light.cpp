@@ -49,7 +49,7 @@ Light* Light::createDirectional(const kmVec3& color)
 
 Light* Light::createDirectional(float red, float green, float blue)
 {
-    return new Light(DIRECTIONAL, Vector3(red, green, blue));
+	return new Light(DIRECTIONAL, { red, green, blue });
 }
 
 Light* Light::createPoint(const kmVec3& color, float range)
@@ -59,7 +59,7 @@ Light* Light::createPoint(const kmVec3& color, float range)
 
 Light* Light::createPoint(float red, float green, float blue, float range)
 {
-    return new Light(POINT, Vector3(red, green, blue), range);
+	return new Light(POINT, { red, green, blue }, range);
 }
 
 Light* Light::createSpot(const kmVec3& color, float range, float innerAngle, float outerAngle)
@@ -69,7 +69,7 @@ Light* Light::createSpot(const kmVec3& color, float range, float innerAngle, flo
 
 Light* Light::createSpot(float red, float green, float blue, float range, float innerAngle, float outerAngle)
 {
-    return new Light(SPOT, Vector3(red, green, blue), range, innerAngle, outerAngle);
+	return new Light(SPOT, { red, green, blue }, range, innerAngle, outerAngle);
 }
 
 Light* Light::create(Properties* properties)
@@ -182,7 +182,7 @@ const kmVec3& Light::getColor() const
         return _spot->color;
     default:
         GP_ERROR("Unsupported light type (%d).", _type);
-        return Vector3::zero();
+		return{ 0.0f, 0.0f, 0.0f };
 
     }
 }
@@ -211,7 +211,7 @@ void Light::setColor(const kmVec3& color)
 
 void Light::setColor(float red, float green, float blue)
 {
-    setColor(Vector3(red, green, blue));
+	setColor({ red, green, blue });
 }
 
 float Light::getRange()  const

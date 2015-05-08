@@ -28,7 +28,8 @@ const kmMat4& MeshSkin::getBindShape() const
 
 void MeshSkin::setBindShape(const float* matrix)
 {
-    _bindShape.set(matrix);
+    //_bindShape.mat = matrix->mat;
+	memcpy(_bindShape.mat, matrix, sizeof(float) * 16);
 }
 
 unsigned int MeshSkin::getJointCount() const
@@ -126,12 +127,12 @@ void MeshSkin::setJointCount(unsigned int jointCount)
 
     if (jointCount > 0)
     {
-        _matrixPalette = new Vector4[jointCount * PALETTE_ROWS];
+        _matrixPalette = new kmVec4[jointCount * PALETTE_ROWS];
         for (unsigned int i = 0; i < jointCount * PALETTE_ROWS; i+=PALETTE_ROWS)
         {
-            _matrixPalette[i+0].set(1.0f, 0.0f, 0.0f, 0.0f);
-            _matrixPalette[i+1].set(0.0f, 1.0f, 0.0f, 0.0f);
-            _matrixPalette[i+2].set(0.0f, 0.0f, 1.0f, 0.0f);
+			_matrixPalette[i + 0] = { 1.0f, 0.0f, 0.0f, 0.0f };
+			_matrixPalette[i + 1] = { 0.0f, 1.0f, 0.0f, 0.0f };
+			_matrixPalette[i + 2] = { 0.0f, 0.0f, 1.0f, 0.0f };
         }
     }
 }

@@ -40,6 +40,9 @@ typedef struct kmVec3 {
     kmScalar z;
 } kmVec3;
 
+extern kmVec3 vec3Zero;
+extern kmVec3 vec3One;
+
 #ifdef __cplusplus
 extern "C" {
 #endif

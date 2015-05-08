@@ -206,7 +206,7 @@ void MaterialParameter::setValue(const kmMat4& value)
         _value.floatPtrValue = new float[16];
     }
 
-    memcpy(_value.floatPtrValue, value.m, sizeof(float) * 16);
+    memcpy(_value.floatPtrValue, value.mat, sizeof(float) * 16);
 
     _dynamic = true;
     _count = 1;
@@ -218,7 +218,7 @@ void MaterialParameter::setValue(const kmMat4* values, unsigned int count)
     GP_ASSERT(values);
     clearValue();
 
-    _value.floatPtrValue = const_cast<kmMat4&> (values[0]).m;
+    _value.floatPtrValue = const_cast<kmMat4&> (values[0]).mat;
     _count = count;
     _type = MaterialParameter::MATRIX;
 }
@@ -399,12 +399,12 @@ void MaterialParameter::setMatrixArray(const kmMat4* values, unsigned int count,
     if (copy)
     {
         _value.floatPtrValue = new float[16 * count];
-        memcpy(_value.floatPtrValue, const_cast<kmMat4&> (values[0]).m, sizeof(float) * 16 * count);
+        memcpy(_value.floatPtrValue, const_cast<kmMat4&> (values[0]).mat, sizeof(float) * 16 * count);
         _dynamic = true;
     }
     else
     {
-        _value.floatPtrValue = const_cast<kmMat4&> (values[0]).m;
+        _value.floatPtrValue = const_cast<kmMat4&> (values[0]).mat;
     }
 
     _count = count;
@@ -522,59 +522,59 @@ void MaterialParameter::bindValue(Node* node, const char* binding)
 
     if (strcmp(binding, "&Node::getBackVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getBackVector);
+        bindValue<Node, kmVec3>(node, &Node::getBackVector);
     }
     else if (strcmp(binding, "&Node::getDownVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getDownVector);
+        bindValue<Node, kmVec3>(node, &Node::getDownVector);
     }
     else if (strcmp(binding, "&Node::getTranslationWorld") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getTranslationWorld);
+        bindValue<Node, kmVec3>(node, &Node::getTranslationWorld);
     }
     else if (strcmp(binding, "&Node::getTranslationView") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getTranslationView);
+        bindValue<Node, kmVec3>(node, &Node::getTranslationView);
     }
     else if (strcmp(binding, "&Node::getForwardVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getForwardVector);
+        bindValue<Node, kmVec3>(node, &Node::getForwardVector);
     }
     else if (strcmp(binding, "&Node::getForwardVectorWorld") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getForwardVectorWorld);
+        bindValue<Node, kmVec3>(node, &Node::getForwardVectorWorld);
     }
     else if (strcmp(binding, "&Node::getForwardVectorView") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getForwardVectorView);
+        bindValue<Node, kmVec3>(node, &Node::getForwardVectorView);
     }
     else if (strcmp(binding, "&Node::getLeftVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getLeftVector);
+        bindValue<Node, kmVec3>(node, &Node::getLeftVector);
     }
     else if (strcmp(binding, "&Node::getRightVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getRightVector);
+        bindValue<Node, kmVec3>(node, &Node::getRightVector);
     }
     else if (strcmp(binding, "&Node::getRightVectorWorld") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getRightVectorWorld);
+        bindValue<Node, kmVec3>(node, &Node::getRightVectorWorld);
     }
     else if (strcmp(binding, "&Node::getUpVector") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getUpVector);
+        bindValue<Node, kmVec3>(node, &Node::getUpVector);
     }
     else if (strcmp(binding, "&Node::getUpVectorWorld") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getUpVectorWorld);
+        bindValue<Node, kmVec3>(node, &Node::getUpVectorWorld);
     }
     else if (strcmp(binding, "&Node::getActiveCameraTranslationWorld") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getActiveCameraTranslationWorld);
+        bindValue<Node, kmVec3>(node, &Node::getActiveCameraTranslationWorld);
     }
     else if (strcmp(binding, "&Node::getActiveCameraTranslationView") == 0)
     {
-        bindValue<Node, Vector3>(node, &Node::getActiveCameraTranslationView);
+        bindValue<Node, kmVec3>(node, &Node::getActiveCameraTranslationView);
     }
     else if (strcmp(binding, "&Node::getScaleX") == 0)
     {

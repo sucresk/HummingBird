@@ -429,7 +429,8 @@ const kmMat4& Node::getWorldMatrix() const
             Node* parent = getParent();
             if (parent && (!_collisionObject || _collisionObject->isKinematic()))
             {
-                Matrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);
+                //Matrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);
+				kmMat4Multiply(&_world, &parent->getWorldMatrix(), &getMatrix());
             }
             else
             {
@@ -450,16 +451,20 @@ const kmMat4& Node::getWorldMatrix() const
 const kmMat4& Node::getWorldViewMatrix() const
 {
     static kmMat4 worldView;
-    Matrix::multiply(getViewMatrix(), getWorldMatrix(), &worldView);
+    //Matrix::multiply(getViewMatrix(), getWorldMatrix(), &worldView);
+	kmMat4Multiply(&worldView, &getViewMatrix(), &getWorldMatrix());
     return worldView;
 }
 
 const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 {
     static kmMat4 invTransWorldView;
-    Matrix::multiply(getViewMatrix(), getWorldMatrix(), &invTransWorldView);
-    invTransWorldView.invert();
-    invTransWorldView.transpose();
+    //Matrix::multiply(getViewMatrix(), getWorldMatrix(), &invTransWorldView);
+    //invTransWorldView.invert();
+    //invTransWorldView.transpose();
+	kmMat4Multiply(&invTransWorldView, &getViewMatrix(), &getWorldMatrix());
+	kmMat4Invert(&invTransWorldView, &invTransWorldView);
+	kmMat4Transpose(&invTransWorldView, &invTransWorldView);
     return invTransWorldView;
 }
 
@@ -467,8 +472,10 @@ const kmMat4& Node::getInverseTransposeWorldMatrix() const
 {
     static kmMat4 invTransWorld;
     invTransWorld = getWorldMatrix();
-    invTransWorld.invert();
-    invTransWorld.transpose();
+    //invTransWorld.invert();
+    //invTransWorld.transpose();
+	kmMat4Invert(&invTransWorld, &invTransWorld);
+	kmMat4Transpose(&invTransWorld, &invTransWorld);
     return invTransWorld;
 }
 
@@ -482,7 +489,7 @@ const kmMat4& Node::getViewMatrix() const
     }
     else
     {
-        return Matrix::identity();
+		return matIdentity;
     }
 }
 
@@ -496,7 +503,7 @@ const kmMat4& Node::getInverseViewMatrix() const
     }
     else
     {
-        return Matrix::identity();
+		return matIdentity;
     }
 }
 
@@ -510,7 +517,7 @@ const kmMat4& Node::getProjectionMatrix() const
     }
     else
     {
-        return Matrix::identity();
+		return matIdentity;
     }
 }
 
@@ -524,7 +531,7 @@ const kmMat4& Node::getViewProjectionMatrix() const
     }
     else
     {
-        return Matrix::identity();
+		return matIdentity;
     }
 }
 
@@ -536,7 +543,7 @@ const kmMat4& Node::getInverseViewProjectionMatrix() const
     {
         return camera->getInverseViewProjectionMatrix();
     }
-    return Matrix::identity();
+	return matIdentity;
 }
 
 const kmMat4& Node::getWorldViewProjectionMatrix() const
@@ -544,51 +551,60 @@ const kmMat4& Node::getWorldViewProjectionMatrix() const
     // Always re-calculate worldViewProjection kmMat4 since it's extremely difficult
     // to track whether the camera has changed (it may frequently change every frame).
     static kmMat4 worldViewProj;
-    Matrix::multiply(getViewProjectionMatrix(), getWorldMatrix(), &worldViewProj);
+    //Matrix::multiply(getViewProjectionMatrix(), getWorldMatrix(), &worldViewProj);
+	kmMat4Multiply(&worldViewProj, &getViewProjectionMatrix(), &getWorldMatrix());
     return worldViewProj;
 }
 
 kmVec3 Node::getTranslationWorld() const
 {
     kmVec3 translation;
-    getWorldMatrix().getTranslation(&translation);
+    //getWorldMatrix().getTranslation(&translation);
+	kmMat4Decompose(&getWorldMatrix(), NULL, NULL, &translation);
     return translation;
 }
 
 kmVec3 Node::getTranslationView() const
 {
     kmVec3 translation;
-    getWorldMatrix().getTranslation(&translation);
-    getViewMatrix().transformPoint(&translation);
+    //getWorldMatrix().getTranslation(&translation);
+    //getViewMatrix().transformPoint(&translation);
+	kmMat4Decompose(&getWorldMatrix(), NULL, NULL, &translation);
+	kmMat3Transform(&translation, &getViewMatrix(), translation.x, translation.y, translation.z, 1.0f);
     return translation;
 }
 
 kmVec3 Node::getForwardVectorWorld() const
 {
     kmVec3 vector;
-    getWorldMatrix().getForwardVector(&vector);
+    //getWorldMatrix().getForwardVector(&vector);
+	kmMat4GetForwrad(&vector, &getWorldMatrix());
     return vector;
 }
 
 kmVec3 Node::getForwardVectorView() const
 {
     kmVec3 vector;
-    getWorldMatrix().getForwardVector(&vector);
-    getViewMatrix().transformVector(&vector);
+    //getWorldMatrix().getForwardVector(&vector);
+    //getViewMatrix().transformVector(&vector);
+	kmMat4GetForwrad(&vector, &getWorldMatrix());
+	kmMat3Transform(&vector, &getWorldMatrix(), vector.x, vector.y, vector.z, 0.0f);
     return vector;
 }
 
 kmVec3 Node::getRightVectorWorld() const
 {
     kmVec3 vector;
-    getWorldMatrix().getRightVector(&vector);
+    //getWorldMatrix().getRightVector(&vector);
+	kmMat4GetRight(&vector, &getWorldMatrix());
     return vector;
 }
 
 kmVec3 Node::getUpVectorWorld() const
 {
     kmVec3 vector;
-    getWorldMatrix().getUpVector(&vector);
+    //getWorldMatrix().getUpVector(&vector);
+	kmMat4GetUp(&vector, &getWorldMatrix());
     return vector;
 }
 
@@ -607,7 +623,7 @@ kmVec3 Node::getActiveCameraTranslationWorld() const
             }
         }
     }
-    return Vector3::zero();
+    return vec3Zero;
 }
 
 kmVec3 Node::getActiveCameraTranslationView() const
@@ -625,7 +641,7 @@ kmVec3 Node::getActiveCameraTranslationView() const
             }
         }
     }
-    return Vector3::zero();
+    return vec3Zero;
 }
 
 void Node::hierarchyChanged()
@@ -849,12 +865,12 @@ const BoundingSphere& Node::getBoundingSphere() const
             case Light::POINT:
                 if (empty)
                 {
-                    _bounds.set(Vector3::zero(), _light->getRange());
+                    _bounds.set( vec3Zero, _light->getRange());
                     empty = false;
                 }
                 else
                 {
-                    _bounds.merge(BoundingSphere(Vector3::zero(), _light->getRange()));
+                    _bounds.merge(BoundingSphere( vec3Zero, _light->getRange()));
                 }
                 break;
             case Light::SPOT:
@@ -865,7 +881,8 @@ const BoundingSphere& Node::getBoundingSphere() const
         if (empty)
         {
             // Empty bounding sphere, set the world translation with zero radius
-            worldMatrix.getTranslation(&_bounds.center);
+            //worldMatrix.getTranslation(&_bounds.center);
+			kmMat4Decompose(&worldMatrix, NULL, NULL, &_bounds.center);
             _bounds.radius = 0;
         }
 
@@ -890,7 +907,8 @@ const BoundingSphere& Node::getBoundingSphere() const
                     // TODO: Should we protect against the case where joints are nested directly
                     // in the node hierachy of the model (this is normally not the case)?
                     kmMat4 boundsMatrix;
-                    Matrix::multiply(getWorldMatrix(), jointParent->getWorldMatrix(), &boundsMatrix);
+                    //Matrix::multiply(getWorldMatrix(), jointParent->getWorldMatrix(), &boundsMatrix);
+					kmMat4Multiply(&boundsMatrix, &getWorldMatrix(), &jointParent->getWorldMatrix() );
                     _bounds.transform(boundsMatrix);
                     applyWorldTransform = false;
                 }

@@ -8,7 +8,9 @@ namespace egret
 
 Frustum::Frustum()
 {
-    set(Matrix::identity());
+	kmMat4 indent;
+	kmMat4Identity(&indent);
+    set( indent );
 }
 
 Frustum::Frustum(const kmMat4& matrix)
@@ -58,7 +60,7 @@ const Plane& Frustum::getTop() const
 void Frustum::getMatrix(kmMat4* dst) const
 {
     GP_ASSERT(dst);
-    dst->set(_matrix);
+    *dst = _matrix;
 }
 
 void Frustum::getCorners(kmVec3* corners) const
@@ -107,7 +109,7 @@ bool Frustum::intersects(const kmVec3& point) const
 
 bool Frustum::intersects(float x, float y, float z) const
 {
-    return intersects(Vector3(x, y, z));
+	return intersects({ x, y, z });
 }
 
 bool Frustum::intersects(const BoundingSphere& sphere) const
@@ -138,22 +140,22 @@ void Frustum::set(const Frustum& frustum)
     _top = frustum._top;
     _left = frustum._left;
     _right = frustum._right;
-    _matrix.set(frustum._matrix);
+    _matrix = frustum._matrix;
 }
 
 void Frustum::updatePlanes()
 {
-    _near.set(Vector3(_matrix.m[3] + _matrix.m[2], _matrix.m[7] + _matrix.m[6], _matrix.m[11] + _matrix.m[10]), _matrix.m[15] + _matrix.m[14]);
-    _far.set(Vector3(_matrix.m[3] - _matrix.m[2], _matrix.m[7] - _matrix.m[6], _matrix.m[11] - _matrix.m[10]), _matrix.m[15] - _matrix.m[14]);
-    _bottom.set(Vector3(_matrix.m[3] + _matrix.m[1], _matrix.m[7] + _matrix.m[5], _matrix.m[11] + _matrix.m[9]), _matrix.m[15] + _matrix.m[13]);
-    _top.set(Vector3(_matrix.m[3] - _matrix.m[1], _matrix.m[7] - _matrix.m[5], _matrix.m[11] - _matrix.m[9]), _matrix.m[15] - _matrix.m[13]);
-    _left.set(Vector3(_matrix.m[3] + _matrix.m[0], _matrix.m[7] + _matrix.m[4], _matrix.m[11] + _matrix.m[8]), _matrix.m[15] + _matrix.m[12]);
-    _right.set(Vector3(_matrix.m[3] - _matrix.m[0], _matrix.m[7] - _matrix.m[4], _matrix.m[11] - _matrix.m[8]), _matrix.m[15] - _matrix.m[12]);
+	_near.set({ _matrix.mat[3] + _matrix.mat[2], _matrix.mat[7] + _matrix.mat[6], _matrix.mat[11] + _matrix.mat[10] }, _matrix.mat[15] + _matrix.mat[14]);
+	_far.set({ _matrix.mat[3] - _matrix.mat[2], _matrix.mat[7] - _matrix.mat[6], _matrix.mat[11] - _matrix.mat[10] }, _matrix.mat[15] - _matrix.mat[14]);
+	_bottom.set({ _matrix.mat[3] + _matrix.mat[1], _matrix.mat[7] + _matrix.mat[5], _matrix.mat[11] + _matrix.mat[9] }, _matrix.mat[15] + _matrix.mat[13]);
+	_top.set({ _matrix.mat[3] - _matrix.mat[1], _matrix.mat[7] - _matrix.mat[5], _matrix.mat[11] - _matrix.mat[9] }, _matrix.mat[15] - _matrix.mat[13]);
+	_left.set({ _matrix.mat[3] + _matrix.mat[0], _matrix.mat[7] + _matrix.mat[4], _matrix.mat[11] + _matrix.mat[8] }, _matrix.mat[15] + _matrix.mat[12]);
+	_right.set({ _matrix.mat[3] - _matrix.mat[0], _matrix.mat[7] - _matrix.mat[4], _matrix.mat[11] - _matrix.mat[8] }, _matrix.mat[15] - _matrix.mat[12]);
 }
 
 void Frustum::set(const kmMat4& matrix)
 {
-    _matrix.set(matrix);
+    _matrix = matrix;
 
     // Update the planes.
     updatePlanes();

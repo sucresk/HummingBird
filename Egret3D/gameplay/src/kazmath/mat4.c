@@ -46,6 +46,15 @@ kmMat4 gkmMat4; // ±£´æ¾ØÕóÆ½ÒÆÐý×ª
 #define MATH_TOLERANCE              2e-37f
 #define MATH_EPSILON                0.000001f
 
+static kmMat4 matIdentity =
+{
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1 
+};
+
+
 /**
  * Fills a kmMat4 structure with the values from a 16
  * element array of floats
@@ -634,6 +643,52 @@ kmVec3* const kmMat4GetForwardVec3(kmVec3* pOut, const kmMat4* pIn)
     kmVec3Normalize(pOut, pOut);
 
     return pOut;
+}
+
+struct kmVec3* const kmMat4GetUp(struct kmVec3* pOut, const kmMat4* pIn)
+{
+	pOut->x = pIn->mat[4];
+	pOut->y = pIn->mat[5];
+	pOut->z = pIn->mat[6];
+	return pOut;
+}
+struct kmVec3* const kmMat4GetDown(struct kmVec3* pOut, const kmMat4* pIn)
+{
+	pOut->x = -pIn->mat[4];
+	pOut->y = -pIn->mat[5];
+	pOut->z = -pIn->mat[6];
+	return pOut;
+}
+
+struct kmVec3* const kmMat4GetRight(struct kmVec3* pOut, const kmMat4* pIn)
+{
+	pOut->x = pIn->mat[0];
+	pOut->y = pIn->mat[1];
+	pOut->z = pIn->mat[2];
+	return pOut;
+}
+
+struct kmVec3* const kmMat4GetLeft(struct kmVec3* pOut, const kmMat4* pIn)
+{
+	pOut->x = -pIn->mat[0];
+	pOut->y = -pIn->mat[1];
+	pOut->z = -pIn->mat[2];
+	return pOut;
+}
+
+struct kmVec3* const kmMat4GetForwrad(struct kmVec3* pOut, const kmMat4* pIn)
+{
+	pOut->x = -pIn->mat[8];
+	pOut->y = -pIn->mat[9];
+	pOut->z = -pIn->mat[10];
+	return pOut;
+}
+struct kmVec3* const kmMat4GetBack(struct kmVec3* pOut, const kmMat4 *pIn)
+{
+	pOut->x = pIn->mat[8];
+	pOut->y = pIn->mat[9];
+	pOut->z = pIn->mat[10];
+	return pOut;
 }
 
 struct kmVec3* const kmMat3Transform( kmVec3* pOut, const kmMat4* pIn, float x, float y, float z, float w)

@@ -35,6 +35,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/mat4.h"
 #include "kazmath/vec3.h"
 
+static kmVec3 vec3Zero = { 0.0f, 0.0f, 0.0f };
+static kmVec3 vec3One = { 1.0f, 1.0f, 1.0f };
 /**
  * Fill a kmVec3 structure using 3 floating point values
  * The result is store in pOut, returns pOut

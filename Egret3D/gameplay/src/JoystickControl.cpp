@@ -52,7 +52,7 @@ void JoystickControl::setInnerRegionSize(const kmVec2& size, bool isWidthPercent
     {
         if(!_innerRegionCoord)
         {
-            _innerRegionCoord = new Vector2();
+            _innerRegionCoord = new kmVec2;
         }
 
         setRegion(size, *_innerRegionCoord, _innerRegionCoordBoundsBits, isWidthPercentage, isHeightPercentage);
@@ -75,7 +75,7 @@ const kmVec2& JoystickControl::getInnerRegionSize(bool* isWidthPercentage, bool*
     if (_innerSizePixels)
         return *_innerSizePixels;
     else
-        return Vector2::zero();
+		return{ 0.0f, 0.0f };
 }
 
 void JoystickControl::setOuterRegionSize(const kmVec2& size, bool isWidthPercentage, bool isHeightPercentage)
@@ -84,7 +84,7 @@ void JoystickControl::setOuterRegionSize(const kmVec2& size, bool isWidthPercent
     {
         if(!_outerRegionCoord)
         {
-            _outerRegionCoord = new Vector2();
+            _outerRegionCoord = new kmVec2;
         }
 
         setRegion(size, *_outerRegionCoord, _outerRegionCoordBoundsBits, isWidthPercentage, isHeightPercentage);
@@ -107,7 +107,7 @@ const kmVec2& JoystickControl::getOuterRegionSize(bool* isWidthPercentage, bool*
     if (_outerSizePixels)
         return *_outerSizePixels;
     else
-        return Vector2::zero();
+		return{0.0f, 0.0f };
 }
 
 void JoystickControl::setRelative(bool relative)
@@ -190,14 +190,14 @@ void JoystickControl::initialize(const char* typeName, Theme::Style* style, Prop
     const char* innerRegionId = "innerRegion";
     if(properties->exists(innerRegionId))
     {
-        _innerRegionCoord = new Vector2();
+        _innerRegionCoord = new kmVec2;
         getRegion(*_innerRegionCoord, _innerRegionCoordBoundsBits, properties->getString(innerRegionId));
     }
 
     const char* outerRegionId = "outerRegion";
     if(properties->exists(outerRegionId))
     {
-        _outerRegionCoord = new Vector2();
+        _outerRegionCoord = new kmVec2;
         getRegion(*_outerRegionCoord, _outerRegionCoordBoundsBits, properties->getString(outerRegionId));
     }
 
@@ -239,7 +239,7 @@ kmVec2 JoystickControl::getPixelSize(const Theme::ThemeImage* image) const
     Rectangle rect = image->getRegion();
     rect.width = isWidthPercentage() ? (_absoluteBounds.width / rect.width) * rect.width : rect.width;
     rect.height = isHeightPercentage() ? (_absoluteBounds.height / rect.height) * rect.height : rect.height;
-    return Vector2(rect.width, rect.height);
+	return{ rect.width, rect.height };
 }
 
 Theme::ThemeImage * JoystickControl::getNonEmptyImage(const char* id, Control::State state)
@@ -259,7 +259,7 @@ void JoystickControl::updateAbsoluteSizes()
     {
         if(!_innerSizePixels)
         {
-            _innerSizePixels = new Vector2();
+            _innerSizePixels = new kmVec2;
         }
 
         *_innerSizePixels = _innerRegionCoord ? getPixelSize(*_innerRegionCoord, _innerRegionCoordBoundsBits) : getPixelSize(innerImage);
@@ -274,7 +274,7 @@ void JoystickControl::updateAbsoluteSizes()
     {
         if(!_outerSizePixels)
         {
-            _outerSizePixels = new Vector2();
+            _outerSizePixels = new kmVec2;
         }
 
         *_outerSizePixels = _outerRegionCoord ? getPixelSize(*_outerRegionCoord, _outerRegionCoordBoundsBits) : getPixelSize(outerImage);
@@ -327,7 +327,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                     _screenRegionPixels.y = y + _bounds.y - _screenRegionPixels.height * 0.5f;
                 }
 
-                _displacement.set(dx, dy);
+				_displacement = { dx, dy };
 
                 // If the displacement is greater than the radius, then cap the displacement to the
                 // radius.
@@ -335,21 +335,25 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                 kmVec2 value;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
-                    _displacement.normalize();
-                    value.set(_displacement);
-                    _displacement.scale(_radiusPixels);
+					kmVec2Normalize(&_displacement, &_displacement);
+                    //_displacement.normalize();
+                    value = _displacement;
+					kmVec2Scale(&_displacement, &_displacement, _radiusPixels);
+                    //_displacement.scale(_radiusPixels);
                 }
                 else
                 {
-                    value.set(_displacement);
+                    value = _displacement;
                     GP_ASSERT(_radiusPixels);
-                    value.scale(1.0f / _radiusPixels);
+                    //value.scale(1.0f / _radiusPixels);
+					kmVec2Scale(&value, &value, 1.0f / _radiusPixels);
                 }
 
                 // Check if the value has changed. Won't this always be the case?
-                if (_value != value)
+                //if (_value != value)
+				if( ! kmVec2AreEqual( &_value, &value ))
                 {
-                    _value.set(value);
+                    _value =value;
                     notifyListeners(Control::Listener::VALUE_CHANGED);
                 }
 
@@ -365,25 +369,29 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                 float dx = x - ((_relative) ? _screenRegionPixels.x - _bounds.x : 0.0f) - _screenRegionPixels.width * 0.5f;
                 float dy = -(y - ((_relative) ? _screenRegionPixels.y - _bounds.y : 0.0f) - _screenRegionPixels.height * 0.5f);
 
-                _displacement.set(dx, dy);
+				_displacement = { dx, dy };
 
                 kmVec2 value;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
-                    _displacement.normalize();
-                    value.set(_displacement);
-                    _displacement.scale(_radiusPixels);
+                    //_displacement.normalize();
+                    //value.set(_displacement);
+                    //_displacement.scale(_radiusPixels);
+					kmVec2Normalize(&_displacement, &_displacement);
+					value = _displacement;
+					kmVec2Scale( &_displacement, &_displacement, _radiusPixels);
                 }
                 else
                 {
-                    value.set(_displacement);
+                    value = _displacement;
                     GP_ASSERT(_radiusPixels);
-                    value.scale(1.0f / _radiusPixels);
+                    //value.scale(1.0f / _radiusPixels);
+					kmVec2Scale(&value, &value, 1.0f / _radiusPixels);
                 }
 
-                if (_value != value)
+                if ( ! kmVec2AreEqual( &_value, &value ))
                 {
-                    _value.set(value);
+                    _value =value;
                     notifyListeners(Control::Listener::VALUE_CHANGED);
                 }
 
@@ -399,11 +407,11 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                 _contactIndex = INVALID_CONTACT_INDEX;
 
                 // Reset displacement and direction vectors.
-                _displacement.set(0.0f, 0.0f);
-                kmVec2 value(_displacement);
-                if (_value != value)
+				_displacement = { 0.0f, 0.0f };
+                kmVec2 value =_displacement;
+                if ( !kmVec2AreEqual(&value, &_value ))
                 {
-                    _value.set(value);
+                    _value = value;
                     notifyListeners(Control::Listener::VALUE_CHANGED);
                 }
 
@@ -441,7 +449,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
             const Theme::UVs& uvs = outer->getUVs();
             const kmVec4& color = outer->getColor();
 
-            kmVec2 position(_screenRegionPixels.x, _screenRegionPixels.y);
+			kmVec2 position = { _screenRegionPixels.x, _screenRegionPixels.y };
 
             if(_outerRegionCoord)
             {
@@ -460,7 +468,7 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
         if (_innerSizePixels)
         {
             Theme::ThemeImage* inner = getImage("inner", state);
-            kmVec2 position(_screenRegionPixels.x, _screenRegionPixels.y);
+			kmVec2 position = { _screenRegionPixels.x, _screenRegionPixels.y };
 
             // Adjust position to reflect displacement.
             position.x += _displacement.x;

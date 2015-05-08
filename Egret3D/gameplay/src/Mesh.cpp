@@ -117,10 +117,16 @@ Mesh* Mesh::createQuad(const kmVec3& p1, const kmVec3& p2, const kmVec3& p3, con
 {
     // Calculate the normal vector of the plane.
     kmVec3 v1, v2, n;
-    Vector3::subtract(p2, p1, &v1);
-    Vector3::subtract(p3, p2, &v2);
-    Vector3::cross(v1, v2, &n);
-    n.normalize();
+    //Vector3::subtract(p2, p1, &v1);
+    //Vector3::subtract(p3, p2, &v2);
+    //Vector3::cross(v1, v2, &n);
+    //n.normalize();
+
+	kmVec3Subtract(&v1, &p2, &p1);
+	kmVec3Subtract(&v2, &p3, &p2);
+	kmVec3Cross(&n, &v1, &v2);
+	kmVec3Normalize(&n, &n);
+
 
     float vertices[] =
     {

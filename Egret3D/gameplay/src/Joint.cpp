@@ -73,13 +73,19 @@ void Joint::updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette)
         _jointMatrixDirty = false;
 
         static kmMat4 t;
-        Matrix::multiply(Node::getWorldMatrix(), getInverseBindPose(), &t);
-        Matrix::multiply(t, bindShape, &t);
+		
+        //Matrix::multiply(Node::getWorldMatrix(), getInverseBindPose(), &t);
+        //Matrix::multiply(t, bindShape, &t);
+		kmMat4Multiply(&t, &Node::getWorldMatrix(), &getInverseBindPose());
+		kmMat4Multiply(&t, &t, &bindShape);
 
         GP_ASSERT(matrixPalette);
-        matrixPalette[0].set(t.m[0], t.m[4], t.m[8], t.m[12]);
-        matrixPalette[1].set(t.m[1], t.m[5], t.m[9], t.m[13]);
-        matrixPalette[2].set(t.m[2], t.m[6], t.m[10], t.m[14]);
+        //matrixPalette[0].set(t.m[0], t.m[4], t.m[8], t.m[12]);	
+        //matrixPalette[1].set(t.m[1], t.m[5], t.m[9], t.m[13]);
+        //matrixPalette[2].set(t.m[2], t.m[6], t.m[10], t.m[14]);
+		kmVec4Fill(&matrixPalette[0], t.mat[0], t.mat[4], t.mat[8], t.mat[12]);
+		kmVec4Fill(&matrixPalette[1], t.mat[1], t.mat[5], t.mat[9], t.mat[13]);
+		kmVec4Fill(&matrixPalette[2], t.mat[2], t.mat[6], t.mat[10], t.mat[14]);
     }
 }
 

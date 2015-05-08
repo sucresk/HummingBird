@@ -52,6 +52,7 @@ typedef struct kmMat4 {
 } kmMat4;
 
 extern kmMat4 gkmMat4;
+extern kmMat4 matIdentity;
 
  kmMat4* const kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
  kmMat4* const kmMat4Identity(kmMat4* pOut);
@@ -74,6 +75,12 @@ extern kmMat4 gkmMat4;
  struct kmVec3* const kmMat4GetUpVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat4GetRightVec3(struct kmVec3* pOut, const kmMat4* pIn);
  struct kmVec3* const kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetUp(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetDown(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetRight(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetLeft(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetForwrad(struct kmVec3* pOut, const kmMat4* pIn);
+ struct kmVec3* const kmMat4GetBack(struct kmVec3* pOut, const kmMat4 *pIn);
  struct kmVec3* const kmMat3Transform(struct kmVec3* pOut, const kmMat4* pIn, float x, float y, float z, float w);
  struct kmVec4* const kmMat4Transform(struct kmVec4* pOut, const kmMat4* pIn, float x, float y, float z, float w);
  const int kmMat4Decompose( const kmMat4* pIn, struct kmVec3* scale, struct kmQuaternion* rotation, struct kmVec3* translation);
