@@ -22,7 +22,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     GP_ASSERT(_collisionShape && _collisionShape->getShape());
 
     // Create motion state object.
-    _motionState = new PhysicsMotionState(node, this, (centerOfMassOffset.lengthSquared() > MATH_EPSILON) ? &centerOfMassOffset : NULL);
+	_motionState = new PhysicsMotionState(node, this, (kmVec3LengthSq(&centerOfMassOffset) > MATH_EPSILON) ? &centerOfMassOffset : NULL);
 
     // If the mass is non-zero, then the object is dynamic so we calculate the local 
     // inertia. However, if the collision shape is a triangle mesh, we don't calculate 
@@ -106,7 +106,7 @@ void PhysicsRigidBody::applyForce(const kmVec3& force, const kmVec3* relativePos
 {
     // If the force is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the force.
-    if (force.lengthSquared() > MATH_EPSILON)
+	if (kmVec3LengthSq(&force) > MATH_EPSILON)
     {
         GP_ASSERT(_body);
         _body->activate();
@@ -121,7 +121,7 @@ void PhysicsRigidBody::applyImpulse(const kmVec3& impulse, const kmVec3* relativ
 {
     // If the impulse is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the impulse.
-    if (impulse.lengthSquared() > MATH_EPSILON)
+	if (kmVec3LengthSq( &impulse )> MATH_EPSILON)
     {
         GP_ASSERT(_body);
         _body->activate();
@@ -138,7 +138,7 @@ void PhysicsRigidBody::applyTorque(const kmVec3& torque)
 {
     // If the torque is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the torque.
-    if (torque.lengthSquared() > MATH_EPSILON)
+	if (kmVec3LengthSq( &torque) > MATH_EPSILON)
     {
         GP_ASSERT(_body);
         _body->activate();
@@ -150,7 +150,7 @@ void PhysicsRigidBody::applyTorqueImpulse(const kmVec3& torque)
 {
     // If the torque impulse is significant enough, activate the rigid body 
     // to make sure that it isn't sleeping and apply the torque impulse.
-    if (torque.lengthSquared() > MATH_EPSILON)
+	if (kmVec3LengthSq(&torque) > MATH_EPSILON)
     {
         GP_ASSERT(_body);
         _body->activate();
@@ -227,7 +227,7 @@ PhysicsRigidBody* PhysicsRigidBody::create(Node* node, Properties* properties, c
         }
         else if (strcmp(name, "gravity") == 0)
         {
-            gravity = new Vector3();
+            gravity = new kmVec3;
             properties->getVector3(NULL, gravity);
         }
         else if (strcmp(name, "angularFactor") == 0)
@@ -304,7 +304,8 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     {
         _collisionShape->_shapeData.heightfieldData->inverseIsDirty = false;
 
-        _node->getWorldMatrix().invert(&_collisionShape->_shapeData.heightfieldData->inverse);
+        //_node->getWorldMatrix().invert(&_collisionShape->_shapeData.heightfieldData->inverse);
+		kmMat4Invert(&_collisionShape->_shapeData.heightfieldData->inverse, &_node->getWorldMatrix());
     }
 
     // Calculate the correct x, z position relative to the heightfield data.
@@ -314,8 +315,10 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     GP_ASSERT(cols > 0);
     GP_ASSERT(rows > 0);
 
-    kmVec3 v = _collisionShape->_shapeData.heightfieldData->inverse * Vector3(x, 0.0f, z);
-    x = v.x + (cols - 1) * 0.5f;
+    //kmVec3 v = _collisionShape->_shapeData.heightfieldData->inverse * Vector3(x, 0.0f, z);
+	kmVec3 v;
+	kmMat3Transform(&v, &_collisionShape->_shapeData.heightfieldData->inverse, x, 0.0f, z, 0.0f);
+	x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
 
     // Get the unscaled height value from the HeightField
@@ -323,7 +326,8 @@ float PhysicsRigidBody::getHeight(float x, float z) const
 
     // Apply scale back to height
     kmVec3 worldScale;
-    _node->getWorldMatrix().getScale(&worldScale);
+    //_node->getWorldMatrix().getScale(&worldScale);
+	kmMat4Decompose(&_node->getWorldMatrix(), &worldScale, NULL, NULL);
     height *= worldScale.y;
 
     return height;
@@ -372,14 +376,15 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
 
         // Update local scaling for the heightfield.
         kmVec3 scale;
-        _node->getWorldMatrix().getScale(&scale);
+        //_node->getWorldMatrix().getScale(&scale);
+		kmMat4Decompose(&_node->getWorldMatrix(), &scale, NULL, NULL);
 
         // If the node has a terrain attached, factor in the terrain local scaling as well for the collision shape
         Terrain* terrain = dynamic_cast<Terrain*>(_node->getDrawable());
         if (terrain)
         {
             const kmVec3& tScale = terrain->_localScale;
-            scale.set(scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z);
+			scale = { scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z };
         }
 
         _collisionShape->_shape->setLocalScaling(BV(scale));
@@ -387,7 +392,7 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
         // Update center of mass offset
         float minHeight = _collisionShape->_shapeData.heightfieldData->minHeight;
         float maxHeight = _collisionShape->_shapeData.heightfieldData->maxHeight;
-        _motionState->setCenterOfMassOffset(Vector3(0, -(minHeight + (maxHeight-minHeight)*0.5f) * scale.y, 0));
+		_motionState->setCenterOfMassOffset({ 0, -(minHeight + (maxHeight - minHeight)*0.5f) * scale.y, 0 });
     }
 }
 
