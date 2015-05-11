@@ -1,7 +1,7 @@
 #ifndef PHYSICSCOLLISIONSHAPE_H_
 #define PHYSICSCOLLISIONSHAPE_H_
 
-#include "vec3.h"
+#include "kazmath/vec3.h"
 #include "Mesh.h"
 #include "HeightField.h"
 

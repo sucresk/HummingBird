@@ -2,8 +2,8 @@
 #define RENDERSTATE_H_
 
 #include "Ref.h"
-#include "vec3.h"
-#include "vec4.h"
+#include "kazmath/vec3.h"
+#include "kazmath/vec4.h"
 
 namespace egret
 {

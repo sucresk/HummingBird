@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <assert.h>
 
-#include "kazmath/GL/matrix1.h"
+#include "kazmath/GL/matrix.h"
 #include "kazmath/GL/mat4stack.h"
 
 km_mat4_stack modelview_matrix_stack;

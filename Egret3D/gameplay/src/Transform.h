@@ -2,9 +2,9 @@
 #define TRANSFORM_H_
 
 #include "ScriptTarget.h"
-#include "vec3.h"
-#include "Quaternion.h"
-#include "mat4.h"
+#include "kazmath/vec3.h"
+#include "kazmath/quaternion.h"
+#include "kazmath/mat4.h"
 #include "AnimationTarget.h"
 
 namespace egret

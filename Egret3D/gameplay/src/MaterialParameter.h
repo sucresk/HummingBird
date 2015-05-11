@@ -2,10 +2,10 @@
 #define MATERIALPARAMETER_H_
 
 #include "AnimationTarget.h"
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
-#include "mat4.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec3.h"
+#include "kazmath/vec4.h"
+#include "kazmath/mat4.h"
 #include "Texture.h"
 #include "Effect.h"
 

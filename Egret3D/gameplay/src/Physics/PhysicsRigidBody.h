@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include "PhysicsConstraint.h"
 #include "Transform.h"
-#include "vec3.h"
+#include "kazmath/vec3.h"
 #include "PhysicsCollisionObject.h"
 
 namespace egret

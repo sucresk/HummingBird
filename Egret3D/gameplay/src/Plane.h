@@ -1,8 +1,8 @@
 #ifndef PLANE_H_
 #define PLANE_H_
 
-#include "mat4.h"
-#include "vec3.h"
+#include "kazmath/mat4.h"
+#include "kazmath/vec3.h"
 
 namespace egret
 {

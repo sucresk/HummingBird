@@ -1,7 +1,7 @@
 #ifndef MESHSKIN_H_
 #define MESHSKIN_H_
 
-#include "mat4.h"
+#include "kazmath/mat4.h"
 #include "Transform.h"
 
 namespace egret

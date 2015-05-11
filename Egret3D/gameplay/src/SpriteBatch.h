@@ -5,7 +5,7 @@
 #include "Effect.h"
 #include "Mesh.h"
 #include "Rectangle.h"
-#include "mat4.h"
+#include "kazmath/mat4.h"
 #include "RenderState.h"
 #include "MeshBatch.h"
 

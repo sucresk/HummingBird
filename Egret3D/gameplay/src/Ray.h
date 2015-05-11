@@ -1,7 +1,7 @@
 #ifndef RAY_H_
 #define RAY_H_
 
-#include "vec3.h"
+#include "kazmath/vec3.h"
 
 namespace egret
 {

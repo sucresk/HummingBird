@@ -12,7 +12,7 @@
 #include "AIController.h"
 #include "AudioListener.h"
 #include "Rectangle.h"
-#include "vec4.h"
+#include "kazmath/vec4.h"
 #include "TimeListener.h"
 
 namespace egret

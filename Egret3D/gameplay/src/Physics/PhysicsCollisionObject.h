@@ -2,7 +2,7 @@
 #define PHYSICSCOLLISIONOBJECT_H_
 
 #include "Script.h"
-#include "vec3.h"
+#include "kazmath/vec3.h"
 #include "PhysicsCollisionShape.h"
 
 namespace egret
