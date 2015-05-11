@@ -2,7 +2,7 @@
 #define PHYSICSCONSTRAINT_H_
 
 #include "Base.h"
-#include "vec3.h"
+#include "kazmath/vec3.h"
 
 namespace egret
 {

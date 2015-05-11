@@ -237,7 +237,7 @@ void PhysicsCharacter::setRightVelocity(float velocity)
 
 kmVec3 PhysicsCharacter::getCurrentVelocity() const
 {
-    kmVec3 v(_currentVelocity.x(), _currentVelocity.y(), _currentVelocity.z());
+	kmVec3 v = { _currentVelocity.x(), _currentVelocity.y(), _currentVelocity.z() };
     v.x += _verticalVelocity.x();
     v.y += _verticalVelocity.y();
     v.z += _verticalVelocity.z();
@@ -255,11 +255,16 @@ void PhysicsCharacter::jump(float height, bool force)
     //  a == acceleration (inverse gravity)
     //  s == linear displacement (height)
     GP_ASSERT(Game::getInstance()->getPhysicsController());
-    kmVec3 jumpVelocity = Game::getInstance()->getPhysicsController()->getGravity() * height * 2.0f;
-    jumpVelocity.set(
-        jumpVelocity.x == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.x)) * (jumpVelocity.x > 0 ? 1.0f : -1.0f),
-        jumpVelocity.y == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.y)) * (jumpVelocity.y < 0 ? 1.0f : -1.0f),
-        jumpVelocity.z == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.z)) * (jumpVelocity.z > 0 ? 1.0f : -1.0f));
+    //kmVec3 jumpVelocity = Game::getInstance()->getPhysicsController()->getGravity() * height * 2.0f;
+	kmVec3 jumpVelocity;
+	kmVec3Fill(&jumpVelocity, 0, 0, 0);
+	kmVec3Scale(&jumpVelocity, &Game::getInstance()->getPhysicsController()->getGravity(), height * 2.0f );
+	jumpVelocity = 
+	{
+		jumpVelocity.x == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.x)) * (jumpVelocity.x > 0 ? 1.0f : -1.0f),
+		jumpVelocity.y == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.y)) * (jumpVelocity.y < 0 ? 1.0f : -1.0f),
+		jumpVelocity.z == 0 ? 0 : std::sqrt(std::fabs(jumpVelocity.z)) * (jumpVelocity.z > 0 ? 1.0f : -1.0f)
+	};
     _verticalVelocity += BV(jumpVelocity);
 }
 
@@ -283,9 +288,12 @@ void PhysicsCharacter::updateCurrentVelocity()
     // Add forward velocity contribution.
     if (_forwardVelocity != 0)
     {
-        _node->getWorldMatrix().getForwardVector(&temp);
-        temp.normalize();
-        temp *= -_forwardVelocity;
+        //_node->getWorldMatrix().getForwardVector(&temp);
+		//temp.normalize();
+		//temp *= -_forwardVelocity;
+		kmMat4GetForwrad(&temp, &_node->getWorldMatrix());
+		kmVec3Normalize(&temp, &temp);
+		kmVec3Scale(&temp, &temp, -_forwardVelocity); 
         _normalizedVelocity += btVector3(temp.x, temp.y, temp.z);
         velocity2 = std::max(std::fabs(velocity2), std::fabs(_forwardVelocity*_forwardVelocity));
     }
@@ -293,9 +301,12 @@ void PhysicsCharacter::updateCurrentVelocity()
     // Add right velocity contribution.
     if (_rightVelocity != 0)
     {
-        _node->getWorldMatrix().getRightVector(&temp);
-        temp.normalize();
-        temp *= _rightVelocity;
+        //_node->getWorldMatrix().getRightVector(&temp);
+        //temp.normalize();
+        //temp *= _rightVelocity;
+		kmMat4GetRight(&temp, &_node->getWorldMatrix());
+		kmVec3Normalize(&temp, &temp );
+		kmVec3Scale(&temp, &temp, _rightVelocity);
         _normalizedVelocity += btVector3(temp.x, temp.y, temp.z);
         velocity2 = std::max(std::fabs(velocity2), std::fabs(_rightVelocity*_rightVelocity));
     }
@@ -389,15 +400,18 @@ void PhysicsCharacter::stepForwardAndStrafe(btCollisionWorld* collisionWorld, fl
 
         if (callback.hasHit())
         {
-            kmVec3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
+			kmVec3 normal = { callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z() };
             PhysicsCollisionObject* o = Game::getInstance()->getPhysicsController()->getCollisionObject(callback.m_hitCollisionObject);
             GP_ASSERT(o);
             if (o->getType() == PhysicsCollisionObject::RIGID_BODY && o->isDynamic())
             {
                 PhysicsRigidBody* rb = static_cast<PhysicsRigidBody*>(o);
                 GP_ASSERT(rb);
-                normal.normalize();
-                rb->applyImpulse(_mass * -normal * velocity.length());
+                //normal.normalize();
+				kmVec3Normalize(&normal, &normal);	
+				kmVec3Scale(&normal, &normal, -_mass * velocity.length());
+                //rb->applyImpulse(_mass * -normal * velocity.length());
+				rb->applyImpulse(normal);
             }
 
             updateTargetPositionFromCollision(targetPosition, callback.m_hitNormalWorld);
@@ -466,10 +480,12 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
         if (callback.hasHit())
         {
             // Collision detected, fix it.
-            kmVec3 normal(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
-            normal.normalize();
-
-            float dot = normal.dot(Vector3::unitY());
+			kmVec3 normal = { callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z() };
+            //normal.normalize();
+			kmVec3Normalize(&normal, &normal);
+			kmVec3 unitY = { 0.0, 1.0f, 0.0f };
+			float dot = kmVec3Dot(&normal, &unitY);
+            //float dot = normal.dot(Vector3::unitY());
             if (dot > _cosSlopeAngle - MATH_EPSILON)
             {
                 targetPosition.setInterpolate3(_currentPosition, targetPosition, callback.m_closestHitFraction);
@@ -486,8 +502,11 @@ void PhysicsCharacter::stepDown(btCollisionWorld* collisionWorld, btScalar time)
                 {
                     PhysicsRigidBody* rb = static_cast<PhysicsRigidBody*>(o);
                     GP_ASSERT(rb);
-                    normal.normalize();
-                    rb->applyImpulse(_mass * -normal * sqrt(BV(normal).dot(_verticalVelocity)));
+                    //normal.normalize();
+                    //rb->applyImpulse(_mass * -normal * sqrt(BV(normal).dot(_verticalVelocity)));
+					kmVec3Normalize(&normal, &normal);
+					kmVec3Scale(&normal, &normal, -_mass * sqrt(BV(normal).dot(_verticalVelocity)));
+					rb->applyImpulse(normal);
                 }
 
                 updateTargetPositionFromCollision(targetPosition, BV(normal));
@@ -581,7 +600,8 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
 
     // Store our current world position.
     kmVec3 startPosition;
-    _node->getWorldMatrix().getTranslation(&startPosition);
+    //_node->getWorldMatrix().getTranslation(&startPosition);
+	kmMat4Decompose(&_node->getWorldMatrix(), NULL, NULL, &startPosition);
     btVector3 currentPosition = BV(startPosition);
 
     // Handle all collisions/overlapping pairs.
@@ -637,8 +657,9 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
     }
 
     // Set the new world transformation to apply to fix the collision.
-    kmVec3 newPosition = Vector3(currentPosition.x(), currentPosition.y(), currentPosition.z()) - startPosition;
-    if (newPosition != Vector3::zero())
+	kmVec3 newPosition = { currentPosition.x(), currentPosition.y(), currentPosition.z() };
+	kmVec3Subtract(&newPosition, &newPosition, &startPosition);
+    if ( ! kmVec3IsZero( &newPosition ) )
         _node->translate(newPosition);
 
     return collision;
@@ -705,8 +726,8 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
 
     // Set new position.
     btVector3 newPosition = _currentPosition - startPosition;
-    kmVec3 translation = Vector3(newPosition.x(), newPosition.y(), newPosition.z());
-    if (translation !=  Vector3::zero())
+	kmVec3 translation = { newPosition.x(), newPosition.y(), newPosition.z() };
+    if ( !kmVec3IsZero( &translation ))
         _node->translate(translation);
 }
 
