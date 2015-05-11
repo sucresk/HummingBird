@@ -46,7 +46,7 @@ kmMat4 gkmMat4; // ±£´æ¾ØÕóÆ½ÒÆÐý×ª
 #define MATH_TOLERANCE              2e-37f
 #define MATH_EPSILON                0.000001f
 
-static kmMat4 matIdentity =
+kmMat4 matIdentity =
 {
 	1, 0, 0, 0,
 	0, 1, 0, 0,

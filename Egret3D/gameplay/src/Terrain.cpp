@@ -319,7 +319,6 @@ Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
                 kmVec2 textureRepeat;
                 int blendChannel = 0;
                 int row = -1, column = -1;
-                kmVec4 temp;
 
                 // Read layer textures
                 Properties* t = lp->getNamespace("texture", true);

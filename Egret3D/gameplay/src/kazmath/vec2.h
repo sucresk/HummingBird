@@ -41,12 +41,13 @@ typedef struct kmVec2 {
 
 #pragma pack(pop)
 
-extern kmVec2 vec2Zero;
-extern kmVec2 vec2One;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern kmVec2 vec2Zero;
+extern kmVec2 vec2One;
+
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y);
 kmScalar kmVec2Length(const kmVec2* pIn); ///< Returns the length of the vector
 kmScalar kmVec2LengthSq(const kmVec2* pIn); ///< Returns the square of the length of the vector

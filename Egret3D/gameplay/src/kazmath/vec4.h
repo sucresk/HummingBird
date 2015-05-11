@@ -43,12 +43,12 @@ typedef struct kmVec4 {
 #pragma pack(pop)
 
 
-extern kmVec4 vec4Zero;
-extern kmVec4 vec4One;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern kmVec4 vec4Zero;
+extern kmVec4 vec4One;
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w);
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2);

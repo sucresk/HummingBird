@@ -32,8 +32,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/vec4.h"
 #include "kazmath/mat4.h"
 
-static kmVec4 vec4Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
-static kmVec4 vec4One = { 1.0f, 1.0f, 1.0f, 1.0f };
+kmVec4 vec4Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
+kmVec4 vec4One = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
 {

@@ -40,12 +40,12 @@ typedef struct kmVec3 {
     kmScalar z;
 } kmVec3;
 
-extern kmVec3 vec3Zero;
-extern kmVec3 vec3One;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern kmVec3 vec3Zero;
+extern kmVec3 vec3One;
 
 kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z);
 kmScalar kmVec3Length(const kmVec3* pIn); /** Returns the length of the vector */
