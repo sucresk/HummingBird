@@ -243,7 +243,7 @@ void PhysicsCollisionObject::PhysicsMotionState::setWorldTransform(const btTrans
 
     _worldTransform = transform * _centerOfMassOffset;
         
-    const btkmQuaternion& rot = _worldTransform.getRotation();
+    const btQuaternion& rot = _worldTransform.getRotation();
     const btVector3& pos = _worldTransform.getOrigin();
 
     _node->setRotation(rot.x(), rot.y(), rot.z(), rot.w());
@@ -255,9 +255,10 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
     GP_ASSERT(_node);
 
     // Store the initial world transform (minus the scale) for use by Bullet later on.
-    Quaternion rotation;
+    kmQuaternion rotation;
     const kmMat4& m = _node->getWorldMatrix();
-    m.getRotation(&rotation);
+    //m.getRotation(&rotation);
+	kmMat4Decompose(&m, NULL, &rotation, NULL);
 
     if (!_centerOfMassOffset.getOrigin().isZero())
     {
@@ -265,14 +266,14 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
         // so that when physics is initially applied, the object is in the correct location.
         btTransform offset = btTransform(BQ(rotation), btVector3(0.0f, 0.0f, 0.0f)) * _centerOfMassOffset.inverse();
 
-        btVector3 origin(m.m[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
-                         m.m[13] + _centerOfMassOffset.getOrigin().getY() + offset.getOrigin().getY(), 
-                         m.m[14] + _centerOfMassOffset.getOrigin().getZ() + offset.getOrigin().getZ());
+        btVector3 origin(m.mat[12] + _centerOfMassOffset.getOrigin().getX() + offset.getOrigin().getX(), 
+                         m.mat[13] + _centerOfMassOffset.getOrigin().getY() + offset.getOrigin().getY(), 
+                         m.mat[14] + _centerOfMassOffset.getOrigin().getZ() + offset.getOrigin().getZ());
         _worldTransform = btTransform(BQ(rotation), origin);
     }
     else
     {
-        _worldTransform = btTransform(BQ(rotation), btVector3(m.m[12], m.m[13], m.m[14]));
+        _worldTransform = btTransform(BQ(rotation), btVector3(m.mat[12], m.mat[13], m.mat[14]));
     }
 }
 

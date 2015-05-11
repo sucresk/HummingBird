@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "kazmath/vec3.h"
+#include "kazmath/quaternion.h"
 
 namespace egret
 {
