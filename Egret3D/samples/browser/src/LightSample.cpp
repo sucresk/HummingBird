@@ -54,7 +54,7 @@ void LightSample::initialize()
 	_model = dynamic_cast<Model*>(_modelNode->getDrawable());
 
 	// Create a directional light and a reference icon for the light
-	Light* directionalLight = Light::createDirectional(Vector3::one());
+	Light* directionalLight = Light::createDirectional(vec3One);
 	_directionalLightNode = Node::create("directionalLight");
 	_directionalLightNode->setLight(directionalLight);
     SAFE_RELEASE(directionalLight);
@@ -67,7 +67,7 @@ void LightSample::initialize()
 	_scene->addNode(_directionalLightNode);
 
 	// Create a spotlight and create a reference icon for the light
-	Light* spotLight = Light::createSpot(Vector3::one(), 100.0f, MATH_DEG_TO_RAD(30.0f), MATH_DEG_TO_RAD(40.0f));
+	Light* spotLight = Light::createSpot(vec3One, 100.0f, MATH_DEG_TO_RAD(30.0f), MATH_DEG_TO_RAD(40.0f));
 	_spotLightNode = Node::create("spotLight");
 	_spotLightNode->setLight(spotLight);
     SAFE_RELEASE(spotLight);
@@ -80,7 +80,7 @@ void LightSample::initialize()
 	_scene->addNode(_spotLightNode);
 
 	// Create a point light and create a reference icon for the light
-	Light* pointLight = Light::createPoint(Vector3::one(), 16.0f);
+	Light* pointLight = Light::createPoint(vec3One, 16.0f);
 	_pointLightNode = Node::create("pointLight");
 	_pointLightNode->setLight(pointLight);
     SAFE_RELEASE(pointLight);
@@ -181,7 +181,7 @@ void LightSample::render(float elapsedTime)
 
     _form->draw();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 235, 2, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 235, 2, getFrameRate());
 }
 
 void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
@@ -233,18 +233,18 @@ void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 			int deltaY = y - _touchY;
 			_touchY = y;
 
-			Matrix m;
-			_modelNode->getWorldMatrix().transpose(&m);
+			//Matrix m;
+			//_modelNode->getWorldMatrix().transpose(&m);
 
 			// Yaw in world frame
-			kmVec3 yaw;
-			m.getUpVector(&yaw);
-			_modelNode->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
+			//kmVec3 yaw;
+			//m.getUpVector(&yaw);
+			//_modelNode->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
 
 			// Roll in world frame
-			kmVec3 pitch;
-			m.getRightVector(&pitch);
-			_modelNode->rotate(pitch, MATH_DEG_TO_RAD(deltaY * 0.5f));
+			//kmVec3 pitch;
+			//m.getRightVector(&pitch);
+			//_modelNode->rotate(pitch, MATH_DEG_TO_RAD(deltaY * 0.5f));
 		}
 		break;
 
@@ -289,7 +289,7 @@ void LightSample::controlEvent(Control* control, EventType evt)
 	case Control::Listener::VALUE_CHANGED:
 		if ((control == _redSlider) || (control == _greenSlider) || (control == _blueSlider))
         {
-			kmVec3 color(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue());
+			kmVec3 color = { _redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue() };
 			setColorValue(color);
         }
 		else if (control == _specularSlider)
@@ -378,15 +378,19 @@ void LightSample::controlEvent(Control* control, EventType evt)
 
 void LightSample::initializeDirectionalTechnique(const char* technique)
 {
-	_lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue(Vector3(0.0f, 0.0f, 0.0f));
-    _lighting->getTechnique(technique)->getParameter("u_directionalLightColor[0]")->setValue(Vector3(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue()));
+	kmVec3 temp = { 0.0f, 0.0f, 0.0f };
+	_lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue(temp);
+	temp = { _redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue() };
+    _lighting->getTechnique(technique)->getParameter("u_directionalLightColor[0]")->setValue(temp);
     _lighting->getTechnique(technique)->getParameter("u_directionalLightDirection[0]")->bindValue(_directionalLightNode, &Node::getForwardVectorView); 
 }	
 
 void LightSample::initializeSpotTechnique(const char* technique)
 {
-    _lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue(Vector3(0.0f, 0.0f, 0.0f));
-    _lighting->getTechnique(technique)->getParameter("u_spotLightColor[0]")->setValue(Vector3(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue()));
+	kmVec3 temp = { 0.0f, 0.0f, 0.0f };
+    _lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue( temp);
+	temp = { _redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue() };
+    _lighting->getTechnique(technique)->getParameter("u_spotLightColor[0]")->setValue( temp );
     _lighting->getTechnique(technique)->getParameter("u_spotLightInnerAngleCos[0]")->setValue(_spotLightNode->getLight()->getInnerAngleCos());
 	_lighting->getTechnique(technique)->getParameter("u_spotLightOuterAngleCos[0]")->setValue(_spotLightNode->getLight()->getOuterAngleCos());
 	_lighting->getTechnique(technique)->getParameter("u_spotLightRangeInverse[0]")->setValue(_spotLightNode->getLight()->getRangeInverse());
@@ -396,8 +400,10 @@ void LightSample::initializeSpotTechnique(const char* technique)
 
 void LightSample::initializePointTechnique(const char* technique)
 {
-    _lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue(Vector3(0.0f, 0.0f, 0.0f));
-    _lighting->getTechnique(technique)->getParameter("u_pointLightColor[0]")->setValue(Vector3(_redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue()));
+	kmVec3 temp = { 0.0f, 0.0f, 0.0f };
+    _lighting->getTechnique(technique)->getParameter("u_ambientColor")->setValue( temp );
+	temp = { _redSlider->getValue(), _greenSlider->getValue(), _blueSlider->getValue() };
+    _lighting->getTechnique(technique)->getParameter("u_pointLightColor[0]")->setValue( temp );
 	_lighting->getTechnique(technique)->getParameter("u_pointLightPosition[0]")->bindValue(_pointLightNode, &Node::getTranslationView);
 	_lighting->getTechnique(technique)->getParameter("u_pointLightRangeInverse[0]")->setValue(_pointLightNode->getLight()->getRangeInverse());
 }

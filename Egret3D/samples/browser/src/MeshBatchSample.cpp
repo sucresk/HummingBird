@@ -28,15 +28,15 @@ static MeshBatch* createMeshBatch(Mesh::PrimitiveType primitiveType)
 
 static kmVec3 randomColor()
 {
-    return Vector3(MATH_RANDOM_0_1(), MATH_RANDOM_0_1(), MATH_RANDOM_0_1());
+	return{ MATH_RANDOM_0_1(), MATH_RANDOM_0_1(), MATH_RANDOM_0_1() };
 }
 
 MeshBatchSample::MeshBatchSample()
     : _font(NULL), _meshBatch(NULL), _lastTriangleAdded(0)
 {
-    _vertices.push_back(Vertex(Vector3(0, 50, 0), randomColor()));
-    _vertices.push_back(Vertex(Vector3(-50, -50, 0), randomColor()));
-    _vertices.push_back(Vertex(Vector3(50, -50, 0), randomColor()));
+	_vertices.push_back(Vertex({ 0, 50, 0 }, randomColor()));
+	_vertices.push_back(Vertex({ -50, -50, 0 }, randomColor()));
+	_vertices.push_back(Vertex({ 50, -50, 0 }, randomColor()));
 }
 
 void MeshBatchSample::initialize()
@@ -45,7 +45,7 @@ void MeshBatchSample::initialize()
     // Create the font for drawing the framerate.
     _font = Font::create("res/ui/arial.gpb");
 
-    Matrix::createOrthographic(getWidth(), getHeight(), -1.0f, 1.0f, &_worldViewProjectionMatrix);
+    //Matrix::createOrthographic(getWidth(), getHeight(), -1.0f, 1.0f, &_worldViewProjectionMatrix);
     _meshBatch = createMeshBatch(Mesh::TRIANGLES);
 }
 
@@ -62,7 +62,7 @@ void MeshBatchSample::update(float elapsedTime)
 void MeshBatchSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     // Draw all of the triangles as one mesh batch.
     _meshBatch->start();
@@ -71,11 +71,11 @@ void MeshBatchSample::render(float elapsedTime)
     _meshBatch->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(_worldViewProjectionMatrix);
     _meshBatch->draw();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
     _font->start();
     char text[1024];
     sprintf(text, "Touch to add triangles (%d)", (int)(_vertices.size() / 3));
-    _font->drawText(text, 10, getHeight() - _font->getSize() - 10, Vector4::one(), 18);
+    _font->drawText(text, 10, getHeight() - _font->getSize() - 10, vec4One, 18);
     _font->finish();
 }
 
@@ -110,17 +110,17 @@ void MeshBatchSample::addTriangle(int x, int y)
     // Calculate the vertices of the equilateral triangle.
     // length of the side (between 40 and 120)
     float a = MATH_RANDOM_0_1() * 80.0 + 40.0f;  
-    kmVec3 p1(0.0f,       a / sqrtf(3.0f), 0);
-    kmVec3 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
-    kmVec3 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0);
+	kmVec3 p1 = { 0.0f, a / sqrtf(3.0f), 0 };
+	kmVec3 p2 = { -a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0 };
+	kmVec3 p3 = { a / 2.0f, -a / (2.0f * sqrtf(3.0f)), 0 };
 
     // Transform each point to x,y and rotate it randomly.
-    kmMat4 m;
-    m.translate(x, y, 0);
-    m.rotateZ(MATH_RANDOM_MINUS1_1() * MATH_PI);
-    m.transformPoint(p1, &p1);
-    m.transformPoint(p2, &p2);
-    m.transformPoint(p3, &p3);
+    //kmMat4 m;
+    //m.translate(x, y, 0);
+    //m.rotateZ(MATH_RANDOM_MINUS1_1() * MATH_PI);
+    //m.transformPoint(p1, &p1);
+    //m.transformPoint(p2, &p2);
+    //m.transformPoint(p3, &p3);
     
     // Added the triangle to the list with random vertex colors.
     _vertices.push_back(Vertex(p1, randomColor()));

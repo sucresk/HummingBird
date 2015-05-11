@@ -12,9 +12,9 @@ static Mesh* createTriangleMesh()
 {
     // Calculate the vertices of the equilateral triangle.
     float a = 0.25f;      // Length of side
-    kmVec2 p1(0.0f,       a / sqrtf(3.0f));
-    kmVec2 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
-    kmVec2 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
+	kmVec2 p1 = { 0.0f, a / sqrtf(3.0f) };
+	kmVec2 p2 = { -a / 2.0f, -a / (2.0f * sqrtf(3.0f)) };
+	kmVec2 p3 = { a / 2.0f, -a / (2.0f * sqrtf(3.0f)) };
 
     // Create 3 vertices. Each vertex has position (x, y, z) and color (red, green, blue)
     float vertices[] =
@@ -161,7 +161,7 @@ void MeshPrimitiveSample::initialize()
     // Create an orthographic projection matrix.
     float width = getWidth() / (float)getHeight();
     float height = 1.0f;
-    Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_viewProjectionMatrix);
+    //Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_viewProjectionMatrix);
 
     // Create a model for the triangle mesh. A model is an instance of a Mesh that can be drawn with a specified material.
     Mesh* triangleMesh = createTriangleMesh();
@@ -214,42 +214,42 @@ void MeshPrimitiveSample::update(float elapsedTime)
 void MeshPrimitiveSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
-    kmMat4 wvp;
-    wvp.rotateY(_tilt.x * 0.01f);
-    wvp.rotateX(_tilt.y * 0.01f);
-    Matrix::multiply(wvp, _viewProjectionMatrix, &wvp);
+    //kmMat4 wvp;
+    //wvp.rotateY(_tilt.x * 0.01f);
+    //wvp.rotateX(_tilt.y * 0.01f);
+    //Matrix::multiply(wvp, _viewProjectionMatrix, &wvp);
 
-    kmMat4 m;
-    float offset = 0.5f;
-    
-    // Bind the view projection kmMat4 to the model's paramter. This will transform the vertices when the model is drawn.
-    m.setIdentity();
-    m.translate(-offset, offset, 0);
-    Matrix::multiply(m, wvp, &m);
-    _triangles->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    _triangles->draw();
+    //kmMat4 m;
+    //float offset = 0.5f;
+    //
+    //// Bind the view projection kmMat4 to the model's paramter. This will transform the vertices when the model is drawn.
+    //m.setIdentity();
+    //m.translate(-offset, offset, 0);
+    //Matrix::multiply(m, wvp, &m);
+    //_triangles->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    //_triangles->draw();
 
-    m.setIdentity();
-    m.translate(0, offset, 0);
-    Matrix::multiply(m, wvp, &m);
-    _triangleStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    _triangleStrip->draw();
+    //m.setIdentity();
+    //m.translate(0, offset, 0);
+    //Matrix::multiply(m, wvp, &m);
+    //_triangleStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    //_triangleStrip->draw();
 
-    m.setIdentity();
-    m.translate(-offset, -offset, 0);
-    Matrix::multiply(m, wvp, &m);
-    _lineStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    _lineStrip->draw();
+    //m.setIdentity();
+    //m.translate(-offset, -offset, 0);
+    //Matrix::multiply(m, wvp, &m);
+    //_lineStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    //_lineStrip->draw();
 
-    m.setIdentity();
-    m.translate(0, -offset, 0);
-    Matrix::multiply(m, wvp, &m);
-    _lines->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    _lines->draw();
+    //m.setIdentity();
+    //m.translate(0, -offset, 0);
+    //Matrix::multiply(m, wvp, &m);
+    //_lines->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    //_lines->draw();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void MeshPrimitiveSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
@@ -264,11 +264,11 @@ void MeshPrimitiveSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsign
         }
         else
         {
-            _touchPoint.set(x, y);
+			_touchPoint = { x, y };
         }
         break;
     case Touch::TOUCH_RELEASE:
-        _touchPoint.set(-1.0f, -1.0f);
+		_touchPoint = { -1.0f, -1.0f };
         break;
     case Touch::TOUCH_MOVE:
         if (_touchPoint.x > 0.0f && _touchPoint.y > 0.0f)
@@ -277,7 +277,7 @@ void MeshPrimitiveSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsign
             float deltaY = y - _touchPoint.y;
             _tilt.x -= deltaX;
             _tilt.y += deltaY;
-            _touchPoint.set(x, y);
+			_touchPoint = { x, y };
         }
         break;
     };

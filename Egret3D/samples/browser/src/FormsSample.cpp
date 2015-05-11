@@ -213,20 +213,20 @@ void FormsSample::update(float elapsedTime)
     // If no controls are in focus, then we poll the gamepad for movement input.
     if (Form::getFocusControl() == NULL)
     {
-        if (!_joysticks[0].isZero())
+        if (!kmVec2IsZero(&_joysticks[0]))
         {
             _formNodeParent->translate(0.5f * speedFactor * _joysticks[0].x, 0.5f * speedFactor * _joysticks[0].y, 0);
         }
 
-        if (!_joysticks[1].isZero())
-        {
-            kmMat4 m;
-            _formNodeParent->getWorldMatrix().transpose(&m);
-            kmVec3 yaw;
-            m.getUpVector(&yaw);
-            _formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
-            _formNodeParent->rotateX(-speedFactor * _joysticks[1].y * 2.0f);
-        }
+        //if (!kmVec2IsZero(&_joysticks[1]))
+        //{
+        //    kmMat4 m;
+        //    _formNodeParent->getWorldMatrix().transpose(&m);
+        //    kmVec3 yaw;
+        //    m.getUpVector(&yaw);
+        //    _formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
+        //    _formNodeParent->rotateX(-speedFactor * _joysticks[1].y * 2.0f);
+        //}
     }
 
     if (_gamepad->isButtonDown(Gamepad::BUTTON_A))
@@ -242,7 +242,7 @@ void FormsSample::update(float elapsedTime)
 void FormsSample::render(float elapsedTime)
 {
     // Clear the screen.
-    clear(CLEAR_COLOR_DEPTH, Vector4(0, 0, 0, 1), 1.0f, 0);
+	clear(CLEAR_COLOR_DEPTH, { 0, 0, 0, 1 }, 1.0f, 0);
 
     // Draw the forms.
     if (_formSelect)
@@ -276,17 +276,17 @@ void FormsSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
                 _touchX = 0;
             }
             break;
-        case Touch::TOUCH_MOVE:
-            {
-                int deltaX = x - _touchX;
-                _touchX = x;
-                // Yaw in world frame
-                kmMat4 m;
-                _formNodeParent->getWorldMatrix().transpose(&m);
-                kmVec3 yaw;
-                m.getUpVector(&yaw);
-                _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
-            }
+        //case Touch::TOUCH_MOVE:
+        //    {
+        //        int deltaX = x - _touchX;
+        //        _touchX = x;
+        //        // Yaw in world frame
+        //        kmMat4 m;
+        //        _formNodeParent->getWorldMatrix().transpose(&m);
+        //        kmVec3 yaw;
+        //        m.getUpVector(&yaw);
+        //        _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
+        //    }
             break;
         default:
             break;

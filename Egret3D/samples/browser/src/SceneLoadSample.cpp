@@ -35,9 +35,11 @@ bool SceneLoadSample::initializeMaterials(Node* node)
         Material* material = model->getMaterial();
         // For this sample we will only bind a single light to each object in the scene.
         MaterialParameter* colorParam = material->getParameter("u_directionalLightColor[0]");
-        colorParam->setValue(Vector3(0.75f, 0.75f, 0.75f));
+		kmVec3 temp = {0.75f, 0.75f, 0.75f};
+        colorParam->setValue( temp );
         MaterialParameter* directionParam = material->getParameter("u_directionalLightDirection[0]");
-        directionParam->setValue(Vector3(0, -1, 0));
+		temp = {0, -1, 0};
+        directionParam->setValue(temp);
     }
     return true;
 }
@@ -61,7 +63,7 @@ void SceneLoadSample::render(float elapsedTime)
     // Visit all the nodes in the scene, drawing the models/mesh.
     _scene->visit(this, &SceneLoadSample::drawScene);
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void SceneLoadSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

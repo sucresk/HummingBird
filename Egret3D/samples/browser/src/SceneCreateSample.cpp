@@ -109,7 +109,8 @@ void SceneCreateSample::initialize()
     material->setParameterAutoBinding("u_worldViewProjectionMatrix", "WORLD_VIEW_PROJECTION_MATRIX");
     material->setParameterAutoBinding("u_inverseTransposeWorldViewMatrix", "INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX");
     // Set the ambient color of the material.
-    material->getParameter("u_ambientColor")->setValue(Vector3(0.2f, 0.2f, 0.2f));
+	kmVec3 temp = {0.2f, 0.2f, 0.2f};
+    material->getParameter("u_ambientColor")->setValue( temp );
 
     // Bind the light's color and direction to the material.
     material->getParameter("u_directionalLightColor[0]")->setValue(lightNode->getLight()->getColor());
@@ -148,7 +149,7 @@ void SceneCreateSample::render(float elapsedTime)
     // Visit all the nodes in the scene, drawing the models.
     _scene->visit(this, &SceneCreateSample::drawScene);
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void SceneCreateSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

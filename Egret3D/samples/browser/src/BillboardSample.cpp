@@ -39,7 +39,7 @@ void BillboardSample::initialize()
 
 	// Initialize the camera
     _camera.initialize(0.1f, 100, 45);
-    _camera.setPosition(Vector3(0, BILLBOARD_HEIGHT * 1.5f, GROUND_WIDTH / 2.0f));
+	_camera.setPosition({ 0, BILLBOARD_HEIGHT * 1.5f, GROUND_WIDTH / 2.0f });
 	_camera.rotate(0.0f, -MATH_DEG_TO_RAD(10));
     _scene->addNode(_camera.getRootNode());
     _scene->setActiveCamera(_camera.getCamera());
@@ -104,7 +104,8 @@ void BillboardSample::update(float elapsedTime)
         {
             move.x = -1;
         }
-        move.normalize();
+        //move.normalize();
+		kmVec2Normalize(&move, &move);
 
         // Up and down
         if (_moveFlags & MOVE_UP)
@@ -128,9 +129,10 @@ void BillboardSample::update(float elapsedTime)
         _camera.rotate(MATH_DEG_TO_RAD(joy2.x * 2.0f), MATH_DEG_TO_RAD(joy2.y * 2.0f));
     }
 
-    if (!move.isZero())
+    if (!kmVec2IsZero(&move ) )
     {
-        move.scale(time * MOVE_SPEED);
+        //move.scale(time * MOVE_SPEED);
+		kmVec2Scale(&move, &move, time *MOVE_SPEED);
         _camera.moveForward(move.y);
         _camera.moveLeft(move.x);
     }
@@ -139,7 +141,10 @@ void BillboardSample::update(float elapsedTime)
 void BillboardSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::fromColor(0x355D90FF), 1.0f, 0);
+    //clear(CLEAR_COLOR_DEPTH, Vector4::fromColor(0x355D90FF), 1.0f, 0);
+	kmVec4 color;
+	kmVec4FromColor(&color, 0x355D90FF),
+	clear(CLEAR_COLOR_DEPTH, color, 1.0f, 0);
 
 	// Draw the ground
 	_ground->draw();
@@ -147,26 +152,26 @@ void BillboardSample::render(float elapsedTime)
 	// Get the scene camera
 	Camera* camera = _scene->getActiveCamera();
 
-	for (unsigned int i = 0; i < BILLBOARD_COUNT; i++)
-	{
-		Node* node = _billboards[i];
+	//for (unsigned int i = 0; i < BILLBOARD_COUNT; i++)
+	//{
+	//	Node* node = _billboards[i];
 
-		// Rotate the node x/z to face the camera
-		Matrix m;
-        Matrix::createBillboard(node->getTranslationWorld(), camera->getNode()->getTranslationWorld(), camera->getNode()->getUpVectorWorld(), &m);
-		Quaternion q;
-		m.getRotation(&q);
-		node->setRotation(q);
+	//	// Rotate the node x/z to face the camera
+	//	Matrix m;
+ //       Matrix::createBillboard(node->getTranslationWorld(), camera->getNode()->getTranslationWorld(), camera->getNode()->getUpVectorWorld(), &m);
+	//	Quaternion q;
+	//	m.getRotation(&q);
+	//	node->setRotation(q);
 
-		if (node->getBoundingSphere().intersects(camera->getFrustum()))
-			node->getDrawable()->draw();
-	}
+	//	if (node->getBoundingSphere().intersects(camera->getFrustum()))
+	//		node->getDrawable()->draw();
+	//}
 
     // draw the gamepad
     _gamepad->draw();
 
     // draw the frame rate
-    drawFrameRate(_font, Vector4::one(), 5, 1, getFrameRate());
+    drawFrameRate(_font, vec4One, 5, 1, getFrameRate());
 }
 
 void BillboardSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
@@ -290,7 +295,8 @@ void BillboardSample::loadGround()
 	material->getStateBlock()->setBlend(false);
 	Texture::Sampler* sampler = material->getParameter("u_diffuseTexture")->setValue("res/png/dirt.png", true);
 	sampler->setFilterMode(Texture::LINEAR_MIPMAP_LINEAR, Texture::LINEAR);
-	material->getParameter("u_textureRepeat")->setValue(Vector2(GROUND_REPEAT_TEXTURE, GROUND_REPEAT_TEXTURE));
+	kmVec2 temp = { GROUND_REPEAT_TEXTURE, GROUND_REPEAT_TEXTURE };
+	material->getParameter("u_textureRepeat")->setValue(temp );
 	material->setParameterAutoBinding("u_worldViewProjectionMatrix", RenderState::WORLD_VIEW_PROJECTION_MATRIX);
 	_ground->setMaterial(material);
 	SAFE_RELEASE(material);
@@ -301,7 +307,7 @@ void BillboardSample::loadGround()
 void BillboardSample::loadBillboards()
 {
 	Mesh* mesh = Mesh::createQuad(-(BILLBOARD_WIDTH / 2.0f), -(BILLBOARD_HEIGHT / 2.0f), BILLBOARD_WIDTH, BILLBOARD_HEIGHT);
-	mesh->setBoundingSphere(BoundingSphere(Vector3::zero(), BILLBOARD_HEIGHT));
+	mesh->setBoundingSphere(BoundingSphere(vec3Zero, BILLBOARD_HEIGHT));
 
     Effect* effect = Effect::createFromFile("res/shaders/textured.vert", "res/shaders/textured.frag", "TEXTURE_DISCARD_ALPHA");
 

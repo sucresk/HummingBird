@@ -14,7 +14,8 @@ PhysicsCollisionObjectSample::PhysicsCollisionObjectSample()
     _nodeIds.assign(nodeIds, nodeIds + 4);
     const char* nodeNames[] = {"Sphere", "Box", "Capsule", "Duck"};
     _nodeNames.assign(nodeNames, nodeNames + 4);
-    kmVec4 colors[] = {Vector4(1, 0, 0, 1), Vector4(0.1f, 0.6f, 0.1f, 1), Vector4(0, 0, 1, 1), Vector4(1, 1, 0, 1)};
+	kmVec4 colors[] = { { 1, 0, 0, 1 }, 
+	{ 0.1f, 0.6f, 0.1f, 1 }, { 0, 0, 1, 1 }, { 1, 1, 0, 1 } };
     _colors.assign(colors, colors + 4);
 }
 
@@ -63,7 +64,7 @@ void PhysicsCollisionObjectSample::render(float elapsedTime)
         getPhysicsController()->drawDebug(_scene->getActiveCamera()->getViewProjectionMatrix());
     }
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 
     _form->draw();
 }
@@ -155,7 +156,7 @@ bool PhysicsCollisionObjectSample::bindLights(Node* node)
 void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
 {
     Node* clone = _scene->findNode(_nodeIds[_objectType])->clone();
-    clone->setRotation(Quaternion::identity());
+    clone->setRotation( 0.0f, 0.0f, 0.0f, 1.0f );
     if (_throw)
     {
         clone->setTranslation(ray.getOrigin());
@@ -164,12 +165,12 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     {
         // Find the position where the pick ray intersects with the floor.
         float distance = ray.intersects(Plane(0, 1, 0, -0.5f));
-        if (distance != Ray::INTERSECTS_NONE)
-        {
-            kmVec3 position((ray.getDirection() * distance) + ray.getOrigin());
-            position.y += 8.0f;
-            clone->setTranslation(position);
-        }
+        //if (distance != Ray::INTERSECTS_NONE)
+        //{
+        //    kmVec3 position((ray.getDirection() * distance) + ray.getOrigin());
+        //    position.y += 8.0f;
+        //    clone->setTranslation(position);
+        //}
     }
     // It is important to set the transform before attaching the collision object because this rigid body is not kinematic.
     // Once the non-kinematic rigid body is attached, you should only move the object using forces.
@@ -179,8 +180,8 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     {
         PhysicsRigidBody* rigidBody = static_cast<PhysicsRigidBody*>(collisionObject);
         kmVec3 impulse(ray.getDirection());
-        impulse.normalize();
-        impulse.scale(50.0f * rigidBody->getMass());
+        //impulse.normalize();
+        //impulse.scale(50.0f * rigidBody->getMass());
         rigidBody->applyImpulse(impulse);
     }
     // Release the new cloned node because the scene now holds the reference to it.

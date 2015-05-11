@@ -28,9 +28,10 @@ void InputSample::initialize()
     _crosshair = SpriteBatch::create("res/png/gamepad.png");
     _crosshairDstRect.set(0, 0, 256, 256);
     _crosshairSrcRect.set(256, 0, 256, 256);
-    _crosshairLowerLimit.set(-_crosshairSrcRect.width / 2.0f, -_crosshairSrcRect.height / 2.0f);
-    _crosshairUpperLimit.set((float)getWidth(), (float)getHeight());
-    _crosshairUpperLimit += _crosshairLowerLimit;
+	_crosshairLowerLimit = { -_crosshairSrcRect.width / 2.0f, -_crosshairSrcRect.height / 2.0f };
+	_crosshairUpperLimit = { (float)getWidth(), (float)getHeight() };
+    //_crosshairUpperLimit += _crosshairLowerLimit;
+	kmVec2Add(&_crosshairUpperLimit, &_crosshairUpperLimit, &_crosshairLowerLimit);
 
     // Create input sample controls
     _keyboardState = false;
@@ -44,7 +45,7 @@ void InputSample::initialize()
     }
     _inputSampleControls->getControl("restoreMouseLabel")->setVisible(false);
 
-    _mousePoint.set(-100, -100);
+	_mousePoint = { -100, -100 };
 
     // Create a 3D form that responds to raw sensor inputs.
     // For this, we will need a scene with a camera node.
@@ -67,7 +68,7 @@ void InputSample::initialize()
     form->addControl(label);
     label->release();
     _formNode->setScale(0.0015f, 0.0015f, 1.0f);
-    _formNodeRestPosition.set(0, 0, -1.5f);
+	_formNodeRestPosition = { 0, 0, -1.5f };
     _formNodeParent->setTranslation(_formNodeRestPosition);
     _formNode->setTranslation(-0.2f, -0.2f, 0);
     _formNode->setDrawable(form);
@@ -104,33 +105,33 @@ void InputSample::update(float elapsedTime)
         gyroRaw.x = -gyroRaw.y;
         gyroRaw.y = temp;
 
-        // Respond to raw accelerometer inputs
-        kmVec3 position;
-        _formNodeParent->getTranslation(&position);
-        position.smooth(_formNodeRestPosition - accelRaw*0.04f, elapsedTime, 100);
-        _formNodeParent->setTranslation(position);
+        //// Respond to raw accelerometer inputs
+        //kmVec3 position;
+        //_formNodeParent->getTranslation(&position);
+        //position.smooth(_formNodeRestPosition - accelRaw*0.04f, elapsedTime, 100);
+        //_formNodeParent->setTranslation(position);
 
-        // Respond to raw gyroscope inputs
-        kmVec3 rotation;
-        float angle = _formNodeParent->getRotation(&rotation);
-        rotation *= angle;
-        rotation.smooth(gyroRaw*(-0.18f), elapsedTime, 220);
-        angle = rotation.length();
-        rotation.normalize();
-        _formNodeParent->setRotation(rotation, angle);
+        //// Respond to raw gyroscope inputs
+        //kmVec3 rotation;
+        //float angle = _formNodeParent->getRotation(&rotation);
+        //rotation *= angle;
+        //rotation.smooth(gyroRaw*(-0.18f), elapsedTime, 220);
+        //angle = rotation.length();
+        //rotation.normalize();
+        //_formNodeParent->setRotation(rotation, angle);
     }
 }
 
 void InputSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     _inputSampleControls->draw();
 
     // Draw text
     unsigned int fontSize = 18;
-    kmVec4 fontColor(1.0f, 1.0f, 1.0f, 1.0f);
+	kmVec4 fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };
     unsigned int width, height;
     char buffer[50];
 
@@ -294,7 +295,7 @@ void InputSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 
 bool InputSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelDelta)
 {
-    _mousePoint.set(x, y);
+	_mousePoint = { x, y };
     _mouseString.clear();
 
     switch (evt)
@@ -325,9 +326,9 @@ bool InputSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelDelta
             _crosshairDstRect.setPosition(_crosshairDstRect.x + x, _crosshairDstRect.y + y);
 
             // Use screen limits to clamp the crosshair position
-            kmVec2 pos(_crosshairDstRect.x, _crosshairDstRect.y);
-            pos.clamp(_crosshairLowerLimit, _crosshairUpperLimit);
-            _crosshairDstRect.setPosition(pos.x, pos.y);
+			kmVec2 pos = { _crosshairDstRect.x, _crosshairDstRect.y };
+            //pos.clamp(_crosshairLowerLimit, _crosshairUpperLimit);
+            //_crosshairDstRect.setPosition(pos.x, pos.y);
         }
         break;
     case Mouse::MOUSE_WHEEL:

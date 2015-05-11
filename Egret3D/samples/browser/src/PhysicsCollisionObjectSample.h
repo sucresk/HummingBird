@@ -62,7 +62,7 @@ private:
     std::vector<const char*> _collisionObjectPaths;
     std::vector<const char*> _nodeIds;
     std::vector<const char*> _nodeNames;
-    std::vector<Vector4> _colors;
+    std::vector<kmVec4> _colors;
 };
 
 #endif

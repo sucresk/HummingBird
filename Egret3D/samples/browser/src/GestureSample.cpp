@@ -82,10 +82,10 @@ void GestureSample::update(float elapsedTime)
 void GestureSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     // Draw text
-    kmVec4 fontColor(1.0f, 1.0f, 1.0f, 1.0f);
+	kmVec4 fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };
     unsigned int fontSize = 18;
     
     _font->start();

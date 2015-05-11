@@ -30,7 +30,7 @@ void Audio3DSample::initialize()
     // Get light node
     Node* lightNode = _scene->findNode("directionalLight1");
     Light* light = lightNode->getLight();
-    lightNode->setRotation(Vector3(1, 0, 0), -MATH_DEG_TO_RAD(45));
+	lightNode->setRotation({ 1, 0, 0 }, -MATH_DEG_TO_RAD(45));
 
     // Initialize box model
     Node* boxNode = _scene->findNode("box");
@@ -48,7 +48,7 @@ void Audio3DSample::initialize()
     loadGrid(_scene);
 
     // Initialize cameraa
-    kmVec3 cameraPosition(5, 5, 1);
+	kmVec3 cameraPosition = { 5, 5, 1 };
     if (Camera* camera = _scene->getActiveCamera())
     {
         camera->getNode()->getTranslation(&cameraPosition);
@@ -104,7 +104,8 @@ void Audio3DSample::update(float elapsedTime)
         {
             move.x = -1;
         }
-        move.normalize();
+        //move.normalize();
+		kmVec2Normalize(&move, &move);
 
         // Up and down
         if (_moveFlags & MOVE_UP)
@@ -128,9 +129,10 @@ void Audio3DSample::update(float elapsedTime)
         _fpCamera.rotate(MATH_DEG_TO_RAD(joy2.x * 2.0f), MATH_DEG_TO_RAD(joy2.y * 2.0f));
     }
 
-    if (!move.isZero())
+	if (!kmVec2IsZero( &move) )
     {
-        move.scale(time * MOVE_SPEED);
+        //move.scale(time * MOVE_SPEED);
+		kmVec2Scale(&move, &move, time* MOVE_SPEED);
         _fpCamera.moveForward(move.y);
         _fpCamera.moveLeft(move.x);
     }
@@ -145,7 +147,7 @@ void Audio3DSample::update(float elapsedTime)
 void Audio3DSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     // Visit all the nodes in the scene for drawing
     _scene->visit(this, &Audio3DSample::drawScene);
@@ -153,7 +155,7 @@ void Audio3DSample::render(float elapsedTime)
     drawDebugText(5, 20, 18);
 
     _gamepad->draw();
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 bool Audio3DSample::drawScene(Node* node)
@@ -303,8 +305,11 @@ void Audio3DSample::addSound(const std::string& file)
     Node* cameraNode = _scene->getActiveCamera()->getNode();
     // Position the sound infront of the user
     node->setTranslation(cameraNode->getTranslationWorld());
-    kmVec3 dir = cameraNode->getForwardVectorWorld().normalize();
-    dir.scale(2);
+    //kmVec3 dir = cameraNode->getForwardVectorWorld().normalize();
+	//dir.scale(2);
+	kmVec3 dir;
+	kmVec3Normalize(&dir, &cameraNode->getForwardVectorWorld());
+	kmVec3Scale(&dir, &dir, 2);
     node->translate(dir);
     _scene->addNode(node);
     node->getAudioSource()->play();
@@ -327,7 +332,7 @@ void Audio3DSample::drawVector3(const char* str, const kmVec3& vector, int x, in
 {
     char buffer[255];
     sprintf(buffer, "%s: (%.3f, %.3f, %.3f)", str, vector.x, vector.y, vector.z);
-    _font->drawText(buffer, x, y, Vector4::one(), 22);
+    _font->drawText(buffer, x, y, vec4One, 22);
 }
 
 void Audio3DSample::loadGrid(Scene* scene)

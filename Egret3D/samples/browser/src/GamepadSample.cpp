@@ -67,10 +67,10 @@ void GamepadSample::render(float elapsedTime)
 {
     clear(CLEAR_COLOR_DEPTH, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0);
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 
     _font->start();
-    _font->drawText(_status.c_str(), 7, 27, Vector4::one(), 22);
+    _font->drawText(_status.c_str(), 7, 27, vec4One, 22);
     _font->finish();
 
 

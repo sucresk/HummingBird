@@ -95,7 +95,7 @@ void FontSample::update(float elapsedTime)
 void FontSample::render(float elapsedTime)
 {
     // Clear the screen.
-    clear(CLEAR_COLOR_DEPTH, Vector4(0, 0, 0, 1), 1.0f, 0);
+	clear(CLEAR_COLOR_DEPTH, { 0, 0, 0, 1 }, 1.0f, 0);
 
     // Draw the frame rate.
     char fps[5];
@@ -103,7 +103,7 @@ void FontSample::render(float elapsedTime)
 
     _fonts[0]->start();
 
-    _fonts[0]->drawText(fps, 245, 5, Vector4(0, 0.5f, 1, 1), _size);
+	_fonts[0]->drawText(fps, 245, 5, { 0, 0.5f, 1, 1 }, _size);
     
     if (_font != _fonts[0])
         _font->start();
@@ -113,29 +113,45 @@ void FontSample::render(float elapsedTime)
         // Sample simple versions of measureText, drawText.
         unsigned int w, h;
         _font->measureText(_sampleString.c_str(), _size, &w, &h);
-        _font->drawText(_sampleString.c_str(), _viewport.x, _viewport.y, Vector4::fromColor(0xff0000ff), _size, _rightToLeft);
+		kmVec4 color;
+		kmVec4FromColor(&color, 0xff0000ff);
+        _font->drawText(_sampleString.c_str(), _viewport.x, _viewport.y, color, _size, _rightToLeft);
 
-        _font->drawText("'", _viewport.x, _viewport.y, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText(".", _viewport.x, _viewport.y + h, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText("'", _viewport.x + w, _viewport.y, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText(".", _viewport.x + w, _viewport.y + h, Vector4::fromColor(0x00ff00ff), _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText("'", _viewport.x, _viewport.y, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText(".", _viewport.x, _viewport.y + h, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText("'", _viewport.x + w, _viewport.y, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText(".", _viewport.x + w, _viewport.y + h, color, _size);
     }
     else
     {
         // Sample viewport versions.
         egret::Rectangle area;
         _font->measureText(_sampleString.c_str(), _viewport, _size, &area, _alignment, _wrap, _ignoreClip);
-        _font->drawText(_sampleString.c_str(), _useViewport? _viewport : area, Vector4::fromColor(0xffffffff), _size, _alignment, _wrap, _rightToLeft);
+		kmVec4 color;
+		kmVec4FromColor(&color, 0xffffffff);
+        _font->drawText(_sampleString.c_str(), _useViewport? _viewport : area, color, _size, _alignment, _wrap, _rightToLeft);
     
-        _font->drawText("'", _viewport.x, _viewport.y, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText(".", _viewport.x, _viewport.y + _viewport.height, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText("'", _viewport.x + _viewport.width, _viewport.y, Vector4::fromColor(0x00ff00ff), _size);
-        _font->drawText(".", _viewport.x + _viewport.width, _viewport.y + _viewport.height, Vector4::fromColor(0x00ff00ff), _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText("'", _viewport.x, _viewport.y, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText(".", _viewport.x, _viewport.y + _viewport.height, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText("'", _viewport.x + _viewport.width, _viewport.y, color, _size);
+		kmVec4FromColor(&color, 0x00ff00ff);
+        _font->drawText(".", _viewport.x + _viewport.width, _viewport.y + _viewport.height, color, _size);
 
-        _font->drawText("'", area.x, area.y, Vector4::fromColor(0x0000ffff), _size);
-        _font->drawText(".", area.x, area.y + area.height, Vector4::fromColor(0x0000ffff), _size);
-        _font->drawText("'", area.x + area.width, area.y, Vector4::fromColor(0x0000ffff), _size);
-        _font->drawText(".", area.x + area.width, area.y + area.height, Vector4::fromColor(0x0000ffff), _size);
+		kmVec4FromColor(&color, 0x0000ffff);
+        _font->drawText("'", area.x, area.y, color, _size);
+		kmVec4FromColor(&color, 0x0000ffff);
+        _font->drawText(".", area.x, area.y + area.height, color, _size);
+		kmVec4FromColor(&color, 0x0000ffff);
+        _font->drawText("'", area.x + area.width, area.y, color, _size);
+		kmVec4FromColor(&color, 0x0000ffff);
+        _font->drawText(".", area.x + area.width, area.y + area.height, color, _size);
     }
 
     if (_font != _fonts[0])

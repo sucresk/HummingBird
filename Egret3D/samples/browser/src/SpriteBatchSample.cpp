@@ -19,7 +19,10 @@ void SpriteBatchSample::initialize()
     // Create an orthographic projection matrix.
     float width = getWidth() / (float)getHeight();
     float height = 1.0f;
-    Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
+	float halfWidth = width / 2.0f;
+	float halfHeight = height / 2.0f;
+	kmMat4OrthographicProjection(&_worldViewProjectionMatrix, -halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
+    //Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
     _spriteBatch = SpriteBatch::create("res/png/logo.png");
 }
 
@@ -36,7 +39,7 @@ void SpriteBatchSample::update(float elapsedTime)
 void SpriteBatchSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     Rectangle dst(0, 0, 64, 64);
     Rectangle src(0, 0, 256, 256);
@@ -47,30 +50,43 @@ void SpriteBatchSample::render(float elapsedTime)
     _spriteBatch->draw(dst, src);
 
     // Color tint
-    _spriteBatch->draw(Rectangle( 64, 0, 64, 64), src, Vector4::fromColor(0xF68B28FF));
-    _spriteBatch->draw(Rectangle(128, 0, 64, 64), src, Vector4::fromColor(0xDA2128FF));
-    _spriteBatch->draw(Rectangle(192, 0, 64, 64), src, Vector4::fromColor(0xE21B52FF));
-    _spriteBatch->draw(Rectangle(256, 0, 64, 64), src, Vector4::fromColor(0xE12991FF));
-    _spriteBatch->draw(Rectangle(320, 0, 64, 64), src, Vector4::fromColor(0x9A258FFF));
-    _spriteBatch->draw(Rectangle(384, 0, 64, 64), src, Vector4::fromColor(0x4D3F99FF));
-    _spriteBatch->draw(Rectangle(448, 0, 64, 64), src, Vector4::fromColor(0x0073BCFF));
-    _spriteBatch->draw(Rectangle(512, 0, 64, 64), src, Vector4::fromColor(0x00A8DFFF));
-    _spriteBatch->draw(Rectangle(576, 0, 64, 64), src, Vector4::fromColor(0x00AFADFF));
-    _spriteBatch->draw(Rectangle(640, 0, 64, 64), src, Vector4::fromColor(0x00A95CFF));
-    _spriteBatch->draw(Rectangle(704, 0, 64, 64), src, Vector4::fromColor(0x8CC747FF));
-    _spriteBatch->draw(Rectangle(768, 0, 64, 64), src, Vector4::fromColor(0xFFE710FF));
+	kmVec4 temp;
+	kmVec4FromColor(&temp, 0xF68B28FF);
+    _spriteBatch->draw(Rectangle( 64, 0, 64, 64), src, temp);
+	kmVec4FromColor(&temp, 0xDA2128FF);
+    _spriteBatch->draw(Rectangle(128, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0xE21B52FF);
+    _spriteBatch->draw(Rectangle(192, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0xE12991FF);
+    _spriteBatch->draw(Rectangle(256, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x9A258FFF);
+    _spriteBatch->draw(Rectangle(320, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x4D3F99FF);
+    _spriteBatch->draw(Rectangle(384, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x0073BCFF);
+    _spriteBatch->draw(Rectangle(448, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x00A8DFFF);
+    _spriteBatch->draw(Rectangle(512, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x00AFADFF);
+    _spriteBatch->draw(Rectangle(576, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x00A95CFF);
+    _spriteBatch->draw(Rectangle(640, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0x8CC747FF);
+    _spriteBatch->draw(Rectangle(704, 0, 64, 64), src, temp );
+	kmVec4FromColor(&temp, 0xFFE710FF);
+    _spriteBatch->draw(Rectangle(768, 0, 64, 64), src, temp );
 
     // Negative height draw over top of the first one
     _spriteBatch->draw(Rectangle(0, 0 , 64 * 2.0f, 64 * -2.0f), src);
 
     // Scale
-    _spriteBatch->draw(Vector3(0, 64, 0), src, Vector2(dst.width * 2.0f, dst.height * 2.0f));
+	_spriteBatch->draw({ 0, 64, 0 }, src, { dst.width * 2.0f, dst.height * 2.0f });
     // rotate 90
-    _spriteBatch->draw(Vector3(128, 64, 0), src, Vector2(128, 128), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f), MATH_DEG_TO_RAD(90));
-    _spriteBatch->draw(Vector3(256, 64, 0), src, Vector2(128, 128), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f), MATH_DEG_TO_RAD(180));
-    _spriteBatch->draw(Vector3(384, 64, 0), src, Vector2(128, 128), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f), MATH_DEG_TO_RAD(270));
-    _spriteBatch->draw(Vector3(512, 64, 0), src, Vector2(128, 128), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f), MATH_DEG_TO_RAD(360));
-    _spriteBatch->draw(Vector3(640, 64, 0), src, Vector2(128, 128), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f), MATH_DEG_TO_RAD(0));
+	_spriteBatch->draw({ 128, 64, 0 }, src, { 128, 128 }, { 1, 1, 1, 1 }, { 0.5f, 0.5f }, MATH_DEG_TO_RAD(90));
+	_spriteBatch->draw({ 256, 64, 0 }, src, { 128, 128 }, { 1, 1, 1, 1 }, { 0.5f, 0.5f }, MATH_DEG_TO_RAD(180));
+	_spriteBatch->draw({ 384, 64, 0 }, src, { 128, 128 }, { 1, 1, 1, 1 }, { 0.5f, 0.5f }, MATH_DEG_TO_RAD(270));
+	_spriteBatch->draw({ 512, 64, 0 }, src, { 128, 128 }, { 1, 1, 1, 1 }, { 0.5f, 0.5f }, MATH_DEG_TO_RAD(360));
+	_spriteBatch->draw({ 640, 64, 0 }, src, { 128, 128 }, { 1, 1, 1, 1 }, { 0.5f, 0.5f }, MATH_DEG_TO_RAD(0));
     
     // Lots of them now small
     unsigned int pointCount = 16;
@@ -92,10 +108,10 @@ void SpriteBatchSample::render(float elapsedTime)
     _spriteBatch->start();
 
     // 50% transparent
-    _spriteBatch->draw(Rectangle(x + 512, y - 512, 512, 512), src, Vector4(1, 1, 1, 0.5f)); 
+	_spriteBatch->draw(Rectangle(x + 512, y - 512, 512, 512), src, { 1, 1, 1, 0.5f });
     _spriteBatch->finish();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void SpriteBatchSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

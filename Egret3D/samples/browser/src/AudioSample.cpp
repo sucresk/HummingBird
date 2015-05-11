@@ -105,7 +105,7 @@ void AudioSample::update(float elapsedTime)
 void AudioSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     // Draw all the forms
     _formBackground->draw();

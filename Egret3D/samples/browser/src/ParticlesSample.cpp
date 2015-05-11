@@ -10,7 +10,7 @@ ADD_SAMPLE("Graphics", "Particles", ParticlesSample, 9);
 const float INPUT_SENSITIVITY = 0.05f;
 const float PANNING_SENSITIVITY = 0.01f;
 const float ROTATE_SENSITIVITY = 0.25f;
-const kmVec4 BACKGROUND_COLOR = Vector4::zero();
+const kmVec4 BACKGROUND_COLOR = vec4Zero;
 const float ZOOM_DEFAULT = 4.0f;
 
 ParticlesSample::ParticlesSample()
@@ -54,18 +54,18 @@ void ParticlesSample::addGrid(unsigned int lineCount)
     for (unsigned int i = 0; i < verticesSize; ++i)
     {
         // Default line color is dark grey
-        kmVec4 color(0.3f, 0.3f, 0.3f, 1.0f);
+		kmVec4 color = { 0.3f, 0.3f, 0.3f, 1.0f };
 
         // Every 10th line is brighter grey
         if (((int)value) % 10 == 0)
         {
-            color.set(0.45f, 0.45f, 0.45f, 1.0f);
+			color = { 0.45f, 0.45f, 0.45f, 1.0f };
         }
 
         // The Z axis is blue
         if (value == 0.0f)
         {
-            color.set(0.15f, 0.15f, 0.7f, 1.0f);
+			color = { 0.15f, 0.15f, 0.7f, 1.0f };
         }
 
         // Build the lines
@@ -86,7 +86,7 @@ void ParticlesSample::addGrid(unsigned int lineCount)
         // The X axis is red
         if (value == 0.0f)
         {
-            color.set(0.7f, 0.15f, 0.15f, 1.0f);
+			color = { 0.7f, 0.15f, 0.15f, 1.0f };
         }
         vertices[++i] = -gridLength;
         vertices[++i] = value;
@@ -355,67 +355,67 @@ void ParticlesSample::saveFile()
     texturePath = texturePath.substr(textureDir.length());
 
     // Get camera rotation as axis-angle
-    kmVec3 cameraAxis;
-    float cameraAngle = MATH_RAD_TO_DEG(_cameraParent->getRotation().toAxisAngle(&cameraAxis));
+    //kmVec3 cameraAxis;
+    //float cameraAngle = MATH_RAD_TO_DEG(_cameraParent->getRotation().toAxisAngle(&cameraAxis));
 
-    // Write out a properties file
-    std::ostringstream s;
-    s << 
-        "particle " << name << "\n" <<
-        "{\n" <<
-        "    sprite\n" <<
-        "    {\n" <<
-        "        path = " << texturePath << "\n" <<
-        "        width = " << e->getSpriteWidth() << "\n" <<
-        "        height = " << e->getSpriteHeight() << "\n" <<
-        "        blendMode = " << toString(e->getBlendMode()) << "\n" <<
-        "        animated = " << toString(e->isSpriteAnimated()) << "\n" <<
-        "        looped = " << toString(e->isSpriteLooped()) << "\n" <<
-        "        frameCount = " << e->getSpriteFrameCount() << "\n" <<
-        "        frameRandomOffset = " << e->getSpriteFrameRandomOffset() << "\n" <<
-        "        frameDuration = " << e->getSpriteFrameDuration() << "\n" <<
-        "    }\n" <<
-        "\n" <<
-        "    particleCountMax = " << e->getParticleCountMax() << "\n" <<
-        "    emissionRate = " << e->getEmissionRate() << "\n" <<
-        "    ellipsoid = " << toString(e->isEllipsoid()) << "\n" <<
-        "    orbitPosition = " << toString(e->getOrbitPosition()) << "\n" <<
-        "    orbitVelocity = " << toString(e->getOrbitVelocity()) << "\n" <<
-        "    orbitAcceleration = " << toString(e->getOrbitAcceleration()) << "\n" <<
-        "    sizeStartMin = " << e->getSizeStartMin() << "\n" <<
-        "    sizeStartMax = " << e->getSizeStartMax() << "\n" <<
-        "    sizeEndMin = " << e->getSizeEndMin() << "\n" <<
-        "    sizeEndMax = " << e->getSizeEndMax() << "\n" <<
-        "    energyMin = " << e->getEnergyMin() << "\n" <<
-        "    energyMax = " << e->getEnergyMax() << "\n" <<
-        "    colorStart = " << toString(e->getColorStart()) << "\n" <<
-        "    colorStartVar = " << toString(e->getColorStartVariance()) << "\n" <<
-        "    colorEnd = " << toString(e->getColorEnd()) << "\n" <<
-        "    colorEndVar = " << toString(e->getColorEndVariance()) << "\n" <<
-        "    position = " << toString(e->getPosition()) << "\n" <<
-        "    positionVar = " << toString(e->getPositionVariance()) << "\n" <<
-        "    velocity = " << toString(e->getVelocity()) << "\n" <<
-        "    velocityVar = " << toString(e->getVelocityVariance()) << "\n" <<
-        "    acceleration = " << toString(e->getAcceleration()) << "\n" <<
-        "    accelerationVar = " << toString(e->getAccelerationVariance()) << "\n" <<
-        "    rotationPerParticleSpeedMin = " << e->getRotationPerParticleSpeedMin() << "\n" <<
-        "    rotationPerParticleSpeedMax = " << e->getRotationPerParticleSpeedMax() << "\n" <<
-        "\n" <<
-        "    editor\n" <<
-        "    {\n" <<
-        "        cameraTranslation = " << toString(_cameraParent->getTranslation()) << "\n" <<
-        "        cameraZoom = " << toString(_scene->getActiveCamera()->getNode()->getTranslation()) << "\n" <<
-        "        cameraRotation = " << toString(cameraAxis) << ", " << cameraAngle << "\n" <<
-        "        sizeMax = " << _startMax->getMax() << "\n" <<
-        "        energyMax = " << _energyMax->getMax() << "\n" <<
-        "    }\n"
-        "}\n";
+    //// Write out a properties file
+    //std::ostringstream s;
+    //s << 
+    //    "particle " << name << "\n" <<
+    //    "{\n" <<
+    //    "    sprite\n" <<
+    //    "    {\n" <<
+    //    "        path = " << texturePath << "\n" <<
+    //    "        width = " << e->getSpriteWidth() << "\n" <<
+    //    "        height = " << e->getSpriteHeight() << "\n" <<
+    //    "        blendMode = " << toString(e->getBlendMode()) << "\n" <<
+    //    "        animated = " << toString(e->isSpriteAnimated()) << "\n" <<
+    //    "        looped = " << toString(e->isSpriteLooped()) << "\n" <<
+    //    "        frameCount = " << e->getSpriteFrameCount() << "\n" <<
+    //    "        frameRandomOffset = " << e->getSpriteFrameRandomOffset() << "\n" <<
+    //    "        frameDuration = " << e->getSpriteFrameDuration() << "\n" <<
+    //    "    }\n" <<
+    //    "\n" <<
+    //    "    particleCountMax = " << e->getParticleCountMax() << "\n" <<
+    //    "    emissionRate = " << e->getEmissionRate() << "\n" <<
+    //    "    ellipsoid = " << toString(e->isEllipsoid()) << "\n" <<
+    //    "    orbitPosition = " << toString(e->getOrbitPosition()) << "\n" <<
+    //    "    orbitVelocity = " << toString(e->getOrbitVelocity()) << "\n" <<
+    //    "    orbitAcceleration = " << toString(e->getOrbitAcceleration()) << "\n" <<
+    //    "    sizeStartMin = " << e->getSizeStartMin() << "\n" <<
+    //    "    sizeStartMax = " << e->getSizeStartMax() << "\n" <<
+    //    "    sizeEndMin = " << e->getSizeEndMin() << "\n" <<
+    //    "    sizeEndMax = " << e->getSizeEndMax() << "\n" <<
+    //    "    energyMin = " << e->getEnergyMin() << "\n" <<
+    //    "    energyMax = " << e->getEnergyMax() << "\n" <<
+    //    "    colorStart = " << toString(e->getColorStart()) << "\n" <<
+    //    "    colorStartVar = " << toString(e->getColorStartVariance()) << "\n" <<
+    //    "    colorEnd = " << toString(e->getColorEnd()) << "\n" <<
+    //    "    colorEndVar = " << toString(e->getColorEndVariance()) << "\n" <<
+    //    "    position = " << toString(e->getPosition()) << "\n" <<
+    //    "    positionVar = " << toString(e->getPositionVariance()) << "\n" <<
+    //    "    velocity = " << toString(e->getVelocity()) << "\n" <<
+    //    "    velocityVar = " << toString(e->getVelocityVariance()) << "\n" <<
+    //    "    acceleration = " << toString(e->getAcceleration()) << "\n" <<
+    //    "    accelerationVar = " << toString(e->getAccelerationVariance()) << "\n" <<
+    //    "    rotationPerParticleSpeedMin = " << e->getRotationPerParticleSpeedMin() << "\n" <<
+    //    "    rotationPerParticleSpeedMax = " << e->getRotationPerParticleSpeedMax() << "\n" <<
+    //    "\n" <<
+    //    "    editor\n" <<
+    //    "    {\n" <<
+    //    "        cameraTranslation = " << toString(_cameraParent->getTranslation()) << "\n" <<
+    //    "        cameraZoom = " << toString(_scene->getActiveCamera()->getNode()->getTranslation()) << "\n" <<
+    //    "        cameraRotation = " << toString(cameraAxis) << ", " << cameraAngle << "\n" <<
+    //    "        sizeMax = " << _startMax->getMax() << "\n" <<
+    //    "        energyMax = " << _energyMax->getMax() << "\n" <<
+    //    "    }\n"
+    //    "}\n";
 
-    std::string text = s.str();
-    Stream* stream = FileSystem::open(filename.c_str(), FileSystem::WRITE);
-    stream->write(text.c_str(), 1, text.length());
-    stream->close();
-    SAFE_DELETE(stream);
+    //std::string text = s.str();
+    //Stream* stream = FileSystem::open(filename.c_str(), FileSystem::WRITE);
+    //stream->write(text.c_str(), 1, text.length());
+    //stream->close();
+    //SAFE_DELETE(stream);
 }
 
 void ParticlesSample::controlEvent(Control* control, EventType evt)
@@ -795,29 +795,37 @@ void ParticlesSample::update(float elapsedTime)
     if (_wDown)
     {
         kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
-        v.normalize();
-        v.scale(INPUT_SENSITIVITY * elapsedTime);
+		kmVec3Normalize(&v, &v);
+		kmVec3Scale(&v, &v, INPUT_SENSITIVITY *elapsedTime);
+        //v.normalize();
+        //v.scale(INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_aDown)
     {
         kmVec3 v = _scene->getActiveCamera()->getNode()->getLeftVector();
-        v.normalize();
-        v.scale(INPUT_SENSITIVITY * elapsedTime);
+        //v.normalize();
+        //v.scale(INPUT_SENSITIVITY * elapsedTime);
+		kmVec3Normalize(&v, &v);
+		kmVec3Scale(&v, &v, INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_sDown)
     {
         kmVec3 v = _scene->getActiveCamera()->getNode()->getBackVector();
-        v.normalize();
-        v.scale(INPUT_SENSITIVITY * elapsedTime);
+        //v.normalize();
+        //v.scale(INPUT_SENSITIVITY * elapsedTime);
+		kmVec3Normalize(&v, &v);
+		kmVec3Scale(&v, &v, INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
     if (_dDown)
     {
         kmVec3 v = _scene->getActiveCamera()->getNode()->getRightVector();
-        v.normalize();
-        v.scale(INPUT_SENSITIVITY * elapsedTime);
+        //v.normalize();
+        //v.scale(INPUT_SENSITIVITY * elapsedTime);
+		kmVec3Normalize(&v, &v);
+		kmVec3Scale(&v, &v, INPUT_SENSITIVITY * elapsedTime);
         _scene->getActiveCamera()->getNode()->translate(v);
     }
 
@@ -840,7 +848,7 @@ void ParticlesSample::render(float elapsedTime)
     _form->draw();
 
     // Draw the framerate and number of live particles.
-    drawFrameRate(_font, Vector4(1, 1, 1, 1), 205, 40, getFrameRate());
+	drawFrameRate(_font, { 1, 1, 1, 1 }, 205, 40, getFrameRate());
 }
 
 bool ParticlesSample::drawScene(Node* node, void* cookie)
@@ -882,9 +890,9 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
     case Mouse::MOUSE_MOVE:
         if (_panning)
         {
-            kmVec3 n(-(float)x * PANNING_SENSITIVITY, (float)y * PANNING_SENSITIVITY, 0);
-            _cameraParent->getMatrix().transformVector(&n);
-            _cameraParent->translate(n);
+			kmVec3 n = { -(float)x * PANNING_SENSITIVITY, (float)y * PANNING_SENSITIVITY, 0 };
+            //_cameraParent->getMatrix().transformVector(&n);
+            //_cameraParent->translate(n);
             return true;
         }
         else if (_rotating)
@@ -896,8 +904,10 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
         else if (_zooming)
         {
             kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
-            v.normalize();
-            v.scale((float)(x-y) * INPUT_SENSITIVITY);
+            //v.normalize();
+            //v.scale((float)(x-y) * INPUT_SENSITIVITY);
+			kmVec3Normalize(&v, &v);
+			kmVec3Scale(&v, &v, (float)(x - y) * INPUT_SENSITIVITY );
             _scene->getActiveCamera()->getNode()->translate(v);
             return true;
         }
@@ -907,8 +917,10 @@ bool ParticlesSample::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelD
         if (wheelDelta != 0)
         {
             kmVec3 v = _scene->getActiveCamera()->getNode()->getForwardVector();
-            v.normalize();
-            v.scale((float)(wheelDelta));
+            //v.normalize();
+            //v.scale((float)(wheelDelta));
+			kmVec3Normalize(&v, &v);
+			kmVec3Scale(&v, &v, (float)wheelDelta);
             _scene->getActiveCamera()->getNode()->translate(v);
             return true;
         }
@@ -1043,7 +1055,7 @@ void ParticlesSample::emitterChanged()
         {
             _scene->getActiveCamera()->getNode()->setTranslation(v3);
         }
-        Quaternion q;
+        kmQuaternion q;
         if (ns->getQuaternionFromAxisAngle("cameraRotation", &q))
         {
             _cameraParent->setRotation(q);

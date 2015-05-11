@@ -171,7 +171,7 @@ void PostProcessSample::render(float elapsedTime)
     // Draw into the framebuffer
     Game::getInstance()->setViewport(Rectangle(FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT));
     FrameBuffer* previousFrameBuffer = _frameBuffer->bind();
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
     _scene->visit(this, &PostProcessSample::drawScene);
 
     // Bind the current compositor
@@ -189,9 +189,9 @@ void PostProcessSample::render(float elapsedTime)
         prevToCompositeFrameBuffer = previousFrameBuffer->bind();
     }
 
-    Game::getInstance()->clear(CLEAR_COLOR, Vector4(0, 0, 0, 1), 1.0f, 0);
+	Game::getInstance()->clear(CLEAR_COLOR, { 0, 0, 0, 1 }, 1.0f, 0);
     compositor->blit(defaultViewport);
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
     drawTechniqueId(compositor->getTechniqueId());
 
     previousFrameBuffer->bind();
@@ -220,7 +220,7 @@ void PostProcessSample::drawTechniqueId(const char* techniqueId)
     char buffer[128];
     sprintf(buffer, "%s", techniqueId);
     _font->start();
-    _font->drawText(buffer, Rectangle(0, 10, getWidth(), getHeight()), Vector4::one(), 18, Font::ALIGN_TOP_HCENTER);
+    _font->drawText(buffer, Rectangle(0, 10, getWidth(), getHeight()), vec4One, 18, Font::ALIGN_TOP_HCENTER);
     _font->finish();
 }
 
