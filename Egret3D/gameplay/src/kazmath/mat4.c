@@ -1082,26 +1082,63 @@ kmMat4* const kmMat4CreateRotation(kmMat4* pOut, const kmVec3* axis, float angle
 	float sy = s * y;
 	float sz = s * z;
 
-	dst->mat[0] = c + tx*x;
-	dst->mat[1] = txy + sz;
-	dst->mat[2] = txz - sy;
-	dst->mat[3] = 0.0f;
+	pOut->mat[0] = c + tx*x;
+	pOut->mat[1] = txy + sz;
+	pOut->mat[2] = txz - sy;
+	pOut->mat[3] = 0.0f;
 
-	dst->mat[4] = txy - sz;
-	dst->mat[5] = c + ty*y;
-	dst->mat[6] = tyz + sx;
-	dst->mat[7] = 0.0f;
+	pOut->mat[4] = txy - sz;
+	pOut->mat[5] = c + ty*y;
+	pOut->mat[6] = tyz + sx;
+	pOut->mat[7] = 0.0f;
 
-	dst->mat[8] = txz + sy;
-	dst->mat[9] = tyz - sx;
-	dst->mat[10] = c + tz*z;
-	dst->mat[11] = 0.0f;
+	pOut->mat[8] = txz + sy;
+	pOut->mat[9] = tyz - sx;
+	pOut->mat[10] = c + tz*z;
+	pOut->mat[11] = 0.0f;
 
-	dst->mat[12] = 0.0f;
-	dst->mat[13] = 0.0f;
-	dst->mat[14] = 0.0f;
-	dst->mat[15] = 1.0f;
-	return dst;
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
+	return pOut;
 }
 
 
+kmMat4* kmMat4CreateQuaRotation(kmMat4* pOut, const kmQuaternion* pIn)
+{
+	float x2 = pIn->x + pIn->x;
+	float y2 = pIn->y + pIn->y;
+	float z2 = pIn->z + pIn->z;
+
+	float xx2 = pIn->x * x2;
+	float yy2 = pIn->y * y2;
+	float zz2 = pIn->z * z2;
+	float xy2 = pIn->x * y2;
+	float xz2 = pIn->x * z2;
+	float yz2 = pIn->y * z2;
+	float wx2 = pIn->w * x2;
+	float wy2 = pIn->w * y2;
+	float wz2 = pIn->w * z2;
+
+	pOut->mat[0] = 1.0f - yy2 - zz2;
+	pOut->mat[1] = xy2 + wz2;
+	pOut->mat[2] = xz2 - wy2;
+	pOut->mat[3] = 0.0f;
+
+	pOut->mat[4] = xy2 - wz2;
+	pOut->mat[5] = 1.0f - xx2 - zz2;
+	pOut->mat[6] = yz2 + wx2;
+	pOut->mat[7] = 0.0f;
+
+	pOut->mat[8] = xz2 + wy2;
+	pOut->mat[9] = yz2 - wx2;
+	pOut->mat[10] = 1.0f - xx2 - yy2;
+	pOut->mat[11] = 0.0f;
+
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
+	return pOut;
+}

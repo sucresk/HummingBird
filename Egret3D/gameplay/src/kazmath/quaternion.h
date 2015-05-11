@@ -44,71 +44,33 @@ typedef struct kmQuaternion {
 } kmQuaternion;
 
 kmQuaternion* kmQuaternionSet(kmQuaternion *pOut, float x, float y, float z, float w);
-
 kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn);
-
-const kmScalar     kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
-
+const kmScalar  kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
 kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns the exponential of the quaternion
-
 kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
-
-///< Returns the inverse of the passed Quaternion
-
-kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
-                                            const kmQuaternion* pIn);
-
-///< Returns true if the quaternion is an identity quaternion
-
+kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut, const kmQuaternion* pIn);
 int  kmQuaternionIsIdentity(const kmQuaternion* pIn);
-
-///< Returns the length of the quaternion
-
 kmScalar kmQuaternionLength(const kmQuaternion* pIn);
-
-///< Returns the length of the quaternion squared (prevents a sqrt)
-
 kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn);
-
-///< Returns the natural logarithm
-
 kmQuaternion* kmQuaternionLn(kmQuaternion* pOut, const kmQuaternion* pIn);
-
-///< Multiplies 2 quaternions together
-
 kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2);
-
-///< Normalizes a quaternion
-
 kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut, const kmQuaternion* pIn);
-
-///< Rotates a quaternion around an axis
-
 kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
-
-///< Creates a quaternion from a rotation matrix
-
 kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut, const struct kmMat3* pIn);
-
-///< Create a quaternion from yaw, pitch and roll
-
 kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
-///< Interpolate between 2 quaternions
 kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
 void kmQuaternionSlerpNum(float q1x, float q1y, float q1z, float q1w, float q2x, float q2y, float q2z, float q2w, float t, float* dstx, float* dsty, float* dstz, float* dstw);
-
-
-///< Get the axis and angle of rotation from a quaternion
 void kmQuaternionToAxisAngle(const kmQuaternion* pIn, struct kmVec3* pVector, kmScalar* pAngle);
-
-///< Scale a quaternion
 kmQuaternion* kmQuaternionScale(kmQuaternion* pOut, const kmQuaternion* pIn, kmScalar s);
 kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn);
 kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2);
 kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
 struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
 //add by hgl
-kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, kmScalar* pAngle, const kmQuaternion* pIn );
+kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, const kmQuaternion* pIn );
+kmQuaternion* kmQuatreateFromAxisAngle(kmQuaternion* pOut, const kmVec3* axis, float angle);
+void kmQuaternionSlerpNum(float q1x, float q1y, float q1z, float q1w, float q2x, float q2y, float q2z, float q2w, float t, float* dstx, float* dsty, float* dstz, float* dstw);
+
 #ifdef __cplusplus
 }
 #endif

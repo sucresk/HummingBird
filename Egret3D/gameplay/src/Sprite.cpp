@@ -615,7 +615,7 @@ unsigned int Sprite::draw(bool wireframe)
         // Apply node rotation
         const kmQuaternion& rot = _node->getRotation();
 		if (rot.x != 0.0f || rot.y != 0.0f || rot.z != 0.0f)
-			rotationAngle = kmQuatToAxisAngle(NULL, &rotationAngle, &rot);
+			rotationAngle = kmQuatToAxisAngle(NULL, &rot);
         
         // Apply node scale
         if (_node->getScaleX() != 1.0f)

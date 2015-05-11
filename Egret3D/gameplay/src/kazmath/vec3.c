@@ -320,9 +320,14 @@ kmVec3* kmVec3Zero(kmVec3* pOut) {
     return pOut;
 }
 
-int kmVec3IsZero(kmVec3* pIn)
+int kmVec3IsZero(const kmVec3* pIn)
 {
 	return pIn->x == 0.0f && pIn->y == 0.0f && pIn->z == 0.0f;
+}
+
+int kmVec3IsOne( const kmVec3* pIn)
+{
+	return pIn->x == 1.0f && pIn->y == 1.0f && pIn->z == 1.0f;
 }
 
 kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color)

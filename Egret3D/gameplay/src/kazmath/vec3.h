@@ -66,7 +66,8 @@ kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const st
 kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn);
 kmVec3* kmVec3Zero(kmVec3* pOut);
 // add by hgl
-int kmVec3IsZero(kmVec3* pIn);
+int kmVec3IsZero(const kmVec3* pIn);
+int kmVec3IsOne( const kmVec3* pIn);
 kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color);
 
 #ifdef __cplusplus

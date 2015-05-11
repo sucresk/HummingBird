@@ -104,35 +104,42 @@ const kmMat4& Transform::getMatrix() const
     {
         if (!isStatic())
         {
-            bool hasTranslation = !_translation.isZero();
-            bool hasScale = !_scale.isOne();
-            bool hasRotation = !_rotation.isIdentity();
+			bool hasTranslation = !kmVec3IsZero(&_translation); // _translation.isZero();
+			bool hasScale = !kmVec3IsOne( &_scale); // _scale.isOne();
+			bool hasRotation = !kmQuaternionIsIdentity(&_rotation);// _rotation.isIdentity();
 
             // Compose the kmMat4 in TRS order since we use column-major matrices with column vectors and
             // multiply M*v (as opposed to XNA and DirectX that use row-major matrices with row vectors and multiply v*M).
             if (hasTranslation || (_matrixDirtyBits & DIRTY_TRANSLATION) == DIRTY_TRANSLATION)
             {
-                Matrix::createTranslation(_translation, &_matrix);
+                //Matrix::createTranslation(_translation, &_matrix);
+				kmMat4Translation(&_matrix, _translation.x, _translation.y, _translation.z);
                 if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
                 {
-                    _matrix.rotate(_rotation);
+                    //_matrix.rotate(_rotation);
+					kmMat4RotationQuaternion(&_matrix, &_rotation);
                 }
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {
-                    _matrix.scale(_scale);
+                    //_matrix.scale(_scale);
+					kmMat4Scal(&_matrix, &_matrix, &_scale);
                 }
             }
             else if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
             {
-                Matrix::createRotation(_rotation, &_matrix);
+                //Matrix::createRotation(_rotation, &_matrix);
+				//kmMat4CoreateRotation( &_matrix, )
+				kmMat4CreateQuaRotation(&_matrix, &_rotation);
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {
-                    _matrix.scale(_scale);
+                    //_matrix.scale(_scale);
+					kmMat4Scal(&_matrix, &_matrix, &_scale);
                 }
             }
             else if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
             {
-                Matrix::createScale(_scale, &_matrix);
+                //Matrix::createScale(_scale, &_matrix);
+				kmMat4Scaling(&_matrix, _scale.x, _scale.y, _scale.z);
             }
         }
 
@@ -150,7 +157,7 @@ const kmVec3& Transform::getScale() const
 void Transform::getScale(kmVec3* scale) const
 {
     GP_ASSERT(scale);
-    scale->set(_scale);
+    *scale = _scale;
 }
 
 float Transform::getScaleX() const
@@ -176,19 +183,21 @@ const kmQuaternion& Transform::getRotation() const
 void Transform::getRotation(kmQuaternion* rotation) const
 {
     GP_ASSERT(rotation);
-    rotation->set(_rotation);
+    *rotation = _rotation;
 }
 
 void Transform::getRotation(kmMat4* rotation) const
 {
     GP_ASSERT(rotation);
-    Matrix::createRotation(_rotation, rotation);
+    //Matrix::createRotation(_rotation, rotation);
+	kmMat4CreateQuaRotation(rotation, &_rotation);
 }
 
 float Transform::getRotation(kmVec3* axis) const
 {
     GP_ASSERT(axis);
-    return _rotation.toAxisAngle(axis);
+    //return _rotation.toAxisAngle(axis);
+	return kmQuatToAxisAngle(axis, &_rotation);
 }
 
 const kmVec3& Transform::getTranslation() const
@@ -199,7 +208,7 @@ const kmVec3& Transform::getTranslation() const
 void Transform::getTranslation(kmVec3* translation) const
 {
     GP_ASSERT(translation);
-    translation->set(_translation);
+    *translation = _translation;
 }
 
 float Transform::getTranslationX() const
@@ -226,7 +235,8 @@ kmVec3 Transform::getForwardVector() const
 
 void Transform::getForwardVector(kmVec3* dst) const
 {
-    getMatrix().getForwardVector(dst);
+    //getMatrix().getForwardVector(dst);
+	kmMat4GetForwrad(dst, &getMatrix());
 }
 
 kmVec3 Transform::getBackVector() const
@@ -238,7 +248,8 @@ kmVec3 Transform::getBackVector() const
 
 void Transform::getBackVector(kmVec3* dst) const
 {
-    getMatrix().getBackVector(dst);
+    //getMatrix().getBackVector(dst);
+	kmMat4GetBack(dst, &getMatrix());
 }
 
 kmVec3 Transform::getUpVector() const
@@ -250,7 +261,8 @@ kmVec3 Transform::getUpVector() const
 
 void Transform::getUpVector(kmVec3* dst) const
 {
-    getMatrix().getUpVector(dst);
+    //getMatrix().getUpVector(dst);
+	kmMat4GetUp(dst, &getMatrix());
 }
 
 kmVec3 Transform::getDownVector() const
@@ -262,7 +274,8 @@ kmVec3 Transform::getDownVector() const
 
 void Transform::getDownVector(kmVec3* dst) const
 {
-    getMatrix().getDownVector(dst);
+    //getMatrix().getDownVector(dst);
+	kmMat4GetDown(dst, &getMatrix());
 }
 
 kmVec3 Transform::getLeftVector() const
@@ -274,7 +287,8 @@ kmVec3 Transform::getLeftVector() const
 
 void Transform::getLeftVector(kmVec3* dst) const
 {
-    getMatrix().getLeftVector(dst);
+    //getMatrix().getLeftVector(dst);
+	kmMat4GetLeft(dst, &getMatrix());
 }
 
 kmVec3 Transform::getRightVector() const
@@ -286,7 +300,8 @@ kmVec3 Transform::getRightVector() const
 
 void Transform::getRightVector(kmVec3* dst) const
 {
-    getMatrix().getRightVector(dst);
+    //getMatrix().getRightVector(dst);
+	kmMat4GetRight(dst, &getMatrix());
 }
 
 void Transform::rotate(float qx, float qy, float qz, float qw)
@@ -294,8 +309,9 @@ void Transform::rotate(float qx, float qy, float qz, float qw)
     if (isStatic())
         return;
 
-    Quaternion q(qx, qy, qz, qw);
-    _rotation.multiply(q);
+	kmQuaternion q = { qx, qy, qz, qw };
+    //_rotation.multiply(q);
+	kmQuaternionMultiply(&_rotation, &_rotation, &q);
     dirty(DIRTY_ROTATION);
 }
 
@@ -304,7 +320,8 @@ void Transform::rotate(const kmQuaternion& rotation)
     if (isStatic())
         return;
 
-    _rotation.multiply(rotation);
+    //_rotation.multiply(rotation);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotation);
     dirty(DIRTY_ROTATION);
 }
 
@@ -313,10 +330,13 @@ void Transform::rotate(const kmVec3& axis, float angle)
     if (isStatic())
         return;
 
-    Quaternion rotationQuat;
-    Quaternion::createFromAxisAngle(axis, angle, &rotationQuat);
-    _rotation.multiply(rotationQuat);
-    _rotation.normalize();
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromAxisAngle(axis, angle, &rotationQuat);
+	kmQuatreateFromAxisAngle(&rotationQuat, &axis, angle);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
+	kmQuaternionNormalize(&_rotation, &_rotation);
+    //_rotation.multiply(rotationQuat);
+    //_rotation.normalize();
     dirty(DIRTY_ROTATION);
 }
 
@@ -325,9 +345,11 @@ void Transform::rotate(const kmMat4& rotation)
     if (isStatic())
         return;
 
-    Quaternion rotationQuat;
-    Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
-    _rotation.multiply(rotationQuat);
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
+	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
+    //_rotation.multiply(rotationQuat);
     dirty(DIRTY_ROTATION);
 }
 
@@ -336,9 +358,12 @@ void Transform::rotateX(float angle)
     if (isStatic())
         return;
 
-    Quaternion rotationQuat;
-    Quaternion::createFromAxisAngle(Vector3::unitX(), angle, &rotationQuat);
-    _rotation.multiply(rotationQuat);
+	kmVec3 unintx = { 1.0f, 0.0f, 0.0f };
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromAxisAngle(Vector3::unitX(), angle, &rotationQuat);
+    //_rotation.multiply(rotationQuat);
+	kmQuatreateFromAxisAngle(&rotationQuat, &unintx, angle);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
 
@@ -347,9 +372,12 @@ void Transform::rotateY(float angle)
     if (isStatic())
         return;
 
-    Quaternion rotationQuat;
-    Quaternion::createFromAxisAngle(Vector3::unitY(), angle, &rotationQuat);
-    _rotation.multiply(rotationQuat);
+	kmVec3 unitY = { 0.0f, 1.0f, 0.0f };
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromAxisAngle(Vector3::unitY(), angle, &rotationQuat);
+    //_rotation.multiply(rotationQuat);
+	kmQuatreateFromAxisAngle(&rotationQuat, &unitY, angle);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
 
@@ -357,10 +385,12 @@ void Transform::rotateZ(float angle)
 {
     if (isStatic())
         return;
-
-    Quaternion rotationQuat;
-    Quaternion::createFromAxisAngle(Vector3::unitZ(), angle, &rotationQuat);
-    _rotation.multiply(rotationQuat);
+	kmVec3 unitZ = { 0.0f, 0.0f, 1.0f };
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromAxisAngle(Vector3::unitZ(), angle, &rotationQuat);
+    //_rotation.multiply(rotationQuat);
+	kmQuatreateFromAxisAngle(&rotationQuat, &unitZ, angle);
+	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
 
@@ -369,7 +399,8 @@ void Transform::scale(float scale)
     if (isStatic())
         return;
 
-    _scale.scale(scale);
+    //_scale.scale(scale);
+	kmVec3Scale(&_scale, &_scale, scale);
     dirty(DIRTY_SCALE);
 }
 
@@ -427,9 +458,9 @@ void Transform::set(const kmVec3& scale, const kmQuaternion& rotation, const kmV
     if (isStatic())
         return;
 
-    _scale.set(scale);
-    _rotation.set(rotation);
-    _translation.set(translation);
+    _scale = scale;
+    _rotation = rotation;
+    _translation = translation;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
@@ -438,11 +469,12 @@ void Transform::set(const kmVec3& scale, const kmMat4& rotation, const kmVec3& t
     if (isStatic())
         return;
 
-    _scale.set(scale);
-    Quaternion rotationQuat;
-    Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
-    _rotation.set(rotationQuat);
-    _translation.set(translation);
+    _scale =scale;
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
+	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
+    _rotation = rotationQuat;
+    _translation = translation;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
@@ -451,9 +483,10 @@ void Transform::set(const kmVec3& scale, const kmVec3& axis, float angle, const 
     if (isStatic())
         return;
 
-    _scale.set(scale);
-    _rotation.set(axis, angle);
-    _translation.set(translation);
+    _scale = scale;
+    //_rotation.set(axis, angle);
+	kmQuatreateFromAxisAngle(&_rotation, &axis, angle);
+    _translation = translation;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
@@ -462,20 +495,21 @@ void Transform::set(const Transform& transform)
     if (isStatic())
         return;
 
-    _scale.set(transform._scale);
-    _rotation.set(transform._rotation);
-    _translation.set(transform._translation);
+    _scale = transform._scale;
+    _rotation = transform._rotation;
+    _translation = transform._translation;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
 void Transform::setIdentity()
 {
-    if (isStatic())
-        return;
+	if (isStatic())
+		return;
 
-    _scale.set(1.0f, 1.0f, 1.0f);
-    _rotation.setIdentity();
-    _translation.set(0.0f, 0.0f, 0.0f);
+	_scale = { 1.0f, 1.0f, 1.0f };
+	//_rotation.setIdentity();
+	kmQuaternionIdentity(&_rotation);
+	_translation = { 0.0f, 0.0f, 0.0f };
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
@@ -484,7 +518,7 @@ void Transform::setScale(float scale)
     if (isStatic())
         return;
 
-    _scale.set(scale, scale, scale);
+	_scale = { scale, scale, scale };
     dirty(DIRTY_SCALE);
 }
 
@@ -493,13 +527,13 @@ void Transform::setScale(float sx, float sy, float sz)
     if (isStatic())
         return;
 
-    _scale.set(sx, sy, sz);
+	_scale = { sx, sy, sz };
     dirty(DIRTY_SCALE);
 }
 
 void Transform::setScale(const kmVec3& scale)
 {
-    _scale.set(scale);
+    _scale = scale;
     dirty(DIRTY_SCALE);
 }
 
@@ -535,7 +569,7 @@ void Transform::setRotation(const kmQuaternion& rotation)
     if (isStatic())
         return;
 
-    _rotation.set(rotation);
+    _rotation = rotation;
     dirty(DIRTY_ROTATION);
 }
 
@@ -544,7 +578,7 @@ void Transform::setRotation(float qx, float qy, float qz, float qw)
     if (isStatic())
         return;
 
-    _rotation.set(qx, qy, qz, qw);
+	_rotation = { qx, qy, qz, qw };
     dirty(DIRTY_ROTATION);
 }
 
@@ -553,9 +587,10 @@ void Transform::setRotation(const kmMat4& rotation)
     if (isStatic())
         return;
 
-    Quaternion rotationQuat;
-    Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
-    _rotation.set(rotationQuat);
+    kmQuaternion rotationQuat;
+    //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
+	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
+    _rotation = rotationQuat;
     dirty(DIRTY_ROTATION);
 }
 
@@ -564,7 +599,8 @@ void Transform::setRotation(const kmVec3& axis, float angle)
     if (isStatic())
         return;
 
-    _rotation.set(axis, angle);
+    //_rotation.set(axis, angle);
+	kmQuatreateFromAxisAngle(&_rotation, &axis, angle);
     dirty(DIRTY_ROTATION);
 }
 
@@ -573,7 +609,7 @@ void Transform::setTranslation(const kmVec3& translation)
     if (isStatic())
         return;
 
-    _translation.set(translation);
+    _translation = translation;
     dirty(DIRTY_TRANSLATION);
 }
 
@@ -582,7 +618,7 @@ void Transform::setTranslation(float tx, float ty, float tz)
     if (isStatic())
         return;
 
-    _translation.set(tx, ty, tz);
+	_translation = { tx, ty, tz };
     dirty(DIRTY_TRANSLATION);
 }
 
@@ -671,9 +707,12 @@ void Transform::translateLeft(float amount)
     getMatrix();
 
     kmVec3 left;
-    _matrix.getLeftVector(&left);
-    left.normalize();
-    left.scale(amount);
+    //_matrix.getLeftVector(&left);
+	kmMat4GetLeft(&left, &_matrix);
+	kmVec3Normalize(&left, &left);
+	kmVec3Scale(&left, &left, amount);
+    //left.normalize();
+    //left.scale(amount);
 
     translate(left);
 }
@@ -687,9 +726,12 @@ void Transform::translateUp(float amount)
     getMatrix();
 
     kmVec3 up;
-    _matrix.getUpVector(&up);
-    up.normalize();
-    up.scale(amount);
+    //_matrix.getUpVector(&up);
+	kmMat4GetUp(&up, &_matrix);
+	kmVec3Normalize(&up, &up );
+	kmVec3Scale(&up, &up, amount);
+    //up.normalize();
+    //up.scale(amount);
 
     translate(up);
 }
@@ -703,9 +745,12 @@ void Transform::translateForward(float amount)
     getMatrix();
 
     kmVec3 forward;
-    _matrix.getForwardVector(&forward);
-    forward.normalize();
-    forward.scale(amount);
+    //_matrix.getForwardVector(&forward);
+    //forward.normalize();
+    //forward.scale(amount);
+	kmMat4GetForwrad(&forward, &_matrix);
+	kmVec3Normalize(&forward, &forward);
+	kmVec3Scale(&forward, &forward, amount);
 
     translate(forward);
 }
@@ -717,7 +762,11 @@ void Transform::translateSmooth(const kmVec3& target, float elapsedTime, float r
 
     if (elapsedTime > 0)
     {
-        _translation += (target - _translation) * (elapsedTime / (elapsedTime + responseTime));
+		kmVec3 temp;
+		kmVec3Subtract(&temp, &target, &_translation);
+		kmVec3Scale(&temp, &temp, elapsedTime / (elapsedTime + responseTime));
+		kmVec3Add(&_translation, &_translation, &temp);
+        //_translation += (target - _translation) * (elapsedTime / (elapsedTime + responseTime));
         dirty(DIRTY_TRANSLATION);
     }
 }
@@ -725,31 +774,36 @@ void Transform::translateSmooth(const kmVec3& target, float elapsedTime, float r
 void Transform::transformPoint(kmVec3* point)
 {
     getMatrix();
-    _matrix.transformPoint(point);
+    //_matrix.transformPoint(point);
+	kmMat3Transform(point, &_matrix, point->x, point->y, point->z, 1.0f);
 }
 
 void Transform::transformPoint(const kmVec3& point, kmVec3* dst)
 {
     getMatrix();
-    _matrix.transformPoint(point, dst);
+    //_matrix.transformPoint(point, dst);
+	kmMat3Transform(dst, &_matrix, point.x, point.y, point.z, 1.0f);
 }
 
 void Transform::transformVector(kmVec3* normal)
 {
     getMatrix();
-    _matrix.transformVector(normal);
+    //_matrix.transformVector(normal);
+	kmMat3Transform(normal, &_matrix, normal->x, normal->y, normal->z, 1.0f);
 }
 
 void Transform::transformVector(const kmVec3& normal, kmVec3* dst)
 {
     getMatrix();
-    _matrix.transformVector(normal, dst);
+    //_matrix.transformVector(normal, dst);
+	kmMat3Transform(dst, &_matrix, normal.x, normal.y, normal.z, 1.0f);
 }
 
 void Transform::transformVector(float x, float y, float z, float w, kmVec3* dst)
 {
     getMatrix();
-    _matrix.transformVector(x, y, z, w, dst);
+    //_matrix.transformVector(x, y, z, w, dst);
+	kmMat3Transform(dst, &_matrix, x, y, z, w);
 }
 
 bool Transform::isStatic() const
@@ -1009,9 +1063,9 @@ void Transform::cloneInto(Transform* transform, NodeCloneContext &context) const
     GP_ASSERT(transform);
 
     AnimationTarget::cloneInto(transform, context);
-    transform->_scale.set(_scale);
-    transform->_rotation.set(_rotation);
-    transform->_translation.set(_translation);
+    transform->_scale = _scale;
+    transform->_rotation = _rotation;
+    transform->_translation = _translation;
     transform->dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
 
@@ -1021,7 +1075,7 @@ void Transform::applyAnimationValueRotation(AnimationValue* value, unsigned int 
         return;
 
     GP_ASSERT(value);
-    Quaternion::slerp(_rotation.x, _rotation.y, _rotation.z, _rotation.w, value->getFloat(index), value->getFloat(index + 1), value->getFloat(index + 2), value->getFloat(index + 3), blendWeight, 
+	kmQuaternionSlerpNum(_rotation.x, _rotation.y, _rotation.z, _rotation.w, value->getFloat(index), value->getFloat(index + 1), value->getFloat(index + 2), value->getFloat(index + 3), blendWeight,
         &_rotation.x, &_rotation.y, &_rotation.z, &_rotation.w);
     dirty(DIRTY_ROTATION);
 }
