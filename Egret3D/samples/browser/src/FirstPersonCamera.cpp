@@ -47,7 +47,9 @@ void FirstPersonCamera::setPosition(const kmVec3& position)
 void FirstPersonCamera::moveForward(float amount)
 {
     kmVec3 v = _pitchNode->getForwardVectorWorld();
-    v.normalize().scale(amount);
+    //v.normalize().scale(amount);
+	kmVec3Normalize(&v, &v );
+	kmVec3Scale(&v, &v, amount);
     _rootNode->translate(v);
 }
 

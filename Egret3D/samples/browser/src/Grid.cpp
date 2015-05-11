@@ -15,18 +15,18 @@ Mesh* createGridMesh(unsigned int lineCount)
     for (unsigned int i = 0; i < verticesSize; ++i)
     {
         // Default line color is dark grey
-        kmVec4 color(0.3f, 0.3f, 0.3f, 1.0f);
+		kmVec4 color = { 0.3f, 0.3f, 0.3f, 1.0f };
 
         // Very 10th line is brighter grey
         if (((int)value) % 10 == 0)
         {
-            color.set(0.45f, 0.45f, 0.45f, 1.0f);
+			color = { 0.45f, 0.45f, 0.45f, 1.0f };
         }
 
         // The Z axis is blue
         if (value == 0.0f)
         {
-            color.set(0.15f, 0.15f, 0.7f, 1.0f);
+			color = { 0.15f, 0.15f, 0.7f, 1.0f };
         }
 
         // Build the lines
@@ -47,7 +47,7 @@ Mesh* createGridMesh(unsigned int lineCount)
         // The X axis is red
         if (value == 0.0f)
         {
-            color.set(0.7f, 0.15f, 0.15f, 1.0f);
+			color = { 0.7f, 0.15f, 0.15f, 1.0f };
         }
         vertices[++i] = -gridLength;
         vertices[++i] = 0.0f;

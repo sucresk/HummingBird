@@ -24,15 +24,15 @@ WaterSample::WaterSample()
 
 void WaterSample::initialize()
 {
-    // Create the font for drawing the framerate.
-    _font = Font::create("res/ui/arial.gpb");
+	// Create the font for drawing the framerate.
+	_font = Font::create("res/ui/arial.gpb");
 
-    // Load the scene file
-    _scene = Scene::load("res/common/water/watersample.scene");
-    _waterHeight = _scene->findNode("Water")->getTranslationY();
+	// Load the scene file
+	_scene = Scene::load("res/common/water/watersample.scene");
+	_waterHeight = _scene->findNode("Water")->getTranslationY();
 
-    // Set up a first person style camera
-    const kmVec3 camStartPosition(0.f, 10.f, -30.f);
+	// Set up a first person style camera
+	kmVec3 camStartPosition = { 0.f, 10.f, -30.f };
     _cameraNode = Node::create("cameraNode");
     _cameraNode->setTranslation(camStartPosition);
 

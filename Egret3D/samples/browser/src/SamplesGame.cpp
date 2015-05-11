@@ -107,12 +107,12 @@ void SamplesGame::render(float elapsedTime)
         
         // Draw back arrow
         _font->start();
-        _font->drawText("<<", getWidth() - 40, 20, Vector4::one(), 28);
+        _font->drawText("<<", getWidth() - 40, 20, vec4One, 28);
         _font->finish();
         return;
     }
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
     _sampleSelectForm->draw();
 }
 
