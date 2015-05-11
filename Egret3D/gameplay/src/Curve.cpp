@@ -1,6 +1,6 @@
 // Purposely not including Base.h here, or any other gameplay dependencies, so it can be reused between gameplay and gameplay-encoder.
 #include "Curve.h"
-#include "Quaternion.h"
+#include "kazmath/quaternion.h"
 #include <cassert>
 #include <cstring>
 #include <cmath>

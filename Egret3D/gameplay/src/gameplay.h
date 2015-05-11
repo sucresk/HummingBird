@@ -14,10 +14,10 @@
 
 // Math
 #include "Rectangle.h"
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
-#include "Quaternion.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec3.h"
+#include "kazmath/vec4.h"
+#include "kazmath/quaternion.h"
 //#include "Matrix.h"
 #include "Transform.h"
 #include "Ray.h"

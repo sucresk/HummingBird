@@ -3,7 +3,7 @@
 #include "Animation.h"
 #include "AnimationTarget.h"
 #include "Game.h"
-#include "Quaternion.h"
+#include "kazmath/quaternion.h"
 #include "ScriptController.h"
 
 namespace egret

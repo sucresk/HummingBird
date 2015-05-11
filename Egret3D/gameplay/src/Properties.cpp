@@ -1,8 +1,8 @@
 #include "Base.h"
 #include "Properties.h"
 #include "FileSystem.h"
-#include "Quaternion.h"
-#include "vec3.h"
+#include "kazmath/quaternion.h"
+#include "kazmath/vec3.h"
 
 namespace egret
 {

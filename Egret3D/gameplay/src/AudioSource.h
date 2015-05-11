@@ -1,7 +1,7 @@
 #ifndef AUDIOSOURCE_H_
 #define AUDIOSOURCE_H_
 
-#include "vec3.h"
+#include "kazmath/vec3.h"
 #include "Ref.h"
 #include "Transform.h"
 

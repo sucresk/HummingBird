@@ -3,7 +3,7 @@
 
 #include "Ref.h"
 #include "Touch.h"
-#include "vec2.h"
+#include "kazmath/vec2.h"
 
 namespace egret
 {

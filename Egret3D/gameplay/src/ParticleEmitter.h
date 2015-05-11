@@ -3,8 +3,8 @@
 
 #include "Transform.h"
 #include "Mesh.h"
-#include "vec2.h"
-#include "vec4.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec4.h"
 #include "Texture.h"
 #include "Rectangle.h"
 #include "SpriteBatch.h"

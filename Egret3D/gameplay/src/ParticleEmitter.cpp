@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Node.h"
 #include "Scene.h"
-#include "quaternion.h"
+#include "kazmath/quaternion.h"
 #include "Properties.h"
 #include "kazmath/MathUtil.h"
 

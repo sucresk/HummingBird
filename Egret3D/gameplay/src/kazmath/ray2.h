@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RAY_2_H
 
 #include "utility.h"
-#include "vec2.h"
+#include "kazmath/vec2.h"
 
 #ifdef __cplusplus
 extern "C" {

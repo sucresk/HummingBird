@@ -2,7 +2,7 @@
 #define LIGHT_H_
 
 #include "Ref.h"
-#include "vec3.h"
+#include "kazmath/vec3.h"
 #include "Properties.h"
 
 namespace egret
