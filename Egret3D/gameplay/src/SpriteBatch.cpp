@@ -134,7 +134,8 @@ SpriteBatch* SpriteBatch::create(Texture* texture,  Effect* effect, unsigned int
 
 	// Bind an ortho projection to the material by default (user can override with setProjectionMatrix)
 	Game* game = Game::getInstance();
-    Matrix::createOrthographicOffCenter(0, game->getViewport().width, game->getViewport().height, 0, 0, 1, &batch->_projectionMatrix);
+    //Matrix::createOrthographicOffCenter(0, game->getViewport().width, game->getViewport().height, 0, 0, 1, &batch->_projectionMatrix);
+	kmMat4OrthographicProjection(&batch->_projectionMatrix, 0, game->getViewport().width, game->getViewport().height, 0, 0, 1 );
 	material->getParameter("u_projectionMatrix")->bindValue(batch, &SpriteBatch::getProjectionMatrix);
 	
     return batch;
@@ -204,23 +205,27 @@ void SpriteBatch::draw(float x, float y, float z, float width, float height, flo
     float x2 = x + width;
     float y2 = y + height;
     
-    kmVec2 upLeft(x, y);
-    kmVec2 upRight(x2, y);
-    kmVec2 downLeft(x, y2);
-    kmVec2 downRight(x2, y2);
+	kmVec2 upLeft = { x, y };
+	kmVec2 upRight = { x2, y };
+	kmVec2 downLeft = { x, y2 };
+	kmVec2 downRight = { x2, y2 };
 
     // Rotate points around rotationAxis by rotationAngle.
     if (rotationAngle != 0)
     {
-        kmVec2 pivotPoint(rotationPoint);
+        kmVec2 pivotPoint =rotationPoint;
         pivotPoint.x *= width;
         pivotPoint.y *= height;
         pivotPoint.x += x;
         pivotPoint.y += y;
-        upLeft.rotate(pivotPoint, rotationAngle);
-        upRight.rotate(pivotPoint, rotationAngle);
-        downLeft.rotate(pivotPoint, rotationAngle);
-        downRight.rotate(pivotPoint, rotationAngle);
+        //upLeft.rotate(pivotPoint, rotationAngle);
+        //upRight.rotate(pivotPoint, rotationAngle);
+        //downLeft.rotate(pivotPoint, rotationAngle);
+        //downRight.rotate(pivotPoint, rotationAngle);
+		kmVec2Rotate(&upLeft, &pivotPoint, rotationAngle);
+		kmVec2Rotate(&upRight, &pivotPoint, rotationAngle);
+		kmVec2Rotate(&downLeft, &pivotPoint, rotationAngle);
+		kmVec2Rotate(&downRight, &pivotPoint, rotationAngle);
     }
 
     // Write sprite vertex data.
@@ -240,52 +245,72 @@ void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3
 {
     // Calculate the vertex positions.
     kmVec3 tRight(right);
-    tRight *= width * 0.5f;
+    //tRight *= width * 0.5f;
+	kmVec3Scale(&tRight, &tRight, width * 0.5f);
     kmVec3 tForward(forward);
-    tForward *= height * 0.5f;
+    //tForward *= height * 0.5f;
+	kmVec3Scale(&tForward, &tForward, height * 0.5f);
     
     kmVec3 p0 = position;
-    p0 -= tRight;
-    p0 -= tForward;
+    //p0 -= tRight;
+    //p0 -= tForward;
+	kmVec3Subtract(&p0, &p0, &tRight);
+	kmVec3Subtract(&p0, &p0, &tForward);
 
     kmVec3 p1 = position;
-    p1 += tRight;
-    p1 -= tForward;
+    //p1 += tRight;
+    //p1 -= tForward;
+	kmVec3Add(&p1, &p1, &tRight);
+	kmVec3Subtract(&p1, &p1, &tForward);
 
     tForward = forward;
-    tForward *= height;
+    //tForward *= height;
+	kmVec3Scale(&tForward, &tForward, height);
     kmVec3 p2 = p0;
-    p2 += tForward;
+    //p2 += tForward;
+	kmVec3Add(&p2, &p2, &tForward);
     kmVec3 p3 = p1;
-    p3 += tForward;
+    //p3 += tForward;
+	kmVec3Add(&p3, &p3, &tForward);
 
     // Calculate the rotation point.
     if (rotationAngle != 0)
     {
         kmVec3 rp = p0;
         tRight = right;
-        tRight *= width * rotationPoint.x;
-        tForward *= rotationPoint.y;
-        rp += tRight;
-        rp += tForward;
+		
+        //tRight *= width * rotationPoint.x;
+        //tForward *= rotationPoint.y;
+        //rp += tRight;
+        //rp += tForward;
+
+		float scale = width * rotationPoint.x;
+		kmVec3Scale(&tRight, &tRight, scale);
+		kmVec3Scale(&tForward, &tForward, rotationPoint.y);
+		kmVec3Add(&rp, &rp, &tRight);
+		kmVec3Add(&rp, &rp, &tForward);
 
         // Rotate all points the specified amount about the given point (about the up vector).
         static kmVec3 u;
-        Vector3::cross(right, forward, &u);
+        //Vector3::cross(right, forward, &u);
+		kmVec3Cross(&u, &right, &forward);
         static kmMat4 rotation;
-        Matrix::createRotation(u, rotationAngle, &rotation);
-        p0 -= rp;
-        p0 *= rotation;
-        p0 += rp;
-        p1 -= rp;
-        p1 *= rotation;
-        p1 += rp;
-        p2 -= rp;
-        p2 *= rotation;
-        p2 += rp;
-        p3 -= rp;
-        p3 *= rotation;
-        p3 += rp;
+        //Matrix::createRotation(u, rotationAngle, &rotation);
+		kmMat4CreateRotation(&rotation, &u, rotationAngle);
+		assert(false);
+        //p0 -= rp;
+  //      p0 *= rotation;
+  //      p0 += rp;
+  //      p1 -= rp;
+  //      p1 *= rotation;
+  //      p1 += rp;
+  //      p2 -= rp;
+  //      p2 *= rotation;
+  //      p2 += rp;
+  //      p3 -= rp;
+  //      p3 *= rotation;
+  //      p3 += rp;
+		//kmVec3Subtract(&p0, &p0, &rp);
     }
 
 

@@ -56,6 +56,9 @@ kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const struct kmMat3* pM
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const struct kmMat3* pM); ///<Transforms a 2D vector by a given matrix, projecting the result back into w = 1.
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s); ///< Scales a vector to length s
 int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns 1 if both vectors are equal
+// add by hgl
+int kmVec2IsZero(const kmVec2* pIn);
+kmVec2* kmVec2Rotate(kmVec2*pOut, const kmVec2* point, float angle);
 
 #ifdef __cplusplus
 }

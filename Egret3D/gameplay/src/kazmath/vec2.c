@@ -123,3 +123,30 @@ int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
                 (p1->y < p2->y + kmEpsilon && p1->y > p2->y - kmEpsilon)
             );
 }
+
+int kmVec2IsZero(const kmVec2* pIn)
+{
+	return pIn->x == 0.0f && pIn->y == 0.0f;
+}
+
+kmVec2* kmVec2Rotate(kmVec2*pOut, const kmVec2* point, float angle)
+{
+	double sinAngle = sin(angle);
+	double cosAngle = cos(angle);
+
+	if ( kmVec2IsZero( point) )
+	{
+		float tempX = pOut->x * cosAngle - pOut->y * sinAngle;
+		pOut->y = pOut->y * cosAngle + pOut->x * sinAngle;
+		pOut->x = tempX;
+	}
+	else
+	{
+		float tempX = pOut->x - point->x;
+		float tempY = pOut->y - point->y;
+
+		pOut->x = tempX * cosAngle - tempY * sinAngle + point->x;
+		pOut->y = tempY * cosAngle + tempX * sinAngle + point->y;
+	}
+	return pOut;
+}
