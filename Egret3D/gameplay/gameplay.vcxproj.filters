@@ -390,10 +390,10 @@
     <ClCompile Include="src\kazmath\GL\mat4stack.c">
       <Filter>kazmath</Filter>
     </ClCompile>
-    <ClCompile Include="src\kazmath\GL\matrix1.c">
+    <ClCompile Include="src\kazmath\MathUtil.cpp">
       <Filter>kazmath</Filter>
     </ClCompile>
-    <ClCompile Include="src\kazmath\MathUtil.cpp">
+    <ClCompile Include="src\kazmath\GL\matrix.c">
       <Filter>kazmath</Filter>
     </ClCompile>
   </ItemGroup>
@@ -767,10 +767,10 @@
     <ClInclude Include="src\kazmath\GL\mat4stack.h">
       <Filter>kazmath</Filter>
     </ClInclude>
-    <ClInclude Include="src\kazmath\GL\matrix1.h">
+    <ClInclude Include="src\kazmath\MathUtil.h">
       <Filter>kazmath</Filter>
     </ClInclude>
-    <ClInclude Include="src\kazmath\MathUtil.h">
+    <ClInclude Include="src\kazmath\GL\matrix.h">
       <Filter>kazmath</Filter>
     </ClInclude>
   </ItemGroup>

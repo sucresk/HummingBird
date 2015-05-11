@@ -2,9 +2,9 @@
 #define PROPERTIES_H_
 
 #include "Base.h"
-#include "mat4.h"
-#include "vec2.h"
-#include "vec4.h"
+#include "kazmath/mat4.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec4.h"
 #include "Stream.h"
 
 namespace egret

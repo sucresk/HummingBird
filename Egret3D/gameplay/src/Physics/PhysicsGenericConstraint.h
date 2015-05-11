@@ -2,8 +2,8 @@
 #define PHYSICSGENERICCONSTRAINT_H_
 
 #include "PhysicsConstraint.h"
-#include "Quaternion.h"
-#include "vec3.h"
+#include "kazmath/quaternion.h"
+#include "kazmath/vec3.h"
 
 namespace egret
 {

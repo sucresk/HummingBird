@@ -1,7 +1,7 @@
 #ifndef FRUSTUM_H_
 #define FRUSTUM_H_
 
-#include "mat4.h"
+#include "kazmath/mat4.h"
 #include "Ray.h"
 #include "Plane.h"
 

@@ -1,7 +1,7 @@
 #ifndef GAMEPAD_H_
 #define GAMEPAD_H_
 
-#include "vec2.h"
+#include "kazmath/vec2.h"
 
 namespace egret
 {

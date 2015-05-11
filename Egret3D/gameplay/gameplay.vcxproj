@@ -61,7 +61,7 @@
     <ClCompile Include="src\JoystickControl.cpp" />
     <ClCompile Include="src\kazmath\aabb.c" />
     <ClCompile Include="src\kazmath\GL\mat4stack.c" />
-    <ClCompile Include="src\kazmath\GL\matrix1.c" />
+    <ClCompile Include="src\kazmath\GL\matrix.c" />
     <ClCompile Include="src\kazmath\mat3.c" />
     <ClCompile Include="src\kazmath\mat4.c" />
     <ClCompile Include="src\kazmath\MathUtil.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="src\JoystickControl.h" />
     <ClInclude Include="src\kazmath\aabb.h" />
     <ClInclude Include="src\kazmath\GL\mat4stack.h" />
-    <ClInclude Include="src\kazmath\GL\matrix1.h" />
+    <ClInclude Include="src\kazmath\GL\matrix.h" />
     <ClInclude Include="src\kazmath\kazmath.h" />
     <ClInclude Include="src\kazmath\mat3.h" />
     <ClInclude Include="src\kazmath\mat4.h" />

@@ -95,8 +95,8 @@ extern kmMat4 matIdentity;
  struct kmPlane* const kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
  struct kmVec3* const kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
  // add by hgl
- kmMat4* const kmMat4CreateRotation(kmMat4* pOut, const kmVec3* axis, float angle);
- kmMat4* kmMat4CreateQuaRotation(kmMat4* pOut, const kmQuaternion* pIn);
+ kmMat4* const kmMat4CreateRotation(kmMat4* pOut, const struct kmVec3* axis, float angle);
+ kmMat4* kmMat4CreateQuaRotation(kmMat4* pOut, const struct kmQuaternion* pIn);
 #ifdef __cplusplus
 }
 #endif
