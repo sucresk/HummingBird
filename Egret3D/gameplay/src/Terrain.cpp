@@ -206,9 +206,10 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         return NULL;
     }
 
-    if (terrainSize.isZero())
+	if (kmVec3Zero( &terrainSize ))
     {
-        terrainSize.set(heightfield->getColumnCount(), getDefaultHeight(heightfield->getColumnCount(), heightfield->getRowCount()), heightfield->getRowCount());
+        //terrainSize.set(heightfield->getColumnCount(), getDefaultHeight(heightfield->getColumnCount(), heightfield->getRowCount()), heightfield->getRowCount());
+		kmVec3Fill(&terrainSize, heightfield->getColumnCount(), getDefaultHeight(heightfield->getColumnCount(), heightfield->getRowCount()), heightfield->getRowCount());
     }
 
     if (patchSize <= 0 || patchSize > (int)heightfield->getColumnCount() || patchSize > (int)heightfield->getRowCount())
@@ -223,7 +224,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         skirtScale = 0;
 
     // Compute terrain scale
-    kmVec3 scale(terrainSize.x / (heightfield->getColumnCount()-1), terrainSize.y, terrainSize.z / (heightfield->getRowCount()-1));
+	kmVec3 scale = { terrainSize.x / (heightfield->getColumnCount() - 1), terrainSize.y, terrainSize.z / (heightfield->getRowCount() - 1) };
 
     // Create terrain
     Terrain* terrain = create(heightfield, scale, (unsigned int)patchSize, (unsigned int)detailLevels, skirtScale, normalMap, materialPath.c_str(), pTerrain);
@@ -254,7 +255,7 @@ Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
     terrain->_materialPath = (materialPath == NULL || strlen(materialPath) == 0) ? TERRAIN_MATERIAL : materialPath;
 
     // Store terrain local scaling so it can be applied to the heightfield
-    terrain->_localScale.set(scale);
+	terrain->_localScale = { scale.x, scale.y, scale.z };
 
     // Store reference to bounding box (it is calculated and updated from TerrainPatch)
     BoundingBox& bounds = terrain->_boundingBox;
@@ -329,7 +330,7 @@ Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
                         textureMapPtr = textureMap.c_str();
                     }
                     if (!t->getVector2("repeat", &textureRepeat))
-                        textureRepeat.set(1,1);
+						textureRepeat = { 1, 1 };
                 }
 
                 Properties* b = lp->getNamespace("blend", true);
@@ -410,15 +411,17 @@ const kmMat4& Terrain::getInverseWorldMatrix() const
 
         if (_node)
         {
-            _inverseWorldMatrix.set(_node->getWorldMatrix());
+            _inverseWorldMatrix = _node->getWorldMatrix();
         }
         else
         {
-            _inverseWorldMatrix = Matrix::identity();
+			_inverseWorldMatrix = matIdentity;
         }
         // Apply local scale and invert
-        _inverseWorldMatrix.scale(_localScale);
-        _inverseWorldMatrix.invert();
+        //_inverseWorldMatrix.scale(_localScale);
+        //_inverseWorldMatrix.invert();
+		kmMat4Scal(&_inverseWorldMatrix, &_inverseWorldMatrix, &_localScale);
+		kmMat4Invert(&_inverseWorldMatrix, &_inverseWorldMatrix);
         
     }
     return _inverseWorldMatrix;
@@ -507,7 +510,9 @@ float Terrain::getHeight(float x, float z) const
     // Since the specified coordinates are in world space, we need to use the 
     // inverse of our world kmMat4 to transform the world x,z coords back into
     // local heightfield coordinates for indexing into the height array.
-    kmVec3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
+    //kmVec3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
+	kmVec3 v;
+	kmMat3Transform(&v, &getInverseWorldMatrix(), x, 0.0f, z, 0.0f);
     x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
 
@@ -518,7 +523,8 @@ float Terrain::getHeight(float x, float z) const
     if (_node)
     {
         kmVec3 worldScale;
-        _node->getWorldMatrix().getScale(&worldScale);
+        //_node->getWorldMatrix().getScale(&worldScale);
+		kmMat4Decompose(&_node->getWorldMatrix(), &worldScale, NULL, NULL);
         height *= worldScale.y;
     }
 

@@ -578,6 +578,19 @@ kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y,
     return pOut;
 }
 
+kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const kmVec3 *pV)
+{
+	kmMat4 temp;
+	memset(temp.mat, 0, sizeof(float) * 16);
+	temp.mat[0] = pV->x;
+	temp.mat[5] = pV->y;
+	temp.mat[10] = pV->z;
+	temp.mat[15] = 1.0f;
+
+	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
+}
+
 /**
  * Builds a translation matrix. All other elements in the matrix
  * will be set to zero except for the diagonal which is set to 1.0
