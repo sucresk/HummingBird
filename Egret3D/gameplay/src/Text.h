@@ -5,8 +5,8 @@
 #include "AnimationTarget.h"
 #include "Properties.h"
 #include "Font.h"
-#include "vec2.h"
-#include "vec4.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec4.h"
 #include "Effect.h"
 #include "Drawable.h"
 

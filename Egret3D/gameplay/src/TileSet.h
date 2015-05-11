@@ -4,8 +4,8 @@
 #include "Ref.h"
 #include "Drawable.h"
 #include "Properties.h"
-#include "vec2.h"
-#include "vec4.h"
+#include "kazmath/vec2.h"
+#include "kazmath/vec4.h"
 #include "SpriteBatch.h"
 #include "Effect.h"
 

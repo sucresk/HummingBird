@@ -3,7 +3,7 @@
 
 #include "Ref.h"
 #include "Rectangle.h"
-#include "vec2.h"
+#include "kazmath/vec2.h"
 #include "Theme.h"
 #include "ThemeStyle.h"
 #include "Touch.h"

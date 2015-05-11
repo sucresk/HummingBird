@@ -6,7 +6,7 @@
 #include "AnimationTarget.h"
 #include "Properties.h"
 #include "Rectangle.h"
-#include "vec4.h"
+#include "kazmath/vec4.h"
 #include "SpriteBatch.h"
 #include "Effect.h"
 
