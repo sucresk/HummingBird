@@ -751,7 +751,20 @@ const int kmMat4Decompose(const kmMat4* pIn, struct kmVec3* scale, struct kmQuat
 
 	// Determine if we have a negative scale (true if determinant is less than zero).
 	// In this case, we simply negate a single axis of the scale.
-	float det = determinant();
+	float a0 = pIn->mat[0] * pIn->mat[5] - pIn->mat[1] * pIn->mat[4];
+	float a1 = pIn->mat[0] * pIn->mat[6] - pIn->mat[2] * pIn->mat[4];
+	float a2 = pIn->mat[0] * pIn->mat[7] - pIn->mat[3] * pIn->mat[4];
+	float a3 = pIn->mat[1] * pIn->mat[6] - pIn->mat[2] * pIn->mat[5];
+	float a4 = pIn->mat[1] * pIn->mat[7] - pIn->mat[3] * pIn->mat[5];
+	float a5 = pIn->mat[2] * pIn->mat[7] - pIn->mat[3] * pIn->mat[6];
+	float b0 = pIn->mat[8] * pIn->mat[13] - pIn->mat[9] * pIn->mat[12];
+	float b1 = pIn->mat[8] * pIn->mat[14] - pIn->mat[10] * pIn->mat[12];
+	float b2 = pIn->mat[8] * pIn->mat[15] - pIn->mat[11] * pIn->mat[12];
+	float b3 = pIn->mat[9] * pIn->mat[14] - pIn->mat[10] * pIn->mat[13];
+	float b4 = pIn->mat[9] * pIn->mat[15] - pIn->mat[11] * pIn->mat[13];
+	float b5 = pIn->mat[10] * pIn->mat[15] - pIn->mat[11] * pIn->mat[14];
+	float det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
+	//float det = determinant();
 	if (det < 0)
 		scaleZ = -scaleZ;
 
