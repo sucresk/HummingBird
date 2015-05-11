@@ -12,9 +12,9 @@ static Mesh* createTriangleMesh()
 {
     // Calculate the vertices of the equilateral triangle.
     float a = 0.5f;     // length of the side
-    kmVec2 p1(0.0f,       a / sqrtf(3.0f));
-    kmVec2 p2(-a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
-    kmVec2 p3( a / 2.0f, -a / (2.0f * sqrtf(3.0f)));
+	kmVec2 p1 = { 0.0f, a / sqrtf(3.0f) };
+	kmVec2 p2 = { -a / 2.0f, -a / (2.0f * sqrtf(3.0f)) };
+	kmVec2 p3 = { a / 2.0f, -a / (2.0f * sqrtf(3.0f)) };
 
     // Create 3 vertices. Each vertex has position (x, y, z) and color (red, green, blue)
     float vertices[] =
@@ -54,7 +54,10 @@ void TriangleSample::initialize()
     // Create an orthographic projection matrix.
     float width = getWidth() / (float)getHeight();
     float height = 1.0f;
-    Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
+    //Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
+	float halfWidth = width / 2.0f;
+	float halfHeight = height / 2.0f;
+	kmMat4OrthographicProjection(&_worldViewProjectionMatrix, -halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
 
     // Create the triangle mesh.
     Mesh* mesh = createTriangleMesh();
@@ -79,19 +82,20 @@ void TriangleSample::finalize()
 void TriangleSample::update(float elapsedTime)
 {
     // Update the rotation of the triangle. The speed is 180 degrees per second.
-    _worldViewProjectionMatrix.rotateZ( _spinDirection * MATH_PI * elapsedTime * 0.001f);
+    //_worldViewProjectionMatrix.rotateZ( _spinDirection * MATH_PI * elapsedTime * 0.001f);
+	kmMat4RotationZ(&_worldViewProjectionMatrix, _spinDirection * MATH_PI * elapsedTime * 0.001f);
 }
 
 void TriangleSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
     
     // Bind the view projection kmMat4 to the model's parameter. This will transform the vertices when the model is drawn.
     _model->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(_worldViewProjectionMatrix);
     _model->draw();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void TriangleSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

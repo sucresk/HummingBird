@@ -66,7 +66,7 @@ void TextureSample::initialize()
     const float cubeSize = 10.0f;
     float x, y, textWidth;
     // Find the width of the cube in screen space
-    _scene->getActiveCamera()->project(getViewport(), Vector3(cubeSize, 0, 0), &x, &y);
+	_scene->getActiveCamera()->project(getViewport(), { cubeSize, 0, 0 }, &x, &y);
     textWidth = x - (getWidth() >> 1);
     // Textured quad mesh
     {
@@ -80,7 +80,7 @@ void TextureSample::initialize()
     }
     // Textured quad points
     {
-        Mesh* mesh = Mesh::createQuad(Vector3(0, cubeSize, 0), Vector3(0, 0, 0), Vector3(cubeSize, cubeSize, 0), Vector3(cubeSize, 0, 0));
+		Mesh* mesh = Mesh::createQuad({ 0, cubeSize, 0 }, { 0, 0, 0 }, { cubeSize, cubeSize, 0 }, { cubeSize, 0, 0 });
         Node* node = addQuadModelAndNode(_scene, mesh);
         SAFE_RELEASE(mesh);
         setTextureUnlitMaterial(dynamic_cast<Model*>(node->getDrawable()), "res/png/color-wheel.png");
@@ -151,12 +151,12 @@ void TextureSample::update(float elapsedTime)
 void TextureSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
     // Visit all the nodes in the scene, drawing the models/mesh.
     _scene->visit(this, &TextureSample::drawScene);
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void TextureSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

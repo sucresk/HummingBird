@@ -74,7 +74,7 @@ void TerrainSample::initialize()
     _form->getControl("dropBox")->addListener(this, Control::Listener::CLICK);
     _form->getControl("clearAll")->addListener(this, Control::Listener::CLICK);
     Control* main = _form->getControl("main");
-    _formSize.set(main->getWidth(), main->getHeight());
+	_formSize = { main->getWidth(), main->getHeight() };
 
     // Use script camera for navigation
 	enableScriptCamera(true);
@@ -148,7 +148,7 @@ void TerrainSample::render(float elapsedTime)
     char buffer[1024];
     sprintf(buffer, "FPS: %d", getFrameRate());
     _font->start();
-    _font->drawText(buffer, 65, 18, Vector4::one(), 30);
+    _font->drawText(buffer, 65, 18, vec4One, 30);
 
     _font->finish();
 }

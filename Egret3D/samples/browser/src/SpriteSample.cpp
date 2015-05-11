@@ -66,7 +66,7 @@ void SpriteSample::initialize()
     Effect* waterEffect = Effect::createFromFile("res/shaders/sprite.vert", "res/common/sprites/water2d.frag");
     Sprite* waterSprite = Sprite::create("res/common/sprites/water2d.png", getWidth() * 5, getHeight() / 3, waterEffect);
     SAFE_RELEASE(waterEffect);
-    waterSprite->setAnchor(Vector2::zero());
+    waterSprite->setAnchor(vec2Zero);
     waterSprite->setOpacity(0.5f);
     _scene->findNode("water")->setDrawable(waterSprite);
     Material* waterMaterial = waterSprite->getMaterial();
@@ -123,12 +123,12 @@ void SpriteSample::update(float elapsedTime)
 void SpriteSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
-    clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
+    clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
     
     // Visit all the nodes in the scene, drawing the sprites
     _scene->visit(this, &SpriteSample::drawScene);
     
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void SpriteSample::keyEvent(Keyboard::KeyEvent evt, int key)

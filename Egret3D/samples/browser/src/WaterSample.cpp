@@ -38,7 +38,7 @@ void WaterSample::initialize()
 
     Node* camPitchNode = Node::create();
     kmMat4 m;
-    Matrix::createLookAt(_cameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
+    //Matrix::createLookAt(_cameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
     camPitchNode->rotate(m);
     _cameraNode->addChild(camPitchNode);
     _scene->addNode(_cameraNode);
@@ -52,7 +52,7 @@ void WaterSample::initialize()
     _reflectCameraNode = Node::create("reflectCamNode");
     _reflectCameraNode->setTranslation(camStartPosition.x, -camStartPosition.y, camStartPosition.z);
     camPitchNode = Node::create();
-    Matrix::createLookAt(_reflectCameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
+    //Matrix::createLookAt(_reflectCameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
     camPitchNode->rotate(m);
     _reflectCameraNode->addChild(camPitchNode);
     camera = Camera::createPerspective(45.f, Game::getInstance()->getAspectRatio(), 0.1f, 150.f);
@@ -122,25 +122,25 @@ void WaterSample::update(float elapsedTime)
     const float minVal = 0.1f;
     if (_gamepad && _gamepad->getJoystickCount())
         _gamepad->getJoystickValues(0, &axis);
-    
-    // Move the camera by applying a force
-    kmVec3 force;
-    if ((_inputMask & MOVE_FORWARD) || axis.y > minVal)
-        force += _cameraNode->getFirstChild()->getForwardVectorWorld();
-    if (_inputMask & MOVE_BACKWARD || axis.y < -minVal)
-        force -= _cameraNode->getFirstChild()->getForwardVectorWorld();
-    if (_inputMask & MOVE_LEFT || axis.x < -minVal)
-        force += _cameraNode->getRightVectorWorld();
-    if (_inputMask & MOVE_RIGHT || axis.y > minVal)
-        force -= _cameraNode->getRightVectorWorld();
-    if (force.lengthSquared() > 1.f) force.normalize();
+    //
+    //// Move the camera by applying a force
+    //kmVec3 force;
+    //if ((_inputMask & MOVE_FORWARD) || axis.y > minVal)
+    //    force += _cameraNode->getFirstChild()->getForwardVectorWorld();
+    //if (_inputMask & MOVE_BACKWARD || axis.y < -minVal)
+    //    force -= _cameraNode->getFirstChild()->getForwardVectorWorld();
+    //if (_inputMask & MOVE_LEFT || axis.x < -minVal)
+    //    force += _cameraNode->getRightVectorWorld();
+    //if (_inputMask & MOVE_RIGHT || axis.y > minVal)
+    //    force -= _cameraNode->getRightVectorWorld();
+    //if (force.lengthSquared() > 1.f) force.normalize();
 
-    _cameraAcceleration += force / MASS;
-    _cameraAcceleration *= FRICTION;
-    if (_cameraAcceleration.lengthSquared() < 0.01f)
-        _cameraAcceleration = Vector3::zero();
-    _cameraNode->translate(_cameraAcceleration * SPEED * (elapsedTime / 1000.f));
-    
+    //_cameraAcceleration += force / MASS;
+    //_cameraAcceleration *= FRICTION;
+    //if (_cameraAcceleration.lengthSquared() < 0.01f)
+    //    _cameraAcceleration = Vector3::zero();
+    //_cameraNode->translate(_cameraAcceleration * SPEED * (elapsedTime / 1000.f));
+    //
     // Make sure the reflection camera follows
     kmVec3 position = _cameraNode->getTranslation();
     position.y = -position.y + _waterHeight * 2.f;
@@ -149,7 +149,7 @@ void WaterSample::update(float elapsedTime)
 
 void WaterSample::render(float elapsedTime)
 {
-    const kmVec4 clearColour(0.84f, 0.89f, 1.f, 1.f);
+	kmVec4 clearColour = { 0.84f, 0.89f, 1.f, 1.f };
     
     // Update the refract buffer
     FrameBuffer* defaultBuffer = _refractBuffer->bind();
@@ -175,7 +175,7 @@ void WaterSample::render(float elapsedTime)
     // Draw the final scene
     defaultBuffer->bind();
     setViewport(defaultViewport);
-    _clipPlane = Vector4::zero();
+    _clipPlane = vec4Zero;
     _scene->setActiveCamera(defaultCamera);
     clear(CLEAR_COLOR_DEPTH, clearColour, 1.0f, 0);
     _scene->visit(this, &WaterSample::drawScene, true);
@@ -184,17 +184,17 @@ void WaterSample::render(float elapsedTime)
     if (_showBuffers)
     {
         _refractBatch->start();
-        _refractBatch->draw(Vector3(0.f, 4.f, 0.f), Rectangle(BUFFER_SIZE, BUFFER_SIZE), Vector2(426.f, 240.f));
+		_refractBatch->draw({ 0.f, 4.f, 0.f }, Rectangle(BUFFER_SIZE, BUFFER_SIZE), { 426.f, 240.f });
         _refractBatch->finish();
         _reflectBatch->start();
-        _reflectBatch->draw(Vector3(430.f, 4.f, 0.f), Rectangle(BUFFER_SIZE, BUFFER_SIZE), Vector2(426.f, 240.f));
+		_reflectBatch->draw({ 430.f, 4.f, 0.f }, Rectangle(BUFFER_SIZE, BUFFER_SIZE), { 426.f, 240.f });
         _reflectBatch->finish();
     }
 
     // Draw the gamepad
     _gamepad->draw();
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void WaterSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

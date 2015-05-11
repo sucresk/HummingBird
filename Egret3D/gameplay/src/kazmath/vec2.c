@@ -30,6 +30,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/vec2.h"
 #include "kazmath/utility.h"
 
+static kmVec2 vec2Zero = { 0.0f, 0.0f };
+static kmVec2 vec2One = { 1.0f, 1.0f };
+
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y)
 {
     pOut->x = x;

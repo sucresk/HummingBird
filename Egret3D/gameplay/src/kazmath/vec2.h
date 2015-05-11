@@ -41,6 +41,9 @@ typedef struct kmVec2 {
 
 #pragma pack(pop)
 
+extern kmVec2 vec2Zero;
+extern kmVec2 vec2One;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
