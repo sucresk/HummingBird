@@ -46,8 +46,8 @@ public:
      */
     void collisionEvent(PhysicsCollisionObject::CollisionListener::EventType type,
                                     const PhysicsCollisionObject::CollisionPair& collisionPair,
-                                    const kmVec3& contactPointA = Vector3::zero(),
-                                    const kmVec3& contactPointB = Vector3::zero());
+                                    const kmVec3& contactPointA = vec3Zero,
+                                    const kmVec3& contactPointB = vec3Zero);
 protected:
 
     /**

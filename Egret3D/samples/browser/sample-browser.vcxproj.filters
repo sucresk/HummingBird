@@ -339,9 +339,6 @@
     <ClInclude Include="src\FirstPersonCamera.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\SamplesGame.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
     <ClInclude Include="src\Sample.h">
       <Filter>src\common</Filter>
     </ClInclude>
@@ -394,6 +391,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\FontSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SamplesGame.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

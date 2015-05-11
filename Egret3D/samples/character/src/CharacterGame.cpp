@@ -56,7 +56,7 @@ void CharacterGame::initialize()
     rbParams.restitution = 0.75f;
     rbParams.linearDamping = 0.025f;
     rbParams.angularDamping = 0.16f;
-    ceiling->setCollisionObject(PhysicsCollisionObject::RIGID_BODY, PhysicsCollisionShape::box(Vector3(49.5f, 1.0f, 49.5f)), &rbParams);
+	ceiling->setCollisionObject(PhysicsCollisionObject::RIGID_BODY, PhysicsCollisionShape::box({ 49.5f, 1.0f, 49.5f }), &rbParams);
 
     // Initialize scene.
     _scene->visit(this, &CharacterGame::initializeScene);
@@ -135,10 +135,10 @@ void CharacterGame::finalize()
 
 void CharacterGame::drawSplash(void* param)
 {
-    clear(CLEAR_COLOR_DEPTH, Vector4(0, 0, 0, 1), 1.0f, 0);
+	clear(CLEAR_COLOR_DEPTH, { 0, 0, 0, 1 }, 1.0f, 0);
     SpriteBatch* batch = SpriteBatch::create("res/logo_powered_white.png");
     batch->start();
-    batch->draw(getWidth() * 0.5f, getHeight() * 0.5f, 0.0f, 512.0f, 512.0f, 0.0f, 1.0f, 1.0f, 0.0f, Vector4::one(), true);
+    batch->draw(getWidth() * 0.5f, getHeight() * 0.5f, 0.0f, 512.0f, 512.0f, 0.0f, 1.0f, 1.0f, 0.0f, vec4One, true);
     batch->finish();
     SAFE_DELETE(batch);
 }
@@ -207,12 +207,16 @@ void CharacterGame::update(float elapsedTime)
     if (_applyKick)
     {
         // apply impulse from kick.
-        kmVec3 impulse(-_characterNode->getForwardVectorWorld());
-        impulse.normalize();
+        //kmVec3 impulse(-_characterNode->getForwardVectorWorld());
+		kmVec3 impulse;
+		kmVec3Scale(&impulse, &_characterNode->getForwardVectorWorld(), -1.0f);
+		kmVec3Normalize(&impulse, &impulse);
+        //impulse.normalize();
         // add some lift to kick
         impulse.y = 1.0f; 
         //scale the impulse.
-        impulse.scale(16.6f);
+        //impulse.scale(16.6f);
+		kmVec3Scale(&impulse, &impulse, 16.6f);
         ((PhysicsRigidBody*)_basketballNode->getCollisionObject())->applyImpulse(impulse);
         _hasBall = false;
         _applyKick = false;
@@ -247,7 +251,7 @@ void CharacterGame::update(float elapsedTime)
         _buttonPressed[BUTTON_2] = true;
     }
 
-    _currentDirection.set(Vector2::zero());
+    _currentDirection = vec2Zero;
 
     if (!_kicking)
     {
@@ -263,7 +267,7 @@ void CharacterGame::update(float elapsedTime)
        _character->getNode()->rotateY(-MATH_DEG_TO_RAD(out.x * 2.0f));
     }
     
-    if (_currentDirection.isZero())
+    if (kmVec2IsZero( & _currentDirection) )
     {
         // Construct direction vector from keyboard input
         if (_keyFlags & NORTH)
@@ -280,20 +284,24 @@ void CharacterGame::update(float elapsedTime)
         else 
             _currentDirection.x = 0;
 
-        _currentDirection.normalize();
-        if ((_keyFlags & RUNNING) == 0)
-            _currentDirection *= 0.5f;
+        //_currentDirection.normalize();
+		kmVec2Normalize(&_currentDirection, &_currentDirection );
+		if ((_keyFlags & RUNNING) == 0)
+		{
+			kmVec2Scale(&_currentDirection, &_currentDirection, 0.5f);
+			//_currentDirection *= 0.5f;
+		}
     }
 
     // Update character animation and velocity
-    if (_currentDirection.isZero())
+    if ( kmVec2IsZero(& _currentDirection ) )
     {
         play("idle", true);
-        _character->setVelocity(Vector3::zero());
+        _character->setVelocity(vec3Zero);
     }
     else
     {
-        bool running = (_currentDirection.lengthSquared() > 0.75f);
+        bool running = (kmVec2LengthSq( &_currentDirection ) > 0.75f);
         float speed = running ? RUN_SPEED : WALK_SPEED;
 
         play(running ? "running" : "walking", true, 1.0f);
@@ -301,13 +309,19 @@ void CharacterGame::update(float elapsedTime)
         // Orient the character relative to the camera so he faces the direction we want to move.
         const kmMat4& cameraMatrix = _scene->getActiveCamera()->getNode()->getWorldMatrix();
         kmVec3 cameraRight, cameraForward;
-        cameraMatrix.getRightVector(&cameraRight);
-        cameraMatrix.getForwardVector(&cameraForward);
+        //cameraMatrix.getRightVector(&cameraRight);
+        //cameraMatrix.getForwardVector(&cameraForward);
+		kmMat4GetRight(&cameraRight, &cameraMatrix);
+		kmMat4GetForwrad(&cameraForward, &cameraMatrix);
 
         // Get the current forward vector for the mesh node (negate it since the character was modelled facing +z)
-        kmVec3 currentHeading(-_characterNode->getForwardVectorWorld());
+        //kmVec3 currentHeading(-_characterNode->getForwardVectorWorld());
+		kmVec3 currentHeading;
+		kmVec3Scale(&currentHeading, &_characterNode->getForwardVectorWorld(), -1.0f);
 
         // Construct a new forward vector for the mesh node
+		kmVec3 temp;
+		kmVec3
         kmVec3 newHeading(cameraForward * _currentDirection.y + cameraRight * _currentDirection.x);
 
         // Compute the rotation amount based on the difference between the current and new vectors
@@ -634,7 +648,7 @@ void CharacterGame::grabBall()
     rbParams.mass = 20.0f;
     kmVec3 currentVelocity = _character->getCurrentVelocity();
     Node* boy = _character->getNode();
-    boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(2.9f, 6.0f, Vector3(0.0f, 3.0f, 0.0f), true), &rbParams);
+	boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(2.9f, 6.0f, { 0.0f, 3.0f, 0.0f }, true), &rbParams);
     _character = static_cast<PhysicsCharacter*>(boy->getCollisionObject());
     _character->setMaxSlopeAngle(0.0f);
     _character->setMaxStepHeight(0.0f);
@@ -648,7 +662,7 @@ void CharacterGame::releaseBall()
     rbParams.mass = 20.0f;
     kmVec3 velocity = _character->getCurrentVelocity();
     Node* boy = _character->getNode();
-    boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(1.2f, 6.0f, Vector3(0.0f, 3.0f, 0.0f), true), &rbParams);
+	boy->setCollisionObject(PhysicsCollisionObject::CHARACTER, PhysicsCollisionShape::capsule(1.2f, 6.0f, { 0.0f, 3.0f, 0.0f }, true), &rbParams);
     _character = static_cast<PhysicsCharacter*>(boy->getCollisionObject());
     _character->setVelocity(velocity);
     _character->setMaxSlopeAngle(0.0f);

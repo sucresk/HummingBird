@@ -218,15 +218,17 @@ void FormsSample::update(float elapsedTime)
             _formNodeParent->translate(0.5f * speedFactor * _joysticks[0].x, 0.5f * speedFactor * _joysticks[0].y, 0);
         }
 
-        //if (!kmVec2IsZero(&_joysticks[1]))
-        //{
-        //    kmMat4 m;
-        //    _formNodeParent->getWorldMatrix().transpose(&m);
-        //    kmVec3 yaw;
-        //    m.getUpVector(&yaw);
-        //    _formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
-        //    _formNodeParent->rotateX(-speedFactor * _joysticks[1].y * 2.0f);
-        //}
+		if (!kmVec2IsZero(&_joysticks[1]))
+		{
+			kmMat4 m;
+			//_formNodeParent->getWorldMatrix().transpose(&m);
+			memcpy(m.mat, _formNodeParent->getWorldMatrix().mat, sizeof(float) * 16);
+			kmVec3 yaw;
+			//m.getUpVector(&yaw);
+			kmMat4GetUp(&yaw, &m);
+			_formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
+			_formNodeParent->rotateX(-speedFactor * _joysticks[1].y * 2.0f);
+		}
     }
 
     if (_gamepad->isButtonDown(Gamepad::BUTTON_A))
@@ -276,17 +278,19 @@ void FormsSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
                 _touchX = 0;
             }
             break;
-        //case Touch::TOUCH_MOVE:
-        //    {
-        //        int deltaX = x - _touchX;
-        //        _touchX = x;
-        //        // Yaw in world frame
-        //        kmMat4 m;
-        //        _formNodeParent->getWorldMatrix().transpose(&m);
-        //        kmVec3 yaw;
-        //        m.getUpVector(&yaw);
-        //        _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
-        //    }
+        case Touch::TOUCH_MOVE:
+            {
+                int deltaX = x - _touchX;
+                _touchX = x;
+                // Yaw in world frame
+                kmMat4 m;
+                //_formNodeParent->getWorldMatrix().transpose(&m);
+				memcpy(m.mat, _formNodeParent->getWorldMatrix().mat, sizeof(float) * 16);
+                kmVec3 yaw;
+                //m.getUpVector(&yaw);
+				kmMat4GetUp(&yaw, &m);
+                _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
+            }
             break;
         default:
             break;
