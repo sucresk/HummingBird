@@ -177,17 +177,48 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
             if (!_terrain->_normalMap)
             {
 				kmVec3 p = { v[0], computeHeight(heights, width, x, z), v[2] };
-                kmVec3 w(Vector3(x>=step ? v[0]-stepXScaled : v[0], computeHeight(heights, width, x>=step ? x-step : x, z), v[2]), p);
-                kmVec3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
-                kmVec3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
-                kmVec3 n(Vector3(v[0], computeHeight(heights, width, x, z<height-step ? z+step : z), z<height-step ? v[2]+stepZScaled : v[2]), p);
+                //kmVec3 w(Vector3(x>=step ? v[0]-stepXScaled : v[0], computeHeight(heights, width, x>=step ? x-step : x, z), v[2]), p);
+                //kmVec3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
+                //kmVec3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
+                //kmVec3 n(Vector3(v[0], computeHeight(heights, width, x, z<height-step ? z+step : z), z<height-step ? v[2]+stepZScaled : v[2]), p);
+				kmVec3 w;
+				kmVec3 e;
+				kmVec3 s;
+				kmVec3 n;
+				kmVec3Fill(&w, p.x - (x >= step ? v[0] - stepXScaled : v[0]),
+					p.y - computeHeight(heights, width, x >= step ? x - step : x, z),
+					p.z - v[2]);
+				kmVec3Fill(&e, p.x - (x<width - step ? v[0] + stepXScaled : v[0]),
+					p.y - computeHeight(heights, width, x<width - step ? x + step : x, z),
+					p.z - v[2] );
+				kmVec3Fill(&s, p.x - v[0],
+					p.y - computeHeight(heights, width, x, z >= step ? z - step : z),
+					p.z - (z >= step ? v[2] - stepZScaled : v[2]));
+				kmVec3Fill(&n, p.x - v[0],
+					p.y - computeHeight(heights, width, x, z<height - step ? z + step : z),
+					p.z - (z<height - step ? v[2] + stepZScaled : v[2]));
                 kmVec3 normals[4];
-                Vector3::cross(n, w, &normals[0]);
-                Vector3::cross(w, s, &normals[1]);
-                Vector3::cross(e, n, &normals[2]);
-                Vector3::cross(s, e, &normals[3]);
-                kmVec3 normal = -(normals[0] + normals[1] + normals[2] + normals[3]);
-                normal.normalize();
+                //Vector3::cross(n, w, &normals[0]);
+                //Vector3::cross(w, s, &normals[1]);
+                //Vector3::cross(e, n, &normals[2]);
+                //Vector3::cross(s, e, &normals[3]);
+				kmVec3Cross(&normals[0], &n, &w);
+				kmVec3Cross(&normals[1], &w, &s);
+				kmVec3Cross(&normals[2], &e, &n);
+				kmVec3Cross(&normals[3], &s, &e);
+				kmVec3 temp;
+				kmVec3Fill(&temp, 0, 0, 0);
+				kmVec3Add(&temp, &temp, &normals[0]);
+				kmVec3Add(&temp, &temp, &normals[1]);
+				kmVec3Add(&temp, &temp, &normals[2]);
+				kmVec3Add(&temp, &temp, &normals[3]);
+				kmVec3 normal;
+				normal.x = -temp.x;
+				normal.y = -temp.y;
+				normal.z = -temp.z;
+				//kmVec3 normal = -(normals[0] + normals[1] + normals[2] + normals[3]);
+                //normal.normalize();
+				kmVec3Normalize(&normal, &normal);
                 v[3] = normal.x;
                 v[4] = normal.y;
                 v[5] = normal.z;
@@ -245,7 +276,13 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     }
     GP_ASSERT(index == vertexCount);
 
-    kmVec3 center(min + ((max - min) * 0.5f));
+	//kmVec3 center = { min + ((max - min) * 0.5f) };
+	kmVec3 temp;
+	kmVec3Subtract(&temp, &max, &min);
+	kmVec3Scale(&temp, &temp, 0.5f);
+	kmVec3 center;
+	kmVec3Add(&center, &min, &temp);
+	
 
     // Create mesh
     VertexFormat::Element elements[3];
@@ -263,7 +300,7 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     Mesh* mesh = Mesh::createMesh(format, vertexCount);
     mesh->setVertexData(vertices);
     mesh->setBoundingBox(BoundingBox(min, max));
-    mesh->setBoundingSphere(BoundingSphere(center, center.distance(max)));
+	mesh->setBoundingSphere(BoundingSphere(center, kmVecDistance( &center, &max )/*center.distance(max)*/));
 
     // Add mesh part for indices
     unsigned int indexCount =
@@ -611,36 +648,36 @@ void TerrainPatch::cameraChanged(Camera* camera)
     _bits |= TERRAINPATCH_DIRTY_LEVEL;
 }
 
-unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBounds) 
+unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBounds)
 {
-    if (camera != _camera)
-    {
-        if (_camera != NULL)
-        {
-            _camera->removeListener(this);
-            _camera->release();
-        }
-        _camera = camera;
-        _camera->addRef();
-        _camera->addListener(this);
-        _bits |= TERRAINPATCH_DIRTY_LEVEL;
-    }
+	if (camera != _camera)
+	{
+		if (_camera != NULL)
+		{
+			_camera->removeListener(this);
+			_camera->release();
+		}
+		_camera = camera;
+		_camera->addRef();
+		_camera->addListener(this);
+		_bits |= TERRAINPATCH_DIRTY_LEVEL;
+	}
 
-    // base level
-    if (!_terrain->isFlagSet(Terrain::LEVEL_OF_DETAIL) || _levels.size() == 0)
-        return 0;
+	// base level
+	if (!_terrain->isFlagSet(Terrain::LEVEL_OF_DETAIL) || _levels.size() == 0)
+		return 0;
 
-    if (!(_bits & TERRAINPATCH_DIRTY_LEVEL))
-        return _level;
+	if (!(_bits & TERRAINPATCH_DIRTY_LEVEL))
+		return _level;
 
-    _bits &= ~TERRAINPATCH_DIRTY_LEVEL;
+	_bits &= ~TERRAINPATCH_DIRTY_LEVEL;
 
-    // Compute LOD to use based on very simple distance metric. TODO: Optimize me.
-    Game* game = Game::getInstance();
-    Rectangle vp(0, 0, game->getWidth(), game->getHeight());
-    kmVec3 corners[8];
-    kmVec2 min(FLT_MAX, FLT_MAX);
-    kmVec2 max(-FLT_MAX, -FLT_MAX);
+	// Compute LOD to use based on very simple distance metric. TODO: Optimize me.
+	Game* game = Game::getInstance();
+	Rectangle vp(0, 0, game->getWidth(), game->getHeight());
+	kmVec3 corners[8];
+	kmVec2 min = { FLT_MAX, FLT_MAX };
+	kmVec2 max ={-FLT_MAX, -FLT_MAX};
     worldBounds.getCorners(corners);
     for (unsigned int i = 0; i < 8; ++i)
     {
@@ -673,7 +710,7 @@ unsigned int TerrainPatch::computeLOD(Camera* camera, const BoundingBox& worldBo
 const kmVec3& TerrainPatch::getAmbientColor() const
 {
     Scene* scene = _terrain->_node ? _terrain->_node->getScene() : NULL;
-    return scene ? scene->getAmbientColor() : Vector3::zero();
+    return scene ? scene->getAmbientColor() : vec3Zero;
 }
 
 void TerrainPatch::setMaterialDirty()
