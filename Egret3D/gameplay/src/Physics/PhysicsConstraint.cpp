@@ -32,37 +32,48 @@ kmVec3 PhysicsConstraint::centerOfMassMidpoint(const Node* a, const Node* b)
     GP_ASSERT(b);
 
     kmVec3 tA, tB;
-    a->getWorldMatrix().getTranslation(&tA);
-    b->getWorldMatrix().getTranslation(&tB);
+    //a->getWorldMatrix().getTranslation(&tA);
+    //b->getWorldMatrix().getTranslation(&tB);
+	kmMat4Decompose(&a->getWorldMatrix(), NULL, NULL, &tA);
+	kmMat4Decompose(&b->getWorldMatrix(), NULL, NULL, &tB);
 
     tA = getWorldCenterOfMass(a);
     tB = getWorldCenterOfMass(b);
     
-    kmVec3 d(tA, tB);
-    d.scale(0.5f);
-    kmVec3 c(tA);
-    c.add(d);
+    //kmVec3 d (tA, tB);
+    //d.scale(0.5f);
+    //kmVec3 c(tA);
+    //c.add(d);
+
+	kmVec3 d;
+	kmVec3Subtract(&d, &tA, &tB);
+	kmVec3Scale(&d, &d, 0.5f);
+	kmVec3 c = tA;
+	kmVec3Add(&c, &c, &d);
 
     return c;
 }
 
-Quaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3& point)
+kmQuaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3& point)
 {
     GP_ASSERT(node);
 
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
-    Matrix::createTranslation(point, &m);
-
+    //Matrix::createTranslation(point, &m);
+	kmMat4Translation(&m, point.x, point.y, point.z);
     // Calculate the rotation offset to the rigid body by transforming 
     // the translation kmMat4 above into the rigid body's local space 
     // (multiply by the inverse world matrix) and extracting the rotation.
     kmMat4 mi;
-    node->getWorldMatrix().invert(&mi);
-    mi.multiply(m);
+    //node->getWorldMatrix().invert(&mi);
+    //mi.multiply(m);
+	kmMat4Invert(&mi, &node->getWorldMatrix());
+	kmMat4Multiply(&mi, &mi, &m);
     
-    Quaternion r;
-    mi.getRotation(&r);
+    kmQuaternion r;
+    //mi.getRotation(&r);
+	kmMat4Decompose(&mi, NULL, &r, NULL);
 
     return r;
 }
@@ -73,20 +84,25 @@ kmVec3 PhysicsConstraint::getTranslationOffset(const Node* node, const kmVec3& p
 
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
-    Matrix::createTranslation(point, &m);
+    //Matrix::createTranslation(point, &m);
+	kmMat4Translation(&m, point.x, point.y, point.z);
 
     // Calculate the translation offset to the rigid body by transforming 
     // the translation kmMat4 above into the rigid body's local space 
     // (multiply by the inverse world matrix) and extracting the translation.
     kmMat4 mi;
-    node->getWorldMatrix().invert(&mi);
-    mi.multiply(m);
+    //node->getWorldMatrix().invert(&mi);
+    //mi.multiply(m);
+	kmMat4Inverse(&mi, &node->getWorldMatrix());
+	kmMat4Multiply( &mi, &mi, &m );
     
     kmVec3 t;
-    mi.getTranslation(&t);
+    //mi.getTranslation(&t);
+	kmMat4Decompose(&mi, NULL, NULL, &t);
 
     kmVec3 s;
-    node->getWorldMatrix().getScale(&s);
+    //node->getWorldMatrix().getScale(&s);
+	kmMat4Decompose(&node->getWorldMatrix(), &s, NULL, NULL);
 
     t.x *= s.x;
     t.y *= s.y;
@@ -103,23 +119,28 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3
 
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
-    Matrix::createTranslation(origin, &m);
+    //Matrix::createTranslation(origin, &m);
+	kmMat4Translation(&m, origin.x, origin.y, origin.z);
 
     // Calculate the translation and rotation offset to the rigid body
     // by transforming the translation kmMat4 above into the rigid body's
     // local space (multiply by the inverse world kmMat4 and extract components).
     kmMat4 mi;
-    node->getWorldMatrix().invert(&mi);
-    mi.multiply(m);
+    //node->getWorldMatrix().invert(&mi);
+    //mi.multiply(m);
+	kmMat4Invert(&mi, &node->getWorldMatrix());
 
-    Quaternion r;
-    mi.getRotation(&r);
+    kmQuaternion r;
+    //mi.getRotation(&r);
+	kmMat4Decompose(&mi, NULL, &r, NULL);
     
     kmVec3 t;
-    mi.getTranslation(&t);
+    //mi.getTranslation(&t);
+	kmMat4Decompose(&mi, NULL, NULL, &t);
 
     kmVec3 s;
-    node->getWorldMatrix().getScale(&s);
+    //node->getWorldMatrix().getScale(&s);
+	kmMat4Decompose(&node->getWorldMatrix(), &s, NULL, NULL);
 
     t.x *= s.x;
     t.y *= s.y;
@@ -135,7 +156,7 @@ kmVec3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
     GP_ASSERT(node);
 
     const BoundingSphere& sphere = node->getBoundingSphere();
-    if (!(sphere.center.isZero() && sphere.radius == 0))
+    if (!( kmVec3IsZero( &sphere.center) && sphere.radius == 0))
     {
         // The world-space center of mass is the sphere's center.
         return sphere.center;
@@ -145,7 +166,8 @@ kmVec3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
     GP_WARN("Node %s' has no bounding volume - center of mass is defaulting to local coordinate origin.", node->getId());
 
     kmVec3 center;
-    node->getWorldMatrix().transformPoint(&center);
+    //node->getWorldMatrix().transformPoint(&center);
+	kmMat3Transform(&center, &node->getWorldMatrix(), 0.0f, 0.0f, 0.0, 1.0f);
     return center;
 }
 
@@ -153,7 +175,7 @@ kmVec3 PhysicsConstraint::offsetByCenterOfMass(const Node* node, const kmVec3& v
 {
     GP_ASSERT(node && node->getCollisionObject() && node->getCollisionObject()->_motionState);
     btVector3 centerOfMassOffset = node->getCollisionObject()->_motionState->_centerOfMassOffset.getOrigin();
-    return Vector3(v.x + centerOfMassOffset.x(), v.y + centerOfMassOffset.y(), v.z + centerOfMassOffset.z());
+	return{ v.x + centerOfMassOffset.x(), v.y + centerOfMassOffset.y(), v.z + centerOfMassOffset.z() };
 }
 
 }
