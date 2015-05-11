@@ -32,8 +32,9 @@ PhysicsSocketConstraint::PhysicsSocketConstraint(PhysicsRigidBody* a, const kmVe
 
     // Take scale into account for the first node's translation offset.
     kmVec3 sA;
-    a->getNode()->getWorldMatrix().getScale(&sA);
-    kmVec3 tA(translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z);
+    //a->getNode()->getWorldMatrix().getScale(&sA);
+	kmMat4Decompose(&a->getNode()->getWorldMatrix(), &sA, NULL, NULL);
+	kmVec3 tA = { translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z };
 
     if (b)
     {
@@ -41,8 +42,9 @@ PhysicsSocketConstraint::PhysicsSocketConstraint(PhysicsRigidBody* a, const kmVe
 
         // Take scale into account for the second node's translation offset.
         kmVec3 sB;
-        b->getNode()->getWorldMatrix().getScale(&sB);
-        kmVec3 tB(translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z);
+        //b->getNode()->getWorldMatrix().getScale(&sB);
+		kmMat4Decompose(&b->getNode()->getWorldMatrix(), &sB, NULL, NULL );
+		kmVec3 tB = { translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z };
 
         _constraint = bullet_new<btPoint2PointConstraint>(*a->_body, *b->_body, BV(tA), BV(tB));
     }

@@ -1,6 +1,6 @@
 #include "Base.h"
 #include "Game.h"
-#include "MathUtil.h"
+#include "kazmath/MathUtil.h"
 #include "Node.h"
 #include "PhysicsVehicle.h"
 #include "PhysicsVehicleWheel.h"
@@ -295,8 +295,8 @@ void PhysicsVehicle::update(float elapsedTime, float steering, float braking, fl
 
 void PhysicsVehicle::reset()
 {
-    _rigidBody->setLinearVelocity(Vector3::zero());
-    _rigidBody->setAngularVelocity(Vector3::zero());
+    _rigidBody->setLinearVelocity(vec3Zero);
+    _rigidBody->setAngularVelocity(vec3Zero);
     _speedSmoothed = 0;
 }
 
@@ -351,7 +351,7 @@ void PhysicsVehicle::applyDownforce()
     float q = 0.5f * AIR_DENSITY * v * v;
 
     // _downforce is the product of reference area and the aerodynamic coefficient
-    _rigidBody->applyForce(Vector3(0, -_downforce * q, 0));
+	_rigidBody->applyForce({ 0, -_downforce * q, 0 });
 }
 
 float PhysicsVehicle::getSteeringGain() const

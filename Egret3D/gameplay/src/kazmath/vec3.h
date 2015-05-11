@@ -69,6 +69,7 @@ kmVec3* kmVec3Zero(kmVec3* pOut);
 int kmVec3IsZero(const kmVec3* pIn);
 int kmVec3IsOne( const kmVec3* pIn);
 kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color);
+//kmVec3* kmVec3Smooth( )
 
 #ifdef __cplusplus
 }

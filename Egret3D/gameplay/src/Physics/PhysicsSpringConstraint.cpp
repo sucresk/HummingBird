@@ -31,12 +31,14 @@ PhysicsSpringConstraint::PhysicsSpringConstraint(PhysicsRigidBody* a, const kmQu
 
     // Take scale into account for the translation offsets.
     kmVec3 sA;
-    a->getNode()->getWorldMatrix().getScale(&sA);
-    kmVec3 tA(translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z);
+    //a->getNode()->getWorldMatrix().getScale(&sA);
+	kmMat4Decompose(&a->getNode()->getWorldMatrix(), &sA, NULL, NULL );
+	kmVec3 tA = { translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z };
 
     kmVec3 sB;
-    b->getNode()->getWorldMatrix().getScale(&sB);
-    kmVec3 tB(translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z);
+    //b->getNode()->getWorldMatrix().getScale(&sB);
+	kmMat4Decompose(&b->getNode()->getWorldMatrix(), &sB, NULL, NULL );
+	kmVec3 tB = { translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z };
 
     btTransform frameInA(BQ(rotationOffsetA), BV(tA));
     btTransform frameInB(BQ(rotationOffsetB), BV(tB));

@@ -1,7 +1,7 @@
 #ifndef MATHUTIL_H_
 #define MATHUTIL_H_
 
-namespace gameplay
+namespace egret
 {
 /**
  * Defines a math utility class.

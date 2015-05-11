@@ -2,6 +2,7 @@
 #include "Node.h"
 #include "PhysicsVehicle.h"
 #include "PhysicsVehicleWheel.h"
+#include "kazmath/MathUtil.h"
 
 namespace egret
 {
@@ -146,7 +147,8 @@ void PhysicsVehicleWheel::findAncestorAndBind()
     if (host)
     {
         host->addWheel(this);
-        _initialOffset = _node->getTranslation() - host->_node->getTranslation();
+        //_initialOffset = _node->getTranslation() - host->_node->getTranslation();
+		kmVec3Subtract(&_initialOffset, &_node->getTranslation(), &host->_node->getTranslation());
     }
 }
 
@@ -199,10 +201,17 @@ void PhysicsVehicleWheel::transform(Node* node) const
     // Use only the component parallel to the defined strut line
     kmVec3 strutLine;
     getWheelDirection(&strutLine);
-    _host->_node->getMatrix().transformVector(&strutLine);
+    //_host->_node->getMatrix().transformVector(&strutLine);
+	kmMat3Transform(&strutLine, &_host->_node->getMatrix(), 
+		strutLine.x, strutLine.y, strutLine.z, 0.0f );
     kmVec3 wheelPos;
     getWheelPos(&wheelPos);
-    node->setTranslation(wheelPos + strutLine*(strutLine.dot(_positionDelta) / strutLine.lengthSquared()));
+	float scale = kmVec3Dot(&strutLine, &_positionDelta) / kmVec3LengthSq(&strutLine);
+	kmVec3 temp;
+	kmVec3Scale(&temp, &strutLine, scale);
+	kmVec3Add(&wheelPos, &wheelPos, &temp);
+	node->setTranslation(wheelPos);
+    //node->setTranslation(wheelPos + strutLine*(strutLine.dot(_positionDelta) / strutLine.lengthSquared()));
 }
 
 void PhysicsVehicleWheel::update(float elapsedTime)
@@ -211,39 +220,55 @@ void PhysicsVehicleWheel::update(float elapsedTime)
     GP_ASSERT(_host->_vehicle);
 
     const btTransform& trans = _host->_vehicle->getWheelInfo(_indexInHost).m_worldTransform;
-    const btkmQuaternion& rot = trans.getRotation();
+    const btQuaternion& rot = trans.getRotation();
     const btVector3& pos = trans.getOrigin();
-    _orientation.set(rot.x(), rot.y(), rot.z(), rot.w());
+	_orientation = { rot.x(), rot.y(), rot.z(), rot.w() };
 
-    kmVec3 commandedPosition(pos.x(), pos.y(), pos.z());
+	kmVec3 commandedPosition = { pos.x(), pos.y(), pos.z() };
     kmVec3 wheelPos;
     getWheelPos(&wheelPos);
-    commandedPosition -= wheelPos;
+    //commandedPosition -= wheelPos;
+	kmVec3Subtract(&commandedPosition, &commandedPosition, &wheelPos);
 
     // Filter out noise from Bullet
-    kmVec3 delta(_positionDelta, commandedPosition);
+    //kmVec3 delta(_positionDelta, commandedPosition);
+	kmVec3 delta;
+	kmVec3Subtract(&delta, &commandedPosition, &_positionDelta);
     float threshold = getStrutRestLength() * 2.0f;
-    float responseTime = (delta.lengthSquared() > threshold*threshold) ? 0 : 60;
-    _positionDelta.smooth(commandedPosition, elapsedTime, responseTime);
+    float responseTime = (kmVec3LengthSq( &delta ) > threshold*threshold) ? 0 : 60;
+    //_positionDelta.smooth(commandedPosition, elapsedTime, responseTime);
+	MathUtil::smooth(&_positionDelta.x, commandedPosition.x, elapsedTime, responseTime);
+	MathUtil::smooth(&_positionDelta.y, commandedPosition.y, elapsedTime, responseTime);
+	MathUtil::smooth(&_positionDelta.z, commandedPosition.z, elapsedTime, responseTime);
+	return;
 }
 
 void PhysicsVehicleWheel::getConnectionDefault(kmVec3* result) const
 {
     // projected strut length
     getWheelDirection(result);
-    result->normalize();
+    //result->normalize();
+	kmVec3Normalize(result, result);
     float length = 0.58f * getStrutRestLength();
-    *result *= -length;
+    //*result *= -length;
+	kmVec3Scale(result, result, -length);
 
     // nudge wheel contact point to outer edge of tire for stability
     kmVec3 nudge;
     getWheelAxle(&nudge);
-    nudge *= nudge.dot(_initialOffset);
-    nudge.normalize();
-    *result += nudge * 0.068f * getWheelRadius(); // rough-in for tire width
+	float scale = kmVec3Dot(&nudge, &_initialOffset);
+	kmVec3Scale(&nudge, &nudge, scale);
+	kmVec3Normalize(&nudge, &nudge);
+    //nudge *= nudge.dot(_initialOffset);
+    //nudge.normalize();
+	kmVec3Scale(&nudge, &nudge, 0.068f * getWheelRadius());
+	kmVec3Add(result, result, &nudge);
+	kmVec3Add(result, result, &_initialOffset);
+
+    //*result += nudge * 0.068f * getWheelRadius(); // rough-in for tire width
 
     // offset at bind time
-    *result += _initialOffset;
+    //*result += _initialOffset;
 }
 
 void PhysicsVehicleWheel::getWheelPos(kmVec3* result) const
@@ -252,7 +277,8 @@ void PhysicsVehicleWheel::getWheelPos(kmVec3* result) const
     GP_ASSERT(_host->_node);
 
     *result = _initialOffset;
-    _host->_node->getMatrix().transformPoint(result);
+    //_host->_node->getMatrix().transformPoint(result);
+	kmMat3Transform(result, &_host->_node->getMatrix(), result->x, result->y, result->z, 1.0f);
 }
 
 bool PhysicsVehicleWheel::isSteerable() const
@@ -277,7 +303,8 @@ void PhysicsVehicleWheel::getWheelDirection(kmVec3* wheelDirection) const
     GP_ASSERT(_host->_vehicle);
 
     const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelDirectionCS;
-    wheelDirection->set(v.x(), v.y(), v.z());
+    //wheelDirection->set(v.x(), v.y(), v.z());
+	kmVec3Fill(wheelDirection, v.x(), v.y(), v.z());
 }
 
 void PhysicsVehicleWheel::setWheelDirection(const kmVec3& wheelDirection)
@@ -294,7 +321,8 @@ void PhysicsVehicleWheel::getWheelAxle(kmVec3* wheelAxle) const
     GP_ASSERT(_host->_vehicle);
 
     const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_wheelAxleCS;
-    wheelAxle->set(v.x(), v.y(), v.z());
+    //wheelAxle->set(v.x(), v.y(), v.z());
+	kmVec3Fill(wheelAxle, v.x(), v.y(), v.z());
 }
 
 void PhysicsVehicleWheel::setWheelAxle(const kmVec3& wheelAxle)
@@ -311,10 +339,12 @@ void PhysicsVehicleWheel::getStrutConnectionOffset(kmVec3* strutConnectionOffset
     GP_ASSERT(_host->_vehicle);
 
     const btVector3& v = _host->_vehicle->getWheelInfo(_indexInHost).m_chassisConnectionPointCS;
-    strutConnectionOffset->set(v.x(), v.y(), v.z());
+    //strutConnectionOffset->set(v.x(), v.y(), v.z());
+	kmVec3Fill(strutConnectionOffset, v.x(), v.y(), v.z());
     kmVec3 strutConnectionDefault;
     getConnectionDefault(&strutConnectionDefault);
-    *strutConnectionOffset -= strutConnectionDefault;
+    //*strutConnectionOffset -= strutConnectionDefault;
+	kmVec3Subtract(strutConnectionOffset, strutConnectionOffset, &strutConnectionDefault);
 }
 
 void PhysicsVehicleWheel::setStrutConnectionOffset(const kmVec3& strutConnectionOffset)
@@ -324,7 +354,8 @@ void PhysicsVehicleWheel::setStrutConnectionOffset(const kmVec3& strutConnection
 
     kmVec3 strutConnectionPoint;
     getConnectionDefault(&strutConnectionPoint);
-    strutConnectionPoint += strutConnectionOffset;
+    //strutConnectionPoint += strutConnectionOffset;
+	kmVec3Subtract(&strutConnectionPoint, &strutConnectionPoint, &strutConnectionOffset);
     _host->_vehicle->getWheelInfo(_indexInHost).m_chassisConnectionPointCS.setValue(strutConnectionPoint.x,
                                                                                     strutConnectionPoint.y,
                                                                                     strutConnectionPoint.z);
