@@ -31,10 +31,11 @@ PhysicsController::PhysicsController()
   : _isUpdating(false), _collisionConfiguration(NULL), _dispatcher(NULL),
     _overlappingPairCache(NULL), _solver(NULL), _world(NULL), _ghostPairCallback(NULL),
     _debugDrawer(NULL), _status(PhysicsController::Listener::DEACTIVATED), _listeners(NULL),
-    _gravity(btScalar(0.0), btScalar(-9.8), btScalar(0.0)), _collisionCallback(NULL)
+    _collisionCallback(NULL)
 {
     GP_REGISTER_SCRIPT_EVENTS();
 
+	_gravity = { btScalar(0.0), btScalar(-9.8), btScalar(0.0) };
     // Default gravity is 9.8 along the negative Y axis.
     _collisionCallback = new CollisionCallback(this);
 }
@@ -210,9 +211,9 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
             float result = btCollisionWorld::ClosestRayResultCallback::addSingleResult(rayResult, normalInWorldSpace);
 
             hitResult.object = object;
-            hitResult.point.set(m_hitPointWorld.x(), m_hitPointWorld.y(), m_hitPointWorld.z());
+			hitResult.point = { m_hitPointWorld.x(), m_hitPointWorld.y(), m_hitPointWorld.z() };
             hitResult.fraction = m_closestHitFraction;
-            hitResult.normal.set(m_hitNormalWorld.x(), m_hitNormalWorld.y(), m_hitNormalWorld.z());
+			hitResult.normal = { m_hitNormalWorld.x(), m_hitNormalWorld.y(), m_hitNormalWorld.z() };
 
             if (filter && !filter->hit(hitResult))
                 return 1.0f; // process next collision
@@ -224,7 +225,9 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
     GP_ASSERT(_world);
 
     btVector3 rayFromWorld(BV(ray.getOrigin()));
-    btVector3 rayToWorld(rayFromWorld + BV(ray.getDirection() * distance));
+	kmVec3 temp;
+	kmVec3Scale(&temp, &ray.getDirection(), distance);
+	btVector3 rayToWorld(rayFromWorld + BV(temp));
 
     RayTestCallback callback(rayFromWorld, rayToWorld, filter);
     _world->rayTest(rayFromWorld, rayToWorld, callback);
@@ -233,9 +236,9 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
         if (result)
         {
             result->object = getCollisionObject(callback.m_collisionObject);
-            result->point.set(callback.m_hitPointWorld.x(), callback.m_hitPointWorld.y(), callback.m_hitPointWorld.z());
+			result->point = { callback.m_hitPointWorld.x(), callback.m_hitPointWorld.y(), callback.m_hitPointWorld.z() };
             result->fraction = callback.m_closestHitFraction;
-            result->normal.set(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
+			result->normal = { callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z() };
         }
 
         return true;
@@ -285,9 +288,9 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& 
             float result = ClosestConvexResultCallback::addSingleResult(convexResult, normalInWorldSpace);
 
             hitResult.object = object;
-            hitResult.point.set(m_hitPointWorld.x(), m_hitPointWorld.y(), m_hitPointWorld.z());
+			hitResult.point = { m_hitPointWorld.x(), m_hitPointWorld.y(), m_hitPointWorld.z() };
             hitResult.fraction = m_closestHitFraction;
-            hitResult.normal.set(m_hitNormalWorld.x(), m_hitNormalWorld.y(), m_hitNormalWorld.z());
+			hitResult.normal = { m_hitNormalWorld.x(), m_hitNormalWorld.y(), m_hitNormalWorld.z() };
 
             if (filter && !filter->hit(hitResult))
                 return 1.0f;
@@ -308,10 +311,12 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& 
     if (object->getNode())
     {
         kmVec3 translation;
-        Quaternion rotation;
+        kmQuaternion rotation;
         const kmMat4& m = object->getNode()->getWorldMatrix();
-        m.getTranslation(&translation);
-        m.getRotation(&rotation);
+        //m.getTranslation(&translation);
+        //m.getRotation(&rotation);
+		kmMat4Decompose(&m, NULL, NULL, &translation);
+		kmMat4Decompose(&m, NULL, &rotation, NULL);
 
         start.setIdentity();
         start.setOrigin(BV(translation));
@@ -349,9 +354,9 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& 
         if (result)
         {
             result->object = getCollisionObject(callback.m_hitCollisionObject);
-            result->point.set(callback.m_hitPointWorld.x(), callback.m_hitPointWorld.y(), callback.m_hitPointWorld.z());
+			result->point = { callback.m_hitPointWorld.x(), callback.m_hitPointWorld.y(), callback.m_hitPointWorld.z() };
             result->fraction = callback.m_closestHitFraction;
-            result->normal.set(callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z());
+			result->normal = { callback.m_hitNormalWorld.x(), callback.m_hitNormalWorld.y(), callback.m_hitNormalWorld.z() };
         }
 
         return true;
@@ -419,8 +424,8 @@ btScalar PhysicsController::CollisionCallback::addSingleResult(btManifoldPoint& 
             GP_ASSERT(*iter);
             if ((collisionInfo->_status & REMOVE) == 0)
             {
-                (*iter)->collisionEvent(PhysicsCollisionObject::CollisionListener::COLLIDING, pair, Vector3(cp.getPositionWorldOnA().x(), cp.getPositionWorldOnA().y(), cp.getPositionWorldOnA().z()),
-                    Vector3(cp.getPositionWorldOnB().x(), cp.getPositionWorldOnB().y(), cp.getPositionWorldOnB().z()));
+				(*iter)->collisionEvent(PhysicsCollisionObject::CollisionListener::COLLIDING, pair, { cp.getPositionWorldOnA().x(), cp.getPositionWorldOnA().y(), cp.getPositionWorldOnA().z() },
+				{ cp.getPositionWorldOnB().x(), cp.getPositionWorldOnB().y(), cp.getPositionWorldOnB().z() });
             }
         }
     }
@@ -777,7 +782,8 @@ static void computeCenterOfMass(const kmVec3& center, const kmVec3& scale, kmVec
     centerOfMassOffset->x *= scale.x;
     centerOfMassOffset->y *= scale.y;
     centerOfMassOffset->z *= scale.z;
-    centerOfMassOffset->negate();
+    //centerOfMassOffset->negate();
+	kmVec3Scale(centerOfMassOffset, centerOfMassOffset, -1.0f);
 }
 
 PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsCollisionShape::Definition& shape, kmVec3* centerOfMassOffset, bool dynamic)
@@ -788,7 +794,8 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
 
     // Get the node's world scale (we need to apply this during creation since rigid bodies don't scale dynamically).
     kmVec3 scale;
-    node->getWorldMatrix().getScale(&scale);
+    //node->getWorldMatrix().getScale(&scale);
+	kmMat4Decompose(&node->getWorldMatrix(), &scale, NULL, NULL);
 
     switch (shape.type)
     {
@@ -797,17 +804,21 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
             if (shape.isExplicit)
             {
                 // Use the passed in box information.
-                collisionShape = createBox(Vector3(shape.data.box.extents), Vector3::one());
+				kmVec3 temp = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+				collisionShape = createBox( temp , vec3One);
 
                 if (shape.centerAbsolute)
                 {
-                    computeCenterOfMass(Vector3(shape.data.box.center), Vector3::one(), centerOfMassOffset);
+					kmVec3 temp1 = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+                    computeCenterOfMass( temp1, vec3One, centerOfMassOffset);
                 }
                 else
                 {
                     BoundingBox box;
                     getBoundingBox(node, &box);
-                    computeCenterOfMass(box.getCenter() + Vector3(shape.data.box.center), scale, centerOfMassOffset);
+					kmVec3 temp2 = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+					kmVec3Add(&temp, &temp, &box.getCenter());
+                    computeCenterOfMass( temp, scale, centerOfMassOffset);
                 }
             }
             else
@@ -815,7 +826,8 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
                 // Automatically compute bounding box from mesh's bounding box.
                 BoundingBox box;
                 getBoundingBox(node, &box);
-                collisionShape = createBox(Vector3(std::fabs(box.max.x - box.min.x), std::fabs(box.max.y - box.min.y), std::fabs(box.max.z - box.min.z)), scale);
+				kmVec3 temp = { std::fabs(box.max.x - box.min.x), std::fabs(box.max.y - box.min.y), std::fabs(box.max.z - box.min.z)};
+                collisionShape = createBox( temp, scale);
 
                 computeCenterOfMass(box.getCenter(), scale, centerOfMassOffset);
             }
@@ -827,17 +839,20 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
             if (shape.isExplicit)
             {
                 // Use the passed in sphere information.
-                collisionShape = createSphere(shape.data.sphere.radius, Vector3::one());
+                collisionShape = createSphere(shape.data.sphere.radius, vec3One);
 
                 if (shape.centerAbsolute)
                 {
-                    computeCenterOfMass(Vector3(shape.data.sphere.center), Vector3::one(), centerOfMassOffset);
+					kmVec3 temp = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+                    computeCenterOfMass( temp, vec3One, centerOfMassOffset);
                 }
                 else
                 {
                     BoundingSphere sphere;
                     getBoundingSphere(node, &sphere);
-                    computeCenterOfMass(sphere.center + Vector3(shape.data.sphere.center), scale, centerOfMassOffset);
+					kmVec3 temp = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+					kmVec3Add(&temp, &temp, &sphere.center);
+					computeCenterOfMass( temp, scale, centerOfMassOffset);
                 }
             }
             else
@@ -857,17 +872,20 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
             if (shape.isExplicit)
             {
                 // Use the passed in capsule information.
-                collisionShape = createCapsule(shape.data.capsule.radius, shape.data.capsule.height, Vector3::one());
+                collisionShape = createCapsule(shape.data.capsule.radius, shape.data.capsule.height,vec3One);
 
                 if (shape.centerAbsolute)
                 {
-                    computeCenterOfMass(Vector3(shape.data.capsule.center), Vector3::one(), centerOfMassOffset);
+					kmVec3 temp = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+                    computeCenterOfMass(temp, vec3One, centerOfMassOffset);
                 }
                 else
                 {
                     BoundingBox box;
                     getBoundingBox(node, &box);
-                    computeCenterOfMass(box.getCenter() + Vector3(shape.data.capsule.center), scale, centerOfMassOffset);
+					kmVec3 temp = { shape.data.box.extents[0], shape.data.box.extents[1], shape.data.box.extents[2] };
+					kmVec3Add(&temp, &temp, &box.getCenter());
+                    computeCenterOfMass( temp, scale, centerOfMassOffset);
                 }
             }
             else
@@ -1036,19 +1054,20 @@ PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightFi
 
     // Compute initial heightfield scale by pulling the current world scale out of the node
     kmVec3 scale;
-    node->getWorldMatrix().getScale(&scale);
+    //node->getWorldMatrix().getScale(&scale);
+	kmMat4Decompose(&node->getWorldMatrix(), &scale, NULL, NULL);
 
     // If the node has a terrain, apply the terrain's local scale to the world scale
     Terrain* terrain = dynamic_cast<Terrain*>(node->getDrawable());
     if (terrain != NULL)
     {
         const kmVec3& tScale = terrain->_localScale;
-        scale.set(scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z);
+		scale = { scale.x * tScale.x, scale.y * tScale.y, scale.z * tScale.z };
     }
 
     // Compute initial center of mass offset necessary to move the height from its position in bullet
     // physics (always centered around origin) to its intended location.
-    centerOfMassOffset->set(0, -(minHeight + (maxHeight-minHeight)*0.5f) * scale.y, 0);
+	*centerOfMassOffset = { 0, -(minHeight + (maxHeight - minHeight)*0.5f) * scale.y, 0 };
 
     // Create our heightfield data to be stored in the collision shape
     PhysicsCollisionShape::HeightfieldData* heightfieldData = new PhysicsCollisionShape::HeightfieldData();
@@ -1129,17 +1148,20 @@ PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const kmVec3& s
 
     // Copy the scaled vertex position data to the rigid body's local buffer.
     kmMat4 m;
-    Matrix::createScale(scale, &m);
+    //Matrix::createScale(scale, &m);
+	kmMat4Scaling(&m, scale.x, scale.y, scale.z);
     unsigned int vertexCount = data->vertexCount;
     shapeMeshData->vertexData = new float[vertexCount * 3];
     kmVec3 v;
     int vertexStride = data->vertexFormat.getVertexSize();
     for (unsigned int i = 0; i < data->vertexCount; i++)
     {
-        v.set(*((float*)&data->vertexData[i * vertexStride + 0 * sizeof(float)]),
-                *((float*)&data->vertexData[i * vertexStride + 1 * sizeof(float)]),
-                *((float*)&data->vertexData[i * vertexStride + 2 * sizeof(float)]));
-        v *= m;
+		v = { *((float*)&data->vertexData[i * vertexStride + 0 * sizeof(float)]),
+			*((float*)&data->vertexData[i * vertexStride + 1 * sizeof(float)]),
+			*((float*)&data->vertexData[i * vertexStride + 2 * sizeof(float)]) };
+        //v *= m;
+		kmMat3Transform(&v, &m, v.x, v.y, v.z, 0.0f);
+
         memcpy(&(shapeMeshData->vertexData[i * 3]), &v, sizeof(float) * 3);
     }
 
