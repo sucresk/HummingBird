@@ -21,8 +21,6 @@ class Theme;
  * Defines a form that is a root container that contains zero or more controls.
  *
  * This can also be attached on a scene Node to support 3D forms.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-UI_Forms
  */
 class Form : public Drawable, public Container
 {

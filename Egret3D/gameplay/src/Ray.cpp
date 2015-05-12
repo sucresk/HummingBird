@@ -11,6 +11,7 @@ namespace egret
 Ray::Ray()
 {
 	_direction = { 0.0f, 1.0f, 0.0f };
+	_origin = vec3Zero;
 }
 
 Ray::Ray(const kmVec3& origin, const kmVec3& direction)

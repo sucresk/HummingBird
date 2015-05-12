@@ -25,8 +25,10 @@ namespace egret
 static Effect* __spriteEffect = NULL;
 
 SpriteBatch::SpriteBatch()
-    : _batch(NULL), _sampler(NULL), _textureWidthRatio(0.0f), _textureHeightRatio(0.0f)
+    : _batch(NULL), _sampler(NULL), _textureWidthRatio(0.0f),
+	_textureHeightRatio(0.0f)
 {
+	memset(_projectionMatrix.mat, 0, sizeof(float) * 16);
 }
 
 SpriteBatch::~SpriteBatch()

@@ -4,8 +4,11 @@
 namespace egret
 {
 
-TextBox::TextBox() : _caretLocation(0), _lastKeypress(0), _fontSize(0), _caretImage(NULL), _passwordChar('*'), _inputMode(TEXT), _ctrlPressed(false), _shiftPressed(false)
+TextBox::TextBox() : _caretLocation(0), _lastKeypress(0), _fontSize(0),
+	_caretImage(NULL), _passwordChar('*'), _inputMode(TEXT), 
+	_ctrlPressed(false), _shiftPressed(false)
 {
+	_prevCaretLocation = vec2Zero;
     _canFocus = true;
 }
 

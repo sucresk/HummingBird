@@ -16,8 +16,6 @@ class Control;
  *
  * Implementations are responsible for positioning, resizing and
  * calling update on all the controls within a container.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-UI_Forms
  */
 class Layout : public Ref
 {

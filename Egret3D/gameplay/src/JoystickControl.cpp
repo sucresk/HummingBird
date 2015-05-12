@@ -4,9 +4,14 @@
 namespace egret
 {
 
-JoystickControl::JoystickControl() : _radiusPixels(1.0f), _relative(true), _innerSizePixels(NULL), _outerSizePixels(NULL), _index(0),
-    _innerRegionCoord(NULL), _outerRegionCoord(NULL), _innerRegionCoordBoundsBits(0), _outerRegionCoordBoundsBits(0), _radiusCoord(_radiusPixels)
+JoystickControl::JoystickControl() : _radiusPixels(1.0f), _relative(true),
+	_innerSizePixels(NULL), _outerSizePixels(NULL), _index(0),
+    _innerRegionCoord(NULL), _outerRegionCoord(NULL), 
+	_innerRegionCoordBoundsBits(0), _outerRegionCoordBoundsBits(0),
+	_radiusCoord(_radiusPixels)
 {
+	_value = vec2Zero;
+	_displacement = vec2Zero;
 }
 
 JoystickControl::~JoystickControl()

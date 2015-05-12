@@ -20,8 +20,6 @@ namespace egret
  * are defined in their own namespaces.  The rest of the Theme consists of Style namespaces.
  * A Style describes the border, margin, and padding of a Control, what images, skins, and cursors
  * are associated with a Control, and Font properties to apply to a Control's text.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Theme
  */
 class Theme: public Ref
 {

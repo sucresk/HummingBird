@@ -12,8 +12,6 @@ namespace egret
 
 /**
  * Defines the root container for a hierarchy of Node objects.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Scene
  */
 class Scene : public Ref
 {

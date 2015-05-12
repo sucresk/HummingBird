@@ -28,9 +28,12 @@ static const unsigned int DIRTY_FLAG_INVERSE_WORLD = 1;
 static float getDefaultHeight(unsigned int width, unsigned int height);
 
 Terrain::Terrain() : Drawable(),
-    _heightfield(NULL), _normalMap(NULL), _flags(FRUSTUM_CULLING | LEVEL_OF_DETAIL),
+    _heightfield(NULL), _normalMap(NULL), 
+	_flags(FRUSTUM_CULLING | LEVEL_OF_DETAIL),
     _dirtyFlags(DIRTY_FLAG_INVERSE_WORLD)
 {
+	_localScale = vec3Zero;
+	memset(_inverseWorldMatrix.mat, 0, sizeof(float) * 16);
 }
 
 Terrain::~Terrain()

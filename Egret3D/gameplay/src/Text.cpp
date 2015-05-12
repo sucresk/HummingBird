@@ -6,7 +6,8 @@ namespace egret
 {
   
 Text::Text() :
-    _font(NULL), _drawFont(NULL), _text(""), _size(0), _width(0), _height(0), _wrap(true), _rightToLeft(false),
+    _font(NULL), _drawFont(NULL), _text(""), _size(0), 
+	_width(0), _height(0), _wrap(true), _rightToLeft(false),
     _align(Font::ALIGN_TOP_LEFT), _clip(Rectangle(0, 0, 0, 0)),
 	_opacity(1.0f), _color({ 1.0f, 1.0f, 1.0f, 1.0f })
 {

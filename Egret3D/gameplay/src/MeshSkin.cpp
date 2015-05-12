@@ -12,6 +12,7 @@ namespace egret
 MeshSkin::MeshSkin()
     : _rootJoint(NULL), _rootNode(NULL), _matrixPalette(NULL), _model(NULL)
 {
+	memset(_bindShape.mat, 0, sizeof(float) * 16);
 }
 
 MeshSkin::~MeshSkin()

@@ -44,6 +44,7 @@ static FormInit __init;
 
 Form::Form() : Drawable(), _batched(true)
 {
+	memset(_projectionMatrix.mat, 0, sizeof(float) * 16);
 }
 
 Form::~Form()

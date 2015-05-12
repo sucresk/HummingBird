@@ -6,6 +6,7 @@ namespace egret
 
 Label::Label() : _text(""), _font(NULL)
 {
+	_textColor = vec4Zero;
 }
 
 Label::~Label()

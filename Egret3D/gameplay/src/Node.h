@@ -31,8 +31,6 @@ class Drawable;
  *
  * This object allow you to attach components to a scene such as:
  * Drawable's(Model, Camera, Light, PhysicsCollisionObject, AudioSource, etc.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Node
  */
 class Node : public Transform, public Ref
 {

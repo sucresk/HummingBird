@@ -19,19 +19,24 @@ namespace egret
 ParticleEmitter::ParticleEmitter(unsigned int particleCountMax) : Drawable(),
     _particleCountMax(particleCountMax), _particleCount(0), _particles(NULL),
     _emissionRate(PARTICLE_EMISSION_RATE), _started(false), _ellipsoid(false),
-    _sizeStartMin(1.0f), _sizeStartMax(1.0f), _sizeEndMin(1.0f), _sizeEndMax(1.0f),
-    _energyMin(1000L), _energyMax(1000L),
-    _colorStart(vec4Zero), _colorStartVar(vec4Zero), _colorEnd(vec4One), _colorEndVar(vec4Zero),
-    _position(vec3Zero), _positionVar(vec3Zero),
+    _sizeStartMin(1.0f), _sizeStartMax(1.0f), _sizeEndMin(1.0f),
+	_sizeEndMax(1.0f), _energyMin(1000L), _energyMax(1000L),
+    _colorStart(vec4Zero), _colorStartVar(vec4Zero), _colorEnd(vec4One), 
+	_colorEndVar(vec4Zero), _position(vec3Zero), _positionVar(vec3Zero),
     _velocity(vec3Zero), _velocityVar(vec3One),
     _acceleration(vec3Zero), _accelerationVar(vec3Zero),
     _rotationPerParticleSpeedMin(0.0f), _rotationPerParticleSpeedMax(0.0f),
     _rotationSpeedMin(0.0f), _rotationSpeedMax(0.0f),
 	_rotationAxis(vec3Zero), _rotation(matIdentity),
-    _spriteBatch(NULL), _spriteBlendMode(BLEND_ALPHA),  _spriteTextureWidth(0), _spriteTextureHeight(0), _spriteTextureWidthRatio(0), _spriteTextureHeightRatio(0), _spriteTextureCoords(NULL),
-    _spriteAnimated(false),  _spriteLooped(false), _spriteFrameCount(1), _spriteFrameRandomOffset(0),_spriteFrameDuration(0L), _spriteFrameDurationSecs(0.0f), _spritePercentPerFrame(0.0f),
+    _spriteBatch(NULL), _spriteBlendMode(BLEND_ALPHA),  _spriteTextureWidth(0),
+	_spriteTextureHeight(0), _spriteTextureWidthRatio(0), 
+	_spriteTextureHeightRatio(0), _spriteTextureCoords(NULL),
+    _spriteAnimated(false),  _spriteLooped(false), _spriteFrameCount(1),
+	_spriteFrameRandomOffset(0),_spriteFrameDuration(0L),
+	_spriteFrameDurationSecs(0.0f), _spritePercentPerFrame(0.0f),
     _orbitPosition(false), _orbitVelocity(false), _orbitAcceleration(false),
-    _timePerEmission(PARTICLE_EMISSION_RATE_TIME_INTERVAL), _emitTime(0), _lastUpdated(0)
+    _timePerEmission(PARTICLE_EMISSION_RATE_TIME_INTERVAL), _emitTime(0),
+	_lastUpdated(0)
 {
     GP_ASSERT(particleCountMax);
     _particles = new Particle[particleCountMax];

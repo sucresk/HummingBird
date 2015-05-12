@@ -60,10 +60,13 @@ static bool endsWith(const char* str, const char* suffix, bool ignoreCase)
 
 
 Scene::Scene()
-    : _id(""), _activeCamera(NULL), _firstNode(NULL), _lastNode(NULL), _nodeCount(0), _bindAudioListenerToCamera(true), 
+    : _id(""), _activeCamera(NULL), _firstNode(NULL), _lastNode(NULL),
+	_nodeCount(0), _bindAudioListenerToCamera(true), 
       _nextItr(NULL), _nextReset(true)
 {
+	_ambientColor = vec3Zero;
     __sceneList.push_back(this);
+
 }
 
 Scene::~Scene()

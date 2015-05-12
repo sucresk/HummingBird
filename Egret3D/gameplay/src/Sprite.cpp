@@ -6,9 +6,10 @@ namespace egret
 {
 
 Sprite::Sprite() : Drawable(),
-_width(0), _height(0), _offset(OFFSET_BOTTOM_LEFT), _anchor({ 0.5f, 0.5f }), _flipFlags(FLIP_NONE),
-    _frames(NULL), _frameCount(1), _frameStride(0), _framePadding(1), _frameIndex(0),
-    _opacity(1.0f), _color(vec4One), _blendMode(BLEND_ALPHA), _batch(NULL)
+	_width(0), _height(0), _offset(OFFSET_BOTTOM_LEFT), _anchor({ 0.5f, 0.5f }),
+	_flipFlags(FLIP_NONE), _frames(NULL), _frameCount(1), _frameStride(0), 
+	_framePadding(1), _frameIndex(0), _opacity(1.0f), _color(vec4One), 
+	_blendMode(BLEND_ALPHA), _batch(NULL)
 {
 }
 
