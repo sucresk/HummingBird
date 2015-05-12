@@ -83,7 +83,7 @@ void BillboardSample::update(float elapsedTime)
         _moveFlags |= MOVE_UP;
     else
         _moveFlags &= ~MOVE_UP;
-    kmVec2 move;
+	kmVec2 move = vec2Zero;
     if (_moveFlags != 0)
     {
         // Forward motion

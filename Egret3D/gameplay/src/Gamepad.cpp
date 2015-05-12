@@ -272,6 +272,10 @@ bool Gamepad::isButtonDown(ButtonMapping mapping) const
 {
     if (_form)
     {
+		if (mapping == BUTTON_A )
+		{
+			int i = 0;
+		}
         Button* button = _uiButtons[mapping];
         if (button)
         {

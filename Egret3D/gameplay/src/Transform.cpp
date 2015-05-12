@@ -52,6 +52,7 @@ void Transform::init()
 {
 	memset(&_scale, 0, sizeof(float) * 3);
 	memset(&_rotation, 0, sizeof(float) * 4);
+	_rotation.w = 1.0f;
 	memset(&_translation, 0, sizeof(float) * 3);
 	kmMat4Identity(&_matrix);
 

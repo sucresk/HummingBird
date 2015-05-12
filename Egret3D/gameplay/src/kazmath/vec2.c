@@ -59,11 +59,26 @@ kmScalar kmVec2Distance(const kmVec2* pV1, const kmVec2* pV2 )
 
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
-    kmScalar l = 1.0f / kmVec2Length(pIn);
+	float n = pIn->x * pIn->x + pIn->y * pIn->y;
+	if (n == 1.0f)
+	{
+		pOut->x = pIn->x;
+		pOut->y = pIn->y;
+		return pOut;
+	}
+	n = sqrt(n);
+	if (n < 2e-37f)
+	{
+		pOut->x = pIn->x;
+		pOut->y = pIn->y;
+		return pOut;
+	}
+
+    kmScalar lnor = 1.0f / n;
 
     kmVec2 v;
-    v.x = pIn->x * l;
-    v.y = pIn->y * l;
+    v.x = pIn->x * lnor;
+    v.y = pIn->y * lnor;
 
     pOut->x = v.x;
     pOut->y = v.y;
