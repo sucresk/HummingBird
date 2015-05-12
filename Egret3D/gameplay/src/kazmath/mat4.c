@@ -396,7 +396,7 @@ kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const kmVec3* axis, kmScalar
 /**
  * Builds an X-axis rotation kmMat4 and stores it in pOut, returns pOut
  */
-kmMat4* const kmMat4RotationX(kmMat4* pOut, const float radians)
+kmMat4* const kmMat4CreateRotationX(kmMat4* pOut, const float radians)
 {
     /*
          |  1  0       0       0 |
@@ -433,7 +433,7 @@ kmMat4* const kmMat4RotationX(kmMat4* pOut, const float radians)
  * Builds a rotation kmMat4 using the rotation around the Y-axis
  * The result is stored in pOut, pOut is returned.
  */
-kmMat4* const kmMat4RotationY(kmMat4* pOut, const float radians)
+kmMat4* const kmMat4CreateRotationY(kmMat4* pOut, const float radians)
 {
     /*
          |  cos(A)  0   sin(A)  0 |
@@ -469,7 +469,7 @@ kmMat4* const kmMat4RotationY(kmMat4* pOut, const float radians)
  * Builds a rotation kmMat4 around the Z-axis. The resulting
  * kmMat4 is stored in pOut. pOut is returned.
  */
-kmMat4* const kmMat4RotationZ(kmMat4* pOut, const float radians)
+kmMat4* const kmMat4CreateRotationZ(kmMat4* pOut, const float radians)
 {
     /*
          |  cos(A)  -sin(A)   0   0 |
@@ -499,6 +499,22 @@ kmMat4* const kmMat4RotationZ(kmMat4* pOut, const float radians)
     pOut->mat[15] = 1.0f;
 
     return pOut;
+}
+
+kmMat4* const kmMat4RotationX(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+{
+	kmMat4 temp;
+	kmMat4CreateRotationX(&temp, radians);
+	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
+}
+kmMat4* const kmMat4RotationY(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+{
+
+}
+kmMat4* const kmMat4RotationZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+{
+
 }
 
 /**
