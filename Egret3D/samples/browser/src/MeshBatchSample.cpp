@@ -46,6 +46,10 @@ void MeshBatchSample::initialize()
     _font = Font::create("res/ui/arial.gpb");
 
     //Matrix::createOrthographic(getWidth(), getHeight(), -1.0f, 1.0f, &_worldViewProjectionMatrix);
+	float halfWidth = getWidth() / 2.0f;
+	float halfHeight = getHeight() / 2.0f;
+	kmMat4OrthographicProjection(&_worldViewProjectionMatrix, -halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
+
     _meshBatch = createMeshBatch(Mesh::TRIANGLES);
 }
 
@@ -121,7 +125,14 @@ void MeshBatchSample::addTriangle(int x, int y)
     //m.transformPoint(p1, &p1);
     //m.transformPoint(p2, &p2);
     //m.transformPoint(p3, &p3);
-    
+	kmMat4 m;
+	kmMat4Identity(&m);
+	kmMat4Translation(&m, &m, x, y, 0);
+	kmMat4RotationZ(&m, &m, MATH_RANDOM_MINUS1_1() * MATH_PI);
+	kmMat3Transform(&p1, &m, p1.x, p1.y, p1.z, 1.0f);
+	kmMat3Transform(&p2, &m, p2.x, p2.y, p2.z, 1.0f);
+	kmMat3Transform(&p3, &m, p3.x, p3.y, p3.z, 1.0f);
+
     // Added the triangle to the list with random vertex colors.
     _vertices.push_back(Vertex(p1, randomColor()));
     _vertices.push_back(Vertex(p2, randomColor()));

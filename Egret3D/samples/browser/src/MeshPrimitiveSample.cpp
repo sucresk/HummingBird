@@ -228,7 +228,6 @@ void MeshPrimitiveSample::render(float elapsedTime)
 	kmMat4RotationX(&wvp, &wvp, _tilt.y * 0.01f);
 	kmMat4Multiply(&wvp, &wvp, &_viewProjectionMatrix);
    
-
     kmMat4 m;
     float offset = 0.5f;
     
