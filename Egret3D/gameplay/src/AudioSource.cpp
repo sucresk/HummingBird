@@ -12,6 +12,7 @@ namespace egret
 AudioSource::AudioSource(AudioBuffer* buffer, ALuint source) 
     : _alSource(source), _buffer(buffer), _looped(false), _gain(1.0f), _pitch(1.0f), _node(NULL)
 {
+	memset(&_velocity, 0, sizeof(float) * 3);
     GP_ASSERT(buffer);
 
     if (isStreamed())

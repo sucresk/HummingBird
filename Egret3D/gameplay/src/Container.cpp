@@ -48,11 +48,11 @@ void Container::clearContacts()
 Container::Container()
     : _layout(NULL), _activeControl(NULL), _scrollBarTopCap(NULL), _scrollBarVertical(NULL), _scrollBarBottomCap(NULL),
       _scrollBarLeftCap(NULL), _scrollBarHorizontal(NULL), _scrollBarRightCap(NULL),
-	  _scroll(SCROLL_NONE), _scrollBarBounds(Rectangle::empty()), _scrollPosition({ 0.0f, 0.0f }),
+	  _scroll(SCROLL_NONE), _scrollBarBounds(Rectangle::empty()), _scrollPosition(vec2Zero),
       _scrollBarsAutoHide(false), _scrollBarOpacity(1.0f), _scrolling(false),
       _scrollingVeryFirstX(0), _scrollingVeryFirstY(0), _scrollingFirstX(0), _scrollingFirstY(0), _scrollingLastX(0), _scrollingLastY(0),
       _scrollingStartTimeX(0), _scrollingStartTimeY(0), _scrollingLastTime(0),
-	  _scrollingVelocity({ 0.0f, 0.0f }), _scrollingFriction(1.0f), _scrollWheelSpeed(400.0f),
+	  _scrollingVelocity(vec2Zero), _scrollingFriction(1.0f), _scrollWheelSpeed(400.0f),
       _scrollingRight(false), _scrollingDown(false),
       _scrollingMouseVertically(false), _scrollingMouseHorizontally(false),
       _scrollBarOpacityClip(NULL), _zIndexDefault(0),

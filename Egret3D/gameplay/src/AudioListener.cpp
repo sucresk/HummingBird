@@ -9,6 +9,9 @@ namespace egret
 AudioListener::AudioListener()
     : _gain(1.0f), _camera(NULL)
 {
+	memset(&_position, 0, sizeof(float) * 3);
+	memset(&_velocity, 0, sizeof(float) * 3);
+	memset(&_orientation, 0, sizeof(float) * 3 * 2);
 }
 
 AudioListener::~AudioListener()

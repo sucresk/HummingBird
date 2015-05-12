@@ -8,6 +8,8 @@ namespace egret
 
 BoundingBox::BoundingBox()
 {
+	memset(&min, 0, sizeof(float) * 3);
+	memset(&max, 0, sizeof(float) * 3);
 }
 
 BoundingBox::BoundingBox(const kmVec3& min, const kmVec3& max)

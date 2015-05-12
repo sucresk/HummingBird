@@ -8,6 +8,7 @@ namespace egret
 BoundingSphere::BoundingSphere()
     : radius(0)
 {
+	memset(&center, 0, sizeof(float) * 3);
 }
 
 BoundingSphere::BoundingSphere(const kmVec3& center, float radius)
