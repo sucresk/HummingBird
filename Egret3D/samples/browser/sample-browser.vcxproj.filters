@@ -360,6 +360,12 @@
     <ClInclude Include="src\TriangleSample.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\FontSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FormsSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TextureSample.cpp">
@@ -402,6 +408,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\TriangleSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FontSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FormsSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -257,6 +257,8 @@ copy ..\..\gameplay\res\logo_powered_white.png res</Command>
     <None Include="res\shaders\textured.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\FontSample.cpp" />
+    <ClCompile Include="src\FormsSample.cpp" />
     <ClCompile Include="src\MeshBatchSample.cpp" />
     <ClCompile Include="src\MeshPrimitiveSample.cpp" />
     <ClCompile Include="src\SceneCreateSample.cpp" />
@@ -273,6 +275,8 @@ copy ..\..\gameplay\res\logo_powered_white.png res</Command>
     <ClCompile Include="src\WaterSample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FontSample.h" />
+    <ClInclude Include="src\FormsSample.h" />
     <ClInclude Include="src\MeshBatchSample.h" />
     <ClInclude Include="src\MeshPrimitiveSample.h" />
     <ClInclude Include="src\SceneCreateSample.h" />
