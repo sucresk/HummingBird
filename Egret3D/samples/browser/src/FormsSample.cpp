@@ -12,6 +12,7 @@ const static unsigned int __formsCount = 5;
 FormsSample::FormsSample()
     : _scene(NULL), _formNode(NULL), _formNodeParent(NULL), _formSelect(NULL), _activeForm(NULL), _gamepad(NULL), _keyFlags(0)
 {
+	memset(_joysticks, 0, sizeof(float) * 2 * 2);
     const char* formFiles[] = 
     {
         "res/common/forms/formBasicControls.form",
