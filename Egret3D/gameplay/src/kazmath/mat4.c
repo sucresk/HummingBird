@@ -1214,10 +1214,14 @@ kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const kmVec3* objpos, const kmVec3* 
 	// either a safe default or a sufficient distance between object and camera.
 	if ( camForward || isSufficientDelta)
 	{
-		kmVec3 temp;
-		kmVec3Subtract(&temp, objpos, camForward);
+		kmVec3 temp = vec3Zero;
+		if ( camForward )
+		{
+			kmVec3Subtract(&temp, objpos, camForward);
+		}
+	
 		//kmVec3 target = isSufficientDelta ? campos : (objpos - *camForward);
-		const kmVec3 target = isSufficientDelta ? campos : temp;
+		const kmVec3 target = isSufficientDelta ? *campos : temp;
 
 		// A billboard is the inverse of a lookAt rotation
 		//Matrix lookAt;
