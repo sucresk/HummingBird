@@ -318,15 +318,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\MeshPrimitiveSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Audio3DSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\InputSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\TextureSample.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -342,31 +333,7 @@
     <ClInclude Include="src\Sample.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\MeshBatchSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\TriangleSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GestureSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BillboardSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FormsSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LightSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PostProcessSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GamepadSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsCollisionObjectSample.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\TerrainSample.h">
@@ -381,16 +348,7 @@
     <ClInclude Include="src\SceneLoadSample.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\AudioSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ParticlesSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\SpriteSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FontSample.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\SamplesGame.h">
@@ -398,15 +356,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MeshPrimitiveSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Audio3DSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InputSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\TextureSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -425,31 +374,7 @@
     <ClCompile Include="src\SamplesGame.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\MeshBatchSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\TriangleSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GestureSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BillboardSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FormsSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LightSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PostProcessSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GamepadSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsCollisionObjectSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\TerrainSample.cpp">
@@ -464,16 +389,7 @@
     <ClCompile Include="src\SceneLoadSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\AudioSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ParticlesSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\SpriteSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FontSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

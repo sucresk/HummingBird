@@ -382,17 +382,20 @@ void CharacterGame::update(float elapsedTime)
 
         // Calculates rotation to be applied to the basketball.
 		kmVec3 rotationVector = { 0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f };
+		kmVec3 temp;
+		kmVec3Subtract(&temp, &_oldBallPosition, &translation);
+		kmVec3Cross(&rotationVector, &temp, &rotationVector);
         //Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
-        //if (!rotationVector.isZero())
-        //{
-        //    kmMat4 m;
-        //    _basketballNode->getWorldMatrix().transpose(&m);
+        if (! kmVec3IsZero( & rotationVector))
+        {
+            kmMat4 m;
+            _basketballNode->getWorldMatrix().transpose(&m);
 
-        //    kmVec3 rotNorm;
-        //    m.transformVector(rotationVector, &rotNorm);
-        //    rotNorm.normalize();
-        //    _basketballNode->rotate(rotNorm, rotationVector.length());
-        //}
+            kmVec3 rotNorm;
+            m.transformVector(rotationVector, &rotNorm);
+            rotNorm.normalize();
+            _basketballNode->rotate(rotNorm, rotationVector.length());
+        }
         _basketballNode->setTranslation(translation.x, _floorLevel, translation.z);
     }
 }

@@ -881,14 +881,14 @@ kmMat4* const kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left,
                                      kmScalar top, kmScalar nearVal,
                                      kmScalar farVal)
 {
-    kmScalar tx = -((right + left) / (right - left));
-    kmScalar ty = -((top + bottom) / (top - bottom));
-    kmScalar tz = -((farVal + nearVal) / (farVal - nearVal));
+    kmScalar tx = ((right + left) / ( left - right));
+    kmScalar ty = ((top + bottom) / ( bottom - top ));
+    kmScalar tz =(( nearVal) / (nearVal - farVal ));
 
     kmMat4Identity(pOut);
     pOut->mat[0] = 2 / (right - left);
     pOut->mat[5] = 2 / (top - bottom);
-    pOut->mat[10] = -2 / (farVal - nearVal);
+    pOut->mat[10] = 1 / ( nearVal - farVal);
     pOut->mat[12] = tx;
     pOut->mat[13] = ty;
     pOut->mat[14] = tz;
