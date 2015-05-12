@@ -152,20 +152,27 @@ void BillboardSample::render(float elapsedTime)
 	// Get the scene camera
 	Camera* camera = _scene->getActiveCamera();
 
-	//for (unsigned int i = 0; i < BILLBOARD_COUNT; i++)
-	//{
-	//	Node* node = _billboards[i];
+	for (unsigned int i = 0; i < BILLBOARD_COUNT; i++)
+	{
+		Node* node = _billboards[i];
 
-	//	// Rotate the node x/z to face the camera
-	//	Matrix m;
- //       Matrix::createBillboard(node->getTranslationWorld(), camera->getNode()->getTranslationWorld(), camera->getNode()->getUpVectorWorld(), &m);
-	//	Quaternion q;
-	//	m.getRotation(&q);
-	//	node->setRotation(q);
+		// Rotate the node x/z to face the camera
+		//Matrix m;
+        //Matrix::createBillboard(node->getTranslationWorld(), 
+		//	camera->getNode()->getTranslationWorld(), 
+		//	camera->getNode()->getUpVectorWorld(), &m);
+		kmMat4 m;
+		kmMat4CreateBillboard(&m, &node->getTranslationWorld(),
+			&camera->getNode()->getTranslationWorld(),
+			&camera->getNode()->getUpVectorWorld(), NULL );
+		kmQuaternion q;
+		//m.getRotation(&q);
+		kmMat4Decompose(&m, NULL, &q, NULL);
+		node->setRotation(q);
 
-	//	if (node->getBoundingSphere().intersects(camera->getFrustum()))
-	//		node->getDrawable()->draw();
-	//}
+		if (node->getBoundingSphere().intersects(camera->getFrustum()))
+			node->getDrawable()->draw();
+	}
 
     // draw the gamepad
     _gamepad->draw();

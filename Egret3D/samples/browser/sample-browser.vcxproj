@@ -257,6 +257,7 @@ copy ..\..\gameplay\res\logo_powered_white.png res</Command>
     <None Include="res\shaders\textured.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BillboardSample.cpp" />
     <ClCompile Include="src\FontSample.cpp" />
     <ClCompile Include="src\FormsSample.cpp" />
     <ClCompile Include="src\LightSample.cpp" />
@@ -277,6 +278,7 @@ copy ..\..\gameplay\res\logo_powered_white.png res</Command>
     <ClCompile Include="src\WaterSample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BillboardSample.h" />
     <ClInclude Include="src\FontSample.h" />
     <ClInclude Include="src\FormsSample.h" />
     <ClInclude Include="src\LightSample.h" />

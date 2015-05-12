@@ -249,8 +249,8 @@ void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 			// Roll in world frame
 			//kmVec3 pitch;
 			//m.getRightVector(&pitch);
-			kmVec3 picth;
-			kmMat4GetRight(&picth, &m);
+			kmVec3 pitch;
+			kmMat4GetRight(&pitch, &m);
 			_modelNode->rotate(pitch, MATH_DEG_TO_RAD(deltaY * 0.5f));
 		}
 		break;

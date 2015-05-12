@@ -372,6 +372,9 @@
     <ClInclude Include="src\LightSample.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\BillboardSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TextureSample.cpp">
@@ -426,6 +429,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\LightSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BillboardSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

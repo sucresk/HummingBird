@@ -1197,3 +1197,81 @@ kmMat4* kmMat4RotateQuaternion(kmMat4* pOut, kmMat4* pIn, const kmQuaternion* pQ
 	kmMat4Multiply(pOut, pOut, &temp);
 	return pOut;
 }
+
+kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const kmVec3* objpos, const kmVec3* campos, const kmVec3* camUp, const kmVec3* camForward)
+{
+	//Vector3 delta(objectPosition, cameraPosition);
+	kmVec3 delta;
+	kmVec3Subtract(&delta, campos, objpos);
+	int isSufficientDelta = kmVec3LengthSq(&delta) > MATH_EPSILON;
+
+	kmMat4Identity(pOut);
+	pOut->mat[3] = objpos->x;
+	pOut->mat[7] = objpos->y;
+	pOut->mat[11] = objpos->z;
+
+	// As per the contracts for the 2 variants of createBillboard, we need
+	// either a safe default or a sufficient distance between object and camera.
+	if ( camForward || isSufficientDelta)
+	{
+		kmVec3 temp;
+		kmVec3Subtract(&temp, objpos, camForward);
+		//kmVec3 target = isSufficientDelta ? campos : (objpos - *camForward);
+		const kmVec3 target = isSufficientDelta ? campos : temp;
+
+		// A billboard is the inverse of a lookAt rotation
+		//Matrix lookAt;
+		//createLookAt(objectPosition, target, cameraUpVector, &lookAt);
+		kmMat4 lookAt;
+		kmMat4CreatLookAt(&lookAt, objpos, &target, camUp);
+		pOut->mat[0] = lookAt.mat[0];
+		pOut->mat[1] = lookAt.mat[4];
+		pOut->mat[2] = lookAt.mat[8];
+		pOut->mat[4] = lookAt.mat[1];
+		pOut->mat[5] = lookAt.mat[5];
+		pOut->mat[6] = lookAt.mat[9];
+		pOut->mat[8] = lookAt.mat[2];
+		pOut->mat[9] = lookAt.mat[6];
+		pOut->mat[10] = lookAt.mat[10];
+	}
+	return pOut;
+}
+
+kmMat4* kmMat4CreatLookAt(kmMat4* pOut, const kmVec3* eyepos, const kmVec3* targetpos, const kmVec3* up)
+{
+	kmVec3Normalize(up, up);
+
+	kmVec3 zaxis;
+	kmVec3Subtract(&zaxis, eyepos, targetpos);
+	kmVec3Normalize(&zaxis, &zaxis );
+
+	kmVec3 xaxis;
+	kmVec3Cross(&xaxis, up, &zaxis);
+	kmVec3Normalize(&xaxis, &xaxis );
+
+	kmVec3 yaxis;
+	kmVec3Cross(&yaxis, &zaxis, &xaxis);
+	kmVec3Normalize(&yaxis, &yaxis);
+
+	pOut->mat[0] = xaxis.x;
+	pOut->mat[1] = yaxis.x;
+	pOut->mat[2] = zaxis.x;
+	pOut->mat[3] = 0.0f;
+
+	pOut->mat[4] = xaxis.y;
+	pOut->mat[5] = yaxis.y;
+	pOut->mat[6] = zaxis.y;
+	pOut->mat[7] = 0.0f;
+
+	pOut->mat[8] = xaxis.z;
+	pOut->mat[9] = yaxis.z;
+	pOut->mat[10] = zaxis.z;
+	pOut->mat[11] = 0.0f;
+
+	pOut->mat[12] = -kmVec3Dot( &xaxis, eyepos );// -Vector3::dot(xaxis, eye);
+	pOut->mat[13] = -kmVec3Dot(&yaxis, eyepos);// -Vector3::dot(yaxis, eye);
+	pOut->mat[14] = kmVec3Dot( &zaxis, eyepos );// -Vector3::dot(zaxis, eye);
+	pOut->mat[15] = 1.0f;
+
+	return pOut;
+}
