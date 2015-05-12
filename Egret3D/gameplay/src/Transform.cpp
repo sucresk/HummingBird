@@ -12,42 +12,40 @@ std::vector<Transform*> Transform::_transformsChanged;
 Transform::Transform()
     : _matrixDirtyBits(0), _listeners(NULL)
 {
-    GP_REGISTER_SCRIPT_EVENTS();
-
-    _targetType = AnimationTarget::TRANSFORM;
-    //_scale.set(Vector3::one());	
 	init();
-	kmVec3Fill(&_scale, 1.0f, 1.0f, 1.0f);
+    GP_REGISTER_SCRIPT_EVENTS();
+    _targetType = AnimationTarget::TRANSFORM;	
+	_scale = vec3One;
 }
 
 Transform::Transform(const kmVec3& scale, const kmQuaternion& rotation, const kmVec3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+	init();
     GP_REGISTER_SCRIPT_EVENTS();
 
     _targetType = AnimationTarget::TRANSFORM;
-    set(scale, rotation, translation);
-	init();
+    set(scale, rotation, translation);	
 }
 
 Transform::Transform(const kmVec3& scale, const kmMat4& rotation, const kmVec3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+	init();
     GP_REGISTER_SCRIPT_EVENTS();
 
     _targetType = AnimationTarget::TRANSFORM;
-    set(scale, rotation, translation);
-	init();
+    set(scale, rotation, translation);	
 }
 
 Transform::Transform(const Transform& copy)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+	init();
     GP_REGISTER_SCRIPT_EVENTS();
 
     _targetType = AnimationTarget::TRANSFORM;
-    set(copy);
-	init();
+    set(copy);	
 }
 
 void Transform::init()
@@ -130,7 +128,7 @@ const kmMat4& Transform::getMatrix() const
                 if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
                 {
                     //_matrix.rotate(_rotation);
-					kmMat4RotationQuaternion(&_matrix, &_rotation);
+					kmMat4RotateQuaternion(&_matrix, &_matrix, &_rotation);
                 }
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {
@@ -140,8 +138,7 @@ const kmMat4& Transform::getMatrix() const
             }
             else if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
             {
-                //Matrix::createRotation(_rotation, &_matrix);
-				//kmMat4CoreateRotation( &_matrix, )
+                //Matrix::createRotation(_rotation, &_matrix);	
 				kmMat4CreateQuaRotation(&_matrix, &_rotation);
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {

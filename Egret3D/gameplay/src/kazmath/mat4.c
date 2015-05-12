@@ -1185,3 +1185,11 @@ kmMat4* kmMat4CreateQuaRotation(kmMat4* pOut, const kmQuaternion* pIn)
 	pOut->mat[15] = 1.0f;
 	return pOut;
 }
+
+kmMat4* kmMat4RotateQuaternion(kmMat4* pOut, kmMat4* pIn, const kmQuaternion* pQua)
+{
+	kmMat4 temp;
+	kmMat4CreateQuaRotation(&temp, pQua);
+	kmMat4Multiply(pOut, pOut, &temp);
+	return pOut;
+}
