@@ -82,8 +82,7 @@ void TriangleSample::finalize()
 void TriangleSample::update(float elapsedTime)
 {
     // Update the rotation of the triangle. The speed is 180 degrees per second.
-    //_worldViewProjectionMatrix.rotateZ( _spinDirection * MATH_PI * elapsedTime * 0.001f);
-	kmMat4RotationZ(&_worldViewProjectionMatrix, _spinDirection * MATH_PI * elapsedTime * 0.001f);
+	kmMat4RotationZ(&_worldViewProjectionMatrix, &_worldViewProjectionMatrix, _spinDirection * MATH_PI * elapsedTime * 0.001f);
 }
 
 void TriangleSample::render(float elapsedTime)

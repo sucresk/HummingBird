@@ -510,11 +510,17 @@ kmMat4* const kmMat4RotationX(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 }
 kmMat4* const kmMat4RotationY(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 {
-
+	kmMat4 temp;
+	kmMat4CreateRotationY(&temp, radians);
+	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
 }
 kmMat4* const kmMat4RotationZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 {
-
+	kmMat4 temp;
+	kmMat4CreateRotationZ(&temp, radians);
+	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
 }
 
 /**
