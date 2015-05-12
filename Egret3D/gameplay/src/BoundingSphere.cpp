@@ -286,7 +286,7 @@ void BoundingSphere::set(const BoundingBox& box)
     center.y = (box.min.y + box.max.y) * 0.5f;
     center.z = (box.min.z + box.max.z) * 0.5f;
     //radius = center.distance(box.max);
-	radius = kmVecDistance(&center, &box.max);
+	radius = kmVec3Distance(&center, &box.max);
 }
 
 void BoundingSphere::transform(const kmMat4& matrix)

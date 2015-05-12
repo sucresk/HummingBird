@@ -320,10 +320,13 @@ void CharacterGame::update(float elapsedTime)
 		kmVec3Scale(&currentHeading, &_characterNode->getForwardVectorWorld(), -1.0f);
 
         // Construct a new forward vector for the mesh node
-		kmVec3 temp;
-		kmVec3
-        kmVec3 newHeading(cameraForward * _currentDirection.y + cameraRight * _currentDirection.x);
-
+		kmVec3 newHeading;// (cameraForward * _currentDirection.y + cameraRight * _currentDirection.x);
+		kmVec3 temp1;
+		kmVec3 temp2;
+		kmVec3Scale(&temp1, &cameraForward, _currentDirection.y);
+		kmVec3Scale(&temp2, &cameraRight, _currentDirection.x);
+		kmVec3Add(&newHeading, &temp1, &temp2);
+        
         // Compute the rotation amount based on the difference between the current and new vectors
         float angle = atan2f(newHeading.x, newHeading.z) - atan2f(currentHeading.x, currentHeading.z);
         if (angle > MATH_PI)
@@ -331,12 +334,16 @@ void CharacterGame::update(float elapsedTime)
         else if (angle < -MATH_PI)
             angle += MATH_PIX2;
         angle *= (float)elapsedTime * 0.001f * MATH_PIX2;
-        _characterNode->rotate(Vector3::unitY(), angle);
+		_characterNode->rotate({0.0f, 1.0f, 0.0f },/*Vector3::unitY(),*/ angle);
 
         // Update the character's velocity
-        kmVec3 velocity = -_characterNode->getForwardVectorWorld();
-        velocity.normalize();
-        velocity *= speed;
+		//kmVec3 velocity =  -_characterNode->getForwardVectorWorld();
+		//velocity.normalize();
+		//velocity *= speed;
+		kmVec3 velocity;
+		kmVec3Scale(&velocity, &_characterNode->getForwardVectorWorld(), -1);
+		kmVec3Normalize(&velocity, &velocity);
+		kmVec3Scale(&velocity, &velocity, speed);
         _character->setVelocity(velocity);
     }
 
@@ -346,9 +353,9 @@ void CharacterGame::update(float elapsedTime)
     // Project the character's shadow node onto the surface directly below him.
     PhysicsController::HitResult hitResult;
     kmVec3 v = _character->getNode()->getTranslationWorld();
-    if (getPhysicsController()->rayTest(Ray(Vector3(v.x, v.y + 1.0f, v.z), Vector3(0, -1, 0)), 100.0f, &hitResult, NULL))
+	if (getPhysicsController()->rayTest(Ray({ v.x, v.y + 1.0f, v.z }, { 0, -1, 0 }), 100.0f, &hitResult, NULL))
     {
-        _characterShadowNode->setTranslation(Vector3(hitResult.point.x, hitResult.point.y + 0.1f, hitResult.point.z));
+		_characterShadowNode->setTranslation({ hitResult.point.x, hitResult.point.y + 0.1f, hitResult.point.z });
     }
 
     if (_hasBall)
@@ -364,23 +371,28 @@ void CharacterGame::update(float elapsedTime)
 
         // Capture the basketball's old position, and then calculate the basketball's new position in front of the character
         _oldBallPosition = _basketballNode->getTranslationWorld();
-        kmVec3 characterForwardVector(_characterNode->getForwardVectorWorld());
-        kmVec3 translation(_characterNode->getTranslationWorld() + characterForwardVector.normalize() * -2.2f);
+        kmVec3 characterForwardVector = _characterNode->getForwardVectorWorld();
+		//kmVec3 translation (_characterNode->getTranslationWorld() + characterForwardVector.normalize() * -2.2f);
+		kmVec3 temp;
+		kmVec3Normalize(&temp, &characterForwardVector);
+		kmVec3Scale(&temp, &temp, 2.0f);
+		kmVec3Add(&temp, &temp, &_characterNode->getTranslationWorld());
+		kmVec3 translation = temp;
         translation.y = _floorLevel;
 
         // Calculates rotation to be applied to the basketball.
-        kmVec3 rotationVector(0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f);
-        Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
-        if (!rotationVector.isZero())
-        {
-            kmMat4 m;
-            _basketballNode->getWorldMatrix().transpose(&m);
+		kmVec3 rotationVector = { 0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f };
+        //Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
+        //if (!rotationVector.isZero())
+        //{
+        //    kmMat4 m;
+        //    _basketballNode->getWorldMatrix().transpose(&m);
 
-            kmVec3 rotNorm;
-            m.transformVector(rotationVector, &rotNorm);
-            rotNorm.normalize();
-            _basketballNode->rotate(rotNorm, rotationVector.length());
-        }
+        //    kmVec3 rotNorm;
+        //    m.transformVector(rotationVector, &rotNorm);
+        //    rotNorm.normalize();
+        //    _basketballNode->rotate(rotNorm, rotationVector.length());
+        //}
         _basketballNode->setTranslation(translation.x, _floorLevel, translation.z);
     }
 }
@@ -388,7 +400,7 @@ void CharacterGame::update(float elapsedTime)
 void CharacterGame::render(float elapsedTime)
 {
     // Clear the color and depth buffers.
-    clear(CLEAR_COLOR_DEPTH, Vector4(0.41f, 0.48f, 0.54f, 1.0f), 1.0f, 0);
+	clear(CLEAR_COLOR_DEPTH, { 0.41f, 0.48f, 0.54f, 1.0f }, 1.0f, 0);
 
     // Draw our scene, with separate passes for opaque and transparent objects.
     _scene->visit(this, &CharacterGame::drawScene, false);
@@ -404,7 +416,7 @@ void CharacterGame::render(float elapsedTime)
     _font->start();
     char fps[32];
     sprintf(fps, "%d", getFrameRate());
-    _font->drawText(fps, 5, 5, Vector4(1,1,0,1), 20);
+	_font->drawText(fps, 5, 5, { 1, 1, 0, 1 }, 20);
     _font->finish();
 }
 
@@ -547,10 +559,15 @@ void CharacterGame::adjustCamera(float elapsedTime)
 
     kmVec3 cameraPosition = cameraNode->getTranslationWorld();
     kmVec3 cameraDirection = cameraNode->getForwardVectorWorld();
-    cameraDirection.normalize();
+    //cameraDirection.normalize();
+	kmVec3Normalize(&cameraDirection, &cameraDirection);
 
     // Get focal point of camera (use the resolved world location of the head joint as a focal point)
-    kmVec3 focalPoint(cameraPosition + (cameraDirection * CAMERA_FOCUS_DISTANCE));
+    //kmVec3 focalPoint(cameraPosition + (cameraDirection * CAMERA_FOCUS_DISTANCE));
+	kmVec3 temp;
+	kmVec3Scale(&temp, &cameraDirection, CAMERA_FOCUS_DISTANCE);
+	kmVec3Add(&temp, &cameraPosition, &temp);
+	kmVec3 focalPoint = temp;
 
     kmVec3 oldPosition = cameraNode->getTranslationWorld();
 
@@ -565,7 +582,8 @@ void CharacterGame::adjustCamera(float elapsedTime)
         occlusion = result.object;
 
         // Step the camera closer to the focal point to resolve the occlusion
-        float d = cameraNode->getTranslationWorld().distance(result.point);
+        //float d = cameraNode->getTranslationWorld().distance(result.point);
+		float d = kmVec3Distance(&cameraNode->getTranslationWorld(), &result.point);
         cameraNode->translateForward(d);
         cameraOffset += d;
         while (physics->sweepTest(cameraNode->getCollisionObject(), focalPoint, &result) && result.object == occlusion)
@@ -573,8 +591,11 @@ void CharacterGame::adjustCamera(float elapsedTime)
             // Prevent the camera from getting too close to the character.
             // Without this check, it's possible for the camera to fly past the character
             // and essentially end up in an infinite loop here.
-            if (cameraNode->getTranslationWorld().distanceSquared(focalPoint) <= 2.0f)
-                return;
+            //if (cameraNode->getTranslationWorld().distanceSquared(focalPoint) <= 2.0f)
+			if ( kmVec3DistanceSq( &cameraNode->getTranslationWorld(), &focalPoint ) <= 2.0f )
+			{
+				return;
+			}
 
             cameraNode->translateForward(0.1f);
             cameraOffset += 0.1f;
@@ -584,7 +605,8 @@ void CharacterGame::adjustCamera(float elapsedTime)
     // If the character is closer than 10 world units to the camera, apply transparency to the character so he does not obstruct the view.
     if (occlusion)
     {
-        float d = _scene->getActiveCamera()->getNode()->getTranslationWorld().distance(_characterNode->getTranslationWorld());
+        //float d = _scene->getActiveCamera()->getNode()->getTranslationWorld().distance(_characterNode->getTranslationWorld());
+		float d = kmVec3Distance(&_scene->getActiveCamera()->getNode()->getTranslationWorld(), &_characterNode->getTranslationWorld());
         float alpha = d < 10 ? (d * 0.1f) : 1.0f;
         _characterMeshNode->setTag("transparent", alpha < 1.0f ? "true" : NULL);
         _materialParameterAlpha->setValue(alpha);

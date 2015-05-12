@@ -58,13 +58,21 @@ kmScalar kmVec3Length(const kmVec3* pIn)
     return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 }
 
-kmScalar kmVecDistance(const kmVec3* pV1, const kmVec3* pV2)
+kmScalar kmVec3Distance(const kmVec3* pV1, const kmVec3* pV2)
 {
 	float dx = pV1->x - pV2->x;
 	float dy = pV1->y - pV2->y;
 	float dz = pV1->z - pV2->z;
 
 	return sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+kmScalar kmVec3DistanceSq(const kmVec3* pV1, const kmVec3* pV2)
+{
+	float dx = pV1->x - pV2->x;
+	float dy = pV1->y - pV2->y;
+	float dz = pV1->z - pV2->z;
+	return (dx * dx + dy * dy + dz * dz);
 }
 
 /**

@@ -300,7 +300,7 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     Mesh* mesh = Mesh::createMesh(format, vertexCount);
     mesh->setVertexData(vertices);
     mesh->setBoundingBox(BoundingBox(min, max));
-	mesh->setBoundingSphere(BoundingSphere(center, kmVecDistance( &center, &max )/*center.distance(max)*/));
+	mesh->setBoundingSphere(BoundingSphere(center, kmVec3Distance( &center, &max )/*center.distance(max)*/));
 
     // Add mesh part for indices
     unsigned int indexCount =
