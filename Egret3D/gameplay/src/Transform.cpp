@@ -15,7 +15,8 @@ Transform::Transform()
     GP_REGISTER_SCRIPT_EVENTS();
 
     _targetType = AnimationTarget::TRANSFORM;
-    //_scale.set(Vector3::one());
+    //_scale.set(Vector3::one());	
+	init();
 	kmVec3Fill(&_scale, 1.0f, 1.0f, 1.0f);
 }
 
@@ -26,6 +27,7 @@ Transform::Transform(const kmVec3& scale, const kmQuaternion& rotation, const km
 
     _targetType = AnimationTarget::TRANSFORM;
     set(scale, rotation, translation);
+	init();
 }
 
 Transform::Transform(const kmVec3& scale, const kmMat4& rotation, const kmVec3& translation)
@@ -35,6 +37,7 @@ Transform::Transform(const kmVec3& scale, const kmMat4& rotation, const kmVec3& 
 
     _targetType = AnimationTarget::TRANSFORM;
     set(scale, rotation, translation);
+	init();
 }
 
 Transform::Transform(const Transform& copy)
@@ -44,6 +47,16 @@ Transform::Transform(const Transform& copy)
 
     _targetType = AnimationTarget::TRANSFORM;
     set(copy);
+	init();
+}
+
+void Transform::init()
+{
+	memset(&_scale, 0, sizeof(float) * 3);
+	memset(&_rotation, 0, sizeof(float) * 4);
+	memset(&_translation, 0, sizeof(float) * 3);
+	kmMat4Identity(&_matrix);
+
 }
 
 Transform::~Transform()

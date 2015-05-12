@@ -171,6 +171,8 @@ public:
      */
     Transform(const Transform& copy);
 
+	void init();
+
     /**
      * Destructor.
      */

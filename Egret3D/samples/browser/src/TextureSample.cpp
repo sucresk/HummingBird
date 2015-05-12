@@ -78,6 +78,7 @@ void TextureSample::initialize()
         
         //_text.push_back(Text::create("res/ui/arial.gpb", "Quad: Textured", Rectangle(x, y, textWidth, fontSize), Vector4::one(), fontSize, Font::ALIGN_TOP_HCENTER, false));
     }
+	return;
     // Textured quad points
     {
 		Mesh* mesh = Mesh::createQuad({ 0, cubeSize, 0 }, { 0, 0, 0 }, { cubeSize, cubeSize, 0 }, { cubeSize, 0, 0 });
@@ -140,12 +141,12 @@ void TextureSample::finalize()
 
 void TextureSample::update(float elapsedTime)
 {
-    Node* n1 = _scene->findNode("mipmap on");
-    Node* n2 = _scene->findNode("mipmap off");
-    // move these nodes between 0 and -900 using a sine wave
-    float z = -(sin((getAbsoluteTime() / 1500.0L) * MATH_PI) + 1)  * 900.0f / 2.0f;
-    n1->setTranslationZ(z);
-    n2->setTranslationZ(z);
+    //Node* n1 = _scene->findNode("mipmap on");
+    //Node* n2 = _scene->findNode("mipmap off");
+    //// move these nodes between 0 and -900 using a sine wave
+    //float z = -(sin((getAbsoluteTime() / 1500.0L) * MATH_PI) + 1)  * 900.0f / 2.0f;
+    //n1->setTranslationZ(z);
+    //n2->setTranslationZ(z);
 }
 
 void TextureSample::render(float elapsedTime)

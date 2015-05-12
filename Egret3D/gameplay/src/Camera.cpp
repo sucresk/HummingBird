@@ -24,6 +24,7 @@ Camera::Camera(float fieldOfView, float aspectRatio, float nearPlane, float farP
     : _type(PERSPECTIVE), _fieldOfView(fieldOfView), _aspectRatio(aspectRatio), _nearPlane(nearPlane), _farPlane(farPlane),
     _bits(CAMERA_DIRTY_ALL), _node(NULL), _listeners(NULL)
 {
+	init();
 }
 
 Camera::Camera(float zoomX, float zoomY, float aspectRatio, float nearPlane, float farPlane)
@@ -33,6 +34,16 @@ Camera::Camera(float zoomX, float zoomY, float aspectRatio, float nearPlane, flo
     // Orthographic camera.
     _zoom[0] = zoomX;
     _zoom[1] = zoomY;
+	init();
+}
+
+void Camera::init()
+{
+	kmMat4Identity(&_view);
+	kmMat4Identity(&_projection);
+	kmMat4Identity(&_viewProjection);
+	kmMat4Identity(&_inverseView);
+	kmMat4Identity(&_inverseViewProjection);
 }
 
 Camera::~Camera()

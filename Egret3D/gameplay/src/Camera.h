@@ -329,6 +329,7 @@ private:
      * Constructor.
      */
     Camera(float zoomX, float zoomY, float aspectRatio, float nearPlane, float farPlane);
+	void init();
 
     /**
      * Destructor.
