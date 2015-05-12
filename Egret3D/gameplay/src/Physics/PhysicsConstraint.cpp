@@ -61,7 +61,7 @@ kmQuaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
     //Matrix::createTranslation(point, &m);
-	kmMat4Translation(&m, point.x, point.y, point.z);
+	kmMat4CreateTranslation(&m, point.x, point.y, point.z);
     // Calculate the rotation offset to the rigid body by transforming 
     // the translation kmMat4 above into the rigid body's local space 
     // (multiply by the inverse world matrix) and extracting the rotation.
@@ -85,7 +85,7 @@ kmVec3 PhysicsConstraint::getTranslationOffset(const Node* node, const kmVec3& p
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
     //Matrix::createTranslation(point, &m);
-	kmMat4Translation(&m, point.x, point.y, point.z);
+	kmMat4CreateTranslation(&m, point.x, point.y, point.z);
 
     // Calculate the translation offset to the rigid body by transforming 
     // the translation kmMat4 above into the rigid body's local space 
@@ -120,7 +120,7 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3
     // Create a translation kmMat4 that translates to the given origin.
     kmMat4 m;
     //Matrix::createTranslation(origin, &m);
-	kmMat4Translation(&m, origin.x, origin.y, origin.z);
+	kmMat4CreateTranslation(&m, origin.x, origin.y, origin.z);
 
     // Calculate the translation and rotation offset to the rigid body
     // by transforming the translation kmMat4 above into the rigid body's

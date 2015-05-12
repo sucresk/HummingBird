@@ -162,6 +162,9 @@ void MeshPrimitiveSample::initialize()
     float width = getWidth() / (float)getHeight();
     float height = 1.0f;
     //Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_viewProjectionMatrix);
+	float halfWidth = width / 2.0f;
+	float halfHeight = height / 2.0f;
+	kmMat4OrthographicProjection(&_viewProjectionMatrix, -halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
 
     // Create a model for the triangle mesh. A model is an instance of a Mesh that can be drawn with a specified material.
     Mesh* triangleMesh = createTriangleMesh();
@@ -216,38 +219,56 @@ void MeshPrimitiveSample::render(float elapsedTime)
     // Clear the color and depth buffers
     clear(CLEAR_COLOR_DEPTH, vec4Zero, 1.0f, 0);
 
-    //kmMat4 wvp;
-    //wvp.rotateY(_tilt.x * 0.01f);
-    //wvp.rotateX(_tilt.y * 0.01f);
-    //Matrix::multiply(wvp, _viewProjectionMatrix, &wvp);
+	//wvp.rotateY(_tilt.x * 0.01f);
+	//wvp.rotateX(_tilt.y * 0.01f);
+	//Matrix::multiply(wvp, _viewProjectionMatrix, &wvp);
+    kmMat4 wvp;
+	kmMat4Identity(&wvp);
+	kmMat4RotationY(&wvp, &wvp, _tilt.x * 0.01f);
+	kmMat4RotationX(&wvp, &wvp, _tilt.y * 0.01f);
+	kmMat4Multiply(&wvp, &wvp, &_viewProjectionMatrix);
+   
 
-    //kmMat4 m;
-    //float offset = 0.5f;
-    //
-    //// Bind the view projection kmMat4 to the model's paramter. This will transform the vertices when the model is drawn.
+    kmMat4 m;
+    float offset = 0.5f;
+    
+    // Bind the view projection kmMat4 to the model's paramter. This will transform the vertices when the model is drawn.
     //m.setIdentity();
     //m.translate(-offset, offset, 0);
     //Matrix::multiply(m, wvp, &m);
-    //_triangles->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    //_triangles->draw();
+	kmMat4Identity(&m);
+	kmMat4Translation(&m, &m, -offset, offset, 0);
+	kmMat4Multiply(&m, &m, &wvp);
+
+    _triangles->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    _triangles->draw();
 
     //m.setIdentity();
     //m.translate(0, offset, 0);
     //Matrix::multiply(m, wvp, &m);
-    //_triangleStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    //_triangleStrip->draw();
+	kmMat4Identity(&m);
+	kmMat4Translation(&m, &m, 0, offset, 0);
+	kmMat4Multiply(&m, &m, &wvp);
+    _triangleStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    _triangleStrip->draw();
 
     //m.setIdentity();
     //m.translate(-offset, -offset, 0);
     //Matrix::multiply(m, wvp, &m);
-    //_lineStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    //_lineStrip->draw();
+	kmMat4Identity(&m);
+	kmMat4Translation(&m, &m, -offset, -offset, 0);
+	kmMat4Multiply(&m, &m, &wvp);
+    _lineStrip->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    _lineStrip->draw();
 
-    //m.setIdentity();
-    //m.translate(0, -offset, 0);
-    //Matrix::multiply(m, wvp, &m);
-    //_lines->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
-    //_lines->draw();
+	//m.setIdentity();
+	//m.translate(0, -offset, 0);
+	//Matrix::multiply(m, wvp, &m);
+	kmMat4Identity(&m);
+	kmMat4Translation(&m, &m, 0, -offset, 0);
+	kmMat4Multiply(&m, &m, &wvp);
+    _lines->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(m);
+    _lines->draw();
 
 	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }

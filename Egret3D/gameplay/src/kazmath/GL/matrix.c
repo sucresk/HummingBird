@@ -162,7 +162,7 @@ void kmGLTranslatef(float x, float y, float z)
     kmMat4 translation;
 
     //Create a rotation kmMat4 using the axis and the angle
-    kmMat4Translation(&translation,x,y,z);
+    kmMat4CreateTranslation(&translation,x,y,z);
 
     //Multiply the rotation kmMat4 by the current matrix
     kmMat4Multiply(current_stack->top, current_stack->top, &translation);

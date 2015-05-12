@@ -617,7 +617,7 @@ kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const kmVec3 *pV)
  * Builds a translation matrix. All other elements in the matrix
  * will be set to zero except for the diagonal which is set to 1.0
  */
-kmMat4* const kmMat4Translation(kmMat4* pOut, const kmScalar x,
+kmMat4* const kmMat4CreateTranslation(kmMat4* pOut, const kmScalar x,
                           const kmScalar y, const kmScalar z)
 {
     //FIXME: Write a test for this
@@ -633,6 +633,14 @@ kmMat4* const kmMat4Translation(kmMat4* pOut, const kmScalar x,
     pOut->mat[15] = 1.0f;
 
     return pOut;
+}
+
+kmMat4* const kmMat4Translation(kmMat4* pOut, kmMat4* pIn, const kmScalar x, const kmScalar y, const kmScalar z)
+{
+	kmMat4 temp;
+	kmMat4CreateTranslation(&temp, x, y, z);
+	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
 }
 
 /**
@@ -954,7 +962,7 @@ kmMat4* const kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
     pOut->mat[6] = -f.y;
     pOut->mat[10] = -f.z;
 
-    kmMat4Translation(&translate, -pEye->x, -pEye->y, -pEye->z);
+    kmMat4CreateTranslation(&translate, -pEye->x, -pEye->y, -pEye->z);
     kmMat4Multiply(pOut, pOut, &translate);
 
     return pOut;

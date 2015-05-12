@@ -333,9 +333,6 @@
     <ClInclude Include="src\Sample.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\TriangleSample.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\TerrainSample.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -352,6 +349,15 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\SamplesGame.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshBatchSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshPrimitiveSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TriangleSample.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -374,9 +380,6 @@
     <ClCompile Include="src\SamplesGame.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\TriangleSample.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\TerrainSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -390,6 +393,15 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\SpriteSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshBatchSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshPrimitiveSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TriangleSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

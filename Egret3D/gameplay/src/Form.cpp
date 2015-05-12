@@ -251,12 +251,12 @@ unsigned int Form::draw(bool wireframe)
 		kmMat4Scaling(&scale, 1, -1, 1);
 		kmMat4Multiply(&world, &world, &scale);
         //world.scale(1, -1, 1);
+		//world.translate(0, -_absoluteClipBounds.height, 0);
+		//Matrix::multiply(_node->getViewProjectionMatrix(), world, &_projectionMatrix);
 		kmMat4 translate;
-		kmMat4Translation(&translate, 0, -_absoluteClipBounds.height, 0);
+		kmMat4CreateTranslation(&translate, 0, -_absoluteClipBounds.height, 0);
 		kmMat4Multiply(&world, &world, &translate);
-        //world.translate(0, -_absoluteClipBounds.height, 0);
-        //Matrix::multiply(_node->getViewProjectionMatrix(), world, &_projectionMatrix);
-		kmMat4Multiply(&_projectionMatrix, &_node->getViewProjectionMatrix(), &world);
+        kmMat4Multiply(&_projectionMatrix, &_node->getViewProjectionMatrix(), &world);
     }
     else
     {

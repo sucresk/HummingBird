@@ -113,7 +113,7 @@ const kmMat4& Transform::getMatrix() const
             if (hasTranslation || (_matrixDirtyBits & DIRTY_TRANSLATION) == DIRTY_TRANSLATION)
             {
                 //Matrix::createTranslation(_translation, &_matrix);
-				kmMat4Translation(&_matrix, _translation.x, _translation.y, _translation.z);
+				kmMat4CreateTranslation(&_matrix, _translation.x, _translation.y, _translation.z);
                 if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
                 {
                     //_matrix.rotate(_rotation);
