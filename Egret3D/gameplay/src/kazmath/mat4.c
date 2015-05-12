@@ -257,11 +257,13 @@ kmMat4* const kmMat4Invert(kmMat4 *pOut, const kmMat4* pM)
  */
 const int  kmMat4IsIdentity(const kmMat4* pIn)
 {
-    static const float identity [] = {     1.0f, 0.0f, 0.0f, 0.0f,
-                                        0.0f, 1.0f, 0.0f, 0.0f,
-                                        0.0f, 0.0f, 1.0f, 0.0f,
-                                        0.0f, 0.0f, 0.0f, 1.0f
-                                     };
+    static const float identity [] = 
+	{
+		1.0f, 0.0f, 0.0f, 0.0f,     
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,                            
+		0.0f, 0.0f, 0.0f, 1.0f                         
+	};
 
     return (memcmp(identity, pIn->mat, sizeof(float) * 16) == 0);
 }
@@ -273,9 +275,11 @@ kmMat4* const kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn)
 {
     int x, z;
 
-    for (z = 0; z < 4; ++z) {
-        for (x = 0; x < 4; ++x) {
-        pOut->mat[(z * 4) + x] = pIn->mat[(x * 4) + z];
+    for (z = 0; z < 4; ++z)
+	{
+        for (x = 0; x < 4; ++x)
+		{
+			pOut->mat[(z * 4) + x] = pIn->mat[(x * 4) + z];
         }
     }
 

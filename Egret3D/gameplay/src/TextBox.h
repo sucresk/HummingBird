@@ -14,8 +14,6 @@ namespace egret
  * for the last keypress it received.
  * On mobile device you can tap or click within the text box to
  * bring up the virtual keyboard.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-UI_Forms
  */
 class TextBox : public Label
 {

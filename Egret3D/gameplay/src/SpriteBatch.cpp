@@ -299,20 +299,38 @@ void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3
         static kmMat4 rotation;
         //Matrix::createRotation(u, rotationAngle, &rotation);
 		kmMat4CreateRotation(&rotation, &u, rotationAngle);
-		assert(false);
-        //p0 -= rp;
-  //      p0 *= rotation;
-  //      p0 += rp;
-  //      p1 -= rp;
-  //      p1 *= rotation;
-  //      p1 += rp;
-  //      p2 -= rp;
-  //      p2 *= rotation;
-  //      p2 += rp;
-  //      p3 -= rp;
-  //      p3 *= rotation;
-  //      p3 += rp;
-		//kmVec3Subtract(&p0, &p0, &rp);
+		//assert(false);
+		//p0 -= rp;
+		//p0 *= rotation;
+		//p0 += rp;
+
+		//p1 -= rp;
+		//p1 *= rotation;
+		//p1 += rp;
+
+		//p2 -= rp;
+		//p2 *= rotation;
+		//p2 += rp;
+
+		//p3 -= rp;
+		//p3 *= rotation;
+		//p3 += rp;
+		kmVec3Subtract(&p0, &p0, &rp);
+		kmMat3Transform(&p0, &rotation, p0.x, p0.y, p0.z, 0.0f);
+		kmVec3Add(&p0, &p0, &rp);
+
+		kmVec3Subtract(&p1, &p1, &rp);
+		kmMat3Transform(&p1, &rotation, p1.x, p1.y, p1.z, 0.0f);
+		kmVec3Add(&p1, &p1, &rp);
+
+		kmVec3Subtract(&p2, &p2, &rp);
+		kmMat3Transform(&p2, &rotation, p2.x, p2.y, p2.z, 0.0f);
+		kmVec3Add(&p2, &p2, &rp);
+
+		kmVec3Subtract(&p3, &p3, &rp);
+		kmMat3Transform(&p3, &rotation, p3.x, p3.y, p3.z, 0.0f);
+		kmVec3Add(&p3, &p3, &rp);
+
     }
 
 

@@ -366,6 +366,12 @@
     <ClInclude Include="src\FormsSample.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\ParticlesSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightSample.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TextureSample.cpp">
@@ -414,6 +420,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\FormsSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParticlesSample.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightSample.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
