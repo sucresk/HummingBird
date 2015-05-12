@@ -13,7 +13,6 @@ namespace egret
 /**
  * Defines the base class for physics constraints.
  *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Constraints
  */
 class PhysicsConstraint
 {

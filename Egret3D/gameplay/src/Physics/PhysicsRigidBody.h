@@ -18,8 +18,6 @@ class PhysicsConstraint;
  *
  * A rigid body can receive forces and torque to make your objects react to other collision
  * objects around it.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Collision_Objects
  */
 class PhysicsRigidBody : public PhysicsCollisionObject, public Transform::Listener
 {

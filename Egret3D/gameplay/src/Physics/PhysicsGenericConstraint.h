@@ -13,8 +13,6 @@ namespace egret
  * Defines a completely generic constraint between two
  * rigid bodies (or one rigid body and the world) where the
  * limits for all six degrees of freedom can be set individually.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Constraints
  */
 class PhysicsGenericConstraint : public PhysicsConstraint
 {

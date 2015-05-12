@@ -20,7 +20,6 @@ class ScriptListener;
 /**
  * Defines a class for controlling game physics.
  *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Physics
  */
 class PhysicsController : public ScriptTarget
 {

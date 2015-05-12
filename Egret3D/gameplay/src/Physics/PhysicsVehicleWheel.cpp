@@ -10,13 +10,22 @@ namespace egret
 PhysicsVehicleWheel::PhysicsVehicleWheel(Node* node, const PhysicsCollisionShape::Definition& shape, const PhysicsRigidBody::Parameters& parameters)
     : PhysicsCollisionObject(node), _host(NULL), _indexInHost(0)
 {
+	init();
     findAncestorAndBind();
 }
 
 PhysicsVehicleWheel::PhysicsVehicleWheel(Node* node)
     : PhysicsCollisionObject(node), _host(NULL), _indexInHost(0)
 {
+	init();
     findAncestorAndBind();
+}
+
+void PhysicsVehicleWheel::init()
+{
+	_initialOffset = vec3Zero;
+	_positionDelta = vec3Zero;
+	memset(&_orientation, 0, sizeof(float) * 4);
 }
 
 PhysicsVehicleWheel* PhysicsVehicleWheel::create(Node* node, Properties* properties)

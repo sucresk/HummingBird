@@ -21,7 +21,6 @@ class PhysicsVehicleWheel;
 /**
  * Defines the base class for all physics objects that support collision events.
  *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Collision_Objects
  */
 class PhysicsCollisionObject
 {

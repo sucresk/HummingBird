@@ -13,8 +13,6 @@ namespace egret
  * Defines a hinge constraint between two rigid bodies
  * (or one rigid body and the world) where movement is
  * restricted to rotation about one axis.
- *
- * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-Constraints
  */
 class PhysicsHingeConstraint : public PhysicsConstraint
 {
