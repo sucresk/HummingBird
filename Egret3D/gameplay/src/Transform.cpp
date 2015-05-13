@@ -343,7 +343,7 @@ void Transform::rotate(const kmVec3& axis, float angle)
 
     kmQuaternion rotationQuat;
     //Quaternion::createFromAxisAngle(axis, angle, &rotationQuat);
-	kmQuatreateFromAxisAngle(&rotationQuat, &axis, angle);
+	kmQuaCreateFromAxisAngle(&rotationQuat, &axis, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
 	kmQuaternionNormalize(&_rotation, &_rotation);
     //_rotation.multiply(rotationQuat);
@@ -373,7 +373,7 @@ void Transform::rotateX(float angle)
     kmQuaternion rotationQuat;
     //Quaternion::createFromAxisAngle(Vector3::unitX(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
-	kmQuatreateFromAxisAngle(&rotationQuat, &unintx, angle);
+	kmQuaCreateFromAxisAngle(&rotationQuat, &unintx, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
@@ -387,7 +387,7 @@ void Transform::rotateY(float angle)
     kmQuaternion rotationQuat;
     //Quaternion::createFromAxisAngle(Vector3::unitY(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
-	kmQuatreateFromAxisAngle(&rotationQuat, &unitY, angle);
+	kmQuaCreateFromAxisAngle(&rotationQuat, &unitY, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
@@ -400,7 +400,7 @@ void Transform::rotateZ(float angle)
     kmQuaternion rotationQuat;
     //Quaternion::createFromAxisAngle(Vector3::unitZ(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
-	kmQuatreateFromAxisAngle(&rotationQuat, &unitZ, angle);
+	kmQuaCreateFromAxisAngle(&rotationQuat, &unitZ, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }
@@ -496,7 +496,7 @@ void Transform::set(const kmVec3& scale, const kmVec3& axis, float angle, const 
 
     _scale = scale;
     //_rotation.set(axis, angle);
-	kmQuatreateFromAxisAngle(&_rotation, &axis, angle);
+	kmQuaCreateFromAxisAngle(&_rotation, &axis, angle);
     _translation = translation;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION | DIRTY_SCALE);
 }
@@ -611,7 +611,7 @@ void Transform::setRotation(const kmVec3& axis, float angle)
         return;
 
     //_rotation.set(axis, angle);
-	kmQuatreateFromAxisAngle(&_rotation, &axis, angle);
+	kmQuaCreateFromAxisAngle(&_rotation, &axis, angle);
     dirty(DIRTY_ROTATION);
 }
 

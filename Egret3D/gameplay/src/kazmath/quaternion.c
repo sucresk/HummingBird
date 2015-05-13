@@ -91,24 +91,27 @@ kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut)
 kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
                                             const kmQuaternion* pIn)
 {
-    kmScalar l = kmQuaternionLength(pIn);
-    kmQuaternion tmp;
+	float n = pIn->x * pIn->x + pIn->y * pIn->y + pIn->z * pIn->z + pIn->w * pIn->w;
+	if (n == 1.0f)
+	{
+		pOut->x = -pIn->x;
+		pOut->y = -pIn->y;
+		pOut->z = -pIn->z;
+		pOut->w = pIn->w;
+		return pOut;
+	}
 
-    if (fabs(l) > kmEpsilon)
-    {
-        pOut->x = 0.0;
-        pOut->y = 0.0;
-        pOut->z = 0.0;
-        pOut->w = 0.0;
+	// Too close to zero.
+	if (n < 0.000001f)
+	{
+		return NULL;
+	}
 
-        return pOut;
-    }
-
-
-
-    ///Get the conjugute and divide by the length
-    kmQuaternionScale(pOut,
-                kmQuaternionConjugate(&tmp, pIn), 1.0f / l);
+	n = 1.0f / n;
+	pOut->x = -pIn->x * n;
+	pOut->y = -pIn->y * n;
+	pOut->z = -pIn->z * n;
+	pOut->w = pIn->w * n;
 
     return pOut;
 }
@@ -118,6 +121,12 @@ int kmQuaternionIsIdentity(const kmQuaternion* pIn)
 {
     return (pIn->x == 0.0 && pIn->y == 0.0 && pIn->z == 0.0 &&
                 pIn->w == 1.0);
+}
+
+int  kmQuaternionIsZero(const kmQuaternion* pIn)
+{
+	return (pIn->x == 0.0 && pIn->y == 0.0 && pIn->z == 0.0 &&
+		pIn->w == 0.0);
 }
 
 ///< Returns the length of the quaternion
@@ -405,43 +414,24 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
                                 kmScalar t)
 {
 
- /*float CosTheta = Q0.DotProd(Q1);
-  float Theta = acosf(CosTheta);
-  float SinTheta = sqrtf(1.0f-CosTheta*CosTheta);
+	if (t == 0.0f)
+	{
+		memcpy(pOut, q1, sizeof(float) * 4);
+		return;
+	}
+	else if (t == 1.0f)
+	{
+		memcpy(pOut, q2, sizeof(float) * 4);
+		return;
+	}
 
-  float Sin_T_Theta = sinf(T*Theta)/SinTheta;
-  float Sin_OneMinusT_Theta = sinf((1.0f-T)*Theta)/SinTheta;
+	float t1 = 1.0f - t;
 
-  Quaternion Result = Q0*Sin_OneMinusT_Theta;
-  Result += (Q1*Sin_T_Theta);
+	pOut->x = t1 * q1->x + t * q2->x;
+	pOut->y = t1 * q1->y + t * q2->y;
+	pOut->z = t1 * q1->z + t * q2->z;
+	pOut->w = t1 * q1->w + t * q2->w;
 
-  return Result;*/
-
-    if (q1->x == q2->x &&
-        q1->y == q2->y &&
-        q1->z == q2->z &&
-        q1->w == q2->w) {
-
-        pOut->x = q1->x;
-        pOut->y = q1->y;
-        pOut->z = q1->z;
-        pOut->w = q1->w;
-
-        return pOut;
-    }
-    {
-        kmScalar ct = kmQuaternionDot(q1, q2);
-        kmScalar theta = acosf(ct);
-        kmScalar st = sqrtf(1.0 - kmSQR(ct));
-
-        kmScalar stt = sinf(t * theta) / st;
-        kmScalar somt = sinf((1.0 - t) * theta) / st;
-
-        kmQuaternion temp, temp2;
-        kmQuaternionScale(&temp, q1, somt);
-        kmQuaternionScale(&temp2, q2, stt);
-        kmQuaternionAdd(pOut, &temp, &temp2);
-    }
     return pOut;
 }
 
@@ -613,7 +603,7 @@ kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, const kmQuaternion* pIn)
 	return 2.0f * acos(q.w);;
 }
 
-kmQuaternion* kmQuatreateFromAxisAngle(kmQuaternion* pOut, const kmVec3* axis, float angle)
+kmQuaternion* kmQuaCreateFromAxisAngle(kmQuaternion* pOut, const kmVec3* axis, float angle)
 {
 	float halfAngle = angle * 0.5f;
 	float sinHalfAngle = sinf(halfAngle);
@@ -716,4 +706,48 @@ void kmQuaternionSlerpNum(float q1x, float q1y, float q1z, float q1w, float q2x,
 	*dstx = x * f1;
 	*dsty = y * f1;
 	*dstz = z * f1;
+}
+
+kmQuaternion* kmQuaternionSquad(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, const kmQuaternion* s1, const kmQuaternion* s2, float t)
+{
+	kmQuaternion dstQ = { 0.0f, 0.0f, 0.0f, 1.0f };
+	kmQuaternion dstS = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	kmQuaternionSlerpForSquad(&dstQ,q1, q2, t );
+	kmQuaternionSlerpForSquad(&dstS,s1, s2, t );
+	kmQuaternionSlerpForSquad( pOut, &dstQ, &dstS, 2.0f * t * (1.0f - t));
+	return pOut;
+}
+
+kmQuaternion* kmQuaternionSlerpForSquad(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, float t)
+{
+	float c = q1->x * q2->x + q1->y * q2->y + q1->z * q2->z + q1->w * q2->w;
+
+	if (fabs(c) >= 1.0f)
+	{
+		pOut->x = q1->x;
+		pOut->y = q1->y;
+		pOut->z = q1->z;
+		pOut->w = q1->w;
+		return;
+	}
+
+	float omega = acos(c);
+	float s = sqrt(1.0f - c * c);
+	if (fabs(s) <= 0.00001f)
+	{
+		pOut->x = q1->x;
+		pOut->y = q1->y;
+		pOut->z = q1->z;
+		pOut->w = q1->w;
+		return;
+	}
+
+	float r1 = sin((1 - t) * omega) / s;
+	float r2 = sin(t * omega) / s;
+	pOut->x = (q1->x * r1 + q2->x * r2);
+	pOut->y = (q1->y * r1 + q2->y * r2);
+	pOut->z = (q1->z * r1 + q2->z * r2);
+	pOut->w = (q1->w * r1 + q2->w * r2);
+	return pOut;
 }

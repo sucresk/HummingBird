@@ -50,6 +50,7 @@ kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///<
 kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
 kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut, const kmQuaternion* pIn);
 int  kmQuaternionIsIdentity(const kmQuaternion* pIn);
+int  kmQuaternionIsZero(const kmQuaternion* pIn);
 kmScalar kmQuaternionLength(const kmQuaternion* pIn);
 kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn);
 kmQuaternion* kmQuaternionLn(kmQuaternion* pOut, const kmQuaternion* pIn);
@@ -58,7 +59,6 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut, const kmQuaternion* pIn)
 kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
 kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut, const struct kmMat3* pIn);
 kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
-kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
 void kmQuaternionToAxisAngle(const kmQuaternion* pIn, struct kmVec3* pVector, kmScalar* pAngle);
 kmQuaternion* kmQuaternionScale(kmQuaternion* pOut, const kmQuaternion* pIn, kmScalar s);
 kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn);
@@ -67,8 +67,11 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct k
 struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
 //add by hgl
 kmScalar kmQuatToAxisAngle(struct kmVec3* pOut, const kmQuaternion* pIn );
-kmQuaternion* kmQuatreateFromAxisAngle(kmQuaternion* pOut, const kmVec3* axis, float angle);
+kmQuaternion* kmQuaCreateFromAxisAngle(kmQuaternion* pOut, const kmVec3* axis, float angle);
+kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
 void kmQuaternionSlerpNum(float q1x, float q1y, float q1z, float q1w, float q2x, float q2y, float q2z, float q2w, float t, float* dstx, float* dsty, float* dstz, float* dstw);
+kmQuaternion* kmQuaternionSquad(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, const kmQuaternion* s1, const kmQuaternion* s2, float t);
+kmQuaternion* kmQuaternionSlerpForSquad( kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, float t);
 
 #ifdef __cplusplus
 }

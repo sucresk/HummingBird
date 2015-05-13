@@ -3,7 +3,7 @@
 #include "ScriptController.h"
 #include "lua_Quaternion.h"
 #include "Base.h"
-#include "Quaternion.h"
+#include "kazmath/quaternion.h"
 
 namespace egret
 {
@@ -44,11 +44,11 @@ void luaRegister_Quaternion()
     egret::ScriptUtil::registerClass("Quaternion", lua_members, lua_Quaternion__init, lua_Quaternion__gc, lua_statics, scopePath);
 }
 
-static Quaternion* getInstance(lua_State* state)
+static kmQuaternion* getInstance(lua_State* state)
 {
-    void* userdata = luaL_checkudata(state, 1, "Quaternion");
-    luaL_argcheck(state, userdata != NULL, 1, "'Quaternion' expected.");
-    return (Quaternion*)((egret::ScriptUtil::LuaObject*)userdata)->instance;
+    void* userdata = luaL_checkudata(state, 1, "kmQuaternion");
+    luaL_argcheck(state, userdata != NULL, 1, "'kmQuaternion' expected.");
+    return (kmQuaternion*)((egret::ScriptUtil::LuaObject*)userdata)->instance;
 }
 
 int lua_Quaternion__gc(lua_State* state)
@@ -68,7 +68,7 @@ int lua_Quaternion__gc(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)userdata;
                 if (object->owns)
                 {
-                    Quaternion* instance = (Quaternion*)object->instance;
+                    kmQuaternion* instance = (kmQuaternion*)object->instance;
                     SAFE_DELETE(instance);
                 }
                 
@@ -99,13 +99,14 @@ int lua_Quaternion__init(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = ((void*)new Quaternion());
+            kmQuaternion* returnPtr = new kmQuaternion;
+			memset(returnPtr, 0, sizeof(float) * 4);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = true;
-                luaL_getmetatable(state, "Quaternion");
+                luaL_getmetatable(state, "kmQuaternion");
                 lua_setmetatable(state, -2);
             }
             else
@@ -125,7 +126,9 @@ int lua_Quaternion__init(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(1);
 
-                    void* returnPtr = ((void*)new Quaternion(param1));
+                    //void* returnPtr = ((void*)new Quaternion(param1));
+					kmQuaternion* returnPtr = new kmQuaternion;
+					memcpy(returnPtr, param1, sizeof(float) * 4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -153,7 +156,9 @@ int lua_Quaternion__init(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Quaternion(*param1));
+                    //void* returnPtr = ((void*)new Quaternion(*param1));
+					kmQuaternion* returnPtr = new kmQuaternion;
+					kmMat4Decompose(param1, NULL, returnPtr, NULL);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -181,7 +186,9 @@ int lua_Quaternion__init(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Quaternion(*param1));
+                    //void* returnPtr = ((void*)new Quaternion(*param1));
+					kmQuaternion* returnPtr = new kmQuaternion;
+					memcpy(returnPtr, param1, sizeof(float) * 4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -219,7 +226,9 @@ int lua_Quaternion__init(lua_State* state)
                     // Get parameter 2 off the stack.
                     float param2 = (float)luaL_checknumber(state, 2);
 
-                    void* returnPtr = ((void*)new Quaternion(*param1, param2));
+                    //void* returnPtr = ((void*)new Quaternion(*param1, param2));
+					kmQuaternion* returnPtr = new kmQuaternion;
+					kmQuaCreateFromAxisAngle(returnPtr, param1, param2);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -262,7 +271,9 @@ int lua_Quaternion__init(lua_State* state)
                     // Get parameter 4 off the stack.
                     float param4 = (float)luaL_checknumber(state, 4);
 
-                    void* returnPtr = ((void*)new Quaternion(param1, param2, param3, param4));
+                    //void* returnPtr = ((void*)new Quaternion(param1, param2, param3, param4));
+					kmQuaternion* returnPtr = new kmQuaternion;
+					kmQuaternionSet(returnPtr, param1, param2, param3, param4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -308,9 +319,9 @@ int lua_Quaternion_conjugate(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Quaternion* instance = getInstance(state);
-                    instance->conjugate();
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->conjugate();
+					kmQuaternionConjugate(instance, instance);
                     return 0;
                 }
             } while (0);
@@ -332,9 +343,9 @@ int lua_Quaternion_conjugate(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Quaternion* instance = getInstance(state);
-                    instance->conjugate(param1);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->conjugate(param1);
+					kmQuaternionConjugate(param1, instance);
                     return 0;
                 }
             } while (0);
@@ -367,9 +378,9 @@ int lua_Quaternion_inverse(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Quaternion* instance = getInstance(state);
-                    bool result = instance->inverse();
-
+                    kmQuaternion* instance = getInstance(state);
+                    //bool result = instance->inverse();
+					bool result = kmQuaternionInverse(instance, instance) != NULL;
                     // Push the return value onto the stack.
                     lua_pushboolean(state, result);
 
@@ -394,9 +405,9 @@ int lua_Quaternion_inverse(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Quaternion* instance = getInstance(state);
-                    bool result = instance->inverse(param1);
-
+                    kmQuaternion* instance = getInstance(state);
+                    //bool result = instance->inverse(param1);
+					bool result = kmQuaternionInverse(param1, instance) != NULL;
                     // Push the return value onto the stack.
                     lua_pushboolean(state, result);
 
@@ -430,9 +441,9 @@ int lua_Quaternion_isIdentity(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Quaternion* instance = getInstance(state);
-                bool result = instance->isIdentity();
-
+                kmQuaternion* instance = getInstance(state);
+                //bool result = instance->isIdentity();
+				bool result = kmQuaternionIsIdentity(instance);
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
 
@@ -465,9 +476,9 @@ int lua_Quaternion_isZero(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Quaternion* instance = getInstance(state);
-                bool result = instance->isZero();
-
+                kmQuaternion* instance = getInstance(state);
+                //bool result = instance->isZero();
+				bool result = kmQuaternionIsZero(instance);
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
 
@@ -510,9 +521,9 @@ int lua_Quaternion_multiply(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion* instance = getInstance(state);
-                instance->multiply(*param1);
-                
+                kmQuaternion* instance = getInstance(state);
+                //instance->multiply(*param1);
+				kmQuaternionMultiply(instance, instance, param1);
                 return 0;
             }
 
@@ -544,9 +555,9 @@ int lua_Quaternion_normalize(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Quaternion* instance = getInstance(state);
-                    instance->normalize();
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->normalize();
+					kmQuaternionNormalize(instance, instance);
                     return 0;
                 }
             } while (0);
@@ -568,9 +579,9 @@ int lua_Quaternion_normalize(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Quaternion* instance = getInstance(state);
-                    instance->normalize(param1);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->normalize(param1);
+					kmQuaternionNormalize(param1, instance);
                     return 0;
                 }
             } while (0);
@@ -607,9 +618,9 @@ int lua_Quaternion_set(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(2);
 
-                    Quaternion* instance = getInstance(state);
-                    instance->set(param1);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->set(param1);
+					memcpy(instance, param1, sizeof(float) * 4);
                     return 0;
                 }
             } while (0);
@@ -625,9 +636,9 @@ int lua_Quaternion_set(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Quaternion* instance = getInstance(state);
-                    instance->set(*param1);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->set(*param1);
+					kmMat4Decompose(param1, NULL, instance, NULL);
                     return 0;
                 }
             } while (0);
@@ -643,8 +654,9 @@ int lua_Quaternion_set(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Quaternion* instance = getInstance(state);
-                    instance->set(*param1);
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->set(*param1);
+					memcpy(instance, param1, sizeof(float) * 4);
                     
                     return 0;
                 }
@@ -671,9 +683,9 @@ int lua_Quaternion_set(lua_State* state)
                     // Get parameter 2 off the stack.
                     float param2 = (float)luaL_checknumber(state, 3);
 
-                    Quaternion* instance = getInstance(state);
-                    instance->set(*param1, param2);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->set(*param1, param2);
+					kmQuaCreateFromAxisAngle(instance, param1, param2);
                     return 0;
                 }
             } while (0);
@@ -704,9 +716,9 @@ int lua_Quaternion_set(lua_State* state)
                     // Get parameter 4 off the stack.
                     float param4 = (float)luaL_checknumber(state, 5);
 
-                    Quaternion* instance = getInstance(state);
-                    instance->set(param1, param2, param3, param4);
-                    
+                    kmQuaternion* instance = getInstance(state);
+                    //instance->set(param1, param2, param3, param4);
+					kmQuaternionSet(instance, param1, param2, param3, param4);
                     return 0;
                 }
             } while (0);
@@ -737,9 +749,9 @@ int lua_Quaternion_setIdentity(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Quaternion* instance = getInstance(state);
-                instance->setIdentity();
-                
+                kmQuaternion* instance = getInstance(state);
+                //instance->setIdentity();
+				kmQuaternionIdentity(instance);
                 return 0;
             }
 
@@ -792,8 +804,8 @@ int lua_Quaternion_static_createFromAxisAngle(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::createFromAxisAngle(*param1, param2, param3);
-                
+                //Quaternion::createFromAxisAngle(*param1, param2, param3);
+				kmQuaCreateFromAxisAngle(param3, param1, param2);
                 return 0;
             }
 
@@ -842,8 +854,8 @@ int lua_Quaternion_static_createFromRotationMatrix(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::createFromRotationMatrix(*param1, param2);
-                
+                //Quaternion::createFromRotationMatrix(*param1, param2);
+				kmMat4Decompose(param1, NULL, param2, NULL);
                 return 0;
             }
 
@@ -871,7 +883,9 @@ int lua_Quaternion_static_identity(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Quaternion::identity());
+            //void* returnPtr = (void*)&(Quaternion::identity());
+			kmQuaternion* returnPtr = new kmQuaternion;
+			kmQuaternionIdentity(returnPtr);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -943,8 +957,8 @@ int lua_Quaternion_static_lerp(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::lerp(*param1, *param2, param3, param4);
-                
+                //Quaternion::lerp(*param1, *param2, param3, param4);
+				kmQuaternionSlerp(param4, param1, param2, param3);
                 return 0;
             }
 
@@ -1003,8 +1017,8 @@ int lua_Quaternion_static_multiply(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::multiply(*param1, *param2, param3);
-                
+                //Quaternion::multiply(*param1, *param2, param3);
+				kmQuaternionMultiply(param3, param1, param2);
                 return 0;
             }
 
@@ -1067,8 +1081,8 @@ int lua_Quaternion_static_slerp(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::slerp(*param1, *param2, param3, param4);
-                
+                //Quaternion::slerp(*param1, *param2, param3, param4);
+				kmQuaternionSlerp(param4, param1, param2, param3);
                 return 0;
             }
 
@@ -1151,8 +1165,8 @@ int lua_Quaternion_static_squad(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion::squad(*param1, *param2, *param3, *param4, param5, param6);
-                
+                //Quaternion::squad(*param1, *param2, *param3, *param4, param5, param6);
+				kmQuaternionSquad(param6, param1, param2, param3, param4, param5);
                 return 0;
             }
 
@@ -1180,7 +1194,9 @@ int lua_Quaternion_static_zero(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Quaternion::zero());
+            //void* returnPtr = (void*)&(Quaternion::zero());
+			kmQuaternion* returnPtr = new kmQuaternion;
+			memset(returnPtr, 0, sizeof(float) * 4);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1229,9 +1245,9 @@ int lua_Quaternion_toAxisAngle(lua_State* state)
                     lua_error(state);
                 }
 
-                Quaternion* instance = getInstance(state);
-                float result = instance->toAxisAngle(param1);
-
+                kmQuaternion* instance = getInstance(state);
+                //float result = instance->toAxisAngle(param1);
+				float result = kmQuatToAxisAngle(param1, instance);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -1261,7 +1277,7 @@ int lua_Quaternion_w(lua_State* state)
         lua_error(state);
     }
 
-    Quaternion* instance = getInstance(state);
+    kmQuaternion* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1290,7 +1306,7 @@ int lua_Quaternion_x(lua_State* state)
         lua_error(state);
     }
 
-    Quaternion* instance = getInstance(state);
+    kmQuaternion* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1319,7 +1335,7 @@ int lua_Quaternion_y(lua_State* state)
         lua_error(state);
     }
 
-    Quaternion* instance = getInstance(state);
+    kmQuaternion* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1348,7 +1364,7 @@ int lua_Quaternion_z(lua_State* state)
         lua_error(state);
     }
 
-    Quaternion* instance = getInstance(state);
+    kmQuaternion* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.

@@ -1216,7 +1216,7 @@ bool Properties::parseAxisAngle(const char* str, kmQuaternion* out)
 			if (out)
 			{
 				kmVec3 temp = {x, y, z };
-				kmQuatreateFromAxisAngle(out, &temp, MATH_DEG_TO_RAD(theta));
+				kmQuaCreateFromAxisAngle(out, &temp, MATH_DEG_TO_RAD(theta));
 			}
             return true;
         }
