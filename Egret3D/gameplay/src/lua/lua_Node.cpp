@@ -1063,7 +1063,9 @@ int lua_Node_getActiveCameraTranslationView(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getActiveCameraTranslationView());
+                //void* returnPtr = (void*)new Vector3(instance->getActiveCameraTranslationView());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getActiveCameraTranslationView(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1107,7 +1109,9 @@ int lua_Node_getActiveCameraTranslationWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getActiveCameraTranslationWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getActiveCameraTranslationWorld());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getActiveCameraTranslationWorld(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1400,7 +1404,9 @@ int lua_Node_getBackVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getBackVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getBackVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getBackVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1638,7 +1644,9 @@ int lua_Node_getDownVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getDownVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getDownVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getDownVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1797,7 +1805,9 @@ int lua_Node_getForwardVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getForwardVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getForwardVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getForwardVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1866,7 +1876,9 @@ int lua_Node_getForwardVectorView(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getForwardVectorView());
+                //void* returnPtr = (void*)new Vector3(instance->getForwardVectorView());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getForwardVectorView(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1910,7 +1922,9 @@ int lua_Node_getForwardVectorWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getForwardVectorWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getForwardVectorWorld());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getForwardVectorWorld(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -2167,7 +2181,9 @@ int lua_Node_getLeftVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getLeftVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getLeftVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getLeftVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -2537,7 +2553,9 @@ int lua_Node_getRightVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getRightVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getRightVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getRightVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -2606,7 +2624,9 @@ int lua_Node_getRightVectorWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getRightVectorWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getRightVectorWorld());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getRightVectorWorld(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3182,7 +3202,9 @@ int lua_Node_getTranslationView(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getTranslationView());
+                //void* returnPtr = (void*)new Vector3(instance->getTranslationView());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getTranslationView(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3226,7 +3248,9 @@ int lua_Node_getTranslationWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getTranslationWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getTranslationWorld());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getTranslationWorld(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3447,7 +3471,9 @@ int lua_Node_getUpVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Node* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getUpVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getUpVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getUpVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3516,7 +3542,9 @@ int lua_Node_getUpVectorWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Node* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getUpVectorWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getUpVectorWorld());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getUpVectorWorld(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
