@@ -128,7 +128,7 @@ int lua_ThemeThemeImage_getColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else

@@ -888,7 +888,7 @@ int lua_PhysicsCharacter_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param1 = egret::ScriptUtil::getObjectPointer<Quaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -913,7 +913,7 @@ int lua_PhysicsCharacter_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1202,7 +1202,7 @@ int lua_PhysicsCharacter_setRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param1 = egret::ScriptUtil::getObjectPointer<Quaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1227,7 +1227,7 @@ int lua_PhysicsCharacter_setRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1272,7 +1272,7 @@ int lua_PhysicsCharacter_setVelocity(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 

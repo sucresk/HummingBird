@@ -1279,3 +1279,46 @@ kmMat4* kmMat4CreatLookAt(kmMat4* pOut, const kmVec3* eyepos, const kmVec3* targ
 
 	return pOut;
 }
+
+kmMat4* kmMat4AddMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2)
+{
+	pOut->mat[0] = pMat1->mat[0] + pMat2->mat[0];
+	pOut->mat[1] = pMat1->mat[1] + pMat2->mat[1];
+	pOut->mat[2] = pMat1->mat[2] + pMat2->mat[2];
+	pOut->mat[3] = pMat1->mat[3] + pMat2->mat[3];
+	pOut->mat[4] = pMat1->mat[4] + pMat2->mat[4];
+	pOut->mat[5] = pMat1->mat[5] + pMat2->mat[5];
+	pOut->mat[6] = pMat1->mat[6] + pMat2->mat[6];
+	pOut->mat[7] = pMat1->mat[7] + pMat2->mat[7];
+	pOut->mat[8] = pMat1->mat[8] + pMat2->mat[8];
+	pOut->mat[9] = pMat1->mat[9] + pMat2->mat[9];
+	pOut->mat[10] = pMat1->mat[10] + pMat2->mat[10];
+	pOut->mat[11] = pMat1->mat[11] + pMat2->mat[11];
+	pOut->mat[12] = pMat1->mat[12] + pMat2->mat[12];
+	pOut->mat[13] = pMat1->mat[13] + pMat2->mat[13];
+	pOut->mat[14] = pMat1->mat[14] + pMat2->mat[14];
+	pOut->mat[15] = pMat1->mat[15] + pMat2->mat[15];
+	return pOut;
+}
+
+kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scalar)
+{
+	pOut->mat[0] = pIn->mat[0] + scalar;
+	pOut->mat[1] = pIn->mat[1] + scalar;
+	pOut->mat[2] = pIn->mat[2] + scalar;
+	pOut->mat[3] = pIn->mat[3] + scalar;
+	pOut->mat[4] = pIn->mat[4] + scalar;
+	pOut->mat[5] = pIn->mat[5] + scalar;
+	pOut->mat[6] = pIn->mat[6] + scalar;
+	pOut->mat[7] = pIn->mat[7] + scalar;
+	pOut->mat[8] = pIn->mat[8] + scalar;
+	pOut->mat[9] = pIn->mat[9] + scalar;
+	pOut->mat[10] = pIn->mat[10] + scalar;
+	pOut->mat[11] = pIn->mat[11] + scalar;
+	pOut->mat[12] = pIn->mat[12] + scalar;
+	pOut->mat[13] = pIn->mat[13] + scalar;
+	pOut->mat[14] = pIn->mat[14] + scalar;
+	pOut->mat[15] = pIn->mat[15] + scalar;
+	return pOut;
+}
+

@@ -155,7 +155,7 @@ int lua_Plane__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -252,7 +252,7 @@ int lua_Plane_distance(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
@@ -577,7 +577,7 @@ int lua_Plane_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -658,7 +658,7 @@ int lua_Plane_setNormal(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -807,7 +807,7 @@ int lua_Plane_static_intersection(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param4 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param4 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", false, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector3'.");
@@ -848,7 +848,7 @@ int lua_Plane_transform(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Matrix> param1 = egret::ScriptUtil::getObjectPointer<Matrix>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");

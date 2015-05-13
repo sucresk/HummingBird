@@ -150,13 +150,13 @@ int lua_BoundingBox__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(1, "Vector3", true, &param1Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param2Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -258,13 +258,15 @@ int lua_BoundingBox_getCenter(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     BoundingBox* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getCenter());
+                    //void* returnPtr = (void*)new Vector3(instance->getCenter());
+					void *returnPtr = (void*)new kmVec3;
+					memcpy(returnPtr, &instance->getCenter(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Vector3");
+                        luaL_getmetatable(state, "kmVec3");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -289,7 +291,7 @@ int lua_BoundingBox_getCenter(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", false, &param1Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -329,7 +331,7 @@ int lua_BoundingBox_getCorners(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", false, &param1Valid);
+				egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
@@ -534,7 +536,7 @@ int lua_BoundingBox_max(lua_State* state)
     {
         // Get parameter 2 off the stack.
         bool param2Valid;
-        egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param2Valid);
+		egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
         if (!param2Valid)
         {
             lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
@@ -546,7 +548,9 @@ int lua_BoundingBox_max(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->max);
+        //void* returnPtr = (void*)new Vector3(instance->max);
+		void *returnPtr = (void*)new kmVec3;
+		memcpy(returnPtr, &instance->max, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -638,7 +642,7 @@ int lua_BoundingBox_min(lua_State* state)
     {
         // Get parameter 2 off the stack.
         bool param2Valid;
-        egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param2Valid);
+		egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
         if (!param2Valid)
         {
             lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
@@ -650,7 +654,9 @@ int lua_BoundingBox_min(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->min);
+        //void* returnPtr = (void*)new Vector3(instance->min);
+		void *returnPtr = (void*)new kmVec3;
+		memcpy(returnPtr, &instance->min, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -728,13 +734,13 @@ int lua_BoundingBox_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -852,7 +858,7 @@ int lua_BoundingBox_transform(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Matrix> param1 = egret::ScriptUtil::getObjectPointer<Matrix>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");

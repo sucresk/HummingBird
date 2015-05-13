@@ -1000,7 +1000,7 @@ int lua_Mesh_static_createLines(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(1, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", false, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
@@ -1158,25 +1158,25 @@ int lua_Mesh_static_createQuad(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param4 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param4 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param4Valid);
                     if (!param4Valid)
                         break;
 

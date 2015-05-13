@@ -152,7 +152,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -188,7 +188,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param4 = egret::ScriptUtil::getObjectPointer<Vector4>(5, "Vector4", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param4 = egret::ScriptUtil::getObjectPointer<kmVec4>(5, "kmVec4", true, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -218,7 +218,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -258,7 +258,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param4 = egret::ScriptUtil::getObjectPointer<Vector4>(5, "Vector4", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param4 = egret::ScriptUtil::getObjectPointer<kmVec4>(5, "kmVec4", true, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -292,7 +292,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -336,7 +336,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param4 = egret::ScriptUtil::getObjectPointer<Vector4>(5, "Vector4", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param4 = egret::ScriptUtil::getObjectPointer<kmVec4>(5, "kmVec4", true, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -374,7 +374,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -461,7 +461,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -556,7 +556,7 @@ int lua_Font_drawText(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param3 = egret::ScriptUtil::getObjectPointer<Vector4>(4, "Vector4", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param3 = egret::ScriptUtil::getObjectPointer<kmVec4>(4, "kmVec4", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -788,7 +788,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", true, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", true, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -797,7 +797,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param5 = egret::ScriptUtil::getObjectPointer<Vector2>(6, "Vector2", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "Vector2", false, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Vector2'.");
@@ -844,7 +844,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", true, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", true, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -853,7 +853,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param5 = egret::ScriptUtil::getObjectPointer<Vector2>(6, "Vector2", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "Vector2", false, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Vector2'.");
@@ -904,7 +904,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", true, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", true, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -913,7 +913,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param5 = egret::ScriptUtil::getObjectPointer<Vector2>(6, "Vector2", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "Vector2", false, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Vector2'.");
@@ -968,7 +968,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", true, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", true, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -977,7 +977,7 @@ int lua_Font_getIndexAtLocation(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param5 = egret::ScriptUtil::getObjectPointer<Vector2>(6, "Vector2", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "Vector2", false, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Vector2'.");
@@ -1050,7 +1050,7 @@ int lua_Font_getLocationAtIndex(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", false, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -1097,7 +1097,7 @@ int lua_Font_getLocationAtIndex(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", false, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -1148,7 +1148,7 @@ int lua_Font_getLocationAtIndex(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", false, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
@@ -1203,7 +1203,7 @@ int lua_Font_getLocationAtIndex(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param4 = egret::ScriptUtil::getObjectPointer<Vector2>(5, "Vector2", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(5, "Vector2", false, &param4Valid);
                 if (!param4Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");

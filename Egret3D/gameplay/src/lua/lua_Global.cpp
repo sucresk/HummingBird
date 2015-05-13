@@ -783,7 +783,7 @@ void luaRegister_lua_Global()
         egret::ScriptUtil::registerEnumValue(Properties::NUMBER, "NUMBER", scopePath);
         egret::ScriptUtil::registerEnumValue(Properties::VECTOR2, "VECTOR2", scopePath);
         egret::ScriptUtil::registerEnumValue(Properties::VECTOR3, "VECTOR3", scopePath);
-        egret::ScriptUtil::registerEnumValue(Properties::VECTOR4, "VECTOR4", scopePath);
+        egret::ScriptUtil::registerEnumValue(Properties::VECTOR4, "kmVec4", scopePath);
         egret::ScriptUtil::registerEnumValue(Properties::MATRIX, "MATRIX", scopePath);
     }
 

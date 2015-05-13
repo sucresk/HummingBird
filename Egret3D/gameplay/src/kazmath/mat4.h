@@ -79,6 +79,8 @@ extern kmMat4 matIdentity;
  kmMat4* kmMat4RotateQuaternion(kmMat4* pOut, kmMat4* pIn, const struct kmQuaternion* pQua );
  kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const struct kmVec3* objpos, const struct kmVec3* campos, const struct kmVec3* camUp, const struct kmVec3* camForward);
  kmMat4* kmMat4CreatLookAt(kmMat4* pOut, const struct kmVec3* eyepos, const struct kmVec3* targetpos, const struct kmVec3* up);
+ kmMat4* kmMat4AddMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2);
+ kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scale);
 
 #ifdef __cplusplus
 }

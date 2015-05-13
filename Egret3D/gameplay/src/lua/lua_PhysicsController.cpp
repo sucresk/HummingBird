@@ -427,13 +427,13 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -478,13 +478,13 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -536,13 +536,13 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -554,7 +554,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param5 = egret::ScriptUtil::getObjectPointer<Quaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -601,13 +601,13 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -619,13 +619,13 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param5 = egret::ScriptUtil::getObjectPointer<Quaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
                     // Get parameter 6 off the stack.
                     bool param6Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param6 = egret::ScriptUtil::getObjectPointer<Vector3>(7, "Vector3", true, &param6Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param6 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param6Valid);
                     if (!param6Valid)
                         break;
 
@@ -688,7 +688,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
@@ -697,7 +697,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                 if (!param3Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector3'.");
@@ -745,7 +745,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
@@ -754,7 +754,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                 if (!param3Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector3'.");
@@ -812,7 +812,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
@@ -821,7 +821,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                 if (!param3Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector3'.");
@@ -839,7 +839,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param5 = egret::ScriptUtil::getObjectPointer<Quaternion>(6, "Quaternion", true, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Quaternion'.");
@@ -889,7 +889,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
@@ -898,7 +898,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                 if (!param3Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector3'.");
@@ -916,7 +916,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Quaternion> param5 = egret::ScriptUtil::getObjectPointer<Quaternion>(6, "Quaternion", true, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Quaternion'.");
@@ -925,7 +925,7 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 6 off the stack.
                 bool param6Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param6 = egret::ScriptUtil::getObjectPointer<Vector3>(7, "Vector3", true, &param6Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param6 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param6Valid);
                 if (!param6Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 6 to type 'Vector3'.");
@@ -1061,7 +1061,7 @@ int lua_PhysicsController_createSocketConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1105,7 +1105,7 @@ int lua_PhysicsController_createSocketConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1156,7 +1156,7 @@ int lua_PhysicsController_createSocketConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1168,7 +1168,7 @@ int lua_PhysicsController_createSocketConstraint(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param4 = egret::ScriptUtil::getObjectPointer<Vector3>(5, "Vector3", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param4 = egret::ScriptUtil::getObjectPointer<kmVec3>(5, "Vector3", true, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -1276,13 +1276,13 @@ int lua_PhysicsController_createSpringConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param2 = egret::ScriptUtil::getObjectPointer<Quaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -1294,13 +1294,13 @@ int lua_PhysicsController_createSpringConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<Quaternion> param5 = egret::ScriptUtil::getObjectPointer<Quaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
                     // Get parameter 6 off the stack.
                     bool param6Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param6 = egret::ScriptUtil::getObjectPointer<Vector3>(7, "Vector3", true, &param6Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param6 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param6Valid);
                     if (!param6Valid)
                         break;
 
@@ -1352,7 +1352,7 @@ int lua_PhysicsController_drawDebug(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Matrix> param1 = egret::ScriptUtil::getObjectPointer<Matrix>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
@@ -1852,7 +1852,7 @@ int lua_PhysicsController_setGravity(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param1 = egret::ScriptUtil::getObjectPointer<Vector3>(2, "Vector3", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
@@ -1904,7 +1904,7 @@ int lua_PhysicsController_sweepTest(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
@@ -1942,7 +1942,7 @@ int lua_PhysicsController_sweepTest(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
@@ -1990,7 +1990,7 @@ int lua_PhysicsController_sweepTest(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");

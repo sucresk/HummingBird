@@ -858,13 +858,13 @@ int lua_Camera_project(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector2> param3 = egret::ScriptUtil::getObjectPointer<Vector2>(4, "Vector2", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -890,13 +890,13 @@ int lua_Camera_project(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param2 = egret::ScriptUtil::getObjectPointer<Vector3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<Vector3> param3 = egret::ScriptUtil::getObjectPointer<Vector3>(4, "Vector3", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -1186,7 +1186,7 @@ int lua_Camera_setProjectionMatrix(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Matrix> param1 = egret::ScriptUtil::getObjectPointer<Matrix>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
                 if (!param1Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
@@ -1494,7 +1494,7 @@ int lua_Camera_unproject(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<Vector3> param5 = egret::ScriptUtil::getObjectPointer<Vector3>(6, "Vector3", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param5 = egret::ScriptUtil::getObjectPointer<kmVec3>(6, "Vector3", false, &param5Valid);
                 if (!param5Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 5 to type 'Vector3'.");

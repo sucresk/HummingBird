@@ -208,7 +208,7 @@ int lua_Gamepad_getJoystickValues(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector2> param2 = egret::ScriptUtil::getObjectPointer<Vector2>(3, "Vector2", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", false, &param2Valid);
                 if (!param2Valid)
                 {
                     lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");

@@ -231,7 +231,7 @@ int lua_Game_clear(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<Vector4> param2 = egret::ScriptUtil::getObjectPointer<Vector4>(3, "Vector4", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec4> param2 = egret::ScriptUtil::getObjectPointer<kmVec4>(3, "kmVec4", true, &param2Valid);
                     if (!param2Valid)
                         break;
 

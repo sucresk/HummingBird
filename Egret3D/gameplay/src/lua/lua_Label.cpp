@@ -1356,7 +1356,7 @@ int lua_Label_getCursorColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -1739,7 +1739,7 @@ int lua_Label_getImageColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2158,7 +2158,7 @@ int lua_Label_getSkinColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2188,7 +2188,7 @@ int lua_Label_getSkinColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2476,7 +2476,7 @@ int lua_Label_getTextColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2506,7 +2506,7 @@ int lua_Label_getTextColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector4");
+                    luaL_getmetatable(state, "kmVec4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -3829,10 +3829,10 @@ int lua_Label_setCursorColor(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param1 = egret::ScriptUtil::getObjectPointer<Vector4>(2, "Vector4", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param1 = egret::ScriptUtil::getObjectPointer<kmVec4>(2, "kmVec4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4253,10 +4253,10 @@ int lua_Label_setImageColor(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param2 = egret::ScriptUtil::getObjectPointer<Vector4>(3, "Vector4", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param2 = egret::ScriptUtil::getObjectPointer<kmVec4>(3, "kmVec4", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4282,10 +4282,10 @@ int lua_Label_setImageColor(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param2 = egret::ScriptUtil::getObjectPointer<Vector4>(3, "Vector4", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param2 = egret::ScriptUtil::getObjectPointer<kmVec4>(3, "kmVec4", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4639,10 +4639,10 @@ int lua_Label_setSkinColor(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param1 = egret::ScriptUtil::getObjectPointer<Vector4>(2, "Vector4", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param1 = egret::ScriptUtil::getObjectPointer<kmVec4>(2, "kmVec4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4664,10 +4664,10 @@ int lua_Label_setSkinColor(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param1 = egret::ScriptUtil::getObjectPointer<Vector4>(2, "Vector4", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param1 = egret::ScriptUtil::getObjectPointer<kmVec4>(2, "kmVec4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4915,10 +4915,10 @@ int lua_Label_setTextColor(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param1 = egret::ScriptUtil::getObjectPointer<Vector4>(2, "Vector4", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param1 = egret::ScriptUtil::getObjectPointer<kmVec4>(2, "kmVec4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
@@ -4940,10 +4940,10 @@ int lua_Label_setTextColor(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<Vector4> param1 = egret::ScriptUtil::getObjectPointer<Vector4>(2, "Vector4", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec4> param1 = egret::ScriptUtil::getObjectPointer<kmVec4>(2, "kmVec4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector4'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec4'.");
                     lua_error(state);
                 }
 
