@@ -14,7 +14,7 @@ SceneLoadSample::SceneLoadSample()
 void SceneLoadSample::initialize()
 {
     // Create the font for drawing the framerate.
-    _font = Font::create("res/ui/arial.gpb");
+    //_font = Font::create("res/ui/arial.gpb");
 
     _scene = Scene::load("res/common/sample.scene");
 
@@ -63,7 +63,7 @@ void SceneLoadSample::render(float elapsedTime)
     // Visit all the nodes in the scene, drawing the models/mesh.
     _scene->visit(this, &SceneLoadSample::drawScene);
 
-	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
+	//drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 }
 
 void SceneLoadSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)

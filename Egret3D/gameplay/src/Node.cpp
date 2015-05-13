@@ -28,6 +28,7 @@ Node::Node(const char* id)
     _drawable(NULL), _camera(NULL), _light(NULL), _audioSource(NULL), _collisionObject(NULL), _agent(NULL), _userObject(NULL),
       _dirtyBits(NODE_DIRTY_ALL)
 {
+	kmMat4Identity(&_world);
     GP_REGISTER_SCRIPT_EVENTS();
     if (id)
     {

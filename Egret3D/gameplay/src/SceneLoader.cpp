@@ -416,27 +416,28 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
         // Handle simple types (scale, rotate, translate, script, etc)
         switch (snp._type)
         {
-        case SceneNodeProperty::TRANSLATE:
-        {
-            kmVec3 t;
-            if (Properties::parseVector3(snp._value.c_str(), &t))
-                node->translate(t);
-            break;
-        }
-        case SceneNodeProperty::ROTATE:
-        {
-            kmQuaternion r;
-            if (Properties::parseAxisAngle(snp._value.c_str(), &r))
-                node->rotate(r);
-            break;
-        }
-        case SceneNodeProperty::SCALE:
-        {
-            kmVec3 s;
-            if (Properties::parseVector3(snp._value.c_str(), &s))
-                node->scale(s);
-            break;
-        }
+		case SceneNodeProperty::TRANSLATE:
+		{
+			kmVec3 t;
+			if (Properties::parseVector3(snp._value.c_str(), &t))
+				node->translate(t);
+			break;
+		}
+		case SceneNodeProperty::ROTATE:
+		{
+			kmQuaternion r;
+			if (Properties::parseAxisAngle(snp._value.c_str(), &r))
+				node->rotate(r);
+			break;
+		}
+		case SceneNodeProperty::SCALE:
+		{
+			kmVec3 s;
+			if (Properties::parseVector3(snp._value.c_str(), &s))
+				node->scale(s);
+			break;
+		}
+
         case SceneNodeProperty::SCRIPT:
             node->addScript(snp._value.c_str());
             break;
@@ -444,7 +445,7 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
             node->setEnabled(snp._value.compare("true") == 0);
             break;
         default:
-            GP_ERROR("Unsupported node property type (%d).", snp._type);
+            //GP_ERROR("Unsupported node property type (%d).", snp._type);
             break;
         }
     }
