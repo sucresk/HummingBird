@@ -41,46 +41,46 @@ void TerrainSample::initialize()
 {
     // Load scene
 	_scene = Scene::load("res/common/terrain/sample.scene");
-	//_terrain = dynamic_cast<Terrain*>(_scene->findNode("terrain")->getDrawable());
-    //_sky = _scene->findNode("sky");
-    //_sky->setTag("lighting", "none");
+	_terrain = dynamic_cast<Terrain*>(_scene->findNode("terrain")->getDrawable());
+    _sky = _scene->findNode("sky");
+    _sky->setTag("lighting", "none");
 
-    //// Load shapes
-    //Bundle* bundle;
-    //bundle = Bundle::create("res/common/sphere.gpb");
-    //_sphere = bundle->loadNode("sphere");
-    //dynamic_cast<Model*>(_sphere->getDrawable())->setMaterial("res/common/terrain/shapes.material#sphere", 0);
-    //SAFE_RELEASE(bundle);
+    // Load shapes
+    Bundle* bundle;
+    bundle = Bundle::create("res/common/sphere.gpb");
+    _sphere = bundle->loadNode("sphere");
+    dynamic_cast<Model*>(_sphere->getDrawable())->setMaterial("res/common/terrain/shapes.material#sphere", 0);
+    SAFE_RELEASE(bundle);
 
-    //bundle = Bundle::create("res/common/box.gpb");
-    //_box = bundle->loadNode("box");
-    //dynamic_cast<Model*>(_box->getDrawable())->setMaterial("res/common/terrain/shapes.material#box", 0);
-    //SAFE_RELEASE(bundle);
+    bundle = Bundle::create("res/common/box.gpb");
+    _box = bundle->loadNode("box");
+    dynamic_cast<Model*>(_box->getDrawable())->setMaterial("res/common/terrain/shapes.material#box", 0);
+    SAFE_RELEASE(bundle);
 
- //   // Load font
-	//_font = Font::create("res/ui/arial.gpb");
+    // Load font
+	_font = Font::create("res/ui/arial.gpb");
 
- //   // Setup form
- //   _form = Form::create("res/common/terrain/terrain.form");
- //   _form->getControl("plusButton")->addListener(this, Control::Listener::CLICK);
- //   _form->getControl("minusButton")->addListener(this, Control::Listener::CLICK);
- //   _form->getControl("wireframe")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("patches")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("physics")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("lod")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("culling")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("snapToGround")->addListener(this, Control::Listener::VALUE_CHANGED);
- //   _form->getControl("dropSphere")->addListener(this, Control::Listener::CLICK);
- //   _form->getControl("dropBox")->addListener(this, Control::Listener::CLICK);
- //   _form->getControl("clearAll")->addListener(this, Control::Listener::CLICK);
- //   Control* main = _form->getControl("main");
-	//_formSize = { main->getWidth(), main->getHeight() };
+    // Setup form
+    _form = Form::create("res/common/terrain/terrain.form");
+    _form->getControl("plusButton")->addListener(this, Control::Listener::CLICK);
+    _form->getControl("minusButton")->addListener(this, Control::Listener::CLICK);
+    _form->getControl("wireframe")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("patches")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("physics")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("lod")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("culling")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("snapToGround")->addListener(this, Control::Listener::VALUE_CHANGED);
+    _form->getControl("dropSphere")->addListener(this, Control::Listener::CLICK);
+    _form->getControl("dropBox")->addListener(this, Control::Listener::CLICK);
+    _form->getControl("clearAll")->addListener(this, Control::Listener::CLICK);
+    Control* main = _form->getControl("main");
+	_formSize = { main->getWidth(), main->getHeight() };
 
     // Use script camera for navigation
-	//enableScriptCamera(true);
-    //setScriptCameraSpeed(20, 80);
+	enableScriptCamera(true);
+    setScriptCameraSpeed(20, 80);
 
-    //_directionalLight = _scene->findNode("directionalLight")->getLight();
+    _directionalLight = _scene->findNode("directionalLight")->getLight();
 }
 
 void TerrainSample::finalize()
@@ -96,21 +96,21 @@ void TerrainSample::update(float elapsedTime)
 {
     Node* camera = _scene->getActiveCamera()->getNode();
 
-	//if (_snapToGround)
-	//{
-	//	// Get current camera location in world coords
-	//	kmVec3 pos = camera->getTranslationWorld();
+	if (_snapToGround)
+	{
+		// Get current camera location in world coords
+		kmVec3 pos = camera->getTranslationWorld();
 
-	//	// Query the height of our terrain at this location
-	//	float height = _terrain->getHeight(pos.x, pos.z);
+		// Query the height of our terrain at this location
+		float height = _terrain->getHeight(pos.x, pos.z);
 
-	//	// Snap our camera to the ground
-	//	camera->setTranslationY(height + 10);
-	//}
+		// Snap our camera to the ground
+		camera->setTranslationY(height + 10);
+	}
 
     // Keep the sky centered around the viewer
-    //_sky->setTranslationX(camera->getTranslationX());
-    //_sky->setTranslationZ(camera->getTranslationZ());
+    _sky->setTranslationX(camera->getTranslationX());
+    _sky->setTranslationZ(camera->getTranslationZ());
 
     // Prune dropped physics shapes that fall off the terrain
     for (std::list<Node*>::iterator itr = _shapes.begin(); itr != _shapes.end(); )
@@ -142,15 +142,15 @@ void TerrainSample::render(float elapsedTime)
         Game::getInstance()->getPhysicsController()->drawDebug(_scene->getActiveCamera()->getViewProjectionMatrix());
 
     // Draw form
-    //_form->draw();
+    _form->draw();
 
     // Draw text
-    //char buffer[1024];
-    //sprintf(buffer, "FPS: %d", getFrameRate());
-    //_font->start();
-    //_font->drawText(buffer, 65, 18, vec4One, 30);
+    char buffer[1024];
+    sprintf(buffer, "FPS: %d", getFrameRate());
+    _font->start();
+    _font->drawText(buffer, 65, 18, vec4One, 30);
 
-    //_font->finish();
+    _font->finish();
 }
 
 bool TerrainSample::drawScene(Node* node)
@@ -369,14 +369,14 @@ void TerrainSample::setMessage(const char* message)
 
 kmVec3 TerrainSample::getLightDirection0() const
 {
-    //return _directionalLight->getNode()->getForwardVectorView();
-	return vec3Zero;
+    return _directionalLight->getNode()->getForwardVectorView();
+	//return vec3Zero;
 }
 
 kmVec3 TerrainSample::getLightColor0() const
 {
-    //return _directionalLight->getColor();
-	return vec3Zero;
+    return _directionalLight->getColor();
+	//return vec3Zero;
 }
 
 bool TerrainSample::resolveAutoBinding(const char* autoBinding, Node* node, MaterialParameter* parameter)

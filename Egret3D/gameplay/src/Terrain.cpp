@@ -209,7 +209,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         return NULL;
     }
 
-	if (kmVec3Zero( &terrainSize ))
+	if (kmVec3IsZero(&terrainSize))
     {
         //terrainSize.set(heightfield->getColumnCount(), getDefaultHeight(heightfield->getColumnCount(), heightfield->getRowCount()), heightfield->getRowCount());
 		kmVec3Fill(&terrainSize, heightfield->getColumnCount(), getDefaultHeight(heightfield->getColumnCount(), heightfield->getRowCount()), heightfield->getRowCount());
