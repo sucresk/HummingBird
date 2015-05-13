@@ -170,7 +170,9 @@ int lua_PhysicsControllerHitResult_normal(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->normal);
+        //void* returnPtr = (void*)new Vector3(instance->normal);
+		kmVec3* returnPtr = new kmVec3;
+		memcpy(returnPtr, &instance->normal, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -258,7 +260,9 @@ int lua_PhysicsControllerHitResult_point(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->point);
+        //void* returnPtr = (void*)new Vector3(instance->point);
+		kmVec3* returnPtr = new kmVec3;
+		memcpy(returnPtr, &instance->point, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
