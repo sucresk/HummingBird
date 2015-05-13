@@ -214,7 +214,10 @@ int lua_PhysicsSocketConstraint_static_centerOfMassMidpoint(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Vector3(PhysicsSocketConstraint::centerOfMassMidpoint(param1, param2));
+                //void* returnPtr = (void*)new Vector3(PhysicsSocketConstraint::centerOfMassMidpoint(param1, param2));
+				kmVec3* returnPtr = new kmVec3;
+				kmVec3 temp = PhysicsSocketConstraint::centerOfMassMidpoint(param1, param2);
+				memcpy(returnPtr, &temp, sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -276,7 +279,10 @@ int lua_PhysicsSocketConstraint_static_getRotationOffset(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Quaternion(PhysicsSocketConstraint::getRotationOffset(param1, *param2));
+                //void* returnPtr = (void*)new Quaternion(PhysicsSocketConstraint::getRotationOffset(param1, *param2));
+				kmQuaternion* returnPtr = new kmQuaternion;
+				kmQuaternion temp;
+				memcpy(returnPtr, &temp, sizeof(float) * 4);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -338,7 +344,10 @@ int lua_PhysicsSocketConstraint_static_getTranslationOffset(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Vector3(PhysicsSocketConstraint::getTranslationOffset(param1, *param2));
+                //void* returnPtr = (void*)new Vector3(PhysicsSocketConstraint::getTranslationOffset(param1, *param2));
+				kmVec3* returnPtr = new kmVec3;
+				kmVec3 temp = PhysicsSocketConstraint::getTranslationOffset(param1, *param2);
+				memcpy(returnPtr, &temp, sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));

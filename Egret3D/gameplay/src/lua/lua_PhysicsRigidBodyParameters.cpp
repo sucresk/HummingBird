@@ -625,7 +625,9 @@ int lua_PhysicsRigidBodyParameters_angularFactor(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->angularFactor);
+        //void* returnPtr = (void*)new Vector3(instance->angularFactor);
+		kmVec3* returnPtr = new kmVec3;
+		memcpy(returnPtr, &instance->angularFactor, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -669,7 +671,9 @@ int lua_PhysicsRigidBodyParameters_anisotropicFriction(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->anisotropicFriction);
+        //void* returnPtr = (void*)new Vector3(instance->anisotropicFriction);
+		kmVec3* returnPtr = new kmVec3;
+		memcpy(returnPtr, &instance->anisotropicFriction, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -800,7 +804,9 @@ int lua_PhysicsRigidBodyParameters_linearFactor(lua_State* state)
     }
     else
     {
-        void* returnPtr = (void*)new Vector3(instance->linearFactor);
+        //void* returnPtr = (void*)new Vector3(instance->linearFactor);
+		kmVec3* returnPtr = new kmVec3;
+		memcpy(returnPtr, &instance->linearFactor, sizeof(float) * 3);
         if (returnPtr)
         {
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
