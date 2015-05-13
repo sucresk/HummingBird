@@ -738,7 +738,10 @@ int lua_PhysicsGenericConstraint_static_centerOfMassMidpoint(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Vector3(PhysicsGenericConstraint::centerOfMassMidpoint(param1, param2));
+                //void* returnPtr = (void*)new Vector3(PhysicsGenericConstraint::centerOfMassMidpoint(param1, param2));
+				kmVec3* returnPtr = new kmVec3;
+				kmVec3 temp = PhysicsGenericConstraint::centerOfMassMidpoint(param1, param2);
+				memcpy(returnPtr, &temp, sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -800,7 +803,10 @@ int lua_PhysicsGenericConstraint_static_getRotationOffset(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Quaternion(PhysicsGenericConstraint::getRotationOffset(param1, *param2));
+                //void* returnPtr = (void*)new Quaternion(PhysicsGenericConstraint::getRotationOffset(param1, *param2));
+				kmQuaternion* returnPtr = new kmQuaternion;
+				kmQuaternion temp = PhysicsGenericConstraint::getRotationOffset(param1, *param2);
+				memcpy(returnPtr, &temp, sizeof(float) * 4);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -862,7 +868,10 @@ int lua_PhysicsGenericConstraint_static_getTranslationOffset(lua_State* state)
                     lua_error(state);
                 }
 
-                void* returnPtr = (void*)new Vector3(PhysicsGenericConstraint::getTranslationOffset(param1, *param2));
+                //void* returnPtr = (void*)new Vector3(PhysicsGenericConstraint::getTranslationOffset(param1, *param2));
+				kmVec3* returnPtr = new kmVec3;
+				kmVec3 temp = PhysicsGenericConstraint::getTranslationOffset(param1, *param2);
+				memcpy(returnPtr, &temp, sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
