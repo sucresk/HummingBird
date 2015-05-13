@@ -186,6 +186,6 @@ void kmGLRotatef(float angle, float x, float y, float z)
 void kmGLScalef(float x, float y, float z)
 {
     kmMat4 scaling;
-    kmMat4Scaling(&scaling, x, y, z);
+    kmMat4CreateScalNum(&scaling, x, y, z);
     kmMat4Multiply(current_stack->top, current_stack->top, &scaling);
 }

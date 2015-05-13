@@ -77,7 +77,7 @@ int lua_Vector4__gc(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)userdata;
                 if (object->owns)
                 {
-                    Vector4* instance = (Vector4*)object->instance;
+                    kmVec4* instance = (kmVec4*)object->instance;
                     SAFE_DELETE(instance);
                 }
                 
@@ -108,7 +108,9 @@ int lua_Vector4__init(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = ((void*)new Vector4());
+            //void* returnPtr = ((void*)new Vector4());
+			void* returnPtr = (void*)new kmVec4;
+			memset(returnPtr, 0, sizeof(float) * 4);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -134,7 +136,9 @@ int lua_Vector4__init(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(1);
 
-                    void* returnPtr = ((void*)new Vector4(param1));
+                    //void* returnPtr = ((void*)new Vector4(param1));
+					void* returnPtr = (void*)new kmVec4;
+					memcpy(returnPtr, param1, sizeof(float) * 4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -162,7 +166,9 @@ int lua_Vector4__init(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Vector4(*param1));
+                    //void* returnPtr = ((void*)new Vector4(*param1));
+					void* returnPtr = (void*)new kmVec4;
+					memcpy(returnPtr, param1, sizeof(float) * 4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -203,7 +209,9 @@ int lua_Vector4__init(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Vector4(*param1, *param2));
+                    //void* returnPtr = ((void*)new Vector4(*param1, *param2));
+					void* returnPtr = (void*)new kmVec4;
+					kmVec4Subtract((kmVec4*)returnPtr, param2, param1);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -246,7 +254,9 @@ int lua_Vector4__init(lua_State* state)
                     // Get parameter 4 off the stack.
                     float param4 = (float)luaL_checknumber(state, 4);
 
-                    void* returnPtr = ((void*)new Vector4(param1, param2, param3, param4));
+                    //void* returnPtr = ((void*)new Vector4(param1, param2, param3, param4));
+					kmVec4 *returnPtr = new kmVec4;
+					kmVec4Fill(returnPtr, param1, param2, param3, param4);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -300,8 +310,9 @@ int lua_Vector4_add(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
-                instance->add(*param1);
+                kmVec4* instance = getInstance(state);
+                //instance->add(*param1);
+				kmVec4Add(instance, instance, param1);
                 
                 return 0;
             }
@@ -352,8 +363,9 @@ int lua_Vector4_clamp(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
+                kmVec4* instance = getInstance(state);
                 instance->clamp(*param1, *param2);
+				
                 
                 return 0;
             }

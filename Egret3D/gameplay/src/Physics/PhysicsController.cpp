@@ -1149,7 +1149,7 @@ PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const kmVec3& s
     // Copy the scaled vertex position data to the rigid body's local buffer.
     kmMat4 m;
     //Matrix::createScale(scale, &m);
-	kmMat4Scaling(&m, scale.x, scale.y, scale.z);
+	kmMat4CreateScalNum(&m, scale.x, scale.y, scale.z);
     unsigned int vertexCount = data->vertexCount;
     shapeMeshData->vertexData = new float[vertexCount * 3];
     kmVec3 v;

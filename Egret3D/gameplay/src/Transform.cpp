@@ -150,7 +150,7 @@ const kmMat4& Transform::getMatrix() const
             else if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
             {
                 //Matrix::createScale(_scale, &_matrix);
-				kmMat4Scaling(&_matrix, _scale.x, _scale.y, _scale.z);
+				kmMat4CreateScalNum(&_matrix, _scale.x, _scale.y, _scale.z);
             }
         }
 

@@ -340,8 +340,7 @@ int lua_Matrix_add(lua_State* state)
 
                     kmMat4* instance = getInstance(state);
                     //instance->add(param1);
-					kmMat4AddScalar( instance, instance, param1 )
-                    
+					kmMat4AddScalar(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -386,9 +385,9 @@ int lua_Matrix_add(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->add(param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->add(param1, param2);
+					kmMat4AddScalar(param2, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -449,9 +448,9 @@ int lua_Matrix_decompose(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                bool result = instance->decompose(param1, param2, param3);
-
+                kmMat4* instance = getInstance(state);
+                //bool result = instance->decompose(param1, param2, param3);
+				bool result = kmMat4Decompose(instance, param1, param2, param3);
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
 
@@ -484,8 +483,9 @@ int lua_Matrix_determinant(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Matrix* instance = getInstance(state);
-                float result = instance->determinant();
+                kmMat4* instance = getInstance(state);
+                //float result = instance->determinant();
+				float result = kmMat4Determinant(instance);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -529,8 +529,9 @@ int lua_Matrix_getBackVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getBackVector(param1);
+                kmMat4* instance = getInstance(state);
+                //instance->getBackVector(param1);
+				kmMat4GetBack(param1, instance);
                 
                 return 0;
             }
@@ -571,8 +572,9 @@ int lua_Matrix_getDownVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getDownVector(param1);
+                kmMat4* instance = getInstance(state);
+                //instance->getDownVector(param1);
+				kmMat4GetDown(param1, instance);
                 
                 return 0;
             }
@@ -613,9 +615,9 @@ int lua_Matrix_getForwardVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getForwardVector(param1);
-                
+                kmMat4* instance = getInstance(state);
+                //instance->getForwardVector(param1);
+				kmMat4GetForwrad(param1, instance);
                 return 0;
             }
 
@@ -655,8 +657,9 @@ int lua_Matrix_getLeftVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getLeftVector(param1);
+                kmMat4* instance = getInstance(state);
+                //instance->getLeftVector(param1);
+				kmMat4GetLeft(param1, instance);
                 
                 return 0;
             }
@@ -697,9 +700,9 @@ int lua_Matrix_getRightVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getRightVector(param1);
-                
+                kmMat4* instance = getInstance(state);
+                //instance->getRightVector(param1);
+				kmMat4GetRight(param1, instance);
                 return 0;
             }
 
@@ -739,8 +742,9 @@ int lua_Matrix_getRotation(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                bool result = instance->getRotation(param1);
+                kmMat4* instance = getInstance(state);
+                //bool result = instance->getRotation(param1);
+				bool result = kmMat4Decompose(instance, NULL, param1, NULL);
 
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
@@ -784,8 +788,9 @@ int lua_Matrix_getScale(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getScale(param1);
+                kmMat4* instance = getInstance(state);
+                //instance->getScale(param1);
+				kmMat4Decompose(instance, param1, NULL, NULL);
                 
                 return 0;
             }
@@ -826,8 +831,9 @@ int lua_Matrix_getTranslation(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getTranslation(param1);
+                kmMat4* instance = getInstance(state);
+                //instance->getTranslation(param1);
+				kmMat4Decompose(instance, NULL, NULL, param1);
                 
                 return 0;
             }
@@ -868,9 +874,10 @@ int lua_Matrix_getUpVector(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->getUpVector(param1);
-                
+                kmMat4* instance = getInstance(state);
+                //instance->getUpVector(param1);
+				kmMat4GetUp(param1, instance);
+
                 return 0;
             }
 
@@ -902,8 +909,9 @@ int lua_Matrix_invert(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Matrix* instance = getInstance(state);
-                    bool result = instance->invert();
+                    kmMat4* instance = getInstance(state);
+                    //bool result = instance->invert();
+					bool result = kmMat4Invert(instance, instance) != NULL;
 
                     // Push the return value onto the stack.
                     lua_pushboolean(state, result);
@@ -929,9 +937,9 @@ int lua_Matrix_invert(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    bool result = instance->invert(param1);
-
+                    kmMat4* instance = getInstance(state);
+                    //bool result = instance->invert(param1);
+					bool result = kmMat4Invert(param1, instance) != NULL;
                     // Push the return value onto the stack.
                     lua_pushboolean(state, result);
 
@@ -965,9 +973,9 @@ int lua_Matrix_isIdentity(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Matrix* instance = getInstance(state);
-                bool result = instance->isIdentity();
-
+                kmMat4* instance = getInstance(state);
+                //bool result = instance->isIdentity();
+				bool result = kmMat4IsIdentity(instance);
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
 
@@ -997,18 +1005,18 @@ int lua_Matrix_m(lua_State* state)
         lua_error(state);
     }
 
-    Matrix* instance = getInstance(state);
+    kmMat4* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
         egret::ScriptUtil::LuaArray<float> param2 = egret::ScriptUtil::getFloatPointer(2);
 
-        memcpy(instance->m, param2, sizeof(float) * 16);
+        memcpy(instance->mat, param2, sizeof(float) * 16);
         return 0;
     }
     else
     {
-        float* result = instance->m;
+        float* result = instance->mat;
 
         // Push the return value onto the stack.
         lua_pushlightuserdata(state, result);
@@ -1034,9 +1042,9 @@ int lua_Matrix_multiply(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->multiply(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->multiply(param1);
+					kmMat4MultiplyScaler(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1052,8 +1060,9 @@ int lua_Matrix_multiply(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->multiply(*param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->multiply(*param1);
+					kmMat4Multiply(instance, instance, param1);
                     
                     return 0;
                 }
@@ -1080,9 +1089,9 @@ int lua_Matrix_multiply(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->multiply(param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->multiply(param1, param2);
+					kmMat4MultiplyScaler(param2, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1115,8 +1124,9 @@ int lua_Matrix_negate(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Matrix* instance = getInstance(state);
-                    instance->negate();
+                    kmMat4* instance = getInstance(state);
+                    //instance->negate();
+					kmMat4Negate(instance, instance);
                     
                     return 0;
                 }
@@ -1139,9 +1149,9 @@ int lua_Matrix_negate(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->negate(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->negate(param1);
+					kmMat4Negate(instance, instance);
                     return 0;
                 }
             } while (0);
@@ -1181,9 +1191,9 @@ int lua_Matrix_rotate(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotate(*param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotate(*param1);
+					kmMat4RotateQuaternion(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1212,9 +1222,9 @@ int lua_Matrix_rotate(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotate(*param1, param2);
-                    
+					kmMat4* instance = getInstance(state);
+                    //instance->rotate(*param1, param2);
+					kmMat4RotateQuaternion(param2, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1234,8 +1244,9 @@ int lua_Matrix_rotate(lua_State* state)
                     // Get parameter 2 off the stack.
                     float param2 = (float)luaL_checknumber(state, 3);
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotate(*param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotate(*param1, param2);
+					kmMat4RotateVecScalar(instance, instance, param1, param2);
                     
                     return 0;
                 }
@@ -1269,8 +1280,9 @@ int lua_Matrix_rotate(lua_State* state)
                     if (!param3Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotate(*param1, param2, param3);
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotate(*param1, param2, param3);
+					kmMat4RotateVecScalar(param3, instance, param1, param2);
                     
                     return 0;
                 }
@@ -1308,8 +1320,9 @@ int lua_Matrix_rotateX(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateX(param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateX(param1);
+					kmMat4RotateX(instance, instance, param1);
                     
                     return 0;
                 }
@@ -1336,8 +1349,9 @@ int lua_Matrix_rotateX(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateX(param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateX(param1, param2);
+					kmMat4RotateX(param2, instance, param1);
                     
                     return 0;
                 }
@@ -1375,8 +1389,9 @@ int lua_Matrix_rotateY(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateY(param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateY(param1);
+					kmMat4RotateY(instance, instance, param1);
                     
                     return 0;
                 }
@@ -1403,9 +1418,9 @@ int lua_Matrix_rotateY(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateY(param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateY(param1, param2);
+					kmMat4RotateY(param2, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1442,9 +1457,9 @@ int lua_Matrix_rotateZ(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateZ(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateZ(param1);
+					kmMat4RotateZ(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1470,9 +1485,10 @@ int lua_Matrix_rotateZ(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->rotateZ(param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->rotateZ(param1, param2);
+					kmMat4RotateZ(param2, instance, param1);
+
                     return 0;
                 }
             } while (0);
@@ -1509,8 +1525,10 @@ int lua_Matrix_scale(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(param1);
+					kmVec3 temp = { param1, param1, param1 };
+					kmMat4Scal(instance, instance, &temp);
                     
                     return 0;
                 }
@@ -1527,9 +1545,9 @@ int lua_Matrix_scale(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(*param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(*param1);
+					kmMat4Scal(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1555,9 +1573,10 @@ int lua_Matrix_scale(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(param1, param2);
+					kmVec3 temp = { param1, param1, param1 };
+					kmMat4Scal(param2, instance, &temp );
                     return 0;
                 }
             } while (0);
@@ -1580,8 +1599,9 @@ int lua_Matrix_scale(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(*param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(*param1, param2);
+					kmMat4Scal(param2, instance, param1);
                     
                     return 0;
                 }
@@ -1609,8 +1629,10 @@ int lua_Matrix_scale(lua_State* state)
                     // Get parameter 3 off the stack.
                     float param3 = (float)luaL_checknumber(state, 4);
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(param1, param2, param3);
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(param1, param2, param3);
+					kmVec3 temp = { param1, param2, param3 };
+					kmMat4Scal(instance, instance, &temp);
                     
                     return 0;
                 }
@@ -1645,8 +1667,10 @@ int lua_Matrix_scale(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->scale(param1, param2, param3, param4);
+                    kmMat4* instance = getInstance(state);
+                    //instance->scale(param1, param2, param3, param4);
+					kmVec3 temp = { param1, param2, param3 };
+					kmMat4Scal(param4, instance, &temp);
                     
                     return 0;
                 }
@@ -1684,8 +1708,9 @@ int lua_Matrix_set(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(2);
 
-                    Matrix* instance = getInstance(state);
-                    instance->set(param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->set(param1);
+					memcpy(instance->mat, param1, sizeof(float) * 16);
                     
                     return 0;
                 }
@@ -1702,8 +1727,9 @@ int lua_Matrix_set(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->set(*param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->set(*param1);
+					memcpy(instance->mat, (*param1).mat, sizeof(float) * 16);
                     
                     return 0;
                 }
@@ -1783,9 +1809,15 @@ int lua_Matrix_set(lua_State* state)
                     // Get parameter 16 off the stack.
                     float param16 = (float)luaL_checknumber(state, 17);
 
-                    Matrix* instance = getInstance(state);
-                    instance->set(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15, param16);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->set(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15, param16);
+					float temp[] = {
+						param1, param2, param3, param4,
+						param5, param6, param7, param8,
+						param9, param10, param11, param12,
+						param13, param14, param15, param16
+					};
+					kmMat4Fill(instance, temp);
                     return 0;
                 }
             } while (0);
@@ -1816,8 +1848,9 @@ int lua_Matrix_setIdentity(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Matrix* instance = getInstance(state);
-                instance->setIdentity();
+                kmMat4* instance = getInstance(state);
+                //instance->setIdentity();
+				kmMat4Identity(instance);
                 
                 return 0;
             }
@@ -1848,9 +1881,9 @@ int lua_Matrix_setZero(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Matrix* instance = getInstance(state);
-                instance->setZero();
-                
+                kmMat4* instance = getInstance(state);
+                //instance->setZero();
+				memset(instance->mat, 0, MATRIX_SIZE);
                 return 0;
             }
 
@@ -1909,7 +1942,8 @@ int lua_Matrix_static_add(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::add(*param1, *param2, param3);
+                //Matrix::add(*param1, *param2, param3);
+				kmMat4AddMat(param3, param1, param2);
                 
                 return 0;
             }
@@ -1969,7 +2003,8 @@ int lua_Matrix_static_createBillboard(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix::createBillboard(*param1, *param2, *param3, param4);
+                    //Matrix::createBillboard(*param1, *param2, *param3, param4);
+					kmMat4CreateBillboard(param4, param1, param2, param3, NULL);
                     
                     return 0;
                 }
@@ -2019,8 +2054,8 @@ int lua_Matrix_static_createBillboard(lua_State* state)
                     if (!param5Valid)
                         break;
 
-                    Matrix::createBillboard(*param1, *param2, *param3, *param4, param5);
-                    
+                    //Matrix::createBillboard(*param1, *param2, *param3, *param4, param5);
+					kmMat4CreateBillboard(param5, param1, param2, param3, param4);
                     return 0;
                 }
             } while (0);
@@ -2080,8 +2115,8 @@ int lua_Matrix_static_createLookAt(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix::createLookAt(*param1, *param2, *param3, param4);
-                    
+                    //Matrix::createLookAt(*param1, *param2, *param3, param4);
+					kmMat4CreatLookAt(param4, param1, param2, param3);
                     return 0;
                 }
             } while (0);
@@ -2138,8 +2173,12 @@ int lua_Matrix_static_createLookAt(lua_State* state)
                     if (!param10Valid)
                         break;
 
-                    Matrix::createLookAt(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
-                    
+                    //Matrix::createLookAt(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+					kmVec3 eyepos = { param1, param2, param3 };
+					kmVec3 targetpos = { param4, param5, param6 };
+					kmVec3 up = { param7, param8, param9 };
+					kmMat4CreatLookAt(param10, &eyepos, &targetpos, &up);
+
                     return 0;
                 }
             } while (0);
@@ -2195,8 +2234,11 @@ int lua_Matrix_static_createOrthographic(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createOrthographic(param1, param2, param3, param4, param5);
-                
+                //Matrix::createOrthographic(param1, param2, param3, param4, param5);
+				float halfWidth = param1 / 2.0f;
+				float halfHeight = param2 / 2.0f;
+				kmMat4OrthographicProjection(param5, -halfWidth, halfWidth, -halfHeight, halfHeight, param3,
+					param4);
                 return 0;
             }
 
@@ -2259,8 +2301,9 @@ int lua_Matrix_static_createOrthographicOffCenter(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createOrthographicOffCenter(param1, param2, param3, param4, param5, param6, param7);
-                
+                //Matrix::createOrthographicOffCenter(param1, param2, param3, param4, param5, param6, param7);
+				kmMat4OrthographicProjection(param7, param1, param2, param3,
+					param4, param5, param6);
                 return 0;
             }
 
@@ -2315,8 +2358,8 @@ int lua_Matrix_static_createPerspective(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createPerspective(param1, param2, param3, param4, param5);
-                
+                //Matrix::createPerspective(param1, param2, param3, param4, param5);
+				kmMat4PerspectiveProjection(param5, param1, param2, param3, param4);
                 return 0;
             }
 
@@ -2365,8 +2408,8 @@ int lua_Matrix_static_createReflection(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createReflection(*param1, param2);
-                
+                //Matrix::createReflection(*param1, param2);
+				kmMat4CreateReflection(param2, &(*param1).getNormal(), (*param1).getDistance());
                 return 0;
             }
 
@@ -2411,7 +2454,8 @@ int lua_Matrix_static_createRotation(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix::createRotation(*param1, param2);
+                    //Matrix::createRotation(*param1, param2);
+					kmMat4CreateQuaRotation(param2, param1);
                     
                     return 0;
                 }
@@ -2444,8 +2488,8 @@ int lua_Matrix_static_createRotation(lua_State* state)
                     if (!param3Valid)
                         break;
 
-                    Matrix::createRotation(*param1, param2, param3);
-                    
+                    //Matrix::createRotation(*param1, param2, param3);
+					kmMat4CreateRotation(param3, param1, param2);
                     return 0;
                 }
             } while (0);
@@ -2489,8 +2533,8 @@ int lua_Matrix_static_createRotationX(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createRotationX(param1, param2);
-                
+                //Matrix::createRotationX(param1, param2);
+				kmMat4CreateRotationX(param2, param1);
                 return 0;
             }
 
@@ -2533,8 +2577,8 @@ int lua_Matrix_static_createRotationY(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createRotationY(param1, param2);
-                
+                //Matrix::createRotationY(param1, param2);
+				kmMat4CreateRotationY(param2, param1);
                 return 0;
             }
 
@@ -2577,8 +2621,8 @@ int lua_Matrix_static_createRotationZ(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::createRotationZ(param1, param2);
-                
+                //Matrix::createRotationZ(param1, param2);
+				kmMat4CreateRotationZ(param2, param1);
                 return 0;
             }
 
@@ -2623,8 +2667,8 @@ int lua_Matrix_static_createScale(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix::createScale(*param1, param2);
-                    
+                    //Matrix::createScale(*param1, param2);
+					kmMat4CreateScalVec3(param2, param1);
                     return 0;
                 }
             } while (0);
@@ -2657,7 +2701,8 @@ int lua_Matrix_static_createScale(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix::createScale(param1, param2, param3, param4);
+                    //Matrix::createScale(param1, param2, param3, param4);
+					kmMat4CreateScalNum(param4, param1, param2, param3);
                     
                     return 0;
                 }

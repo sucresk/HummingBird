@@ -41,12 +41,13 @@ extern kmMat4 matIdentity;
  kmMat4* const kmMat4CreateRotationX(kmMat4* pOut, const kmScalar radians);
  kmMat4* const kmMat4CreateRotationY(kmMat4* pOut, const kmScalar radians);
  kmMat4* const kmMat4CreateRotationZ(kmMat4* pOut, const kmScalar radians);
- kmMat4* const kmMat4RotationX(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
- kmMat4* const kmMat4RotationY(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
- kmMat4* const kmMat4RotationZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
+ kmMat4* const kmMat4RotateX(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
+ kmMat4* const kmMat4RotateY(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
+ kmMat4* const kmMat4RotateZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians);
  kmMat4* const kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll);
  kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const struct kmMat3* rotation, const struct kmVec3* translation);
- kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
+ kmMat4* const kmMat4CreateScalNum(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
+ kmMat4* const kmMat4CreateScalVec3(kmMat4* pOut, const struct kmVec3* pIn );
  kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const struct kmVec3 *pV);
  kmMat4* const kmMat4CreateTranslation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
  kmMat4* const kmMat4Translation(kmMat4* pOut,kmMat4* pIn, const kmScalar x, const kmScalar y, const kmScalar z);
@@ -77,10 +78,15 @@ extern kmMat4 matIdentity;
  kmMat4* const kmMat4CreateRotation(kmMat4* pOut, const struct kmVec3* axis, float angle);
  kmMat4* kmMat4CreateQuaRotation(kmMat4* pOut, const struct kmQuaternion* pIn);
  kmMat4* kmMat4RotateQuaternion(kmMat4* pOut, kmMat4* pIn, const struct kmQuaternion* pQua );
+ kmMat4* kmMat4RotateVecScalar(kmMat4* pOut, const kmMat4* pIn, const struct kmVec3 *axis, float angle);
  kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const struct kmVec3* objpos, const struct kmVec3* campos, const struct kmVec3* camUp, const struct kmVec3* camForward);
  kmMat4* kmMat4CreatLookAt(kmMat4* pOut, const struct kmVec3* eyepos, const struct kmVec3* targetpos, const struct kmVec3* up);
  kmMat4* kmMat4AddMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2);
- kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scale);
+ kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scalar);
+ kmMat4* kmMat4MultiplyScaler(kmMat4* pOut, const kmMat4* pIn, float scalar);
+ kmMat4* kmMat4Negate(kmMat4* pOut, const kmMat4* pIn);
+ kmScalar kmMat4Determinant(const kmMat4* pIn);
+ kmMat4* kmMat4CreateReflection(kmMat4* pOut, const struct kmVec3* nor, kmScalar dis);
 
 #ifdef __cplusplus
 }

@@ -505,21 +505,21 @@ kmMat4* const kmMat4CreateRotationZ(kmMat4* pOut, const float radians)
     return pOut;
 }
 
-kmMat4* const kmMat4RotationX(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+kmMat4* const kmMat4RotateX(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 {
 	kmMat4 temp;
 	kmMat4CreateRotationX(&temp, radians);
 	kmMat4Multiply(pOut, pIn, &temp);
 	return pOut;
 }
-kmMat4* const kmMat4RotationY(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+kmMat4* const kmMat4RotateY(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 {
 	kmMat4 temp;
 	kmMat4CreateRotationY(&temp, radians);
 	kmMat4Multiply(pOut, pIn, &temp);
 	return pOut;
 }
-kmMat4* const kmMat4RotationZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
+kmMat4* const kmMat4RotateZ(kmMat4* pOut, kmMat4* pIn, kmScalar radians)
 {
 	kmMat4 temp;
 	kmMat4CreateRotationZ(&temp, radians);
@@ -592,7 +592,7 @@ kmMat4* const kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 }
 
 /** Builds a scaling kmMat4 */
-kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y,
+kmMat4* const kmMat4CreateScalNum(kmMat4* pOut, const kmScalar x, const kmScalar y,
                       const kmScalar z)
 {
     memset(pOut->mat, 0, sizeof(float) * 16);
@@ -602,6 +602,16 @@ kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y,
     pOut->mat[15] = 1.0f;
 
     return pOut;
+}
+
+kmMat4* const kmMat4CreateScalVec3(kmMat4* pOut, const struct kmVec3* pIn)
+{
+	memset(pOut->mat, 0, sizeof(float) * 16);
+	pOut->mat[0] = pIn->x;
+	pOut->mat[5] = pIn->y;
+	pOut->mat[10] = pIn->z;
+	pOut->mat[15] = 1.0f;
+	return pOut;
 }
 
 kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const kmVec3 *pV)
@@ -1194,8 +1204,15 @@ kmMat4* kmMat4RotateQuaternion(kmMat4* pOut, kmMat4* pIn, const kmQuaternion* pQ
 {
 	kmMat4 temp;
 	kmMat4CreateQuaRotation(&temp, pQua);
-	kmMat4Multiply(pOut, pOut, &temp);
+	kmMat4Multiply(pOut, pIn, &temp);
 	return pOut;
+}
+
+kmMat4* kmMat4RotateVecScalar(kmMat4* pOut, const kmMat4* pIn, const struct kmVec3 *axis, float angle)
+{
+	kmMat4 temp;
+	kmMat4CreateRotation(&temp, axis, angle );
+	kmMat4Multiply(pOut, pIn, &temp);
 }
 
 kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const kmVec3* objpos, const kmVec3* campos, const kmVec3* camUp, const kmVec3* camForward)
@@ -1319,6 +1336,86 @@ kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scalar)
 	pOut->mat[13] = pIn->mat[13] + scalar;
 	pOut->mat[14] = pIn->mat[14] + scalar;
 	pOut->mat[15] = pIn->mat[15] + scalar;
+	return pOut;
+}
+
+kmMat4* kmMat4MultiplyScaler(kmMat4* pOut, const kmMat4* pIn, float scalar)
+{
+	pOut->mat[0] = pIn->mat[0] * scalar;
+	pOut->mat[1] = pIn->mat[1] * scalar;
+	pOut->mat[2] = pIn->mat[2] * scalar;
+	pOut->mat[3] = pIn->mat[3] * scalar;
+	pOut->mat[4] = pIn->mat[4] * scalar;
+	pOut->mat[5] = pIn->mat[5] * scalar;
+	pOut->mat[6] = pIn->mat[6] * scalar;
+	pOut->mat[7] = pIn->mat[7] * scalar;
+	pOut->mat[8] = pIn->mat[8] * scalar;
+	pOut->mat[9] = pIn->mat[9] * scalar;
+	pOut->mat[10] = pIn->mat[10] * scalar;
+	pOut->mat[11] = pIn->mat[11] * scalar;
+	pOut->mat[12] = pIn->mat[12] * scalar;
+	pOut->mat[13] = pIn->mat[13] * scalar;
+	pOut->mat[14] = pIn->mat[14] * scalar;
+	pOut->mat[15] = pIn->mat[15] * scalar;
+	return pOut;
+}
+
+kmMat4* kmMat4Negate(kmMat4* pOut, const kmMat4* pIn)
+{
+	pOut->mat[0] = -pIn->mat[0];
+	pOut->mat[1] = -pIn->mat[1];
+	pOut->mat[2] = -pIn->mat[2];
+	pOut->mat[3] = -pIn->mat[3];
+	pOut->mat[4] = -pIn->mat[4];
+	pOut->mat[5] = -pIn->mat[5];
+	pOut->mat[6] = -pIn->mat[6];
+	pOut->mat[7] = -pIn->mat[7];
+	pOut->mat[8] = -pIn->mat[8];
+	pOut->mat[9] = -pIn->mat[9];
+	pOut->mat[10] = -pIn->mat[10];
+	pOut->mat[11] = -pIn->mat[11];
+	pOut->mat[12] = -pIn->mat[12];
+	pOut->mat[13] = -pIn->mat[13];
+	pOut->mat[14] = -pIn->mat[14];
+	pOut->mat[15] = -pIn->mat[15];
+	return pOut;
+}
+
+kmScalar kmMat4Determinant(const kmMat4* pIn)
+{
+	float a0 = pIn->mat[0] * pIn->mat[5] - pIn->mat[1] * pIn->mat[4];
+	float a1 = pIn->mat[0] * pIn->mat[6] - pIn->mat[2] * pIn->mat[4];
+	float a2 = pIn->mat[0] * pIn->mat[7] - pIn->mat[3] * pIn->mat[4];
+	float a3 = pIn->mat[1] * pIn->mat[6] - pIn->mat[2] * pIn->mat[5];
+	float a4 = pIn->mat[1] * pIn->mat[7] - pIn->mat[3] * pIn->mat[5];
+	float a5 = pIn->mat[2] * pIn->mat[7] - pIn->mat[3] * pIn->mat[6];
+	float b0 = pIn->mat[8] * pIn->mat[13] - pIn->mat[9] * pIn->mat[12];
+	float b1 = pIn->mat[8] * pIn->mat[14] - pIn->mat[10] * pIn->mat[12];
+	float b2 = pIn->mat[8] * pIn->mat[15] - pIn->mat[11] * pIn->mat[12];
+	float b3 = pIn->mat[9] * pIn->mat[14] - pIn->mat[10] * pIn->mat[13];
+	float b4 = pIn->mat[9] * pIn->mat[15] - pIn->mat[11] * pIn->mat[13];
+	float b5 = pIn->mat[10] * pIn->mat[15] - pIn->mat[11] * pIn->mat[14];
+
+	float re = (a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0);
+	// Calculate the determinant.
+	return re;
+}
+
+kmMat4* kmMat4CreateReflection(kmMat4* pOut, const struct kmVec3* nor, kmScalar dis)
+{
+	float k = -2.0f * dis;
+	kmMat4Identity(pOut);
+
+	pOut->mat[0] -= 2.0f * nor->x * nor->x;
+	pOut->mat[5] -= 2.0f * nor->y * nor->y;
+	pOut->mat[10] -= 2.0f * nor->z * nor->z;
+	pOut->mat[1] = pOut->mat[4] = -2.0f * nor->x * nor->y;
+	pOut->mat[2] = pOut->mat[8] = -2.0f * nor->x * nor->z;
+	pOut->mat[6] = pOut->mat[9] = -2.0f * nor->y * nor->z;
+
+	pOut->mat[3] = k * nor->x;
+	pOut->mat[7] = k * nor->y;
+	pOut->mat[11] = k * nor->z;
 	return pOut;
 }
 

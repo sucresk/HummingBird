@@ -249,7 +249,7 @@ unsigned int Form::draw(bool wireframe)
         // Setup a projection kmMat4 for drawing the form via the node's world transform.
         kmMat4 world(_node->getWorldMatrix());
 		kmMat4 scale;
-		kmMat4Scaling(&scale, 1, -1, 1);
+		kmMat4CreateScalNum(&scale, 1, -1, 1);
 		kmMat4Multiply(&world, &world, &scale);
         //world.scale(1, -1, 1);
 		//world.translate(0, -_absoluteClipBounds.height, 0);
