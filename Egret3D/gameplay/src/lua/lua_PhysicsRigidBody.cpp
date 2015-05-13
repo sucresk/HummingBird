@@ -521,7 +521,9 @@ int lua_PhysicsRigidBody_getAngularFactor(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getAngularFactor());
+                //void* returnPtr = (void*)new Vector3(instance->getAngularFactor());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getAngularFactor(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -565,7 +567,9 @@ int lua_PhysicsRigidBody_getAngularVelocity(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getAngularVelocity());
+                //void* returnPtr = (void*)new Vector3(instance->getAngularVelocity());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getAngularVelocity(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -609,7 +613,9 @@ int lua_PhysicsRigidBody_getAnisotropicFriction(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getAnisotropicFriction());
+                //void* returnPtr = (void*)new Vector3(instance->getAnisotropicFriction());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getAnisotropicFriction(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -732,7 +738,9 @@ int lua_PhysicsRigidBody_getGravity(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getGravity());
+                //void* returnPtr = (void*)new Vector3(instance->getGravity());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getGravity(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -854,7 +862,9 @@ int lua_PhysicsRigidBody_getLinearFactor(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getLinearFactor());
+                //void* returnPtr = (void*)new Vector3(instance->getLinearFactor());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getLinearFactor(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -898,7 +908,9 @@ int lua_PhysicsRigidBody_getLinearVelocity(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsRigidBody* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getLinearVelocity());
+                //void* returnPtr = (void*)new Vector3(instance->getLinearVelocity());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getLinearVelocity(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
