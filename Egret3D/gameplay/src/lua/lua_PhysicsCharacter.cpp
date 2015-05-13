@@ -281,7 +281,9 @@ int lua_PhysicsCharacter_getCurrentVelocity(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 PhysicsCharacter* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getCurrentVelocity());
+                //void* returnPtr = (void*)new Vector3(instance->getCurrentVelocity());
+				kmVec3* returnPtr = new kmVec3;
+				memcpy(returnPtr, &instance->getCurrentVelocity(), sizeof(float) * 3);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
