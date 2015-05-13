@@ -8,7 +8,7 @@
 #include "Drawable.h"
 #include "Game.h"
 #include "MaterialParameter.h"
-#include "Matrix.h"
+#include "kazmath/mat4.h"
 #include "Node.h"
 #include "Ref.h"
 #include "Scene.h"

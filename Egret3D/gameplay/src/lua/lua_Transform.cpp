@@ -1076,7 +1076,9 @@ int lua_Transform_getBackVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getBackVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getBackVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getBackVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1147,7 +1149,9 @@ int lua_Transform_getDownVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getDownVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getDownVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getDownVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1218,7 +1222,9 @@ int lua_Transform_getForwardVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getForwardVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getForwardVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getForwardVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1289,7 +1295,9 @@ int lua_Transform_getLeftVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getLeftVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getLeftVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getLeftVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1404,7 +1412,9 @@ int lua_Transform_getRightVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getRightVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getRightVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getRightVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -2020,7 +2030,9 @@ int lua_Transform_getUpVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Transform* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getUpVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getUpVector());
+					kmVec3* returnPtr = new kmVec3;
+					memcpy(returnPtr, &instance->getUpVector(), sizeof(float) * 3);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
