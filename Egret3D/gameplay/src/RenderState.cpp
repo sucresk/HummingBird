@@ -323,42 +323,42 @@ void RenderState::applyAutoBinding(const char* uniformName, const char* autoBind
 
 const kmMat4& RenderState::autoBindingGetWorldMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getWorldMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getWorldMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetViewMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getViewMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getViewMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetProjectionMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getProjectionMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getProjectionMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetWorldViewMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getWorldViewMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getWorldViewMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetViewProjectionMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getViewProjectionMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getViewProjectionMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetWorldViewProjectionMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getWorldViewProjectionMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getWorldViewProjectionMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetInverseTransposeWorldMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldMatrix() : mat4Identity;
 }
 
 const kmMat4& RenderState::autoBindingGetInverseTransposeWorldViewMatrix() const
 {
-	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldViewMatrix() : matIdentity;
+	return _nodeBinding ? _nodeBinding->getInverseTransposeWorldViewMatrix() : mat4Identity;
 }
 
 kmVec3 RenderState::autoBindingGetCameraWorldPosition() const

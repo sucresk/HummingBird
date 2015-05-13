@@ -27,7 +27,8 @@ typedef struct kmMat4 {
 } kmMat4;
 
 extern kmMat4 gkmMat4;
-extern kmMat4 matIdentity;
+extern kmMat4 mat4Identity;
+extern kmMat4 mat4Zero;
 
  kmMat4* const kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
  kmMat4* const kmMat4Identity(kmMat4* pOut);
@@ -50,6 +51,7 @@ extern kmMat4 matIdentity;
  kmMat4* const kmMat4CreateScalVec3(kmMat4* pOut, const struct kmVec3* pIn );
  kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const struct kmVec3 *pV);
  kmMat4* const kmMat4CreateTranslation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
+ kmMat4* const kmMat4CreateTranslationVec3( kmMat4* pOut, const struct kmVec3* pIn );
  kmMat4* const kmMat4Translation(kmMat4* pOut,kmMat4* pIn, const kmScalar x, const kmScalar y, const kmScalar z);
 
  struct kmVec3* const kmMat4GetUpVec3(struct kmVec3* pOut, const kmMat4* pIn);
@@ -82,6 +84,7 @@ extern kmMat4 matIdentity;
  kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const struct kmVec3* objpos, const struct kmVec3* campos, const struct kmVec3* camUp, const struct kmVec3* camForward);
  kmMat4* kmMat4CreatLookAt(kmMat4* pOut, const struct kmVec3* eyepos, const struct kmVec3* targetpos, const struct kmVec3* up);
  kmMat4* kmMat4AddMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2);
+ kmMat4* kmMat4SubtractMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2);
  kmMat4* kmMat4AddScalar(kmMat4* pOut, const kmMat4* pIn, float scalar);
  kmMat4* kmMat4MultiplyScaler(kmMat4* pOut, const kmMat4* pIn, float scalar);
  kmMat4* kmMat4Negate(kmMat4* pOut, const kmMat4* pIn);

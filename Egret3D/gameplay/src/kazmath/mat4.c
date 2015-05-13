@@ -46,12 +46,20 @@ kmMat4 gkmMat4; // ±£´æ¾ØÕóÆ½ÒÆĞı×ª
 #define MATH_TOLERANCE              2e-37f
 #define MATH_EPSILON                0.000001f
 
-kmMat4 matIdentity =
+kmMat4 mat4Identity =
 {
 	1, 0, 0, 0,
 	0, 1, 0, 0,
 	0, 0, 1, 0,
 	0, 0, 0, 1 
+};
+
+kmMat4 mat4Zero = 
+{
+	0, 0, 0, 0,
+	0, 0, 0, 0,
+	0, 0, 0, 0,
+	0, 0, 0, 0
 };
 
 
@@ -647,6 +655,22 @@ kmMat4* const kmMat4CreateTranslation(kmMat4* pOut, const kmScalar x,
     pOut->mat[15] = 1.0f;
 
     return pOut;
+}
+
+kmMat4* const kmMat4CreateTranslationVec3(kmMat4* pOut, const struct kmVec3* pIn)
+{
+	memset(pOut->mat, 0, sizeof(float) * 16);
+
+	pOut->mat[0] = 1.0f;
+	pOut->mat[5] = 1.0f;
+	pOut->mat[10] = 1.0f;
+
+	pOut->mat[12] = pIn->x;
+	pOut->mat[13] = pIn->y;
+	pOut->mat[14] = pIn->z;
+	pOut->mat[15] = 1.0f;
+
+	return pOut;
 }
 
 kmMat4* const kmMat4Translation(kmMat4* pOut, kmMat4* pIn, const kmScalar x, const kmScalar y, const kmScalar z)
@@ -1315,6 +1339,27 @@ kmMat4* kmMat4AddMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2)
 	pOut->mat[13] = pMat1->mat[13] + pMat2->mat[13];
 	pOut->mat[14] = pMat1->mat[14] + pMat2->mat[14];
 	pOut->mat[15] = pMat1->mat[15] + pMat2->mat[15];
+	return pOut;
+}
+
+kmMat4* kmMat4SubtractMat(kmMat4* pOut, const kmMat4* pMat1, const kmMat4* pMat2)
+{
+	pOut->mat[0] = pMat1->mat[0] - pMat2->mat[0];
+	pOut->mat[1] = pMat1->mat[1] - pMat2->mat[1];
+	pOut->mat[2] = pMat1->mat[2] - pMat2->mat[2];
+	pOut->mat[3] = pMat1->mat[3] - pMat2->mat[3];
+	pOut->mat[4] = pMat1->mat[4] - pMat2->mat[4];
+	pOut->mat[5] = pMat1->mat[5] - pMat2->mat[5];
+	pOut->mat[6] = pMat1->mat[6] - pMat2->mat[6];
+	pOut->mat[7] = pMat1->mat[7] - pMat2->mat[7];
+	pOut->mat[8] = pMat1->mat[8] - pMat2->mat[8];
+	pOut->mat[9] = pMat1->mat[9] - pMat2->mat[9];
+	pOut->mat[10] = pMat1->mat[10] - pMat2->mat[10];
+	pOut->mat[11] = pMat1->mat[11] - pMat2->mat[11];
+	pOut->mat[12] = pMat1->mat[12] - pMat2->mat[12];
+	pOut->mat[13] = pMat1->mat[13] - pMat2->mat[13];
+	pOut->mat[14] = pMat1->mat[14] - pMat2->mat[14];
+	pOut->mat[15] = pMat1->mat[15] - pMat2->mat[15];
 	return pOut;
 }
 

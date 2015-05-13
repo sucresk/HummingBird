@@ -2749,8 +2749,8 @@ int lua_Matrix_static_createTranslation(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix::createTranslation(*param1, param2);
-                    
+                    //Matrix::createTranslation(*param1, param2);
+					kmMat4CreateTranslationVec3(param2, param1);
                     return 0;
                 }
             } while (0);
@@ -2783,8 +2783,8 @@ int lua_Matrix_static_createTranslation(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix::createTranslation(param1, param2, param3, param4);
-                    
+                    //Matrix::createTranslation(param1, param2, param3, param4);
+					kmMat4CreateTranslation(param4, param1, param2, param3);
                     return 0;
                 }
             } while (0);
@@ -2813,7 +2813,7 @@ int lua_Matrix_static_identity(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Matrix::identity());
+            void* returnPtr = (void*)&(mat4Identity);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -2871,8 +2871,8 @@ int lua_Matrix_static_multiply(lua_State* state)
                     if (!param3Valid)
                         break;
 
-                    Matrix::multiply(*param1, param2, param3);
-                    
+                    //Matrix::multiply(*param1, param2, param3);
+					kmMat4MultiplyScaler(param3, param1, param2);
                     return 0;
                 }
             } while (0);
@@ -2901,8 +2901,8 @@ int lua_Matrix_static_multiply(lua_State* state)
                     if (!param3Valid)
                         break;
 
-                    Matrix::multiply(*param1, *param2, param3);
-                    
+                    //Matrix::multiply(*param1, *param2, param3);
+					kmMat4Multiply(param3, param1, param2);
                     return 0;
                 }
             } while (0);
@@ -2962,8 +2962,8 @@ int lua_Matrix_static_subtract(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix::subtract(*param1, *param2, param3);
-                
+                //Matrix::subtract(*param1, *param2, param3);
+				kmMat4SubtractMat(param3, param1, param2);
                 return 0;
             }
 
@@ -2991,7 +2991,7 @@ int lua_Matrix_static_zero(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Matrix::zero());
+			void* returnPtr = (void*)&(mat4Zero);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3040,9 +3040,9 @@ int lua_Matrix_subtract(lua_State* state)
                     lua_error(state);
                 }
 
-                Matrix* instance = getInstance(state);
-                instance->subtract(*param1);
-                
+                kmMat4* instance = getInstance(state);
+                //instance->subtract(*param1);
+				kmMat4SubtractMat(instance, instance, param1);
                 return 0;
             }
 
@@ -3081,9 +3081,9 @@ int lua_Matrix_transformPoint(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformPoint(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformPoint(param1);
+					kmMat3Transform(param1, instance, (*param1).x, (*param1).y, (*param1).z, 1.0f);
                     return 0;
                 }
             } while (0);
@@ -3112,9 +3112,10 @@ int lua_Matrix_transformPoint(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformPoint(*param1, param2);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformPoint(*param1, param2);
+					kmMat3Transform(param2, instance, (*param1).x, (*param1).y, (*param1).z, 1.0f);
+
                     return 0;
                 }
             } while (0);
@@ -3154,9 +3155,10 @@ int lua_Matrix_transformVector(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformVector(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformVector(param1);
+					kmMat3Transform(param1, instance, (*param1).x, (*param1).y, (*param1).z, 1.0f);
+
                     return 0;
                 }
             } while (0);
@@ -3172,9 +3174,9 @@ int lua_Matrix_transformVector(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformVector(param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformVector(param1);
+					kmMat4Transform(param1, instance, (*param1).x, (*param1).y, (*param1).z, (*param1).w);
                     return 0;
                 }
             } while (0);
@@ -3203,8 +3205,9 @@ int lua_Matrix_transformVector(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformVector(*param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformVector(*param1, param2);
+					kmMat3Transform(param2, instance, (*param1).x, (*param1).y, (*param1).z, 0.0f);
                     
                     return 0;
                 }
@@ -3228,8 +3231,9 @@ int lua_Matrix_transformVector(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformVector(*param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformVector(*param1, param2);
+					kmMat4Transform(param2, instance, (*param1).x, (*param1).y, (*param1).z, (*param1).w);
                     
                     return 0;
                 }
@@ -3268,9 +3272,9 @@ int lua_Matrix_transformVector(lua_State* state)
                     if (!param5Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transformVector(param1, param2, param3, param4, param5);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->transformVector(param1, param2, param3, param4, param5);
+					kmMat3Transform(param5, instance, param1, param2, param3, param4);
                     return 0;
                 }
             } while (0);
@@ -3310,9 +3314,9 @@ int lua_Matrix_translate(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->translate(*param1);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->translate(*param1);
+					kmMat4Translation(instance, instance, (*param1).x, (*param1).y, (*param1).z);
                     return 0;
                 }
             } while (0);
@@ -3341,8 +3345,9 @@ int lua_Matrix_translate(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->translate(*param1, param2);
+                    kmMat4* instance = getInstance(state);
+                    //instance->translate(*param1, param2);
+					kmMat4Translation(param2, instance, (*param1).x, (*param1).y, (*param1).z);
                     
                     return 0;
                 }
@@ -3370,9 +3375,9 @@ int lua_Matrix_translate(lua_State* state)
                     // Get parameter 3 off the stack.
                     float param3 = (float)luaL_checknumber(state, 4);
 
-                    Matrix* instance = getInstance(state);
-                    instance->translate(param1, param2, param3);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->translate(param1, param2, param3);
+					kmMat4Translation(instance, instance, param1, param2, param3);
                     return 0;
                 }
             } while (0);
@@ -3406,9 +3411,9 @@ int lua_Matrix_translate(lua_State* state)
                     if (!param4Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->translate(param1, param2, param3, param4);
-                    
+                    kmMat4* instance = getInstance(state);
+                    //instance->translate(param1, param2, param3, param4);
+					kmMat4Translation(param4, instance, param1, param2, param3);
                     return 0;
                 }
             } while (0);
@@ -3441,8 +3446,9 @@ int lua_Matrix_transpose(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Matrix* instance = getInstance(state);
-                    instance->transpose();
+                    kmMat4* instance = getInstance(state);
+                    //instance->transpose();
+					kmMat4Transpose(instance, instance);
                     
                     return 0;
                 }
@@ -3465,8 +3471,9 @@ int lua_Matrix_transpose(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Matrix* instance = getInstance(state);
-                    instance->transpose(param1);
+                    kmMat4* instance = getInstance(state);
+                    //instance->transpose(param1);
+					kmMat4Transpose(param1, instance);
                     
                     return 0;
                 }

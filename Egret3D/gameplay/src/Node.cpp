@@ -490,7 +490,7 @@ const kmMat4& Node::getViewMatrix() const
     }
     else
     {
-		return matIdentity;
+		return mat4Identity;
     }
 }
 
@@ -504,7 +504,7 @@ const kmMat4& Node::getInverseViewMatrix() const
     }
     else
     {
-		return matIdentity;
+		return mat4Identity;
     }
 }
 
@@ -518,7 +518,7 @@ const kmMat4& Node::getProjectionMatrix() const
     }
     else
     {
-		return matIdentity;
+		return mat4Identity;
     }
 }
 
@@ -532,7 +532,7 @@ const kmMat4& Node::getViewProjectionMatrix() const
     }
     else
     {
-		return matIdentity;
+		return mat4Identity;
     }
 }
 
@@ -544,7 +544,7 @@ const kmMat4& Node::getInverseViewProjectionMatrix() const
     {
         return camera->getInverseViewProjectionMatrix();
     }
-	return matIdentity;
+	return mat4Identity;
 }
 
 const kmMat4& Node::getWorldViewProjectionMatrix() const
