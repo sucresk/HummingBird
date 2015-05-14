@@ -224,8 +224,8 @@ void MeshPrimitiveSample::render(float elapsedTime)
 	//Matrix::multiply(wvp, _viewProjectionMatrix, &wvp);
     kmMat4 wvp;
 	kmMat4Identity(&wvp);
-	kmMat4RotationY(&wvp, &wvp, _tilt.x * 0.01f);
-	kmMat4RotationX(&wvp, &wvp, _tilt.y * 0.01f);
+	kmMat4RotateY(&wvp, &wvp, _tilt.x * 0.01f);
+	kmMat4RotateX(&wvp, &wvp, _tilt.y * 0.01f);
 	kmMat4Multiply(&wvp, &wvp, &_viewProjectionMatrix);
    
     kmMat4 m;

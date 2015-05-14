@@ -3248,7 +3248,9 @@ int lua_Joint_getTranslationView(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Joint* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getTranslationView());
+                //void* returnPtr = (void*)new Vector3(instance->getTranslationView());
+				kmVec3* returnPtr = new kmVec3;
+				*returnPtr = instance->getTranslationView();
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3292,7 +3294,9 @@ int lua_Joint_getTranslationWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Joint* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getTranslationWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getTranslationWorld());
+				kmVec3* returnPtr = new kmVec3;
+				*returnPtr = instance->getTranslationWorld();
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3513,7 +3517,9 @@ int lua_Joint_getUpVector(lua_State* state)
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
                     Joint* instance = getInstance(state);
-                    void* returnPtr = (void*)new Vector3(instance->getUpVector());
+                    //void* returnPtr = (void*)new Vector3(instance->getUpVector());
+					kmVec3* returnPtr = new kmVec3;
+					*returnPtr = instance->getUpVector();
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -3582,7 +3588,9 @@ int lua_Joint_getUpVectorWorld(lua_State* state)
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
                 Joint* instance = getInstance(state);
-                void* returnPtr = (void*)new Vector3(instance->getUpVectorWorld());
+                //void* returnPtr = (void*)new Vector3(instance->getUpVectorWorld());
+				kmVec3* returnPtr = new kmVec3;
+				*returnPtr = instance->getUpVectorWorld();
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
