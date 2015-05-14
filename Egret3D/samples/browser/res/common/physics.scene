@@ -6,7 +6,7 @@ scene
 	{
 		url = res/common/duck.gpb#duck
 		material = res/common/duck.material
-		translate = -4, 5, 0
+		translate = 1, -4, 0
 		rotate = 0.0, 1.0, 0.0, 180
 		collisionObject = res/common/physics.physics#duck
 	}

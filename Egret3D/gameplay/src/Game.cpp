@@ -481,7 +481,7 @@ void Game::updateOnce()
 void Game::setViewport(const Rectangle& viewport)
 {
     _viewport = viewport;
-    gContext3D.EgViewport((GLuint)viewport.x, (GLuint)viewport.y, (GLuint)viewport.width, (GLuint)viewport.height);
+    glViewport((GLuint)viewport.x, (GLuint)viewport.y, (GLuint)viewport.width, (GLuint)viewport.height);
 }
 
 void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, int clearStencil)
@@ -494,7 +494,7 @@ void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, i
             clearColor.z != _clearColor.z ||
             clearColor.w != _clearColor.w )
         {
-            gContext3D.EgClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
+            glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
             //_clearColor.set(clearColor);
 			kmVec4Fill(&_clearColor, clearColor.x, clearColor.y, clearColor.z, clearColor.w);
         }
@@ -505,7 +505,7 @@ void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, i
     {
         if (clearDepth != _clearDepth)
         {
-            gContext3D.EgClearDepth(clearDepth);
+            glClearDepth(clearDepth);
             _clearDepth = clearDepth;
         }
         bits |= GL_DEPTH_BUFFER_BIT;
@@ -520,12 +520,12 @@ void Game::clear(ClearFlags flags, const kmVec4& clearColor, float clearDepth, i
     {
         if (clearStencil != _clearStencil)
         {
-            gContext3D.EgClearStencil(clearStencil);
+            glClearStencil(clearStencil);
             _clearStencil = clearStencil;
         }
         bits |= GL_STENCIL_BUFFER_BIT;
     }
-    gContext3D.EgClear(bits);
+    glClear(bits);
 }
 
 void Game::clear(ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil)

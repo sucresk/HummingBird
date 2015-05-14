@@ -28,6 +28,12 @@
     <Filter Include="lua">
       <UniqueIdentifier>{6c0d1808-3364-4086-afc2-feba83362ea6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stage\include">
+      <UniqueIdentifier>{edb3d4ca-09a5-41a0-b68a-978f74e676b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage\src">
+      <UniqueIdentifier>{2fd077a2-331c-432d-ad4e-843c0d26bca2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Plane.cpp">
@@ -350,12 +356,6 @@
     </ClCompile>
     <ClCompile Include="src\Physics\PhysicsVehicleWheel.cpp">
       <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="stage\src\glew.c">
-      <Filter>stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage\Context3D.cpp">
-      <Filter>stage</Filter>
     </ClCompile>
     <ClCompile Include="src\kazmath\aabb.c">
       <Filter>kazmath</Filter>
@@ -801,6 +801,9 @@
     <ClCompile Include="src\lua\lua_VerticalLayout.cpp">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="stage\src\glew.c">
+      <Filter>stage\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
@@ -1129,9 +1132,6 @@
     </ClInclude>
     <ClInclude Include="src\Physics\PhysicsVehicleWheel.h">
       <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage\Context3D.h">
-      <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="src\kazmath\aabb.h">
       <Filter>kazmath</Filter>
@@ -1579,6 +1579,15 @@
     </ClInclude>
     <ClInclude Include="src\lua\lua_VerticalLayout.h">
       <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="stage\include\GL\glew.h">
+      <Filter>stage\include</Filter>
+    </ClInclude>
+    <ClInclude Include="stage\include\GL\glxew.h">
+      <Filter>stage\include</Filter>
+    </ClInclude>
+    <ClInclude Include="stage\include\GL\wglew.h">
+      <Filter>stage\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

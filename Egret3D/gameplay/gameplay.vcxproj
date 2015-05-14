@@ -270,7 +270,6 @@
     <ClCompile Include="src\VertexAttributeBinding.cpp" />
     <ClCompile Include="src\VertexFormat.cpp" />
     <ClCompile Include="src\VerticalLayout.cpp" />
-    <ClCompile Include="Stage\Context3D.cpp" />
     <ClCompile Include="stage\src\glew.c" />
   </ItemGroup>
   <ItemGroup>
@@ -532,7 +531,9 @@
     <ClInclude Include="src\VertexAttributeBinding.h" />
     <ClInclude Include="src\VertexFormat.h" />
     <ClInclude Include="src\VerticalLayout.h" />
-    <ClInclude Include="Stage\Context3D.h" />
+    <ClInclude Include="stage\include\GL\glew.h" />
+    <ClInclude Include="stage\include\GL\glxew.h" />
+    <ClInclude Include="stage\include\GL\wglew.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\materials\terrain.material" />
@@ -628,7 +629,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;GP_USE_GAMEPAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;$(ProjectDir)stage;$(ProjectDir)src\kazmath;$(ProjectDir)src\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;..\external-deps\include;$(DXSDK_DIR)include;$(ProjectDir);$(ProjectDir)stage\include;$(ProjectDir)src\kazmath;$(ProjectDir)src\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

@@ -259,7 +259,7 @@ static bool drawWireframe(Mesh* mesh)
             unsigned int vertexCount = mesh->getVertexCount();
             for (unsigned int i = 0; i < vertexCount; i += 3)
             {
-                GL_ASSERT( gContext3D.EgDrawArrays(GL_LINE_LOOP, i, 3) );
+                GL_ASSERT( glDrawArrays(GL_LINE_LOOP, i, 3) );
             }
         }
         return true;
@@ -269,7 +269,7 @@ static bool drawWireframe(Mesh* mesh)
             unsigned int vertexCount = mesh->getVertexCount();
             for (unsigned int i = 2; i < vertexCount; ++i)
             {
-                GL_ASSERT( gContext3D.EgDrawArrays(GL_LINE_LOOP, i-2, 3) );
+                GL_ASSERT( glDrawArrays(GL_LINE_LOOP, i-2, 3) );
             }
         }
         return true;
@@ -306,7 +306,7 @@ static bool drawWireframe(MeshPart* part)
         {
             for (size_t i = 0; i < indexCount; i += 3)
             {
-                GL_ASSERT( gContext3D.EgDrawElements(GL_LINE_LOOP, 3, part->getIndexFormat(), ((const GLvoid*)(i*indexSize))) );
+                GL_ASSERT( glDrawElements(GL_LINE_LOOP, 3, part->getIndexFormat(), ((const GLvoid*)(i*indexSize))) );
             }
         }
         return true;
@@ -315,7 +315,7 @@ static bool drawWireframe(MeshPart* part)
         {
             for (size_t i = 2; i < indexCount; ++i)
             {
-                GL_ASSERT( gContext3D.EgDrawElements(GL_LINE_LOOP, 3, part->getIndexFormat(), ((const GLvoid*)((i-2)*indexSize))) );
+                GL_ASSERT( glDrawElements(GL_LINE_LOOP, 3, part->getIndexFormat(), ((const GLvoid*)((i-2)*indexSize))) );
             }
         }
         return true;
@@ -344,10 +344,10 @@ unsigned int Model::draw(bool wireframe)
                 Pass* pass = technique->getPassByIndex(i);
                 GP_ASSERT(pass);
                 pass->bind();
-                GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
+                GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
                 if (!wireframe || !drawWireframe(_mesh))
                 {
-                    GL_ASSERT( gContext3D.EgDrawArrays(_mesh->getPrimitiveType(), 0, _mesh->getVertexCount()) );
+                    GL_ASSERT( glDrawArrays(_mesh->getPrimitiveType(), 0, _mesh->getVertexCount()) );
                 }
                 pass->unbind();
             }
@@ -372,10 +372,10 @@ unsigned int Model::draw(bool wireframe)
                     Pass* pass = technique->getPassByIndex(j);
                     GP_ASSERT(pass);
                     pass->bind();
-                    GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, part->_indexBuffer) );
+                    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, part->_indexBuffer) );
                     if (!wireframe || !drawWireframe(part))
                     {
-                        GL_ASSERT( gContext3D.EgDrawElements(part->getPrimitiveType(), part->getIndexCount(), part->getIndexFormat(), 0) );
+                        GL_ASSERT( glDrawElements(part->getPrimitiveType(), part->getIndexCount(), part->getIndexFormat(), 0) );
                     }
                     pass->unbind();
                 }

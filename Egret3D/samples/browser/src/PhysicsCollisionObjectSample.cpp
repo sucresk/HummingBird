@@ -14,8 +14,13 @@ PhysicsCollisionObjectSample::PhysicsCollisionObjectSample()
     _nodeIds.assign(nodeIds, nodeIds + 4);
     const char* nodeNames[] = {"Sphere", "Box", "Capsule", "Duck"};
     _nodeNames.assign(nodeNames, nodeNames + 4);
-	kmVec4 colors[] = { { 1, 0, 0, 1 }, 
-	{ 0.1f, 0.6f, 0.1f, 1 }, { 0, 0, 1, 1 }, { 1, 1, 0, 1 } };
+	kmVec4 colors[] = 
+	{
+		{ 1, 0, 0, 1 }, 
+		{ 0.1f, 0.6f, 0.1f, 1 },
+		{ 0, 0, 1, 1 }, 
+		{ 1, 1, 0, 1 }
+	};
     _colors.assign(colors, colors + 4);
 }
 
@@ -165,12 +170,16 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     {
         // Find the position where the pick ray intersects with the floor.
         float distance = ray.intersects(Plane(0, 1, 0, -0.5f));
-        //if (distance != Ray::INTERSECTS_NONE)
-        //{
-        //    kmVec3 position((ray.getDirection() * distance) + ray.getOrigin());
-        //    position.y += 8.0f;
-        //    clone->setTranslation(position);
-        //}
+		if (distance != Ray::INTERSECTS_NONE)
+		{
+			//kmVec3 position((ray.getDirection() * distance) + ray.getOrigin());
+			kmVec3 temp = vec3Zero;
+			kmVec3 position = vec3Zero;
+			kmVec3Scale(&temp, &ray.getDirection(), distance);
+			kmVec3Add(&position, &temp, &ray.getOrigin());
+			position.y += 8.0f;
+			clone->setTranslation(position);
+		}
     }
     // It is important to set the transform before attaching the collision object because this rigid body is not kinematic.
     // Once the non-kinematic rigid body is attached, you should only move the object using forces.
@@ -179,7 +188,9 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     if (_throw)
     {
         PhysicsRigidBody* rigidBody = static_cast<PhysicsRigidBody*>(collisionObject);
-        kmVec3 impulse(ray.getDirection());
+        kmVec3 impulse = ray.getDirection();
+		kmVec3Normalize(&impulse, &impulse );
+		kmVec3Scale(&impulse, &impulse, 50.0f * rigidBody->getMass());
         //impulse.normalize();
         //impulse.scale(50.0f * rigidBody->getMass());
         rigidBody->applyImpulse(impulse);

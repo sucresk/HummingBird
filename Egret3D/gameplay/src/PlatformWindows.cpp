@@ -1106,11 +1106,11 @@ void Platform::setMultiSampling(bool enabled)
 
     if (enabled)
     {
-        gContext3D.EgEnable(GL_MULTISAMPLE);
+        glEnable(GL_MULTISAMPLE);
     }
     else
     {
-        gContext3D.EgDisable(GL_MULTISAMPLE);
+        glDisable(GL_MULTISAMPLE);
     }
 
     __multiSampling = enabled;

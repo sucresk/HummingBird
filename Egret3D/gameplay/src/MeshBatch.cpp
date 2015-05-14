@@ -248,7 +248,7 @@ void MeshBatch::draw()
 
     // Not using VBOs, so unbind the element array buffer.
     // ARRAY_BUFFER will be unbound automatically during pass->bind().
-    GL_ASSERT( gContext3D.EgBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0 ) );
+    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0 ) );
 
     GP_ASSERT(_material);
     if (_indexed)
@@ -266,11 +266,11 @@ void MeshBatch::draw()
 
         if (_indexed)
         {
-            GL_ASSERT( gContext3D.EgDrawElements(_primitiveType, _indexCount, GL_UNSIGNED_SHORT, (GLvoid*)_indices) );
+            GL_ASSERT( glDrawElements(_primitiveType, _indexCount, GL_UNSIGNED_SHORT, (GLvoid*)_indices) );
         }
         else
         {
-            GL_ASSERT( gContext3D.EgDrawArrays(_primitiveType, 0, _vertexCount) );
+            GL_ASSERT( glDrawArrays(_primitiveType, 0, _vertexCount) );
         }
 
         pass->unbind();

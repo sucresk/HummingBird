@@ -540,71 +540,71 @@ void RenderState::StateBlock::bindNoRestore()
     if ((_bits & RS_BLEND) && (_blendEnabled != _defaultState->_blendEnabled))
     {
         if (_blendEnabled)
-            GL_ASSERT( gContext3D.EgEnable(GL_BLEND) );
+            GL_ASSERT( glEnable(GL_BLEND) );
         else
-            GL_ASSERT( gContext3D.EgDisable(GL_BLEND) );
+            GL_ASSERT( glDisable(GL_BLEND) );
         _defaultState->_blendEnabled = _blendEnabled;
     }
     if ((_bits & RS_BLEND_FUNC) && (_blendSrc != _defaultState->_blendSrc || _blendDst != _defaultState->_blendDst))
     {
-        GL_ASSERT( gContext3D.EgBlendFunc((GLenum)_blendSrc, (GLenum)_blendDst) );
+        GL_ASSERT( glBlendFunc((GLenum)_blendSrc, (GLenum)_blendDst) );
         _defaultState->_blendSrc = _blendSrc;
         _defaultState->_blendDst = _blendDst;
     }
     if ((_bits & RS_CULL_FACE) && (_cullFaceEnabled != _defaultState->_cullFaceEnabled))
     {
         if (_cullFaceEnabled)
-            GL_ASSERT( gContext3D.EgEnable(GL_CULL_FACE) );
+            GL_ASSERT( glEnable(GL_CULL_FACE) );
         else
-            GL_ASSERT( gContext3D.EgDisable(GL_CULL_FACE) );
+            GL_ASSERT( glDisable(GL_CULL_FACE) );
         _defaultState->_cullFaceEnabled = _cullFaceEnabled;
     }
     if ((_bits & RS_CULL_FACE_SIDE) && (_cullFaceSide != _defaultState->_cullFaceSide))
     {
-        GL_ASSERT( gContext3D.EgCullFace((GLenum)_cullFaceSide) );
+        GL_ASSERT( glCullFace((GLenum)_cullFaceSide) );
         _defaultState->_cullFaceSide = _cullFaceSide;
     }
     if ((_bits & RS_FRONT_FACE) && (_frontFace != _defaultState->_frontFace))
     {
-        GL_ASSERT( gContext3D.EgFrontFace((GLenum)_frontFace) );
+        GL_ASSERT( glFrontFace((GLenum)_frontFace) );
         _defaultState->_frontFace = _frontFace;
     }
     if ((_bits & RS_DEPTH_TEST) && (_depthTestEnabled != _defaultState->_depthTestEnabled))
     {
         if (_depthTestEnabled)
-            GL_ASSERT( gContext3D.EgEnable(GL_DEPTH_TEST) );
+            GL_ASSERT( glEnable(GL_DEPTH_TEST) );
         else
-            GL_ASSERT( gContext3D.EgDisable(GL_DEPTH_TEST) );
+            GL_ASSERT( glDisable(GL_DEPTH_TEST) );
         _defaultState->_depthTestEnabled = _depthTestEnabled;
     }
     if ((_bits & RS_DEPTH_WRITE) && (_depthWriteEnabled != _defaultState->_depthWriteEnabled))
     {
-        GL_ASSERT( gContext3D.EgDepthMask(_depthWriteEnabled ? GL_TRUE : GL_FALSE) );
+        GL_ASSERT( glDepthMask(_depthWriteEnabled ? GL_TRUE : GL_FALSE) );
         _defaultState->_depthWriteEnabled = _depthWriteEnabled;
     }
     if ((_bits & RS_DEPTH_FUNC) && (_depthFunction != _defaultState->_depthFunction))
     {
-        GL_ASSERT( gContext3D.EgDepthFunc((GLenum)_depthFunction) );
+        GL_ASSERT( glDepthFunc((GLenum)_depthFunction) );
         _defaultState->_depthFunction = _depthFunction;
     }
 	if ((_bits & RS_STENCIL_TEST) && (_stencilTestEnabled != _defaultState->_stencilTestEnabled))
     {
         if (_stencilTestEnabled)
-			GL_ASSERT( gContext3D.EgEnable(GL_STENCIL_TEST) );
+			GL_ASSERT( glEnable(GL_STENCIL_TEST) );
         else
-            GL_ASSERT( gContext3D.EgDisable(GL_STENCIL_TEST) );
+            GL_ASSERT( glDisable(GL_STENCIL_TEST) );
         _defaultState->_stencilTestEnabled = _stencilTestEnabled;
     }
 	if ((_bits & RS_STENCIL_WRITE) && (_stencilWrite != _defaultState->_stencilWrite))
     {
-		GL_ASSERT( gContext3D.EgStencilMask(_stencilWrite) );
+		GL_ASSERT( glStencilMask(_stencilWrite) );
         _defaultState->_stencilWrite = _stencilWrite;
     }
 	if ((_bits & RS_STENCIL_FUNC) && (_stencilFunction != _defaultState->_stencilFunction ||
 										_stencilFunctionRef != _defaultState->_stencilFunctionRef ||
 										_stencilFunctionMask != _defaultState->_stencilFunctionMask))
     {
-		GL_ASSERT( gContext3D.EgStencilFunc((GLenum)_stencilFunction, _stencilFunctionRef, _stencilFunctionMask) );
+		GL_ASSERT( glStencilFunc((GLenum)_stencilFunction, _stencilFunctionRef, _stencilFunctionMask) );
         _defaultState->_stencilFunction = _stencilFunction;
 		_defaultState->_stencilFunctionRef = _stencilFunctionRef;
 		_defaultState->_stencilFunctionMask = _stencilFunctionMask;
@@ -613,7 +613,7 @@ void RenderState::StateBlock::bindNoRestore()
 									_stencilOpDpfail != _defaultState->_stencilOpDpfail ||
 									_stencilOpDppass != _defaultState->_stencilOpDppass))
     {
-		GL_ASSERT( gContext3D.EgStencilOp((GLenum)_stencilOpSfail, (GLenum)_stencilOpDpfail, (GLenum)_stencilOpDppass) );
+		GL_ASSERT( glStencilOp((GLenum)_stencilOpSfail, (GLenum)_stencilOpDpfail, (GLenum)_stencilOpDppass) );
         _defaultState->_stencilOpSfail = _stencilOpSfail;
 		_defaultState->_stencilOpDpfail = _stencilOpDpfail;
 		_defaultState->_stencilOpDppass = _stencilOpDppass;
@@ -635,68 +635,68 @@ void RenderState::StateBlock::restore(long stateOverrideBits)
     // Restore any state that is not overridden and is not default
     if (!(stateOverrideBits & RS_BLEND) && (_defaultState->_bits & RS_BLEND))
     {
-        GL_ASSERT( gContext3D.EgDisable(GL_BLEND) );
+        GL_ASSERT( glDisable(GL_BLEND) );
         _defaultState->_bits &= ~RS_BLEND;
         _defaultState->_blendEnabled = false;
     }
     if (!(stateOverrideBits & RS_BLEND_FUNC) && (_defaultState->_bits & RS_BLEND_FUNC))
     {
-        GL_ASSERT( gContext3D.EgBlendFunc(GL_ONE, GL_ZERO) );
+        GL_ASSERT( glBlendFunc(GL_ONE, GL_ZERO) );
         _defaultState->_bits &= ~RS_BLEND_FUNC;
         _defaultState->_blendSrc = RenderState::BLEND_ONE;
         _defaultState->_blendDst = RenderState::BLEND_ZERO;
     }
     if (!(stateOverrideBits & RS_CULL_FACE) && (_defaultState->_bits & RS_CULL_FACE))
     {
-        GL_ASSERT( gContext3D.EgDisable(GL_CULL_FACE) );
+        GL_ASSERT( glDisable(GL_CULL_FACE) );
         _defaultState->_bits &= ~RS_CULL_FACE;
         _defaultState->_cullFaceEnabled = false;
     }
     if (!(stateOverrideBits & RS_CULL_FACE_SIDE) && (_defaultState->_bits & RS_CULL_FACE_SIDE))
     {
-        GL_ASSERT( gContext3D.EgCullFace((GLenum)GL_BACK) );
+        GL_ASSERT( glCullFace((GLenum)GL_BACK) );
         _defaultState->_bits &= ~RS_CULL_FACE_SIDE;
         _defaultState->_cullFaceSide = RenderState::CULL_FACE_SIDE_BACK;
     }
     if (!(stateOverrideBits & RS_FRONT_FACE) && (_defaultState->_bits & RS_FRONT_FACE))
     {
-        GL_ASSERT( gContext3D.EgFrontFace((GLenum)GL_CCW) );
+        GL_ASSERT( glFrontFace((GLenum)GL_CCW) );
         _defaultState->_bits &= ~RS_FRONT_FACE;
         _defaultState->_frontFace = RenderState::FRONT_FACE_CCW;
     }
     if (!(stateOverrideBits & RS_DEPTH_TEST) && (_defaultState->_bits & RS_DEPTH_TEST))
     {
-        GL_ASSERT( gContext3D.EgDisable(GL_DEPTH_TEST) );
+        GL_ASSERT( glDisable(GL_DEPTH_TEST) );
         _defaultState->_bits &= ~RS_DEPTH_TEST;
         _defaultState->_depthTestEnabled = false;
     }
     if (!(stateOverrideBits & RS_DEPTH_WRITE) && (_defaultState->_bits & RS_DEPTH_WRITE))
     {
-        GL_ASSERT( gContext3D.EgDepthMask(GL_TRUE) );
+        GL_ASSERT( glDepthMask(GL_TRUE) );
         _defaultState->_bits &= ~RS_DEPTH_WRITE;
         _defaultState->_depthWriteEnabled = true;
     }
     if (!(stateOverrideBits & RS_DEPTH_FUNC) && (_defaultState->_bits & RS_DEPTH_FUNC))
     {
-        GL_ASSERT( gContext3D.EgDepthFunc((GLenum)GL_LESS) );
+        GL_ASSERT( glDepthFunc((GLenum)GL_LESS) );
         _defaultState->_bits &= ~RS_DEPTH_FUNC;
         _defaultState->_depthFunction = RenderState::DEPTH_LESS;
     }
 	if (!(stateOverrideBits & RS_STENCIL_TEST) && (_defaultState->_bits & RS_STENCIL_TEST))
     {
-        GL_ASSERT( gContext3D.EgDisable(GL_STENCIL_TEST) );
+        GL_ASSERT( glDisable(GL_STENCIL_TEST) );
         _defaultState->_bits &= ~RS_STENCIL_TEST;
         _defaultState->_stencilTestEnabled = false;
     }
 	if (!(stateOverrideBits & RS_STENCIL_WRITE) && (_defaultState->_bits & RS_STENCIL_WRITE))
     {
-		GL_ASSERT( gContext3D.EgStencilMask(RS_ALL_ONES) );
+		GL_ASSERT( glStencilMask(RS_ALL_ONES) );
         _defaultState->_bits &= ~RS_STENCIL_WRITE;
 		_defaultState->_stencilWrite = RS_ALL_ONES;
     }
 	if (!(stateOverrideBits & RS_STENCIL_FUNC) && (_defaultState->_bits & RS_STENCIL_FUNC))
     {
-		GL_ASSERT( gContext3D.EgStencilFunc((GLenum)RenderState::STENCIL_ALWAYS, 0, RS_ALL_ONES) );
+		GL_ASSERT( glStencilFunc((GLenum)RenderState::STENCIL_ALWAYS, 0, RS_ALL_ONES) );
         _defaultState->_bits &= ~RS_STENCIL_FUNC;
         _defaultState->_stencilFunction = RenderState::STENCIL_ALWAYS;
 		_defaultState->_stencilFunctionRef = 0;
@@ -704,7 +704,7 @@ void RenderState::StateBlock::restore(long stateOverrideBits)
     }
 	if (!(stateOverrideBits & RS_STENCIL_OP) && (_defaultState->_bits & RS_STENCIL_OP))
     {
-		GL_ASSERT( gContext3D.EgStencilOp((GLenum)RenderState::STENCIL_OP_KEEP, (GLenum)RenderState::STENCIL_OP_KEEP, (GLenum)RenderState::STENCIL_OP_KEEP) );
+		GL_ASSERT( glStencilOp((GLenum)RenderState::STENCIL_OP_KEEP, (GLenum)RenderState::STENCIL_OP_KEEP, (GLenum)RenderState::STENCIL_OP_KEEP) );
         _defaultState->_bits &= ~RS_STENCIL_OP;
         _defaultState->_stencilOpSfail = RenderState::STENCIL_OP_KEEP;
 		_defaultState->_stencilOpDpfail = RenderState::STENCIL_OP_KEEP;
@@ -721,7 +721,7 @@ void RenderState::StateBlock::enableDepthWrite()
     // next frame leaves depth writing disabled.
     if (!_defaultState->_depthWriteEnabled)
     {
-        GL_ASSERT( gContext3D.EgDepthMask(GL_TRUE) );
+        GL_ASSERT( glDepthMask(GL_TRUE) );
         _defaultState->_bits &= ~RS_DEPTH_WRITE;
         _defaultState->_depthWriteEnabled = true;
     }

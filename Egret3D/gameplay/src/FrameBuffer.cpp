@@ -36,7 +36,7 @@ FrameBuffer::~FrameBuffer()
 
     // Release GL resource.
     if (_handle)
-        GL_ASSERT( gContext3D.EgDeleteFramebuffers(1, &_handle) );
+        GL_ASSERT( glDeleteFramebuffers(1, &_handle) );
 
     // Remove self from vector.
     std::vector<FrameBuffer*>::iterator it = std::find(_frameBuffers.begin(), _frameBuffers.end(), this);
@@ -51,7 +51,7 @@ void FrameBuffer::initialize()
     // Query the current/initial FBO handle and store is as out 'default' frame buffer.
     // On many platforms this will simply be the zero (0) handle, but this is not always the case.
     GLint fbo;
-    gContext3D.EgGetIntegerv(GL_FRAMEBUFFER_BINDING, &fbo);
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &fbo);
     _defaultFrameBuffer = new FrameBuffer(FRAMEBUFFER_ID_DEFAULT, 0, 0, (FrameBufferHandle)fbo);
     _currentFrameBuffer = _defaultFrameBuffer;
 
@@ -59,7 +59,7 @@ void FrameBuffer::initialize()
     // on GL ES 2.x, so if the define does not exist, assume a value of 1.
 #ifdef GL_MAX_COLOR_ATTACHMENTS
         GLint val;
-        GL_ASSERT( gContext3D.EgGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &val) );
+        GL_ASSERT( glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &val) );
         _maxRenderTargets = (unsigned int)std::max(1, val);
 #else
         _maxRenderTargets = 1;
@@ -92,7 +92,7 @@ FrameBuffer* FrameBuffer::create(const char* id, unsigned int width, unsigned in
 
     // Create the frame buffer
     GLuint handle = 0;
-    GL_ASSERT( gContext3D.EgGenFramebuffers(1, &handle) );
+    GL_ASSERT( glGenFramebuffers(1, &handle) );
     FrameBuffer* frameBuffer = new FrameBuffer(id, width, height, handle);
     
     // Create the render target array for the new frame buffer
@@ -194,17 +194,17 @@ void FrameBuffer::setRenderTarget(RenderTarget* target, unsigned int index, GLen
         target->addRef();
 
         // Now set this target as the color attachment corresponding to index.
-        GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _handle) );
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
         GLenum attachment = GL_COLOR_ATTACHMENT0 + index;
-        GL_ASSERT( gContext3D.EgFramebufferTexture2D(GL_FRAMEBUFFER, attachment, textureTarget, _renderTargets[index]->getTexture()->getHandle(), 0) );
-        GLenum fboStatus = gContext3D.EgCheckFramebufferStatus(GL_FRAMEBUFFER);
+        GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, textureTarget, _renderTargets[index]->getTexture()->getHandle(), 0) );
+        GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
         if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
         {
             GP_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
         }
 
         // Restore the FBO binding
-        GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _currentFrameBuffer->_handle) );
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _currentFrameBuffer->_handle) );
     }
 }
 
@@ -239,28 +239,28 @@ void FrameBuffer::setDepthStencilTarget(DepthStencilTarget* target)
         target->addRef();
 
         // Now set this target as the color attachment corresponding to index.
-        GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _handle) );
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
 
         // Attach the render buffer to the framebuffer
-        GL_ASSERT( gContext3D.EgFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_depthBuffer) );
+        GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_depthBuffer) );
         if (target->isPacked())
         {
-            GL_ASSERT( gContext3D.EgFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_depthBuffer) );
+            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_depthBuffer) );
         }
         else if (target->getFormat() == DepthStencilTarget::DEPTH_STENCIL)
         {
-            GL_ASSERT( gContext3D.EgFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_stencilBuffer) );
+            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_stencilBuffer) );
         }
 
         // Check the framebuffer is good to go.
-        GLenum fboStatus = gContext3D.EgCheckFramebufferStatus(GL_FRAMEBUFFER);
+        GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
         if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
         {
             GP_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
         }
 
         // Restore the FBO binding
-        GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _currentFrameBuffer->_handle) );
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _currentFrameBuffer->_handle) );
     }
 }
 
@@ -276,7 +276,7 @@ bool FrameBuffer::isDefault() const
 
 FrameBuffer* FrameBuffer::bind()
 {
-    GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _handle) );
+    GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
     FrameBuffer* previousFrameBuffer = _currentFrameBuffer;
     _currentFrameBuffer = this;
     return previousFrameBuffer;
@@ -291,7 +291,7 @@ void FrameBuffer::getScreenshot(Image* image)
 
 	if (image->getWidth() == width && image->getHeight() == height) {
 		GLenum format = image->getFormat() == Image::RGB ? GL_RGB : GL_RGBA;
-        GL_ASSERT( gContext3D.EgReadPixels(0, 0, width, height, format, GL_UNSIGNED_BYTE, image->getData()) );
+        GL_ASSERT( glReadPixels(0, 0, width, height, format, GL_UNSIGNED_BYTE, image->getData()) );
 	}
 }
 
@@ -305,7 +305,7 @@ Image* FrameBuffer::createScreenshot(Image::Format format)
 
 FrameBuffer* FrameBuffer::bindDefault()
 {
-    GL_ASSERT( gContext3D.EgBindFramebuffer(GL_FRAMEBUFFER, _defaultFrameBuffer->_handle) );
+    GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _defaultFrameBuffer->_handle) );
     _currentFrameBuffer = _defaultFrameBuffer;
     return _defaultFrameBuffer;
 }
