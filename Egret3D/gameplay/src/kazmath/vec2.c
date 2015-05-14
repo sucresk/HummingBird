@@ -45,9 +45,16 @@ kmScalar kmVec2Length(const kmVec2* pIn)
     return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y));
 }
 
-kmScalar kmVec2LengthSq(const kmVec2* pIn)
+kmScalar kmVec2LengthSquared(const kmVec2* pIn)
 {
-    return kmSQR(pIn->x) + kmSQR(pIn->y);
+	return kmSQR(pIn->x) + kmSQR(pIn->y);
+}
+
+kmScalar kmVec2DistanceSquared(const kmVec2* pV1, const kmVec2* pV2)
+{
+	float dx = pV1->x - pV2->x;
+	float dy = pV1->y - pV2->y;
+	return (dx * dx + dy * dy);
 }
 
 kmScalar kmVec2Distance(const kmVec2* pV1, const kmVec2* pV2 )
@@ -134,6 +141,13 @@ kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s)
     return pOut;
 }
 
+kmVec2* kmVec2ScaleVec2(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2)
+{
+	pOut->x = pV1->x * pV2->x;
+	pOut->y = pV1->x * pV2->y;
+	return pOut;
+}
+
 int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
 {
     return (
@@ -167,4 +181,59 @@ kmVec2* kmVec2Rotate(kmVec2*pOut, const kmVec2* point, float angle)
 		pOut->y = tempY * cosAngle + tempX * sinAngle + point->y;
 	}
 	return pOut;
+}
+
+kmVec2* kmVec2Clamp(kmVec2* pOut, const kmVec2* pIn, const kmVec2* min, const kmVec2* max)
+{
+	// Clamp the x value.
+	pOut->x = pIn->x;
+	pOut->y = pIn->y;
+	if (pOut->x < min->x)
+		pOut->x = min->x;
+	if (pOut->x > max->x)
+		pOut->x = max->x;
+
+	// Clamp the y value.
+	if (pOut->y < min->y)
+		pOut->y = min->y;
+	if (pOut->y > max->y)
+		pOut->y = max->y;
+	return pOut;
+}
+
+int kmVec2IsOne(const kmVec2* pIn)
+{
+	return pIn->x == 1.0f && pIn->y == 1.0f;
+}
+
+void kmVec2Negate(kmVec2* pOut, const kmVec2* pIn)
+{
+	pOut->x = -pIn->x;
+	pOut->y = -pIn->y;
+	return pOut;
+}
+
+kmVec2* kmVec2Smooth(kmVec2* pOut, const kmVec2* pIn, const kmVec2* target, float elapsedTime, float responseTime)
+{
+	if (elapsedTime > 0)
+	{
+		float scale = elapsedTime / (elapsedTime + responseTime);
+		kmVec2 temp;
+		kmVec2Subtract(&temp, target, pIn);
+		kmVec2Scale(&temp, &temp, scale);
+		kmVec2Add(pOut, pIn, &temp);
+		//*this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
+	}
+	else
+	{
+		pOut->x = pIn->x;
+		pOut->y = pIn->y;
+	}
+	return pOut;
+}
+
+kmScalar kmVec2Angle(const kmVec2* pV1, const kmVec2* pV2)
+{
+	float dz = pV1->x * pV2->y - pV1->y * pV2->x;
+	return atan2f(fabsf(dz) + 1.0e-37f, kmVec2Dot(pV1, pV2));
 }

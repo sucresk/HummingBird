@@ -501,10 +501,10 @@ int lua_TileSet_getTileSource(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -731,10 +731,10 @@ int lua_TileSet_setTileSource(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", true, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec2'.");
                     lua_error(state);
                 }
 

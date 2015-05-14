@@ -174,7 +174,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -213,7 +213,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -290,7 +290,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -302,7 +302,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "Vector2", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param5 = egret::ScriptUtil::getObjectPointer<kmVec2>(6, "kmVec2", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -424,7 +424,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 9 off the stack.
                     bool param9Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param9 = egret::ScriptUtil::getObjectPointer<kmVec2>(10, "Vector2", true, &param9Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param9 = egret::ScriptUtil::getObjectPointer<kmVec2>(10, "kmVec2", true, &param9Valid);
                     if (!param9Valid)
                         break;
 
@@ -602,7 +602,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 9 off the stack.
                     bool param9Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param9 = egret::ScriptUtil::getObjectPointer<kmVec2>(10, "Vector2", true, &param9Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param9 = egret::ScriptUtil::getObjectPointer<kmVec2>(10, "kmVec2", true, &param9Valid);
                     if (!param9Valid)
                         break;
 
@@ -795,7 +795,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 11 off the stack.
                     bool param11Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "Vector2", true, &param11Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "kmVec2", true, &param11Valid);
                     if (!param11Valid)
                         break;
 
@@ -869,7 +869,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 11 off the stack.
                     bool param11Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "Vector2", true, &param11Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "kmVec2", true, &param11Valid);
                     if (!param11Valid)
                         break;
 
@@ -941,7 +941,7 @@ int lua_SpriteBatch_draw(lua_State* state)
 
                     // Get parameter 11 off the stack.
                     bool param11Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "Vector2", true, &param11Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param11 = egret::ScriptUtil::getObjectPointer<kmVec2>(12, "kmVec2", true, &param11Valid);
                     if (!param11Valid)
                         break;
 

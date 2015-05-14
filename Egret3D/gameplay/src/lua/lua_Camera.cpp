@@ -864,7 +864,7 @@ int lua_Camera_project(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", false, &param3Valid);
                     if (!param3Valid)
                         break;
 

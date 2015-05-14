@@ -1931,7 +1931,7 @@ int lua_JoystickControl_getInnerRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -1961,7 +1961,7 @@ int lua_JoystickControl_getInnerRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -1995,7 +1995,7 @@ int lua_JoystickControl_getInnerRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2139,7 +2139,7 @@ int lua_JoystickControl_getOuterRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2169,7 +2169,7 @@ int lua_JoystickControl_getOuterRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2203,7 +2203,7 @@ int lua_JoystickControl_getOuterRegionSize(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2989,7 +2989,7 @@ int lua_JoystickControl_getValue(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector2");
+                    luaL_getmetatable(state, "kmVec2");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -4779,10 +4779,10 @@ int lua_JoystickControl_setInnerRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -4804,10 +4804,10 @@ int lua_JoystickControl_setInnerRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -4833,10 +4833,10 @@ int lua_JoystickControl_setInnerRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -4987,10 +4987,10 @@ int lua_JoystickControl_setOuterRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -5012,10 +5012,10 @@ int lua_JoystickControl_setOuterRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -5041,10 +5041,10 @@ int lua_JoystickControl_setOuterRegionSize(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 

@@ -3,7 +3,7 @@
 #include "ScriptController.h"
 #include "lua_Vector2.h"
 #include "Base.h"
-#include "Vector2.h"
+#include "kazmath/vec2.h"
 
 namespace egret
 {
@@ -47,14 +47,14 @@ void luaRegister_Vector2()
     };
     std::vector<std::string> scopePath;
 
-    egret::ScriptUtil::registerClass("Vector2", lua_members, lua_Vector2__init, lua_Vector2__gc, lua_statics, scopePath);
+    egret::ScriptUtil::registerClass("kmVec2", lua_members, lua_Vector2__init, lua_Vector2__gc, lua_statics, scopePath);
 }
 
-static Vector2* getInstance(lua_State* state)
+static kmVec2* getInstance(lua_State* state)
 {
-    void* userdata = luaL_checkudata(state, 1, "Vector2");
-    luaL_argcheck(state, userdata != NULL, 1, "'Vector2' expected.");
-    return (Vector2*)((egret::ScriptUtil::LuaObject*)userdata)->instance;
+    void* userdata = luaL_checkudata(state, 1, "kmVec2");
+    luaL_argcheck(state, userdata != NULL, 1, "'kmVec2' expected.");
+	return (kmVec2*)((egret::ScriptUtil::LuaObject*)userdata)->instance;
 }
 
 int lua_Vector2__gc(lua_State* state)
@@ -69,12 +69,12 @@ int lua_Vector2__gc(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                void* userdata = luaL_checkudata(state, 1, "Vector2");
-                luaL_argcheck(state, userdata != NULL, 1, "'Vector2' expected.");
+                void* userdata = luaL_checkudata(state, 1, "kmVec2");
+                luaL_argcheck(state, userdata != NULL, 1, "'kmVec2' expected.");
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)userdata;
                 if (object->owns)
                 {
-                    Vector2* instance = (Vector2*)object->instance;
+                    kmVec2* instance = (kmVec2*)object->instance;
                     SAFE_DELETE(instance);
                 }
                 
@@ -105,13 +105,15 @@ int lua_Vector2__init(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = ((void*)new Vector2());
+            //void* returnPtr = ((void*)new Vector2());
+			kmVec2* returnPtr = new kmVec2;
+			memset(returnPtr, 0, sizeof(float) * 2);
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = true;
-                luaL_getmetatable(state, "Vector2");
+                luaL_getmetatable(state, "kmVec2");
                 lua_setmetatable(state, -2);
             }
             else
@@ -131,13 +133,15 @@ int lua_Vector2__init(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(1);
 
-                    void* returnPtr = ((void*)new Vector2(param1));
+                    //void* returnPtr = ((void*)new Vector2(param1));
+					kmVec2* returnPtr = new kmVec2;
+					memcpy(returnPtr, param1, sizeof(float) * 2);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Vector2");
+                        luaL_getmetatable(state, "kmVec2");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -155,17 +159,19 @@ int lua_Vector2__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Vector2(*param1));
+                    //void* returnPtr = ((void*)new Vector2(*param1));
+					kmVec2* returnPtr = new kmVec2;
+					memcpy(returnPtr, param1, sizeof(float) * 2);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Vector2");
+                        luaL_getmetatable(state, "kmVec2");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -194,13 +200,16 @@ int lua_Vector2__init(lua_State* state)
                     // Get parameter 2 off the stack.
                     float param2 = (float)luaL_checknumber(state, 2);
 
-                    void* returnPtr = ((void*)new Vector2(param1, param2));
+                    //void* returnPtr = ((void*)new Vector2(param1, param2));
+					kmVec2* returnPtr = new kmVec2;
+					returnPtr->x = param1;
+					returnPtr->y = param2;
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Vector2");
+                        luaL_getmetatable(state, "kmVec2");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -219,23 +228,27 @@ int lua_Vector2__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
-                    void* returnPtr = ((void*)new Vector2(*param1, *param2));
+                    //void* returnPtr = ((void*)new Vector2(*param1, *param2));
+					kmVec2* returnPtr = new kmVec2;
+					returnPtr->x = (*param2).x - (*param1).x;
+					returnPtr->y = (*param2).y - (*param1).y;
+
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Vector2");
+                        luaL_getmetatable(state, "kmVec2");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -276,16 +289,16 @@ int lua_Vector2_add(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                instance->add(*param1);
-                
+                kmVec2* instance = getInstance(state);
+                //instance->add(*param1);
+				kmVec2Add(instance, instance, param1);
                 return 0;
             }
 
@@ -319,25 +332,25 @@ int lua_Vector2_clamp(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                instance->clamp(*param1, *param2);
-                
+                kmVec2* instance = getInstance(state);
+                //instance->clamp(*param1, *param2);
+				kmVec2Clamp(instance, instance, param1, param2);
                 return 0;
             }
 
@@ -370,15 +383,16 @@ int lua_Vector2_distance(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                float result = instance->distance(*param1);
+                kmVec2* instance = getInstance(state);
+                //float result = instance->distance(*param1);
+				float result = kmVec2Distance(instance, param1);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -415,16 +429,16 @@ int lua_Vector2_distanceSquared(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                float result = instance->distanceSquared(*param1);
-
+                kmVec2* instance = getInstance(state);
+                //float result = instance->distanceSquared(*param1);
+				float result = kmVec2DistanceSquared(instance, param1);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -460,15 +474,16 @@ int lua_Vector2_dot(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                float result = instance->dot(*param1);
+                kmVec2* instance = getInstance(state);
+                //float result = instance->dot(*param1);
+				float result = kmVec2Dot(instance, param1);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -502,8 +517,9 @@ int lua_Vector2_isOne(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector2* instance = getInstance(state);
-                bool result = instance->isOne();
+                kmVec2* instance = getInstance(state);
+                //bool result = instance->isOne();
+				bool result = kmVec2IsOne(instance);
 
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
@@ -537,9 +553,9 @@ int lua_Vector2_isZero(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector2* instance = getInstance(state);
-                bool result = instance->isZero();
-
+                kmVec2* instance = getInstance(state);
+                //bool result = instance->isZero();
+				bool result = kmVec2IsZero(instance);
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
 
@@ -572,9 +588,9 @@ int lua_Vector2_length(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector2* instance = getInstance(state);
-                float result = instance->length();
-
+                kmVec2* instance = getInstance(state);
+                //float result = instance->length();
+				float result = kmVec2Length(instance);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -607,8 +623,9 @@ int lua_Vector2_lengthSquared(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector2* instance = getInstance(state);
-                float result = instance->lengthSquared();
+                kmVec2* instance = getInstance(state);
+                //float result = instance->lengthSquared();
+				float result = kmVec2LengthSquared(instance);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -642,9 +659,9 @@ int lua_Vector2_negate(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector2* instance = getInstance(state);
-                instance->negate();
-                
+                kmVec2* instance = getInstance(state);
+                //instance->negate();
+				kmVec2Negate(instance, instance);
                 return 0;
             }
 
@@ -676,14 +693,16 @@ int lua_Vector2_normalize(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Vector2* instance = getInstance(state);
-                    void* returnPtr = (void*)&(instance->normalize());
+                    kmVec2* instance = getInstance(state);
+                    //void* returnPtr = (void*)&(instance->normalize());
+					kmVec2* returnPtr = new kmVec2;
+					kmVec2Normalize(returnPtr, instance);
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = false;
-                        luaL_getmetatable(state, "Vector2");
+                        luaL_getmetatable(state, "kmVec2");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -708,13 +727,14 @@ int lua_Vector2_normalize(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
-                    Vector2* instance = getInstance(state);
-                    instance->normalize(param1);
-                    
+                    kmVec2* instance = getInstance(state);
+                    //instance->normalize(param1);
+					kmVec2Normalize(param1, instance);
+
                     return 0;
                 }
             } while (0);
@@ -749,19 +769,19 @@ int lua_Vector2_rotate(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 float param2 = (float)luaL_checknumber(state, 3);
 
-                Vector2* instance = getInstance(state);
-                instance->rotate(*param1, param2);
-                
+                kmVec2* instance = getInstance(state);
+                //instance->rotate(*param1, param2);
+				kmVec2Rotate(instance, param1, param2);
                 return 0;
             }
 
@@ -797,9 +817,10 @@ int lua_Vector2_scale(lua_State* state)
                     // Get parameter 1 off the stack.
                     float param1 = (float)luaL_checknumber(state, 2);
 
-                    Vector2* instance = getInstance(state);
-                    instance->scale(param1);
-                    
+                    kmVec2* instance = getInstance(state);
+                    //instance->scale(param1);
+					kmVec2Scale(instance, instance, param1);
+
                     return 0;
                 }
             } while (0);
@@ -811,13 +832,14 @@ int lua_Vector2_scale(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
-                    Vector2* instance = getInstance(state);
-                    instance->scale(*param1);
-                    
+                    kmVec2* instance = getInstance(state);
+                    //instance->scale(*param1);
+					kmVec2ScaleVec2(instance, instance, param1);
+
                     return 0;
                 }
             } while (0);
@@ -854,9 +876,9 @@ int lua_Vector2_set(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(2);
 
-                    Vector2* instance = getInstance(state);
-                    instance->set(param1);
-                    
+                    kmVec2* instance = getInstance(state);
+                    //instance->set(param1);
+					memcpy(instance, param1, sizeof(float) * 2);
                     return 0;
                 }
             } while (0);
@@ -868,13 +890,14 @@ int lua_Vector2_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
-                    Vector2* instance = getInstance(state);
-                    instance->set(*param1);
-                    
+                    kmVec2* instance = getInstance(state);
+                    //instance->set(*param1);
+					memcpy(instance, param1, sizeof(float) * 2);
+
                     return 0;
                 }
             } while (0);
@@ -897,8 +920,10 @@ int lua_Vector2_set(lua_State* state)
                     // Get parameter 2 off the stack.
                     float param2 = (float)luaL_checknumber(state, 3);
 
-                    Vector2* instance = getInstance(state);
-                    instance->set(param1, param2);
+                    kmVec2* instance = getInstance(state);
+                    //instance->set(param1, param2);
+					instance->x = param1;
+					instance->y = param2;
                     
                     return 0;
                 }
@@ -912,18 +937,20 @@ int lua_Vector2_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
-                    Vector2* instance = getInstance(state);
-                    instance->set(*param1, *param2);
+                    kmVec2* instance = getInstance(state);
+                    //instance->set(*param1, *param2);
+					instance->x = (*param2).x - (*param1).x;
+					instance->y = (*param2).y - (*param1).y;
                     
                     return 0;
                 }
@@ -960,10 +987,10 @@ int lua_Vector2_smooth(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
@@ -973,9 +1000,9 @@ int lua_Vector2_smooth(lua_State* state)
                 // Get parameter 3 off the stack.
                 float param3 = (float)luaL_checknumber(state, 4);
 
-                Vector2* instance = getInstance(state);
-                instance->smooth(*param1, param2, param3);
-                
+                kmVec2* instance = getInstance(state);
+                //instance->smooth(*param1, param2, param3);
+				kmVec2Smooth(instance, instance, param1, param2, param3);
                 return 0;
             }
 
@@ -1009,33 +1036,34 @@ int lua_Vector2_static_add(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2::add(*param1, *param2, param3);
-                
+                //Vector2::add(*param1, *param2, param3);
+				kmVec2Add(param3, param1, param2);
+
                 return 0;
             }
 
@@ -1068,24 +1096,24 @@ int lua_Vector2_static_angle(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                float result = Vector2::angle(*param1, *param2);
-
+                //float result = Vector2::angle(*param1, *param2);
+				float result = kmVec2Angle(param1, param2);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -1123,42 +1151,43 @@ int lua_Vector2_static_clamp(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", true, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "Vector2", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param4 = egret::ScriptUtil::getObjectPointer<kmVec2>(4, "kmVec2", false, &param4Valid);
                 if (!param4Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 4 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 4 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2::clamp(*param1, *param2, *param3, param4);
-                
+                //Vector2::clamp(*param1, *param2, *param3, param4);
+				kmVec2Clamp(param4, param1, param2, param3);
+
                 return 0;
             }
 
@@ -1191,23 +1220,24 @@ int lua_Vector2_static_dot(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                float result = Vector2::dot(*param1, *param2);
+                //float result = Vector2::dot(*param1, *param2);
+				float result = kmVec2Dot(param1, param2);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -1239,13 +1269,15 @@ int lua_Vector2_static_one(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector2::one());
+            //void* returnPtr = (void*)&(Vector2::one());
+			kmVec2* returnPtr = new kmVec2;
+			*returnPtr = vec2One;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Vector2");
+                luaL_getmetatable(state, "kmVec2");
                 lua_setmetatable(state, -2);
             }
             else
@@ -1282,33 +1314,33 @@ int lua_Vector2_static_subtract(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(1, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param3 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2::subtract(*param1, *param2, param3);
-                
+                //Vector2::subtract(*param1, *param2, param3);
+				kmVec2Subtract(param3, param1, param2);
                 return 0;
             }
 
@@ -1336,13 +1368,16 @@ int lua_Vector2_static_unitX(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector2::unitX());
+            //void* returnPtr = (void*)&(Vector2::unitX());
+			kmVec2* returnPtr = new kmVec2;
+			returnPtr->x = 1.0f;
+			returnPtr->y = 0.0f;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Vector2");
+                luaL_getmetatable(state, "kmVec2");
                 lua_setmetatable(state, -2);
             }
             else
@@ -1373,13 +1408,16 @@ int lua_Vector2_static_unitY(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector2::unitY());
+            //void* returnPtr = (void*)&(Vector2::unitY());
+			kmVec2* returnPtr = new kmVec2;
+			returnPtr->x = 0.0f;
+			returnPtr->y = 1.0f;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Vector2");
+                luaL_getmetatable(state, "kmVec2");
                 lua_setmetatable(state, -2);
             }
             else
@@ -1410,13 +1448,15 @@ int lua_Vector2_static_zero(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector2::zero());
+            //void* returnPtr = (void*)&(Vector2::zero());
+			kmVec2* returnPtr = new kmVec2;
+			*returnPtr = vec2Zero;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Vector2");
+                luaL_getmetatable(state, "kmVec2");
                 lua_setmetatable(state, -2);
             }
             else
@@ -1452,16 +1492,17 @@ int lua_Vector2_subtract(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "Vector2", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec2> param1 = egret::ScriptUtil::getObjectPointer<kmVec2>(2, "kmVec2", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector2'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec2'.");
                     lua_error(state);
                 }
 
-                Vector2* instance = getInstance(state);
-                instance->subtract(*param1);
-                
+                kmVec2* instance = getInstance(state);
+                //instance->subtract(*param1);
+				kmVec2Subtract(instance, instance, param1);
+
                 return 0;
             }
 
@@ -1488,7 +1529,7 @@ int lua_Vector2_x(lua_State* state)
         lua_error(state);
     }
 
-    Vector2* instance = getInstance(state);
+    kmVec2* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1517,7 +1558,7 @@ int lua_Vector2_y(lua_State* state)
         lua_error(state);
     }
 
-    Vector2* instance = getInstance(state);
+    kmVec2* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.

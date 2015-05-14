@@ -50,7 +50,8 @@ extern kmVec2 vec2One;
 
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y);
 kmScalar kmVec2Length(const kmVec2* pIn); ///< Returns the length of the vector
-kmScalar kmVec2LengthSq(const kmVec2* pIn); ///< Returns the square of the length of the vector
+kmScalar kmVec2LengthSquared(const kmVec2* pIn);
+kmScalar kmVec2DistanceSquared(const kmVec2* pV1, const kmVec2* pV2); ///< Returns the square of the length of the vector
 kmScalar kmVec2Distance(const kmVec2* pV1, const kmVec2* pV2);
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn); ///< Returns the vector passed in set to unit length
 kmVec2* kmVec2Add(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///< Adds 2 vectors and returns the result
@@ -59,10 +60,16 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///<
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const struct kmMat3* pM); /** Transform the Vector */
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const struct kmMat3* pM); ///<Transforms a 2D vector by a given matrix, projecting the result back into w = 1.
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s); ///< Scales a vector to length s
+kmVec2* kmVec2ScaleVec2(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2);
 int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns 1 if both vectors are equal
 // add by hgl
 int kmVec2IsZero(const kmVec2* pIn);
+int kmVec2IsOne(const kmVec2* pIn);
 kmVec2* kmVec2Rotate(kmVec2*pOut, const kmVec2* point, float angle);
+kmVec2* kmVec2Clamp( kmVec2* pOut, const kmVec2* pIn, const kmVec2* min, const kmVec2* max );
+void kmVec2Negate(kmVec2* pOut, const kmVec2* pIn);
+kmVec2* kmVec2Smooth(kmVec2* pOut, const kmVec2* pIn, const kmVec2* target, float elapsedTime, float responseTime);
+kmScalar kmVec2Angle(const kmVec2* pV1, const kmVec2* pV2);
 
 #ifdef __cplusplus
 }

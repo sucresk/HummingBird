@@ -572,7 +572,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -597,7 +597,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -835,7 +835,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "Vector2", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec2> param2 = egret::ScriptUtil::getObjectPointer<kmVec2>(3, "kmVec2", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
