@@ -371,9 +371,10 @@ void Transform::rotateX(float angle)
 
 	kmVec3 unintx = { 1.0f, 0.0f, 0.0f };
     kmQuaternion rotationQuat;
+	kmQuaternionIdentity(&rotationQuat);
     //Quaternion::createFromAxisAngle(Vector3::unitX(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
-	kmQuaCreateFromAxisAngle(&rotationQuat, &unintx, angle);
+	kmQuaCreateFromAxisAngle(&rotationQuat, &vec3uintX, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
     dirty(DIRTY_ROTATION);
 }

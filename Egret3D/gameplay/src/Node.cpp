@@ -585,11 +585,11 @@ kmVec3 Node::getForwardVectorWorld() const
 
 kmVec3 Node::getForwardVectorView() const
 {
-    kmVec3 vector;
+    kmVec3 vector = vec3Zero;
     //getWorldMatrix().getForwardVector(&vector);
     //getViewMatrix().transformVector(&vector);
 	kmMat4GetForwrad(&vector, &getWorldMatrix());
-	kmMat3Transform(&vector, &getWorldMatrix(), vector.x, vector.y, vector.z, 0.0f);
+	kmMat3Transform(&vector, &getViewMatrix(), vector.x, vector.y, vector.z, 0.0f);
     return vector;
 }
 

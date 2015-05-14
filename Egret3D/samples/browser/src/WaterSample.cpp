@@ -20,6 +20,9 @@ WaterSample::WaterSample()
      _refractBuffer(NULL), _refractBatch(NULL), _reflectBuffer(NULL), _reflectBatch(NULL), 
      _showBuffers(false), _gamepad(NULL)
 {
+	_cameraAcceleration = vec3Zero;
+	_clipPlane = vec4Zero;
+	kmMat4Identity(&m_worldViewProjectionReflection);
 }
 
 void WaterSample::initialize()
@@ -39,6 +42,7 @@ void WaterSample::initialize()
     Node* camPitchNode = Node::create();
     kmMat4 m;
     //Matrix::createLookAt(_cameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
+	kmMat4CreatLookAt(&m, &_cameraNode->getTranslation(), &vec3Zero, &vec3uintY);
     camPitchNode->rotate(m);
     _cameraNode->addChild(camPitchNode);
     _scene->addNode(_cameraNode);
@@ -122,25 +126,49 @@ void WaterSample::update(float elapsedTime)
     const float minVal = 0.1f;
     if (_gamepad && _gamepad->getJoystickCount())
         _gamepad->getJoystickValues(0, &axis);
-    //
-    //// Move the camera by applying a force
-    //kmVec3 force;
-    //if ((_inputMask & MOVE_FORWARD) || axis.y > minVal)
-    //    force += _cameraNode->getFirstChild()->getForwardVectorWorld();
-    //if (_inputMask & MOVE_BACKWARD || axis.y < -minVal)
-    //    force -= _cameraNode->getFirstChild()->getForwardVectorWorld();
-    //if (_inputMask & MOVE_LEFT || axis.x < -minVal)
-    //    force += _cameraNode->getRightVectorWorld();
-    //if (_inputMask & MOVE_RIGHT || axis.y > minVal)
-    //    force -= _cameraNode->getRightVectorWorld();
-    //if (force.lengthSquared() > 1.f) force.normalize();
+    
+    // Move the camera by applying a force
+    kmVec3 force = vec3Zero;
+	if ((_inputMask & MOVE_FORWARD) || axis.y > minVal)
+	{
+		//force += _cameraNode->getFirstChild()->getForwardVectorWorld();
+		kmVec3Add(&force, &force, &_cameraNode->getFirstChild()->getForwardVectorWorld());
+	}
+	if (_inputMask & MOVE_BACKWARD || axis.y < -minVal)
+	{
+		//force -= _cameraNode->getFirstChild()->getForwardVectorWorld();
+		kmVec3Subtract(&force, &force, &_cameraNode->getFirstChild()->getForwardVectorWorld());
+	}
+	if (_inputMask & MOVE_LEFT || axis.x < -minVal)
+	{
+		//force += _cameraNode->getRightVectorWorld();
+		kmVec3Add(&force, &force, &_cameraNode->getRightVectorWorld());
+	}
+	if (_inputMask & MOVE_RIGHT || axis.y > minVal)
+	{
+		//force -= _cameraNode->getRightVectorWorld();
+		kmVec3Subtract(&force, &force, &_cameraNode->getRightVectorWorld());
+	}
+    //if (force.lengthSquared() > 1.f) 
+	//	force.normalize();
+	if ( kmVec3LengthSquared(&force) > 1.0f )
+	{
+		kmVec3Normalize(&force, &force);
+	}
+	//_cameraAcceleration += force / MASS;
+	//_cameraAcceleration *= FRICTION;
+	//if (_cameraAcceleration.lengthSquared() < 0.01f)
+	//	_cameraAcceleration = Vector3::zero();
+	//_cameraNode->translate(_cameraAcceleration * SPEED * (elapsedTime / 1000.f));
+	kmVec3 temp = vec3Zero;
+	kmVec3Scale(&temp, &force, 1 / MASS);
+	kmVec3Add(&_cameraAcceleration, &_cameraAcceleration, &temp);
+	kmVec3Scale(&_cameraAcceleration, &_cameraAcceleration, FRICTION);
+	if (kmVec3LengthSquared(&_cameraAcceleration) < 0.0f)
+		_cameraAcceleration = vec3Zero;
+	kmVec3Scale(&temp, &_cameraAcceleration, SPEED * (elapsedTime / 1000.f));
+	_cameraNode->translate(temp);
 
-    //_cameraAcceleration += force / MASS;
-    //_cameraAcceleration *= FRICTION;
-    //if (_cameraAcceleration.lengthSquared() < 0.01f)
-    //    _cameraAcceleration = Vector3::zero();
-    //_cameraNode->translate(_cameraAcceleration * SPEED * (elapsedTime / 1000.f));
-    //
     // Make sure the reflection camera follows
     kmVec3 position = _cameraNode->getTranslation();
     position.y = -position.y + _waterHeight * 2.f;

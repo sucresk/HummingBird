@@ -835,7 +835,7 @@ Platform* Platform::create(Game* game)
             // Read resizable state.
             params.resizable = config->getBool("resizable");
             // Read multisampling state.
-            params.samples = config->getInt("samples");
+            params.samples = config->getInt("Egret3D");
 
             // Read window rect.
             int x = config->getInt("x");
