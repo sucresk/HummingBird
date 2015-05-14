@@ -423,10 +423,10 @@ int lua_Matrix_decompose(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -441,10 +441,10 @@ int lua_Matrix_decompose(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "kmVec3", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -522,10 +522,10 @@ int lua_Matrix_getBackVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -565,10 +565,10 @@ int lua_Matrix_getDownVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -608,10 +608,10 @@ int lua_Matrix_getForwardVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -650,10 +650,10 @@ int lua_Matrix_getLeftVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -693,10 +693,10 @@ int lua_Matrix_getRightVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -781,10 +781,10 @@ int lua_Matrix_getScale(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -824,10 +824,10 @@ int lua_Matrix_getTranslation(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -867,10 +867,10 @@ int lua_Matrix_getUpVector(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -1237,7 +1237,7 @@ int lua_Matrix_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1267,7 +1267,7 @@ int lua_Matrix_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1541,7 +1541,7 @@ int lua_Matrix_scale(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1589,7 +1589,7 @@ int lua_Matrix_scale(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1981,19 +1981,19 @@ int lua_Matrix_static_createBillboard(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -2026,25 +2026,25 @@ int lua_Matrix_static_createBillboard(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param4 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param4 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "kmVec3", true, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -2093,19 +2093,19 @@ int lua_Matrix_static_createLookAt(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -2475,7 +2475,7 @@ int lua_Matrix_static_createRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -2657,7 +2657,7 @@ int lua_Matrix_static_createScale(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -2739,7 +2739,7 @@ int lua_Matrix_static_createTranslation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(1, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -3077,7 +3077,7 @@ int lua_Matrix_transformPoint(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -3102,13 +3102,13 @@ int lua_Matrix_transformPoint(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -3151,7 +3151,7 @@ int lua_Matrix_transformVector(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -3195,13 +3195,13 @@ int lua_Matrix_transformVector(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -3268,7 +3268,7 @@ int lua_Matrix_transformVector(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param5 = egret::ScriptUtil::getObjectPointer<kmVec3>(6, "Vector3", false, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param5 = egret::ScriptUtil::getObjectPointer<kmVec3>(6, "kmVec3", false, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -3310,7 +3310,7 @@ int lua_Matrix_translate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -3335,7 +3335,7 @@ int lua_Matrix_translate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 

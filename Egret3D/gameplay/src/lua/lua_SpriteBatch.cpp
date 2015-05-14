@@ -162,7 +162,7 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -201,7 +201,7 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -278,7 +278,7 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -394,7 +394,7 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -572,7 +572,7 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -827,19 +827,19 @@ int lua_SpriteBatch_draw(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "Vector3", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(3, "kmVec3", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "Vector3", true, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param3 = egret::ScriptUtil::getObjectPointer<kmVec3>(4, "kmVec3", true, &param3Valid);
                     if (!param3Valid)
                         break;
 

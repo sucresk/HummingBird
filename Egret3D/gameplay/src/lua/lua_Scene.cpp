@@ -448,7 +448,7 @@ int lua_Scene_getAmbientColor(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else

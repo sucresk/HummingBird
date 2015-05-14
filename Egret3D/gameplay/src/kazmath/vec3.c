@@ -58,6 +58,11 @@ kmScalar kmVec3Length(const kmVec3* pIn)
     return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 }
 
+kmScalar kmVec3LengthSquared(const kmVec3* pIn)
+{
+	return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z);
+}
+
 kmScalar kmVec3Distance(const kmVec3* pV1, const kmVec3* pV2)
 {
 	float dx = pV1->x - pV2->x;
@@ -67,7 +72,7 @@ kmScalar kmVec3Distance(const kmVec3* pV1, const kmVec3* pV2)
 	return sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-kmScalar kmVec3DistanceSq(const kmVec3* pV1, const kmVec3* pV2)
+kmScalar kmVec3DistanceSquared(const kmVec3* pV1, const kmVec3* pV2)
 {
 	float dx = pV1->x - pV2->x;
 	float dy = pV1->y - pV2->y;
@@ -89,12 +94,12 @@ kmScalar kmVec3LengthSq(const kmVec3* pIn)
   */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
-    kmScalar l = 1.0f / kmVec3Length(pIn);
+    kmScalar flen = 1.0f / kmVec3Length(pIn);
 
     kmVec3 v;
-    v.x = pIn->x * l;
-    v.y = pIn->y * l;
-    v.z = pIn->z * l;
+    v.x = pIn->x * flen;
+    v.y = pIn->y * flen;
+    v.z = pIn->z * flen;
 
     pOut->x = v.x;
     pOut->y = v.y;
@@ -351,3 +356,77 @@ kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color)
 	kmVec3Fill(pOut, components[0], components[1], components[2]);
 	return pOut;
 }
+
+kmVec3* kmVec3SetVec3(kmVec3* pOut, const kmVec3* p1, const kmVec3* p2)
+{
+	pOut->x = p2->x - p1->x;
+	pOut->y = p2->y - p1->y;
+	pOut->z = p2->z - p1->z;
+	return pOut;
+
+}
+
+kmVec3* kmVec3Clamp(kmVec3* pOut, const kmVec3* pIn, const kmVec3* min, const kmVec3* max)
+{
+	pOut->x = pIn->x;
+	pOut->y = pIn->y;
+	pOut->z = pIn->z;
+	// Clamp the x value.
+	if (pOut->x < min->x)
+		pOut->x = min->x;
+	if (pOut->x > max->x)
+		pOut->x = max->x;
+
+	// Clamp the y value.
+	if (pOut->y < min->y)
+		pOut->y = min->y;
+	if (pOut->y > max->y)
+		pOut->y = max->y;
+
+	// Clamp the z value.
+	if (pOut->z < min->z)
+		pOut->z = min->z;
+	if (pOut->z > max->z)
+		pOut->z = max->z;
+	return pOut;
+}
+
+kmVec3* kmVec3Negate(kmVec3* pOut, const kmVec3* pIn)
+{
+	pOut->x = -pIn->x;
+	pOut->y = -pIn->y;
+	pOut->z = -pIn->z;
+	return pOut;
+}
+
+
+kmVec3* kmVec3Smooth(kmVec3* pOut, const kmVec3* pIn, const kmVec3* target, float elapsedTime, float responseTime)
+{
+	if (elapsedTime > 0)
+	{
+		float scale = elapsedTime / (elapsedTime + responseTime);
+		kmVec3 temp;
+		kmVec3Subtract(&temp, target, pIn);
+		kmVec3Scale(&temp, &temp, scale);
+		kmVec3Add(pOut, pIn, &temp);
+		//*this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
+	}
+	else
+	{
+		pOut->x = pIn->x;
+		pOut->y = pIn->y;
+		pOut->z = pIn->z;
+	}
+	return pOut;
+}
+
+kmScalar kmVec3Angle(const kmVec3* pV1, const kmVec3* pV2)
+{
+	float dx = pV1->y * pV2->z - pV1->z * pV2->y;
+	float dy = pV1->z * pV2->x - pV1->x * pV2->z;
+	float dz = pV1->x * pV2->y - pV1->y * pV2->x;
+	float fdot = kmVec3Dot(pV1, pV2);
+	return atan2f(sqrt(dx * dx + dy * dy + dz * dz) + 1.0e-37f, fdot);
+
+}
+

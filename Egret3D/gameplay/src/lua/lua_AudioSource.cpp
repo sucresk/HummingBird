@@ -334,7 +334,7 @@ int lua_AudioSource_getVelocity(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -714,7 +714,7 @@ int lua_AudioSource_setVelocity(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-					egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+					egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                     if (!param1Valid)
                         break;
 

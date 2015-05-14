@@ -397,7 +397,7 @@ int lua_PhysicsRigidBodyParameters__init(lua_State* state)
 
                     // Get parameter 7 off the stack.
                     bool param7Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param7Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "kmVec3", true, &param7Valid);
                     if (!param7Valid)
                         break;
 
@@ -456,13 +456,13 @@ int lua_PhysicsRigidBodyParameters__init(lua_State* state)
 
                     // Get parameter 7 off the stack.
                     bool param7Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param7Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "kmVec3", true, &param7Valid);
                     if (!param7Valid)
                         break;
 
                     // Get parameter 8 off the stack.
                     bool param8Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param8 = egret::ScriptUtil::getObjectPointer<kmVec3>(8, "Vector3", true, &param8Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param8 = egret::ScriptUtil::getObjectPointer<kmVec3>(8, "kmVec3", true, &param8Valid);
                     if (!param8Valid)
                         break;
 
@@ -522,19 +522,19 @@ int lua_PhysicsRigidBodyParameters__init(lua_State* state)
 
                     // Get parameter 7 off the stack.
                     bool param7Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "Vector3", true, &param7Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param7 = egret::ScriptUtil::getObjectPointer<kmVec3>(7, "kmVec3", true, &param7Valid);
                     if (!param7Valid)
                         break;
 
                     // Get parameter 8 off the stack.
                     bool param8Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param8 = egret::ScriptUtil::getObjectPointer<kmVec3>(8, "Vector3", true, &param8Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param8 = egret::ScriptUtil::getObjectPointer<kmVec3>(8, "kmVec3", true, &param8Valid);
                     if (!param8Valid)
                         break;
 
                     // Get parameter 9 off the stack.
                     bool param9Valid;
-                    egret::ScriptUtil::LuaArray<kmVec3> param9 = egret::ScriptUtil::getObjectPointer<kmVec3>(9, "Vector3", true, &param9Valid);
+                    egret::ScriptUtil::LuaArray<kmVec3> param9 = egret::ScriptUtil::getObjectPointer<kmVec3>(9, "kmVec3", true, &param9Valid);
                     if (!param9Valid)
                         break;
 
@@ -613,10 +613,10 @@ int lua_PhysicsRigidBodyParameters_angularFactor(lua_State* state)
     {
         // Get parameter 2 off the stack.
         bool param2Valid;
-        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
         if (!param2Valid)
         {
-            lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
+            lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec3'.");
             lua_error(state);
         }
 
@@ -633,7 +633,7 @@ int lua_PhysicsRigidBodyParameters_angularFactor(lua_State* state)
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
             object->instance = returnPtr;
             object->owns = true;
-            luaL_getmetatable(state, "Vector3");
+            luaL_getmetatable(state, "kmVec3");
             lua_setmetatable(state, -2);
         }
         else
@@ -659,10 +659,10 @@ int lua_PhysicsRigidBodyParameters_anisotropicFriction(lua_State* state)
     {
         // Get parameter 2 off the stack.
         bool param2Valid;
-        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
         if (!param2Valid)
         {
-            lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
+            lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec3'.");
             lua_error(state);
         }
 
@@ -679,7 +679,7 @@ int lua_PhysicsRigidBodyParameters_anisotropicFriction(lua_State* state)
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
             object->instance = returnPtr;
             object->owns = true;
-            luaL_getmetatable(state, "Vector3");
+            luaL_getmetatable(state, "kmVec3");
             lua_setmetatable(state, -2);
         }
         else
@@ -792,10 +792,10 @@ int lua_PhysicsRigidBodyParameters_linearFactor(lua_State* state)
     {
         // Get parameter 2 off the stack.
         bool param2Valid;
-        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+        egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
         if (!param2Valid)
         {
-            lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
+            lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec3'.");
             lua_error(state);
         }
 
@@ -812,7 +812,7 @@ int lua_PhysicsRigidBodyParameters_linearFactor(lua_State* state)
             egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
             object->instance = returnPtr;
             object->owns = true;
-            luaL_getmetatable(state, "Vector3");
+            luaL_getmetatable(state, "kmVec3");
             lua_setmetatable(state, -2);
         }
         else

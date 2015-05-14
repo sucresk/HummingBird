@@ -695,8 +695,8 @@ int lua_Vector2_normalize(lua_State* state)
                 {
                     kmVec2* instance = getInstance(state);
                     //void* returnPtr = (void*)&(instance->normalize());
-					kmVec2* returnPtr = new kmVec2;
-					kmVec2Normalize(returnPtr, instance);
+					kmVec2Normalize(instance, instance);
+					kmVec2* returnPtr = instance;
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));

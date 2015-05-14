@@ -49,8 +49,9 @@ extern kmVec3 vec3One;
 
 kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z);
 kmScalar kmVec3Length(const kmVec3* pIn); /** Returns the length of the vector */
+kmScalar kmVec3LengthSquared(const kmVec3* pIn);
 kmScalar kmVec3Distance(const kmVec3* pV1, const kmVec3* pV2);
-kmScalar kmVec3DistanceSq(const kmVec3* pV1, const kmVec3* pV2);
+kmScalar kmVec3DistanceSquared(const kmVec3* pV1, const kmVec3* pV2);
 kmScalar kmVec3LengthSq(const kmVec3* pIn); /** Returns the square of the length of the vector */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn); /** Returns the vector passed in set to unit length */
 kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2); /** Returns a vector perpendicular to 2 other vectors */
@@ -70,6 +71,12 @@ kmVec3* kmVec3Zero(kmVec3* pOut);
 int kmVec3IsZero(const kmVec3* pIn);
 int kmVec3IsOne( const kmVec3* pIn);
 kmVec3* kmVec3FromColor(kmVec3* pOut, unsigned int color);
+kmVec3* kmVec3SetVec3(kmVec3* pOut, const kmVec3* p1, const kmVec3* p2);
+kmVec3* kmVec3Clamp(kmVec3* pOut, const kmVec3* pIn, const kmVec3* min, const kmVec3* max);
+kmVec3* kmVec3Negate(kmVec3* pOut, const kmVec3* pIn);
+kmVec3* kmVec3Smooth(kmVec3* pOut, const kmVec3* pIn, const kmVec3* target, float elapsedTime, float responseTime);
+kmScalar kmVec3Angle(const kmVec3* pV1, const kmVec3* pV2);
+
 //kmVec3* kmVec3Smooth( )
 
 #ifdef __cplusplus

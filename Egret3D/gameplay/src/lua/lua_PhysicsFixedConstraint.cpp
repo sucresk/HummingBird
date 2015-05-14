@@ -192,7 +192,7 @@ int lua_PhysicsFixedConstraint_getTranslationOffsetA(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -236,7 +236,7 @@ int lua_PhysicsFixedConstraint_getTranslationOffsetB(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -467,10 +467,10 @@ int lua_PhysicsFixedConstraint_setTranslationOffsetA(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -509,10 +509,10 @@ int lua_PhysicsFixedConstraint_setTranslationOffsetB(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param1 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -576,7 +576,7 @@ int lua_PhysicsFixedConstraint_static_centerOfMassMidpoint(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = true;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -625,10 +625,10 @@ int lua_PhysicsFixedConstraint_static_getRotationOffset(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -690,10 +690,10 @@ int lua_PhysicsFixedConstraint_static_getTranslationOffset(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "Vector3", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmVec3> param2 = egret::ScriptUtil::getObjectPointer<kmVec3>(2, "kmVec3", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Vector3'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmVec3'.");
                     lua_error(state);
                 }
 
@@ -706,7 +706,7 @@ int lua_PhysicsFixedConstraint_static_getTranslationOffset(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = true;
-                    luaL_getmetatable(state, "Vector3");
+                    luaL_getmetatable(state, "kmVec3");
                     lua_setmetatable(state, -2);
                 }
                 else
