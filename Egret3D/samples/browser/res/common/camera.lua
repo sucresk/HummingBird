@@ -12,9 +12,9 @@ MOVE_LEFT = 4
 _useScriptCamera = false
 _forwardSpeed = 0
 _sideSpeed = 0
-_touch = Vector2.new()
-_delta = Vector2.new()
-_move = Vector2.new()
+_touch = kmVec2.new()
+_delta = kmVec2.new()
+_move = kmVec2.new()
 _moveFlags = { false, false, false, false }
 _yaw = 0
 _pitch = 0
@@ -174,7 +174,7 @@ function camera_touchEvent(evt, x, y, contactIndex)
 	        _touch:set(x, y)
 	        _pitch = _pitch - math.rad(_delta:y() * 0.5)
 	        _yaw = _yaw - math.rad(_delta:x() * 0.5)
-	        _cameraNode:setRotation(Quaternion.identity())
+	        _cameraNode:setRotation(kmQuaternion.identity())
 	        _cameraNode:rotateY(_yaw)
 	        _cameraNode:rotateX(_pitch)
 	    end
@@ -221,5 +221,5 @@ function camera_quatToEuler(quat)
 
     rotz = math.asin(2*qx*qy + 2*qz*qw)
 
-    return Vector3.new(rotx, roty, rotz)
+    return kmVec3.new(rotx, roty, rotz)
 end
