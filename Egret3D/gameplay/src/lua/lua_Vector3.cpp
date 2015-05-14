@@ -1381,8 +1381,7 @@ int lua_Vector3_static_one(lua_State* state)
         case 0:
         {
             //void* returnPtr = (void*)&(Vector3::one());
-			kmVec3* returnPtr = new kmVec3;
-			*returnPtr = vec3One;
+			kmVec3* returnPtr = &vec3One;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));

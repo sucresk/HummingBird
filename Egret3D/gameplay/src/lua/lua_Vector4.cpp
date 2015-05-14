@@ -364,8 +364,8 @@ int lua_Vector4_clamp(lua_State* state)
                 }
 
                 kmVec4* instance = getInstance(state);
-                instance->clamp(*param1, *param2);
-				
+                //instance->clamp(*param1, *param2);
+				kmVec4Clamp(instance, instance, param1, param2);
                 
                 return 0;
             }
@@ -406,8 +406,9 @@ int lua_Vector4_distance(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
-                float result = instance->distance(*param1);
+                kmVec4* instance = getInstance(state);
+                //float result = instance->distance(*param1);
+				float result = kmVec4Distance(instance, param1);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -451,8 +452,9 @@ int lua_Vector4_distanceSquared(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
-                float result = instance->distanceSquared(*param1);
+                kmVec4* instance = getInstance(state);
+                //float result = instance->distanceSquared(*param1);
+				float result = kmVec4DistanceSquared(instance, param1);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -496,9 +498,9 @@ int lua_Vector4_dot(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
-                float result = instance->dot(*param1);
-
+                kmVec4* instance = getInstance(state);
+                //float result = instance->dot(*param1);
+				float result = kmVec4Dot(instance, param1);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -531,8 +533,9 @@ int lua_Vector4_isOne(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector4* instance = getInstance(state);
-                bool result = instance->isOne();
+                kmVec4* instance = getInstance(state);
+                //bool result = instance->isOne();
+				bool result = kmVec4IsOne(instance);
 
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
@@ -566,8 +569,9 @@ int lua_Vector4_isZero(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector4* instance = getInstance(state);
-                bool result = instance->isZero();
+                kmVec4* instance = getInstance(state);
+                //bool result = instance->isZero();
+				bool result = kmVec4IsZero(instance);
 
                 // Push the return value onto the stack.
                 lua_pushboolean(state, result);
@@ -601,8 +605,9 @@ int lua_Vector4_length(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector4* instance = getInstance(state);
-                float result = instance->length();
+                kmVec4* instance = getInstance(state);
+                //float result = instance->length();
+				float result = kmVec4Length(instance);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -636,8 +641,9 @@ int lua_Vector4_lengthSquared(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector4* instance = getInstance(state);
-                float result = instance->lengthSquared();
+                kmVec4* instance = getInstance(state);
+                //float result = instance->lengthSquared();
+				float result = kmVec4LengthSquared(instance);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -671,8 +677,9 @@ int lua_Vector4_negate(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                Vector4* instance = getInstance(state);
-                instance->negate();
+                kmVec4* instance = getInstance(state);
+                //instance->negate();
+				kmVec4Negate(instance, instance);
                 
                 return 0;
             }
@@ -705,8 +712,10 @@ int lua_Vector4_normalize(lua_State* state)
             {
                 if ((lua_type(state, 1) == LUA_TUSERDATA))
                 {
-                    Vector4* instance = getInstance(state);
-                    void* returnPtr = (void*)&(instance->normalize());
+                    kmVec4* instance = getInstance(state);
+                    //void* returnPtr = (void*)&(instance->normalize());
+					kmVec4Normalize(instance, instance);
+					kmVec4* returnPtr = instance;
                     if (returnPtr)
                     {
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -741,8 +750,9 @@ int lua_Vector4_normalize(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Vector4* instance = getInstance(state);
-                    instance->normalize(param1);
+                    kmVec4* instance = getInstance(state);
+                    //instance->normalize(param1);
+					kmVec4Normalize(param1, instance);
                     
                     return 0;
                 }
@@ -778,8 +788,9 @@ int lua_Vector4_scale(lua_State* state)
                 // Get parameter 1 off the stack.
                 float param1 = (float)luaL_checknumber(state, 2);
 
-                Vector4* instance = getInstance(state);
-                instance->scale(param1);
+                kmVec4* instance = getInstance(state);
+                //instance->scale(param1);
+				kmVec4Scale(instance, instance, param1);
                 
                 return 0;
             }
@@ -816,8 +827,9 @@ int lua_Vector4_set(lua_State* state)
                     // Get parameter 1 off the stack.
                     egret::ScriptUtil::LuaArray<float> param1 = egret::ScriptUtil::getFloatPointer(2);
 
-                    Vector4* instance = getInstance(state);
-                    instance->set(param1);
+                    kmVec4* instance = getInstance(state);
+                    //instance->set(param1);
+					memcpy(instance, param1, sizeof(float) * 4);
                     
                     return 0;
                 }
@@ -834,8 +846,9 @@ int lua_Vector4_set(lua_State* state)
                     if (!param1Valid)
                         break;
 
-                    Vector4* instance = getInstance(state);
-                    instance->set(*param1);
+                    kmVec4* instance = getInstance(state);
+                    //instance->set(*param1);
+					memcpy(instance, param1, sizeof(float) * 4);
                     
                     return 0;
                 }
@@ -865,9 +878,9 @@ int lua_Vector4_set(lua_State* state)
                     if (!param2Valid)
                         break;
 
-                    Vector4* instance = getInstance(state);
-                    instance->set(*param1, *param2);
-                    
+                    kmVec4* instance = getInstance(state);
+                    //instance->set(*param1, *param2);
+					kmVec4Set(instance, param1, param2);
                     return 0;
                 }
             } while (0);
@@ -898,8 +911,9 @@ int lua_Vector4_set(lua_State* state)
                     // Get parameter 4 off the stack.
                     float param4 = (float)luaL_checknumber(state, 5);
 
-                    Vector4* instance = getInstance(state);
-                    instance->set(param1, param2, param3, param4);
+                    kmVec4* instance = getInstance(state);
+                    //instance->set(param1, param2, param3, param4);
+					kmVec4Fill(instance, param1, param2, param3, param4);
                     
                     return 0;
                 }
@@ -960,7 +974,8 @@ int lua_Vector4_static_add(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4::add(*param1, *param2, param3);
+                //Vector4::add(*param1, *param2, param3);
+				kmVec4Add(param3, param1, param2);
                 
                 return 0;
             }
@@ -1010,8 +1025,8 @@ int lua_Vector4_static_angle(lua_State* state)
                     lua_error(state);
                 }
 
-                float result = Vector4::angle(*param1, *param2);
-
+                //float result = Vector4::angle(*param1, *param2);
+				float result = kmVec4Angle(param1, param2);
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
 
@@ -1083,7 +1098,8 @@ int lua_Vector4_static_clamp(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4::clamp(*param1, *param2, *param3, param4);
+                //Vector4::clamp(*param1, *param2, *param3, param4);
+				kmVec4Clamp(param4, param1, param2, param3);
                 
                 return 0;
             }
@@ -1133,7 +1149,8 @@ int lua_Vector4_static_dot(lua_State* state)
                     lua_error(state);
                 }
 
-                float result = Vector4::dot(*param1, *param2);
+                //float result = Vector4::dot(*param1, *param2);
+				float result = kmVec4Dot(param1, param2);
 
                 // Push the return value onto the stack.
                 lua_pushnumber(state, result);
@@ -1170,7 +1187,9 @@ int lua_Vector4_static_fromColor(lua_State* state)
                 // Get parameter 1 off the stack.
                 unsigned int param1 = (unsigned int)luaL_checkunsigned(state, 1);
 
-                void* returnPtr = (void*)new Vector4(Vector4::fromColor(param1));
+                //void* returnPtr = (void*)new Vector4(Vector4::fromColor(param1));
+				kmVec4* returnPtr = new kmVec4;
+				kmVec4FromColor(returnPtr, param1);
                 if (returnPtr)
                 {
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1211,7 +1230,9 @@ int lua_Vector4_static_one(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::one());
+            //void* returnPtr = (void*)&(Vector4::one());
+			kmVec4* returnPtr = &vec4One;
+
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1279,7 +1300,8 @@ int lua_Vector4_static_subtract(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4::subtract(*param1, *param2, param3);
+                //Vector4::subtract(*param1, *param2, param3);
+				kmVec4Subtract(param3, param1, param2);
                 
                 return 0;
             }
@@ -1308,7 +1330,8 @@ int lua_Vector4_static_unitW(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::unitW());
+            //void* returnPtr = (void*)&(Vector4::unitW());
+			kmVec4* returnPtr = &vec4uinW;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1345,7 +1368,8 @@ int lua_Vector4_static_unitX(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::unitX());
+            //void* returnPtr = (void*)&(Vector4::unitX());
+			kmVec4* returnPtr = &vec4uinX;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1382,7 +1406,8 @@ int lua_Vector4_static_unitY(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::unitY());
+            //void* returnPtr = (void*)&(Vector4::unitY());
+			kmVec4* returnPtr = &vec4uinY;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1419,7 +1444,8 @@ int lua_Vector4_static_unitZ(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::unitZ());
+            //void* returnPtr = (void*)&(Vector4::unitZ());
+			kmVec4* returnPtr = &vec4uinZ;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1456,7 +1482,8 @@ int lua_Vector4_static_zero(lua_State* state)
     {
         case 0:
         {
-            void* returnPtr = (void*)&(Vector4::zero());
+            //void* returnPtr = (void*)&(Vector4::zero());
+			kmVec4* returnPtr = &vec4Zero;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1505,8 +1532,9 @@ int lua_Vector4_subtract(lua_State* state)
                     lua_error(state);
                 }
 
-                Vector4* instance = getInstance(state);
-                instance->subtract(*param1);
+                kmVec4* instance = getInstance(state);
+                //instance->subtract(*param1);
+				kmVec4Subtract(instance, instance, param1);
                 
                 return 0;
             }
@@ -1534,7 +1562,7 @@ int lua_Vector4_w(lua_State* state)
         lua_error(state);
     }
 
-    Vector4* instance = getInstance(state);
+    kmVec4* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1563,7 +1591,7 @@ int lua_Vector4_x(lua_State* state)
         lua_error(state);
     }
 
-    Vector4* instance = getInstance(state);
+    kmVec4* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1592,7 +1620,7 @@ int lua_Vector4_y(lua_State* state)
         lua_error(state);
     }
 
-    Vector4* instance = getInstance(state);
+    kmVec4* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.
@@ -1621,7 +1649,7 @@ int lua_Vector4_z(lua_State* state)
         lua_error(state);
     }
 
-    Vector4* instance = getInstance(state);
+    kmVec4* instance = getInstance(state);
     if (lua_gettop(state) == 2)
     {
         // Get parameter 2 off the stack.

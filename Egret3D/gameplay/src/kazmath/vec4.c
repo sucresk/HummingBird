@@ -34,6 +34,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 kmVec4 vec4Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
 kmVec4 vec4One = { 1.0f, 1.0f, 1.0f, 1.0f };
+kmVec4 vec4uintX = { 1.0f, 0.0f, 0.0f, 0.0f };
+kmVec4 vec4uintY = { 0.0f, 1.0f, 0.0f, 0.0f };
+kmVec4 vec4uintZ = { 0.0f, 0.0f, 1.0f, 0.0f };
+kmVec4 vec4uintW = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
 {
@@ -42,6 +46,15 @@ kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
     pOut->z = z;
     pOut->w = w;
     return pOut;
+}
+
+kmVec4* kmVec4Set(kmVec4* pOut, const kmVec4*pV1, const kmVec4* pV2)
+{
+	pOut->x = pV2->x - pV1->x;
+	pOut->y = pV2->y - pV1->y;
+	pOut->z = pV2->z - pV1->z;
+	pOut->w = pV2->w - pV1->w;
+	return pOut;
 }
 
 
@@ -71,8 +84,27 @@ kmScalar kmVec4Length(const kmVec4* pIn) {
 }
 
 /// Returns the length of the 4D vector squared.
-kmScalar kmVec4LengthSq(const kmVec4* pIn) {
+kmScalar kmVec4LengthSquared(const kmVec4* pIn) {
     return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z) + kmSQR(pIn->w);
+}
+
+kmScalar kmVec4Distance(const kmVec4* pV1, const kmVec4* pV2)
+{
+	float dx = pV1->x - pV2->x;
+	float dy = pV1->y - pV2->y;
+	float dz = pV1->z - pV2->z;
+	float dw = pV1->w - pV2->w;
+
+	return sqrt(dx * dx + dy * dy + dz * dz + dw * dw );
+}
+kmScalar kmVec4DistanceSquared(const kmVec4* pV1, const kmVec4* pV2)
+{
+	float dx = pV1->x - pV2->x;
+	float dy = pV1->y - pV2->y;
+	float dz = pV1->z - pV2->z;
+	float dw = pV1->w - pV2->w;
+
+	return (dx * dx + dy * dy + dz * dz + dw * dw);
 }
 
 /// Returns the interpolation of 2 4D vectors based on t. Currently not implemented!
@@ -170,3 +202,64 @@ kmVec4* kmVec4FromColor(kmVec4* pOut, unsigned int color)
 	return pOut;
 }
 
+kmVec4* kmVec4Clamp(kmVec4* pOut, const kmVec4* pIn, const kmVec4* min, const kmVec4* max)
+{
+	pOut->x = pIn->x;
+	pOut->y = pIn->y;
+	pOut->z = pIn->z;
+	pOut->w = pIn->w;
+	// Clamp the x value.
+	if (pOut->x < min->x)
+		pOut->x = min->x;
+	if (pOut->x > max->x)
+		pOut->x = max->x;
+
+	// Clamp the y value.
+	if (pOut->y < min->y)
+		pOut->y = min->y;
+	if (pOut->y > max->y)
+		pOut->y = max->y;
+
+	// Clamp the z value.
+	if (pOut->z < min->z)
+		pOut->z = min->z;
+	if (pOut->z > max->z)
+		pOut->z = max->z;
+
+	// Clamp the z value.
+	if (pOut->w < min->w)
+		pOut->w = min->w;
+	if (pOut->w > max->w)
+		pOut->w = max->w;
+	return pOut;
+}
+
+int kmVec4IsOne(const kmVec4* pIn)
+{
+	return pIn->x == 1.0f && pIn->y == 1.0f && 
+		   pIn->z == 1.0f && pIn->w == 1.0f;
+}
+
+int kmVec4IsZero(const kmVec4* pIn)
+{
+	return pIn->x == 0.0f && pIn->y == 0.0f &&
+		pIn->z == 0.0f && pIn->w == 0.0f;
+}
+
+kmVec4* kmVec4Negate(kmVec4* pOut, const kmVec4* pIn)
+{
+	pOut->x = -pIn->x;
+	pOut->y = -pIn->y;
+	pOut->z = -pIn->z;
+	pOut->w = -pIn->w;
+	return pOut;
+}
+
+kmScalar kmVec4Angle(const kmVec4* pV1, const kmVec4* pV2)
+{
+	float dx = pV1->w * pV2->x - pV1->x * pV2->w - pV1->y * pV2->z + pV1->z * pV2->y;
+	float dy = pV1->w * pV2->y - pV1->y * pV2->w - pV1->z * pV2->x + pV1->x * pV2->z;
+	float dz = pV1->w * pV2->z - pV1->z * pV2->w - pV1->x * pV2->y + pV1->y * pV2->x;
+	float fdot = kmVec4Dot(pV1, pV2);
+	return atan2f(sqrt(dx * dx + dy * dy + dz * dz) + 1.0e-37f, fdot );
+}

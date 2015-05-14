@@ -49,12 +49,19 @@ extern "C" {
 
 extern kmVec4 vec4Zero;
 extern kmVec4 vec4One;
+extern kmVec4 vec4uinX;
+extern kmVec4 vec4uinY;
+extern kmVec4 vec4uinZ;
+extern kmVec4 vec4uinW;
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w);
+kmVec4* kmVec4Set(kmVec4* pOut, const kmVec4*pV1, const kmVec4* pV2);
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2);
 kmScalar kmVec4Dot(const kmVec4* pV1, const kmVec4* pV2);
 kmScalar kmVec4Length(const kmVec4* pIn);
-kmScalar kmVec4LengthSq(const kmVec4* pIn);
+kmScalar kmVec4LengthSquared(const kmVec4* pIn);
+kmScalar kmVec4Distance(const kmVec4* pV1, const kmVec4* pV2);
+kmScalar kmVec4DistanceSquared(const kmVec4* pV1, const kmVec4* pV2);
 kmVec4* kmVec4Lerp(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, kmScalar t);
 kmVec4* kmVec4Normalize(kmVec4* pOut, const kmVec4* pIn);
 kmVec4* kmVec4Scale(kmVec4* pOut, const kmVec4* pIn, const kmScalar s); ///< Scales a vector to length s
@@ -66,6 +73,11 @@ int     kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2);
 kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn);
 //add by hgl
 kmVec4* kmVec4FromColor(kmVec4* pOut, unsigned int color);
+kmVec4* kmVec4Clamp(kmVec4* pOut, const kmVec4* pIn, const kmVec4* min, const kmVec4* max);
+int kmVec4IsOne(const kmVec4* pIn);
+int kmVec4IsZero(const kmVec4* pIn);
+kmVec4* kmVec4Negate(kmVec4* pOut, const kmVec4* pIn);
+kmScalar kmVec4Angle(const kmVec4* pV1, const kmVec4* pV2);
 
 #ifdef __cplusplus
 }
