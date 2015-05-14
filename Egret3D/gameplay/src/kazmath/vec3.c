@@ -37,6 +37,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 kmVec3 vec3Zero = { 0.0f, 0.0f, 0.0f };
 kmVec3 vec3One = { 1.0f, 1.0f, 1.0f };
+kmVec3 vec3uintX = { 1.0f, 0.0f, 0.0f };
+kmVec3 vec3uintY = { 0.0f, 1.0f, 0.0f };
+kmVec3 vec3uintZ = { 0.0f, 0.0f, 1.0f };
+
 /**
  * Fill a kmVec3 structure using 3 floating point values
  * The result is store in pOut, returns pOut

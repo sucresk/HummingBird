@@ -32,6 +32,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 kmVec2 vec2Zero = { 0.0f, 0.0f };
 kmVec2 vec2One = { 1.0f, 1.0f };
+kmVec2 vec2uintX = { 1.0f, 0.0f };
+kmVec2 vec2uintY = { 0.0f, 1.0f };
 
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y)
 {

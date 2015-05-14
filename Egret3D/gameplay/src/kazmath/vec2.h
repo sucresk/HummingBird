@@ -47,6 +47,8 @@ extern "C" {
 
 extern kmVec2 vec2Zero;
 extern kmVec2 vec2One;
+extern kmVec2 vec2uintX;
+extern kmVec2 vec2uintY;
 
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y);
 kmScalar kmVec2Length(const kmVec2* pIn); ///< Returns the length of the vector

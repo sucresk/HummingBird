@@ -46,6 +46,9 @@ extern "C" {
 
 extern kmVec3 vec3Zero;
 extern kmVec3 vec3One;
+extern kmVec3 vec3uintX;
+extern kmVec3 vec3uintY;
+extern kmVec3 vec3uintZ;
 
 kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z);
 kmScalar kmVec3Length(const kmVec3* pIn); /** Returns the length of the vector */
