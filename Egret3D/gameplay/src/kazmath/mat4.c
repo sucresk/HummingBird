@@ -1237,6 +1237,7 @@ kmMat4* kmMat4RotateVecScalar(kmMat4* pOut, const kmMat4* pIn, const struct kmVe
 	kmMat4 temp;
 	kmMat4CreateRotation(&temp, axis, angle );
 	kmMat4Multiply(pOut, pIn, &temp);
+	return pOut;
 }
 
 kmMat4* kmMat4CreateBillboard(kmMat4* pOut, const kmVec3* objpos, const kmVec3* campos, const kmVec3* camUp, const kmVec3* camForward)

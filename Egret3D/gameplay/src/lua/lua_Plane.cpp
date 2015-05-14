@@ -848,10 +848,10 @@ int lua_Plane_transform(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 

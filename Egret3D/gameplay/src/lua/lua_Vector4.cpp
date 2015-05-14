@@ -1331,7 +1331,7 @@ int lua_Vector4_static_unitW(lua_State* state)
         case 0:
         {
             //void* returnPtr = (void*)&(Vector4::unitW());
-			kmVec4* returnPtr = &vec4uinW;
+			kmVec4* returnPtr = &vec4uintW;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1369,7 +1369,7 @@ int lua_Vector4_static_unitX(lua_State* state)
         case 0:
         {
             //void* returnPtr = (void*)&(Vector4::unitX());
-			kmVec4* returnPtr = &vec4uinX;
+			kmVec4* returnPtr = &vec4uintX;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1407,7 +1407,7 @@ int lua_Vector4_static_unitY(lua_State* state)
         case 0:
         {
             //void* returnPtr = (void*)&(Vector4::unitY());
-			kmVec4* returnPtr = &vec4uinY;
+			kmVec4* returnPtr = &vec4uintY;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
@@ -1445,7 +1445,7 @@ int lua_Vector4_static_unitZ(lua_State* state)
         case 0:
         {
             //void* returnPtr = (void*)&(Vector4::unitZ());
-			kmVec4* returnPtr = &vec4uinZ;
+			kmVec4* returnPtr = &vec4uintZ;
             if (returnPtr)
             {
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));

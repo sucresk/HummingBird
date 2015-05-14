@@ -427,7 +427,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -478,7 +478,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -536,7 +536,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -554,7 +554,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -601,7 +601,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -619,7 +619,7 @@ int lua_PhysicsController_createGenericConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -688,10 +688,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -745,10 +745,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -812,10 +812,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -839,10 +839,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", true, &param5Valid);
                 if (!param5Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 5 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 5 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -889,10 +889,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -916,10 +916,10 @@ int lua_PhysicsController_createHingeConstraint(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", true, &param5Valid);
                 if (!param5Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 5 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 5 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1276,7 +1276,7 @@ int lua_PhysicsController_createSpringConstraint(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1294,7 +1294,7 @@ int lua_PhysicsController_createSpringConstraint(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", true, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param5 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", true, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -1352,10 +1352,10 @@ int lua_PhysicsController_drawDebug(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 

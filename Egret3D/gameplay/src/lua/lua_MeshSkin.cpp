@@ -67,7 +67,7 @@ int lua_MeshSkin_getBindShape(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else

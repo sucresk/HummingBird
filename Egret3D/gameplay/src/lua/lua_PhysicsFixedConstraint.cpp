@@ -104,7 +104,7 @@ int lua_PhysicsFixedConstraint_getRotationOffsetA(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Quaternion");
+                    luaL_getmetatable(state, "kmQuaternion");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -148,7 +148,7 @@ int lua_PhysicsFixedConstraint_getRotationOffsetB(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Quaternion");
+                    luaL_getmetatable(state, "kmQuaternion");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -383,10 +383,10 @@ int lua_PhysicsFixedConstraint_setRotationOffsetA(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -425,10 +425,10 @@ int lua_PhysicsFixedConstraint_setRotationOffsetB(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -641,7 +641,7 @@ int lua_PhysicsFixedConstraint_static_getRotationOffset(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = true;
-                    luaL_getmetatable(state, "Quaternion");
+                    luaL_getmetatable(state, "kmQuaternion");
                     lua_setmetatable(state, -2);
                 }
                 else

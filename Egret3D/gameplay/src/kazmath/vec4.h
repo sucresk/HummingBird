@@ -49,10 +49,10 @@ extern "C" {
 
 extern kmVec4 vec4Zero;
 extern kmVec4 vec4One;
-extern kmVec4 vec4uinX;
-extern kmVec4 vec4uinY;
-extern kmVec4 vec4uinZ;
-extern kmVec4 vec4uinW;
+extern kmVec4 vec4uintX;
+extern kmVec4 vec4uintY;
+extern kmVec4 vec4uintZ;
+extern kmVec4 vec4uintW;
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w);
 kmVec4* kmVec4Set(kmVec4* pOut, const kmVec4*pV1, const kmVec4* pV2);

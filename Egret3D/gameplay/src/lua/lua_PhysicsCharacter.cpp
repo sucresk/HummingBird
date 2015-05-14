@@ -890,7 +890,7 @@ int lua_PhysicsCharacter_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1204,7 +1204,7 @@ int lua_PhysicsCharacter_setRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 

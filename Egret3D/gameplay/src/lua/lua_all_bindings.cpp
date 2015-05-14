@@ -61,7 +61,7 @@ void lua_RegisterAllBindings()
     luaRegister_Material();
     luaRegister_MaterialParameter();
     luaRegister_MathUtil();
-    luaRegister_Matrix();
+    luaRegister_Mat4();
     luaRegister_Mesh();
     luaRegister_MeshBatch();
     luaRegister_MeshPart();

@@ -41,7 +41,7 @@ void luaRegister_Quaternion()
     };
     std::vector<std::string> scopePath;
 
-    egret::ScriptUtil::registerClass("Quaternion", lua_members, lua_Quaternion__init, lua_Quaternion__gc, lua_statics, scopePath);
+    egret::ScriptUtil::registerClass("kmQuaternion", lua_members, lua_Quaternion__init, lua_Quaternion__gc, lua_statics, scopePath);
 }
 
 static kmQuaternion* getInstance(lua_State* state)
@@ -63,8 +63,8 @@ int lua_Quaternion__gc(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                void* userdata = luaL_checkudata(state, 1, "Quaternion");
-                luaL_argcheck(state, userdata != NULL, 1, "'Quaternion' expected.");
+                void* userdata = luaL_checkudata(state, 1, "kmQuaternion");
+                luaL_argcheck(state, userdata != NULL, 1, "'kmQuaternion' expected.");
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)userdata;
                 if (object->owns)
                 {
@@ -134,7 +134,7 @@ int lua_Quaternion__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -152,7 +152,7 @@ int lua_Quaternion__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -164,7 +164,7 @@ int lua_Quaternion__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -182,7 +182,7 @@ int lua_Quaternion__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -194,7 +194,7 @@ int lua_Quaternion__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -234,7 +234,7 @@ int lua_Quaternion__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -279,7 +279,7 @@ int lua_Quaternion__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -339,7 +339,7 @@ int lua_Quaternion_conjugate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -401,7 +401,7 @@ int lua_Quaternion_inverse(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -514,10 +514,10 @@ int lua_Quaternion_multiply(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -575,7 +575,7 @@ int lua_Quaternion_normalize(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -632,7 +632,7 @@ int lua_Quaternion_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -650,7 +650,7 @@ int lua_Quaternion_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -797,10 +797,10 @@ int lua_Quaternion_static_createFromAxisAngle(lua_State* state)
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -838,19 +838,19 @@ int lua_Quaternion_static_createFromRotationMatrix(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -891,7 +891,7 @@ int lua_Quaternion_static_identity(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Quaternion");
+                luaL_getmetatable(state, "kmQuaternion");
                 lua_setmetatable(state, -2);
             }
             else
@@ -929,19 +929,19 @@ int lua_Quaternion_static_lerp(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -950,10 +950,10 @@ int lua_Quaternion_static_lerp(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "Quaternion", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "kmQuaternion", false, &param4Valid);
                 if (!param4Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 4 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 4 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -992,28 +992,28 @@ int lua_Quaternion_static_multiply(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1053,19 +1053,19 @@ int lua_Quaternion_static_slerp(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1074,10 +1074,10 @@ int lua_Quaternion_static_slerp(lua_State* state)
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "Quaternion", false, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "kmQuaternion", false, &param4Valid);
                 if (!param4Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 4 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 4 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1119,37 +1119,37 @@ int lua_Quaternion_static_squad(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param3 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
                 // Get parameter 4 off the stack.
                 bool param4Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "Quaternion", true, &param4Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param4 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(4, "kmQuaternion", true, &param4Valid);
                 if (!param4Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 4 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 4 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1158,10 +1158,10 @@ int lua_Quaternion_static_squad(lua_State* state)
 
                 // Get parameter 6 off the stack.
                 bool param6Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param6 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "Quaternion", false, &param6Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param6 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(6, "kmQuaternion", false, &param6Valid);
                 if (!param6Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 6 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 6 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -1202,7 +1202,7 @@ int lua_Quaternion_static_zero(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Quaternion");
+                luaL_getmetatable(state, "kmQuaternion");
                 lua_setmetatable(state, -2);
             }
             else

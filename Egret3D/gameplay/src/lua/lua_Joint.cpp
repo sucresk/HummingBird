@@ -2011,7 +2011,7 @@ int lua_Joint_getInverseBindPose(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2055,7 +2055,7 @@ int lua_Joint_getInverseTransposeWorldMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2099,7 +2099,7 @@ int lua_Joint_getInverseTransposeWorldViewMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2143,7 +2143,7 @@ int lua_Joint_getInverseViewMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2187,7 +2187,7 @@ int lua_Joint_getInverseViewProjectionMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2348,7 +2348,7 @@ int lua_Joint_getMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2524,7 +2524,7 @@ int lua_Joint_getProjectionMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -2768,7 +2768,7 @@ int lua_Joint_getRotation(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = false;
-                        luaL_getmetatable(state, "Quaternion");
+                        luaL_getmetatable(state, "kmQuaternion");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -2793,7 +2793,7 @@ int lua_Joint_getRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -2811,7 +2811,7 @@ int lua_Joint_getRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -3684,7 +3684,7 @@ int lua_Joint_getViewMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -3728,7 +3728,7 @@ int lua_Joint_getViewProjectionMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -3772,7 +3772,7 @@ int lua_Joint_getWorldMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -3816,7 +3816,7 @@ int lua_Joint_getWorldViewMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -3860,7 +3860,7 @@ int lua_Joint_getWorldViewProjectionMatrix(lua_State* state)
                     egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                     object->instance = returnPtr;
                     object->owns = false;
-                    luaL_getmetatable(state, "Matrix");
+                    luaL_getmetatable(state, "kmMat4");
                     lua_setmetatable(state, -2);
                 }
                 else
@@ -4342,7 +4342,7 @@ int lua_Joint_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -4360,7 +4360,7 @@ int lua_Joint_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -4797,7 +4797,7 @@ int lua_Joint_set(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -4829,7 +4829,7 @@ int lua_Joint_set(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -5582,7 +5582,7 @@ int lua_Joint_setRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -5600,7 +5600,7 @@ int lua_Joint_setRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 

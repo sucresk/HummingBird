@@ -56,7 +56,7 @@ int lua_Matrix_transformVector(lua_State* state);
 int lua_Matrix_translate(lua_State* state);
 int lua_Matrix_transpose(lua_State* state);
 
-void luaRegister_Matrix();
+void luaRegister_Mat4();
 
 }
 

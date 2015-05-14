@@ -784,7 +784,7 @@ void luaRegister_lua_Global()
         egret::ScriptUtil::registerEnumValue(Properties::VECTOR2, "kmVec2", scopePath);
         egret::ScriptUtil::registerEnumValue(Properties::VECTOR3, "kmVec3", scopePath);
         egret::ScriptUtil::registerEnumValue(Properties::VECTOR4, "kmVec4", scopePath);
-        egret::ScriptUtil::registerEnumValue(Properties::MATRIX, "MATRIX", scopePath);
+        egret::ScriptUtil::registerEnumValue(Properties::MATRIX, "kmMat4", scopePath);
     }
 
     // Register enumeration RenderState::AutoBinding.

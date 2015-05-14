@@ -11,7 +11,7 @@
 namespace egret
 {
 
-void luaRegister_Matrix()
+void luaRegister_Mat4()
 {
     const luaL_Reg lua_members[] = 
     {
@@ -70,13 +70,13 @@ void luaRegister_Matrix()
     };
     std::vector<std::string> scopePath;
 
-    egret::ScriptUtil::registerClass("Matrix", lua_members, lua_Matrix__init, lua_Matrix__gc, lua_statics, scopePath);
+    egret::ScriptUtil::registerClass("kmMat4", lua_members, lua_Matrix__init, lua_Matrix__gc, lua_statics, scopePath);
 }
 
 static kmMat4* getInstance(lua_State* state)
 {
-    void* userdata = luaL_checkudata(state, 1, "Matrix");
-    luaL_argcheck(state, userdata != NULL, 1, "'Matrix' expected.");
+    void* userdata = luaL_checkudata(state, 1, "kmMat4");
+    luaL_argcheck(state, userdata != NULL, 1, "'kmMat4' expected.");
     return (kmMat4*)((egret::ScriptUtil::LuaObject*)userdata)->instance;
 }
 
@@ -92,8 +92,8 @@ int lua_Matrix__gc(lua_State* state)
         {
             if ((lua_type(state, 1) == LUA_TUSERDATA))
             {
-                void* userdata = luaL_checkudata(state, 1, "Matrix");
-                luaL_argcheck(state, userdata != NULL, 1, "'Matrix' expected.");
+                void* userdata = luaL_checkudata(state, 1, "kmMat4");
+                luaL_argcheck(state, userdata != NULL, 1, "'kmMat4' expected.");
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)userdata;
                 if (object->owns)
                 {
@@ -136,7 +136,7 @@ int lua_Matrix__init(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = true;
-                luaL_getmetatable(state, "Matrix");
+                luaL_getmetatable(state, "kmMat4");
                 lua_setmetatable(state, -2);
             }
             else
@@ -164,7 +164,7 @@ int lua_Matrix__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Matrix");
+                        luaL_getmetatable(state, "kmMat4");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -182,7 +182,7 @@ int lua_Matrix__init(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -194,7 +194,7 @@ int lua_Matrix__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Matrix");
+                        luaL_getmetatable(state, "kmMat4");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -294,7 +294,7 @@ int lua_Matrix__init(lua_State* state)
                         egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                         object->instance = returnPtr;
                         object->owns = true;
-                        luaL_getmetatable(state, "Matrix");
+                        luaL_getmetatable(state, "kmMat4");
                         lua_setmetatable(state, -2);
                     }
                     else
@@ -352,7 +352,7 @@ int lua_Matrix_add(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -381,7 +381,7 @@ int lua_Matrix_add(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -432,10 +432,10 @@ int lua_Matrix_decompose(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "Quaternion", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param2 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(3, "kmQuaternion", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -735,10 +735,10 @@ int lua_Matrix_getRotation(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", false, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", false, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Quaternion'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmQuaternion'.");
                     lua_error(state);
                 }
 
@@ -933,7 +933,7 @@ int lua_Matrix_invert(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1056,7 +1056,7 @@ int lua_Matrix_multiply(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1085,7 +1085,7 @@ int lua_Matrix_multiply(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1145,7 +1145,7 @@ int lua_Matrix_negate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1187,7 +1187,7 @@ int lua_Matrix_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1212,13 +1212,13 @@ int lua_Matrix_rotate(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(2, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1276,7 +1276,7 @@ int lua_Matrix_rotate(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "Matrix", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "kmMat4", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -1345,7 +1345,7 @@ int lua_Matrix_rotateX(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1414,7 +1414,7 @@ int lua_Matrix_rotateY(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1481,7 +1481,7 @@ int lua_Matrix_rotateZ(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1569,7 +1569,7 @@ int lua_Matrix_scale(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1595,7 +1595,7 @@ int lua_Matrix_scale(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -1663,7 +1663,7 @@ int lua_Matrix_scale(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -1723,7 +1723,7 @@ int lua_Matrix_set(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -1917,28 +1917,28 @@ int lua_Matrix_static_add(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -1999,7 +1999,7 @@ int lua_Matrix_static_createBillboard(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -2050,7 +2050,7 @@ int lua_Matrix_static_createBillboard(lua_State* state)
 
                     // Get parameter 5 off the stack.
                     bool param5Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "Matrix", false, &param5Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "kmMat4", false, &param5Valid);
                     if (!param5Valid)
                         break;
 
@@ -2111,7 +2111,7 @@ int lua_Matrix_static_createLookAt(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -2169,7 +2169,7 @@ int lua_Matrix_static_createLookAt(lua_State* state)
 
                     // Get parameter 10 off the stack.
                     bool param10Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param10 = egret::ScriptUtil::getObjectPointer<kmMat4>(10, "Matrix", false, &param10Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param10 = egret::ScriptUtil::getObjectPointer<kmMat4>(10, "kmMat4", false, &param10Valid);
                     if (!param10Valid)
                         break;
 
@@ -2227,10 +2227,10 @@ int lua_Matrix_static_createOrthographic(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "Matrix", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "kmMat4", false, &param5Valid);
                 if (!param5Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 5 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 5 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2294,10 +2294,10 @@ int lua_Matrix_static_createOrthographicOffCenter(lua_State* state)
 
                 // Get parameter 7 off the stack.
                 bool param7Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param7 = egret::ScriptUtil::getObjectPointer<kmMat4>(7, "Matrix", false, &param7Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param7 = egret::ScriptUtil::getObjectPointer<kmMat4>(7, "kmMat4", false, &param7Valid);
                 if (!param7Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 7 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 7 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2351,10 +2351,10 @@ int lua_Matrix_static_createPerspective(lua_State* state)
 
                 // Get parameter 5 off the stack.
                 bool param5Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "Matrix", false, &param5Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param5 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "kmMat4", false, &param5Valid);
                 if (!param5Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 5 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 5 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2401,10 +2401,10 @@ int lua_Matrix_static_createReflection(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2444,13 +2444,13 @@ int lua_Matrix_static_createRotation(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "Quaternion", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmQuaternion> param1 = egret::ScriptUtil::getObjectPointer<kmQuaternion>(1, "kmQuaternion", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -2484,7 +2484,7 @@ int lua_Matrix_static_createRotation(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -2526,10 +2526,10 @@ int lua_Matrix_static_createRotationX(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2570,10 +2570,10 @@ int lua_Matrix_static_createRotationY(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2614,10 +2614,10 @@ int lua_Matrix_static_createRotationZ(lua_State* state)
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2663,7 +2663,7 @@ int lua_Matrix_static_createScale(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -2697,7 +2697,7 @@ int lua_Matrix_static_createScale(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -2745,7 +2745,7 @@ int lua_Matrix_static_createTranslation(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -2779,7 +2779,7 @@ int lua_Matrix_static_createTranslation(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(4, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -2819,7 +2819,7 @@ int lua_Matrix_static_identity(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Matrix");
+                luaL_getmetatable(state, "kmMat4");
                 lua_setmetatable(state, -2);
             }
             else
@@ -2858,7 +2858,7 @@ int lua_Matrix_static_multiply(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
@@ -2867,7 +2867,7 @@ int lua_Matrix_static_multiply(lua_State* state)
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -2885,19 +2885,19 @@ int lua_Matrix_static_multiply(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                     if (!param1Valid)
                         break;
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
                     // Get parameter 3 off the stack.
                     bool param3Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param3Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param3Valid);
                     if (!param3Valid)
                         break;
 
@@ -2937,28 +2937,28 @@ int lua_Matrix_static_subtract(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(1, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
                 // Get parameter 2 off the stack.
                 bool param2Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param2Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param2Valid);
                 if (!param2Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 2 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 2 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
                 // Get parameter 3 off the stack.
                 bool param3Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param3Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param3 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param3Valid);
                 if (!param3Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 3 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 3 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -2997,7 +2997,7 @@ int lua_Matrix_static_zero(lua_State* state)
                 egret::ScriptUtil::LuaObject* object = (egret::ScriptUtil::LuaObject*)lua_newuserdata(state, sizeof(egret::ScriptUtil::LuaObject));
                 object->instance = returnPtr;
                 object->owns = false;
-                luaL_getmetatable(state, "Matrix");
+                luaL_getmetatable(state, "kmMat4");
                 lua_setmetatable(state, -2);
             }
             else
@@ -3033,10 +3033,10 @@ int lua_Matrix_subtract(lua_State* state)
             {
                 // Get parameter 1 off the stack.
                 bool param1Valid;
-                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", true, &param1Valid);
+                egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", true, &param1Valid);
                 if (!param1Valid)
                 {
-                    lua_pushstring(state, "Failed to convert parameter 1 to type 'Matrix'.");
+                    lua_pushstring(state, "Failed to convert parameter 1 to type 'kmMat4'.");
                     lua_error(state);
                 }
 
@@ -3341,7 +3341,7 @@ int lua_Matrix_translate(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -3407,7 +3407,7 @@ int lua_Matrix_translate(lua_State* state)
 
                     // Get parameter 4 off the stack.
                     bool param4Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "Matrix", false, &param4Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param4 = egret::ScriptUtil::getObjectPointer<kmMat4>(5, "kmMat4", false, &param4Valid);
                     if (!param4Valid)
                         break;
 
@@ -3467,7 +3467,7 @@ int lua_Matrix_transpose(lua_State* state)
                 {
                     // Get parameter 1 off the stack.
                     bool param1Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "Matrix", false, &param1Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param1 = egret::ScriptUtil::getObjectPointer<kmMat4>(2, "kmMat4", false, &param1Valid);
                     if (!param1Valid)
                         break;
 

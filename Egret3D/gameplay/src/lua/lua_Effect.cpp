@@ -522,7 +522,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", true, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", true, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -547,7 +547,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
@@ -806,7 +806,7 @@ int lua_Effect_setValue(lua_State* state)
 
                     // Get parameter 2 off the stack.
                     bool param2Valid;
-                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "Matrix", false, &param2Valid);
+                    egret::ScriptUtil::LuaArray<kmMat4> param2 = egret::ScriptUtil::getObjectPointer<kmMat4>(3, "kmMat4", false, &param2Valid);
                     if (!param2Valid)
                         break;
 
