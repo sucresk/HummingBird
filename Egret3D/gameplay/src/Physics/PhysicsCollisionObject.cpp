@@ -255,7 +255,7 @@ void PhysicsCollisionObject::PhysicsMotionState::updateTransformFromNode() const
     GP_ASSERT(_node);
 
     // Store the initial world transform (minus the scale) for use by Bullet later on.
-    kmQuaternion rotation;
+    kmQuaternion rotation = quaIdentity;
     const kmMat4& m = _node->getWorldMatrix();
     //m.getRotation(&rotation);
 	kmMat4Decompose(&m, NULL, &rotation, NULL);

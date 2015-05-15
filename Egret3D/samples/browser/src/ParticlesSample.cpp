@@ -1055,7 +1055,7 @@ void ParticlesSample::emitterChanged()
         {
             _scene->getActiveCamera()->getNode()->setTranslation(v3);
         }
-        kmQuaternion q;
+        kmQuaternion q = quaIdentity;
         if (ns->getQuaternionFromAxisAngle("cameraRotation", &q))
         {
             _cameraParent->setRotation(q);

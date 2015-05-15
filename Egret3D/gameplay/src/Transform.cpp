@@ -341,7 +341,7 @@ void Transform::rotate(const kmVec3& axis, float angle)
     if (isStatic())
         return;
 
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
     //Quaternion::createFromAxisAngle(axis, angle, &rotationQuat);
 	kmQuaCreateFromAxisAngle(&rotationQuat, &axis, angle);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
@@ -356,7 +356,7 @@ void Transform::rotate(const kmMat4& rotation)
     if (isStatic())
         return;
 
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
     //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
 	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
 	kmQuaternionMultiply(&_rotation, &_rotation, &rotationQuat);
@@ -370,7 +370,7 @@ void Transform::rotateX(float angle)
         return;
 
 	kmVec3 unintx = { 1.0f, 0.0f, 0.0f };
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
 	kmQuaternionIdentity(&rotationQuat);
     //Quaternion::createFromAxisAngle(Vector3::unitX(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
@@ -385,7 +385,7 @@ void Transform::rotateY(float angle)
         return;
 
 	kmVec3 unitY = { 0.0f, 1.0f, 0.0f };
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
     //Quaternion::createFromAxisAngle(Vector3::unitY(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
 	kmQuaCreateFromAxisAngle(&rotationQuat, &unitY, angle);
@@ -398,7 +398,7 @@ void Transform::rotateZ(float angle)
     if (isStatic())
         return;
 	kmVec3 unitZ = { 0.0f, 0.0f, 1.0f };
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
     //Quaternion::createFromAxisAngle(Vector3::unitZ(), angle, &rotationQuat);
     //_rotation.multiply(rotationQuat);
 	kmQuaCreateFromAxisAngle(&rotationQuat, &unitZ, angle);
@@ -482,7 +482,7 @@ void Transform::set(const kmVec3& scale, const kmMat4& rotation, const kmVec3& t
         return;
 
     _scale =scale;
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat  = quaIdentity;
     //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
 	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
     _rotation = rotationQuat;
@@ -599,7 +599,7 @@ void Transform::setRotation(const kmMat4& rotation)
     if (isStatic())
         return;
 
-    kmQuaternion rotationQuat;
+    kmQuaternion rotationQuat = quaIdentity;
     //Quaternion::createFromRotationMatrix(rotation, &rotationQuat);
 	kmMat4Decompose(&rotation, NULL, &rotationQuat, NULL);
     _rotation = rotationQuat;

@@ -1842,7 +1842,7 @@ void Bundle::setTransform(const float* values, Transform* transform)
 	memcpy(matrix.mat, values, sizeof(float) * 16);
 	kmVec3 scale = vec3Zero;
 	kmVec3 translation = vec3Zero;
-    kmQuaternion rotation;
+    kmQuaternion rotation = quaIdentity;
     //matrix.decompose(&scale, &rotation, &translation);
 	kmMat4Decompose(&matrix, &scale, &rotation, &translation);
     transform->setScale(scale);

@@ -37,6 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NULL    ((void *)0)
 #endif
 
+kmQuaternion quaIdentity = { 0.0f, 0.0f, 0.0f, 1.0f };
+
 kmQuaternion* kmQuaternionSet(kmQuaternion *pOut, float x, float y, float z, float w)
 {
 	pOut->x = x; 

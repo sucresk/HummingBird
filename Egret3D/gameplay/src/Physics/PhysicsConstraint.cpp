@@ -72,7 +72,7 @@ kmQuaternion PhysicsConstraint::getRotationOffset(const Node* node, const kmVec3
 	kmMat4Invert(&mi, &node->getWorldMatrix());
 	kmMat4Multiply(&mi, &mi, &m);
     
-    kmQuaternion r;
+    kmQuaternion r = quaIdentity;
     //mi.getRotation(&r);
 	kmMat4Decompose(&mi, NULL, &r, NULL);
 
@@ -131,7 +131,7 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3
     //mi.multiply(m);
 	kmMat4Invert(&mi, &node->getWorldMatrix());
 
-    kmQuaternion r;
+    kmQuaternion r = quaIdentity;
     //mi.getRotation(&r);
 	kmMat4Decompose(&mi, NULL, &r, NULL);
     

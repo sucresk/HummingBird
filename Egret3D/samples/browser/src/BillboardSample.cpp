@@ -165,7 +165,7 @@ void BillboardSample::render(float elapsedTime)
 		kmMat4CreateBillboard(&m, &node->getTranslationWorld(),
 			&camera->getNode()->getTranslationWorld(),
 			&camera->getNode()->getUpVectorWorld(), NULL );
-		kmQuaternion q;
+		kmQuaternion q = quaIdentity;
 		//m.getRotation(&q);
 		kmMat4Decompose(&m, NULL, &q, NULL);
 		node->setRotation(q);

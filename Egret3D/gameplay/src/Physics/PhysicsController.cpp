@@ -311,7 +311,7 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& 
     if (object->getNode())
     {
         kmVec3 translation = vec3Zero;
-        kmQuaternion rotation;
+        kmQuaternion rotation = quaIdentity;
         const kmMat4& m = object->getNode()->getWorldMatrix();
         //m.getTranslation(&translation);
         //m.getRotation(&rotation);
