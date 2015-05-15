@@ -82,7 +82,7 @@ void Audio3DSample::update(float elapsedTime)
 {
     float time = (float)elapsedTime / 1000.0f;
 
-    kmVec2 move;
+    kmVec2 move = vec2Zero;
 
     if (_moveFlags != 0)
     {
@@ -124,7 +124,7 @@ void Audio3DSample::update(float elapsedTime)
     }
     if (_gamepad->getJoystickCount() > 1)
     {
-        kmVec2 joy2;
+        kmVec2 joy2 = vec2Zero;
         _gamepad->getJoystickValues(1, &joy2);
         _fpCamera.rotate(MATH_DEG_TO_RAD(joy2.x * 2.0f), MATH_DEG_TO_RAD(joy2.y * 2.0f));
     }

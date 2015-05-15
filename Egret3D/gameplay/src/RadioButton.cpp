@@ -147,7 +147,7 @@ void RadioButton::updateBounds()
 {
     Label::updateBounds();
 
-    kmVec2 size;
+    kmVec2 size = vec2Zero;
     if (_selected)
     {
         const Rectangle& selectedRegion = getImageRegion("selected", NORMAL);

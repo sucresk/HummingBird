@@ -85,12 +85,11 @@ kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 
     kmScalar lnor = 1.0f / n;
 
-    kmVec2 v;
-    v.x = pIn->x * lnor;
-    v.y = pIn->y * lnor;
+    kmScalar fx = pIn->x * lnor;
+    kmScalar fy = pIn->y * lnor;
 
-    pOut->x = v.x;
-    pOut->y = v.y;
+    pOut->x = fx;
+    pOut->y = fy;
 
     return pOut;
 }
@@ -118,13 +117,11 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2)
 
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV, const kmMat3* pM)
 {
-    kmVec2 v;
+    kmScalar fx = pV->x * pM->mat[0] + pV->y * pM->mat[3] + pM->mat[6];
+    kmScalar fy = pV->x * pM->mat[1] + pV->y * pM->mat[4] + pM->mat[7];
 
-    v.x = pV->x * pM->mat[0] + pV->y * pM->mat[3] + pM->mat[6];
-    v.y = pV->x * pM->mat[1] + pV->y * pM->mat[4] + pM->mat[7];
-
-    pOut->x = v.x;
-    pOut->y = v.y;
+    pOut->x = fx;
+    pOut->y = fy;
 
     return pOut;
 }
@@ -220,7 +217,7 @@ kmVec2* kmVec2Smooth(kmVec2* pOut, const kmVec2* pIn, const kmVec2* target, floa
 	if (elapsedTime > 0)
 	{
 		float scale = elapsedTime / (elapsedTime + responseTime);
-		kmVec2 temp;
+		kmVec2 temp = vec2Zero;
 		kmVec2Subtract(&temp, target, pIn);
 		kmVec2Scale(&temp, &temp, scale);
 		kmVec2Add(pOut, pIn, &temp);

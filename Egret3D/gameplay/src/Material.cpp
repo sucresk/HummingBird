@@ -391,7 +391,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::VECTOR2:
             {
-                kmVec2 vector2;
+                kmVec2 vector2 = vec2Zero;
                 if (properties->getVector2(NULL, &vector2))
                 {
                     GP_ASSERT(renderState->getParameter(name));

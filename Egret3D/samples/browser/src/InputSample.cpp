@@ -11,9 +11,14 @@
 static const char* keyString(int key);
 
 InputSample::InputSample()
-    :  _mouseString("No Mouse"), _font(NULL), _inputSampleControls(NULL), _mouseWheel(0), _crosshair(NULL),
-       _scene(NULL), _formNode(NULL), _formNodeParent(NULL)
+    :  _mouseString("No Mouse"), _font(NULL), _inputSampleControls(NULL),
+	_mouseWheel(0), _crosshair(NULL),
+    _scene(NULL), _formNode(NULL), _formNodeParent(NULL)
 {
+	_mousePoint = vec2Zero;
+	_mouseWheelPoint = vec2Zero;
+	_crosshairLowerLimit = vec2Zero;
+	_crosshairUpperLimit = vec2Zero;
 }
 
 void InputSample::initialize()

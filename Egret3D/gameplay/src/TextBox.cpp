@@ -358,7 +358,7 @@ unsigned int TextBox::drawImages(Form* form, const Rectangle& clip)
 
             Font* font = getFont(state);
             unsigned int fontSize = getFontSize(state);
-            kmVec2 point;
+            kmVec2 point = vec2Zero;
             font->getLocationAtIndex(getDisplayedText().c_str(), _textBounds, fontSize, &point, _caretLocation, 
                  getTextAlignment(state), true, getTextRightToLeft(state));
 

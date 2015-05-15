@@ -835,7 +835,7 @@ bool Form::pollGamepad(Gamepad* gamepad)
     if (!selectButtonDown)
     {
         // Get values of analog joysticks 1 and 2 (assume left and right analog sticks)
-        kmVec2 joystick;
+        kmVec2 joystick = vec2Zero;
         unsigned int joystickCount = gamepad->getJoystickCount();
         gamepad->getJoystickValues(0, &joystick);
 

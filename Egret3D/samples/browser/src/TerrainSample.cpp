@@ -26,6 +26,7 @@ TerrainSample::TerrainSample()
 	  _wireframe(false), _debugPhysics(false), _snapToGround(true), _vsync(true),
       _mode(MODE_LOOK), _sphere(NULL), _box(NULL), _directionalLight(NULL)
 {
+	_formSize = vec2Zero;
 }
 
 TerrainSample::~TerrainSample()

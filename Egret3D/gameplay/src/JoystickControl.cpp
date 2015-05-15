@@ -58,6 +58,7 @@ void JoystickControl::setInnerRegionSize(const kmVec2& size, bool isWidthPercent
         if(!_innerRegionCoord)
         {
             _innerRegionCoord = new kmVec2;
+			kmVec2Fill(_innerRegionCoord, 0, 0);
         }
 
         setRegion(size, *_innerRegionCoord, _innerRegionCoordBoundsBits, isWidthPercentage, isHeightPercentage);
@@ -90,6 +91,7 @@ void JoystickControl::setOuterRegionSize(const kmVec2& size, bool isWidthPercent
         if(!_outerRegionCoord)
         {
             _outerRegionCoord = new kmVec2;
+			kmVec2Fill(_outerRegionCoord, 0, 0);
         }
 
         setRegion(size, *_outerRegionCoord, _outerRegionCoordBoundsBits, isWidthPercentage, isHeightPercentage);
@@ -196,6 +198,7 @@ void JoystickControl::initialize(const char* typeName, Theme::Style* style, Prop
     if(properties->exists(innerRegionId))
     {
         _innerRegionCoord = new kmVec2;
+		kmVec2Fill(_innerRegionCoord, 0, 0);
         getRegion(*_innerRegionCoord, _innerRegionCoordBoundsBits, properties->getString(innerRegionId));
     }
 
@@ -203,6 +206,7 @@ void JoystickControl::initialize(const char* typeName, Theme::Style* style, Prop
     if(properties->exists(outerRegionId))
     {
         _outerRegionCoord = new kmVec2;
+		kmVec2Fill(_outerRegionCoord, 0, 0);
         getRegion(*_outerRegionCoord, _outerRegionCoordBoundsBits, properties->getString(outerRegionId));
     }
 
@@ -265,6 +269,7 @@ void JoystickControl::updateAbsoluteSizes()
         if(!_innerSizePixels)
         {
             _innerSizePixels = new kmVec2;
+			kmVec2Fill(_innerSizePixels, 0, 0);
         }
 
         *_innerSizePixels = _innerRegionCoord ? getPixelSize(*_innerRegionCoord, _innerRegionCoordBoundsBits) : getPixelSize(innerImage);
@@ -280,6 +285,7 @@ void JoystickControl::updateAbsoluteSizes()
         if(!_outerSizePixels)
         {
             _outerSizePixels = new kmVec2;
+			kmVec2Fill(_outerSizePixels, 0, 0);
         }
 
         *_outerSizePixels = _outerRegionCoord ? getPixelSize(*_outerRegionCoord, _outerRegionCoordBoundsBits) : getPixelSize(outerImage);
@@ -337,7 +343,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
                 // If the displacement is greater than the radius, then cap the displacement to the
                 // radius.
 
-                kmVec2 value;
+                kmVec2 value = vec2Zero;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
 					kmVec2Normalize(&_displacement, &_displacement);
@@ -376,7 +382,7 @@ bool JoystickControl::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned i
 
 				_displacement = { dx, dy };
 
-                kmVec2 value;
+                kmVec2 value = vec2Zero;
                 if ((fabs(_displacement.x) > _radiusPixels) || (fabs(_displacement.y) > _radiusPixels))
                 {
                     //_displacement.normalize();

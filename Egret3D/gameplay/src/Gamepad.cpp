@@ -14,6 +14,7 @@ static std::vector<Gamepad*> __gamepads;
 Gamepad::Gamepad(const char* formPath)
     : _handle((GamepadHandle)INT_MAX), _buttonCount(0), _joystickCount(0), _triggerCount(0), _form(NULL), _buttons(0)
 {
+	memset(_joysticks, 0, sizeof(float) * 2 * 2);
     GP_ASSERT(formPath);
     _form = Form::create(formPath);
     GP_ASSERT(_form);
@@ -38,6 +39,7 @@ Gamepad::Gamepad(GamepadHandle handle, unsigned int buttonCount, unsigned int jo
     : _handle(handle), _buttonCount(buttonCount), _joystickCount(joystickCount), _triggerCount(triggerCount),
       _form(NULL), _buttons(0)
 {
+	memset(_joysticks, 0, sizeof(float) * 2 * 2);
     if (name)
     {
         _name = name;

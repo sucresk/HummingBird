@@ -132,8 +132,8 @@ TileSet* TileSet::create(Properties* properties)
     {
         if (strcmp(tileProperties->getNamespace(), "tile") == 0)
         {
-            kmVec2 cell;
-            kmVec2 source;
+            kmVec2 cell = vec2Zero;
+            kmVec2 source = vec2Zero;
             if (tileProperties->getVector2("cell", &cell) && tileProperties->getVector2("source", &source) &&
                 (cell.x >= 0 && cell.y >= 0 && cell.x < set->_columnCount && cell.y < set->_rowCount))
             {

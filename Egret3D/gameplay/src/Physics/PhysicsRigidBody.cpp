@@ -17,7 +17,7 @@ PhysicsRigidBody::PhysicsRigidBody(Node* node, const PhysicsCollisionShape::Defi
     GP_ASSERT(_node);
 
     // Create our collision shape.
-    kmVec3 centerOfMassOffset;
+    kmVec3 centerOfMassOffset = vec3Zero;
     _collisionShape = Game::getInstance()->getPhysicsController()->createShape(node, shape, &centerOfMassOffset, parameters.mass != 0.0f);
     GP_ASSERT(_collisionShape && _collisionShape->getShape());
 

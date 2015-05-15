@@ -103,7 +103,7 @@ void CheckBox::updateBounds()
 {
     Label::updateBounds();
 
-    kmVec2 size;
+    kmVec2 size = vec2Zero;
     if (_checked)
     {
         const Rectangle& selectedRegion = getImageRegion("checked", NORMAL);

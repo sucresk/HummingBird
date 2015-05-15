@@ -149,8 +149,11 @@ static Mesh* createLinesMesh()
 
 
 MeshPrimitiveSample::MeshPrimitiveSample()
-    : _font(NULL), _triangles(NULL), _triangleStrip(NULL), _lineStrip(NULL), _lines(NULL), _points(NULL)
+    : _font(NULL), _triangles(NULL), _triangleStrip(NULL), 
+	_lineStrip(NULL), _lines(NULL), _points(NULL)
 {
+	_touchPoint = vec2Zero;
+	_tilt = vec2Zero;
 }
 
 void MeshPrimitiveSample::initialize()

@@ -122,7 +122,7 @@ void WaterSample::finalize()
 
 void WaterSample::update(float elapsedTime)
 {
-    kmVec2 axis;
+    kmVec2 axis = vec2Zero;
     const float minVal = 0.1f;
     if (_gamepad && _gamepad->getJoystickCount())
         _gamepad->getJoystickValues(0, &axis);

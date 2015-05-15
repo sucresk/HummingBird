@@ -30,8 +30,9 @@ static TerrainAutoBindingResolver __autoBindingResolver;
 static int __currentPatchIndex = -1;
 
 TerrainPatch::TerrainPatch() :
-    _terrain(NULL), _row(0), _column(0), _camera(NULL), _level(0), _bits(TERRAINPATCH_DIRTY_ALL)
-{
+    _terrain(NULL), _row(0), _column(0), _camera(NULL),
+	_level(0), _bits(TERRAINPATCH_DIRTY_ALL)
+{	
 }
 
 TerrainPatch::~TerrainPatch()
@@ -726,6 +727,7 @@ float TerrainPatch::computeHeight(float* heights, unsigned int width, unsigned i
 TerrainPatch::Layer::Layer() :
     index(0), row(-1), column(-1), textureIndex(-1), blendIndex(-1)
 {
+	textureRepeat = vec2Zero;
 }
 
 TerrainPatch::Layer::~Layer()

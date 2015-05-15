@@ -113,7 +113,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
         else if (ext == ".RAW" || ext == ".R16")
         {
             // Require additional properties to be specified for RAW files
-            kmVec2 imageSize;
+            kmVec2 imageSize = vec2Zero;
             if (!pHeightmap->getVector2("size", &imageSize))
             {
                 GP_WARN("Invalid or missing 'size' attribute in heightmap defintion of terrain definition: %s", path);
@@ -319,7 +319,7 @@ Terrain* Terrain::create(HeightField* heightfield, const kmVec3& scale,
                 const char* textureMapPtr = NULL;
                 std::string blendMap;
                 const char* blendMapPtr = NULL;
-                kmVec2 textureRepeat;
+                kmVec2 textureRepeat = vec2Zero;
                 int blendChannel = 0;
                 int row = -1, column = -1;
 

@@ -262,7 +262,7 @@ bool Slider::gamepadJoystickEvent(Gamepad* gamepad, unsigned int index)
     // The right analog stick can be used to change a slider's value.
     if (index == 1)
     {
-        kmVec2 joy;
+        kmVec2 joy = vec2Zero;
         gamepad->getJoystickValues(index, &joy);
         _gamepadValue = _value;
         _delta = joy.x;

@@ -903,7 +903,8 @@ bool Container::moveFocusDirectional(Direction direction)
 	const Rectangle& startBounds = startControl->_absoluteBounds;
 
 	Control* next = NULL;
-	kmVec2 vStart, vNext;
+	kmVec2 vStart = vec2Zero;
+	kmVec2 vNext = vec2Zero;
 	float distance = FLT_MAX;
 
 	switch (direction)

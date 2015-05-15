@@ -33,7 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-typedef struct kmRay2 {
+typedef struct kmRay2
+{
     kmVec2 start;
     kmVec2 dir;
 } kmRay2;
