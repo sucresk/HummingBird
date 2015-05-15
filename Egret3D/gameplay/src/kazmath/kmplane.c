@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kazmath/vec3.h"
 #include "kazmath/vec4.h"
-#include "kazmath/plane.h"
+#include "kazmath/kmplane.h"
 
 const kmScalar kmPlaneDot(const kmPlane* pP, const kmVec4* pV)
 {

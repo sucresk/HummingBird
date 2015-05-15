@@ -369,9 +369,6 @@
     <ClCompile Include="src\kazmath\neon_matrix_impl.c">
       <Filter>kazmath</Filter>
     </ClCompile>
-    <ClCompile Include="src\kazmath\plane.c">
-      <Filter>kazmath</Filter>
-    </ClCompile>
     <ClCompile Include="src\kazmath\quaternion.c">
       <Filter>kazmath</Filter>
     </ClCompile>
@@ -804,6 +801,9 @@
     <ClCompile Include="stage\src\glew.c">
       <Filter>stage\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\kazmath\kmplane.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Plane.h">
@@ -1146,9 +1146,6 @@
       <Filter>kazmath</Filter>
     </ClInclude>
     <ClInclude Include="src\kazmath\neon_matrix_impl.h">
-      <Filter>kazmath</Filter>
-    </ClInclude>
-    <ClInclude Include="src\kazmath\plane.h">
       <Filter>kazmath</Filter>
     </ClInclude>
     <ClInclude Include="src\kazmath\quaternion.h">
@@ -1588,6 +1585,9 @@
     </ClInclude>
     <ClInclude Include="stage\include\GL\wglew.h">
       <Filter>stage\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kazmath\kmplane.h">
+      <Filter>kazmath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

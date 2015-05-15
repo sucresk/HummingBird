@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/mat4.h"
 #include "kazmath/mat3.h"
 #include "kazmath/quaternion.h"
-#include "kazmath/plane.h"
+#include "kazmath/kmplane.h"
 
 #include "kazmath/neon_matrix_impl.h"
 

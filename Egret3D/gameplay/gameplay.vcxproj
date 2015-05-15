@@ -66,7 +66,7 @@
     <ClCompile Include="src\kazmath\mat4.c" />
     <ClCompile Include="src\kazmath\MathUtil.cpp" />
     <ClCompile Include="src\kazmath\neon_matrix_impl.c" />
-    <ClCompile Include="src\kazmath\plane.c" />
+    <ClCompile Include="src\kazmath\kmplane.c" />
     <ClCompile Include="src\kazmath\quaternion.c" />
     <ClCompile Include="src\kazmath\ray2.c" />
     <ClCompile Include="src\kazmath\utility.c" />
@@ -325,7 +325,7 @@
     <ClInclude Include="src\kazmath\mat4.h" />
     <ClInclude Include="src\kazmath\MathUtil.h" />
     <ClInclude Include="src\kazmath\neon_matrix_impl.h" />
-    <ClInclude Include="src\kazmath\plane.h" />
+    <ClInclude Include="src\kazmath\kmplane.h" />
     <ClInclude Include="src\kazmath\quaternion.h" />
     <ClInclude Include="src\kazmath\ray2.h" />
     <ClInclude Include="src\kazmath\utility.h" />
