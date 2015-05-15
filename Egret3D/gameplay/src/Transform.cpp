@@ -134,7 +134,7 @@ const kmMat4& Transform::getMatrix() const
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {
                     //_matrix.scale(_scale);
-					kmMat4Scal(&_matrix, &_matrix, &_scale);
+					kmMat4Scale(&_matrix, &_matrix, &_scale);
                 }
             }
             else if (hasRotation || (_matrixDirtyBits & DIRTY_ROTATION) == DIRTY_ROTATION)
@@ -144,7 +144,7 @@ const kmMat4& Transform::getMatrix() const
                 if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)
                 {
                     //_matrix.scale(_scale);
-					kmMat4Scal(&_matrix, &_matrix, &_scale);
+					kmMat4Scale(&_matrix, &_matrix, &_scale);
                 }
             }
             else if (hasScale || (_matrixDirtyBits & DIRTY_SCALE) == DIRTY_SCALE)

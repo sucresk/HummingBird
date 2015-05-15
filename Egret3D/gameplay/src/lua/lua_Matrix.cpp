@@ -1528,7 +1528,7 @@ int lua_Matrix_scale(lua_State* state)
                     kmMat4* instance = getInstance(state);
                     //instance->scale(param1);
 					kmVec3 temp = { param1, param1, param1 };
-					kmMat4Scal(instance, instance, &temp);
+					kmMat4Scale(instance, instance, &temp);
                     
                     return 0;
                 }
@@ -1547,7 +1547,7 @@ int lua_Matrix_scale(lua_State* state)
 
                     kmMat4* instance = getInstance(state);
                     //instance->scale(*param1);
-					kmMat4Scal(instance, instance, param1);
+					kmMat4Scale(instance, instance, param1);
                     return 0;
                 }
             } while (0);
@@ -1576,7 +1576,7 @@ int lua_Matrix_scale(lua_State* state)
                     kmMat4* instance = getInstance(state);
                     //instance->scale(param1, param2);
 					kmVec3 temp = { param1, param1, param1 };
-					kmMat4Scal(param2, instance, &temp );
+					kmMat4Scale(param2, instance, &temp );
                     return 0;
                 }
             } while (0);
@@ -1601,7 +1601,7 @@ int lua_Matrix_scale(lua_State* state)
 
                     kmMat4* instance = getInstance(state);
                     //instance->scale(*param1, param2);
-					kmMat4Scal(param2, instance, param1);
+					kmMat4Scale(param2, instance, param1);
                     
                     return 0;
                 }
@@ -1632,7 +1632,7 @@ int lua_Matrix_scale(lua_State* state)
                     kmMat4* instance = getInstance(state);
                     //instance->scale(param1, param2, param3);
 					kmVec3 temp = { param1, param2, param3 };
-					kmMat4Scal(instance, instance, &temp);
+					kmMat4Scale(instance, instance, &temp);
                     
                     return 0;
                 }
@@ -1670,7 +1670,7 @@ int lua_Matrix_scale(lua_State* state)
                     kmMat4* instance = getInstance(state);
                     //instance->scale(param1, param2, param3, param4);
 					kmVec3 temp = { param1, param2, param3 };
-					kmMat4Scal(param4, instance, &temp);
+					kmMat4Scale(param4, instance, &temp);
                     
                     return 0;
                 }
@@ -2668,7 +2668,7 @@ int lua_Matrix_static_createScale(lua_State* state)
                         break;
 
                     //Matrix::createScale(*param1, param2);
-					kmMat4CreateScalVec3(param2, param1);
+					kmMat4CreateScaleVec3(param2, param1);
                     return 0;
                 }
             } while (0);

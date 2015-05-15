@@ -422,7 +422,7 @@ const kmMat4& Terrain::getInverseWorldMatrix() const
         // Apply local scale and invert
         //_inverseWorldMatrix.scale(_localScale);
         //_inverseWorldMatrix.invert();
-		kmMat4Scal(&_inverseWorldMatrix, &_inverseWorldMatrix, &_localScale);
+		kmMat4Scale(&_inverseWorldMatrix, &_inverseWorldMatrix, &_localScale);
 		kmMat4Invert(&_inverseWorldMatrix, &_inverseWorldMatrix);
         
     }

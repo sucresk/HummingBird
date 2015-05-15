@@ -612,7 +612,7 @@ kmMat4* const kmMat4CreateScalNum(kmMat4* pOut, const kmScalar x, const kmScalar
     return pOut;
 }
 
-kmMat4* const kmMat4CreateScalVec3(kmMat4* pOut, const struct kmVec3* pIn)
+kmMat4* const kmMat4CreateScaleVec3(kmMat4* pOut, const struct kmVec3* pIn)
 {
 	memset(pOut->mat, 0, sizeof(float) * 16);
 	pOut->mat[0] = pIn->x;
@@ -622,7 +622,7 @@ kmMat4* const kmMat4CreateScalVec3(kmMat4* pOut, const struct kmVec3* pIn)
 	return pOut;
 }
 
-kmMat4* const kmMat4Scal(kmMat4* pOut, kmMat4* pIn, const kmVec3 *pV)
+kmMat4* const kmMat4Scale(kmMat4* pOut, kmMat4* pIn, const kmVec3 *pV)
 {
 	kmMat4 temp;
 	memset(temp.mat, 0, sizeof(float) * 16);
