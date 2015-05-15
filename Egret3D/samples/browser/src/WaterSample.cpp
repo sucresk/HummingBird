@@ -40,7 +40,7 @@ void WaterSample::initialize()
     _cameraNode->setTranslation(camStartPosition);
 
     Node* camPitchNode = Node::create();
-    kmMat4 m;
+    kmMat4 m = mat4Identity;
     //Matrix::createLookAt(_cameraNode->getTranslation(), Vector3::zero(), Vector3::unitY(), &m);
 	kmMat4CreatLookAt(&m, &_cameraNode->getTranslation(), &vec3Zero, &vec3uintY);
     camPitchNode->rotate(m);

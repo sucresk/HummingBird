@@ -161,7 +161,7 @@ void BillboardSample::render(float elapsedTime)
         //Matrix::createBillboard(node->getTranslationWorld(), 
 		//	camera->getNode()->getTranslationWorld(), 
 		//	camera->getNode()->getUpVectorWorld(), &m);
-		kmMat4 m;
+		kmMat4 m = mat4Identity;
 		kmMat4CreateBillboard(&m, &node->getTranslationWorld(),
 			&camera->getNode()->getTranslationWorld(),
 			&camera->getNode()->getUpVectorWorld(), NULL );

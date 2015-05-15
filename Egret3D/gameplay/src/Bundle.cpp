@@ -1084,7 +1084,7 @@ MeshSkin* Bundle::readMeshSkin()
     {
         GP_ASSERT(jointCount * 16 == jointsBindPosesCount);
         //float m[16];
-		kmMat4 mat4;
+		kmMat4 mat4 = mat4Identity;
         for (unsigned int i = 0; i < jointCount; i++)
         {
             if (!readMatrix(mat4.mat))

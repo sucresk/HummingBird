@@ -235,13 +235,13 @@ void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 
 			//Matrix m;
 			//_modelNode->getWorldMatrix().transpose(&m);
-			kmMat4 m;
+			kmMat4 m = mat4Identity;
 			kmMat4Transpose(&m, &_modelNode->getWorldMatrix());
 
 			// Yaw in world frame
 			//kmVec3 yaw;
 			//m.getUpVector(&yaw);
-			kmVec3 yaw;
+			kmVec3 yaw = vec3Zero;
 			kmMat4GetUp(&yaw, &m);
 			_modelNode->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));
 			
@@ -249,7 +249,7 @@ void LightSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 			// Roll in world frame
 			//kmVec3 pitch;
 			//m.getRightVector(&pitch);
-			kmVec3 pitch;
+			kmVec3 pitch = vec3Zero;
 			kmMat4GetRight(&pitch, &m);
 			_modelNode->rotate(pitch, MATH_DEG_TO_RAD(deltaY * 0.5f));
 		}

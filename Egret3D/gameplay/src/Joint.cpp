@@ -9,6 +9,7 @@ namespace egret
 Joint::Joint(const char* id)
     : Node(id), _jointMatrixDirty(true)
 {
+	_bindPose = mat4Identity;
 }
 
 Joint::~Joint()
@@ -72,7 +73,7 @@ void Joint::updateJointMatrix(const kmMat4& bindShape, kmVec4* matrixPalette)
     {
         _jointMatrixDirty = false;
 
-        static kmMat4 t;
+        static kmMat4 t = mat4Identity;
 		
         //Matrix::multiply(Node::getWorldMatrix(), getInverseBindPose(), &t);
         //Matrix::multiply(t, bindShape, &t);

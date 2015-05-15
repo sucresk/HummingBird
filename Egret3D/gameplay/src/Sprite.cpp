@@ -575,7 +575,7 @@ unsigned int Sprite::draw(bool wireframe)
             if (cameraNode)
             {
                 // Scene projection
-                kmMat4 projectionMatrix;
+                kmMat4 projectionMatrix = mat4Identity;
                 projectionMatrix = _node->getProjectionMatrix();
                 _batch->setProjectionMatrix(projectionMatrix);
                 

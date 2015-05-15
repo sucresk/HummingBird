@@ -421,7 +421,7 @@ void Material::loadRenderState(RenderState* renderState, Properties* properties)
             break;
         case Properties::MATRIX:
             {
-                kmMat4 matrix;
+                kmMat4 matrix = mat4Identity;
                 if (properties->getMatrix(NULL, &matrix))
                 {
                     GP_ASSERT(renderState->getParameter(name));

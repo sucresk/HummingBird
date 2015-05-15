@@ -451,7 +451,7 @@ const kmMat4& Node::getWorldMatrix() const
 
 const kmMat4& Node::getWorldViewMatrix() const
 {
-    static kmMat4 worldView;
+    static kmMat4 worldView = mat4Identity;
     //Matrix::multiply(getViewMatrix(), getWorldMatrix(), &worldView);
 	kmMat4Multiply(&worldView, &getViewMatrix(), &getWorldMatrix());
     return worldView;
@@ -459,7 +459,7 @@ const kmMat4& Node::getWorldViewMatrix() const
 
 const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 {
-    static kmMat4 invTransWorldView;
+    static kmMat4 invTransWorldView = mat4Identity;
     //Matrix::multiply(getViewMatrix(), getWorldMatrix(), &invTransWorldView);
     //invTransWorldView.invert();
     //invTransWorldView.transpose();
@@ -471,7 +471,7 @@ const kmMat4& Node::getInverseTransposeWorldViewMatrix() const
 
 const kmMat4& Node::getInverseTransposeWorldMatrix() const
 {
-    static kmMat4 invTransWorld;
+    static kmMat4 invTransWorld = mat4Identity;
     invTransWorld = getWorldMatrix();
     //invTransWorld.invert();
     //invTransWorld.transpose();
@@ -551,7 +551,7 @@ const kmMat4& Node::getWorldViewProjectionMatrix() const
 {
     // Always re-calculate worldViewProjection kmMat4 since it's extremely difficult
     // to track whether the camera has changed (it may frequently change every frame).
-    static kmMat4 worldViewProj;
+    static kmMat4 worldViewProj = mat4Identity;
     //Matrix::multiply(getViewProjectionMatrix(), getWorldMatrix(), &worldViewProj);
 	kmMat4Multiply(&worldViewProj, &getViewProjectionMatrix(), &getWorldMatrix());
     return worldViewProj;

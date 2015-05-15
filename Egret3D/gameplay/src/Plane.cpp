@@ -258,7 +258,7 @@ void Plane::set(const Plane& plane)
 
 void Plane::transform(const kmMat4& matrix)
 {
-    kmMat4 inverted;
+    kmMat4 inverted = mat4Identity;
     //if (matrix.invert(&inverted))
 	if (kmMat4Invert(&inverted, &matrix ))
     {

@@ -199,7 +199,7 @@ void Font::lazyStart()
     if (!vp.isEmpty())
     {
         Game* game = Game::getInstance();
-        kmMat4 projectionMatrix;
+        kmMat4 projectionMatrix = mat4Identity;
         //Matrix::createOrthographicOffCenter(vp.x, vp.width, vp.height, vp.y, 0, 1, &projectionMatrix);
 		kmMat4OrthographicProjection(&projectionMatrix, vp.x, vp.width, vp.height, vp.y, 0, 1);
 		_batch->setProjectionMatrix(projectionMatrix);

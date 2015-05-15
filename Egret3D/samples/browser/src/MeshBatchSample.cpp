@@ -125,7 +125,7 @@ void MeshBatchSample::addTriangle(int x, int y)
     //m.transformPoint(p1, &p1);
     //m.transformPoint(p2, &p2);
     //m.transformPoint(p3, &p3);
-	kmMat4 m;
+	kmMat4 m = mat4Identity;
 	kmMat4Identity(&m);
 	kmMat4Translation(&m, &m, x, y, 0);
 	kmMat4RotateZ(&m, &m, MATH_RANDOM_MINUS1_1() * MATH_PI);

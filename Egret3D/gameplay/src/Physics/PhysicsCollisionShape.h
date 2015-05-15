@@ -245,6 +245,10 @@ private:
 
     struct HeightfieldData
     {
+		HeightfieldData()
+		{
+			inverse = mat4Identity;
+		}
         HeightField* heightfield;
         bool inverseIsDirty;
         kmMat4 inverse;

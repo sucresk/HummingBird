@@ -221,10 +221,10 @@ void FormsSample::update(float elapsedTime)
 
 		if (!kmVec2IsZero(&_joysticks[1]))
 		{
-			kmMat4 m;
+			kmMat4 m = mat4Identity;
 			//_formNodeParent->getWorldMatrix().transpose(&m);
 			memcpy(m.mat, _formNodeParent->getWorldMatrix().mat, sizeof(float) * 16);
-			kmVec3 yaw;
+			kmVec3 yaw = vec3Zero;
 			//m.getUpVector(&yaw);
 			kmMat4GetUp(&yaw, &m);
 			_formNodeParent->rotate(yaw, speedFactor * _joysticks[1].x * 2.0f);
@@ -284,10 +284,10 @@ void FormsSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
                 int deltaX = x - _touchX;
                 _touchX = x;
                 // Yaw in world frame
-                kmMat4 m;
+                kmMat4 m = mat4Identity;
                 //_formNodeParent->getWorldMatrix().transpose(&m);
 				memcpy(m.mat, _formNodeParent->getWorldMatrix().mat, sizeof(float) * 16);
-                kmVec3 yaw;
+                kmVec3 yaw = vec3Zero;
                 //m.getUpVector(&yaw);
 				kmMat4GetUp(&yaw, &m);
                 _formNodeParent->rotate(yaw, MATH_DEG_TO_RAD(deltaX * 0.5f));

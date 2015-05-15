@@ -296,7 +296,7 @@ void SpriteBatch::draw(const kmVec3& position, const kmVec3& right, const kmVec3
         static kmVec3 u = vec3Zero;
         //Vector3::cross(right, forward, &u);
 		kmVec3Cross(&u, &right, &forward);
-        static kmMat4 rotation;
+        static kmMat4 rotation = mat4Identity;
         //Matrix::createRotation(u, rotationAngle, &rotation);
 		kmMat4CreateRotation(&rotation, &u, rotationAngle);
 		//assert(false);
