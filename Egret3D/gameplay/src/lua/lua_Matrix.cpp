@@ -3,7 +3,7 @@
 #include "ScriptController.h"
 #include "lua_Matrix.h"
 #include "Base.h"
-#include "MathUtil.h"
+//#include "MathUtil.h"
 #include "kazmath/mat4.h"
 #include "Plane.h"
 #include "Quaternion.h"
@@ -1883,7 +1883,7 @@ int lua_Matrix_setZero(lua_State* state)
             {
                 kmMat4* instance = getInstance(state);
                 //instance->setZero();
-				memset(instance->mat, 0, MATRIX_SIZE);
+				memset(instance->mat, 0, sizeof(float) * 16);
                 return 0;
             }
 

@@ -55,7 +55,7 @@
 #include "lua_Logger.h"
 #include "lua_Material.h"
 #include "lua_MaterialParameter.h"
-#include "lua_MathUtil.h"
+//#include "lua_MathUtil.h"
 #include "lua_Matrix.h"
 #include "lua_Mesh.h"
 #include "lua_MeshBatch.h"

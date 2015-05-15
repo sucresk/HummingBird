@@ -1,6 +1,6 @@
 #include "Base.h"
 #include "Game.h"
-#include "kazmath/MathUtil.h"
+//#include "kazmath/MathUtil.h"
 #include "Node.h"
 #include "PhysicsVehicle.h"
 #include "PhysicsVehicleWheel.h"
@@ -255,7 +255,8 @@ float PhysicsVehicle::getSpeedSmoothKph() const
 void PhysicsVehicle::update(float elapsedTime, float steering, float braking, float driving)
 {
     float v = getSpeedKph();
-    MathUtil::smooth(&_speedSmoothed, v, elapsedTime, 0, 1200);
+    //MathUtil::smooth(&_speedSmoothed, v, elapsedTime, 0, 1200);
+	kmSmooth(&_speedSmoothed, v, elapsedTime, 0, 1200);
     if (elapsedTime > 0)
     {
         // Avoid accumulation of downforce while paused (zero elapsedTime)

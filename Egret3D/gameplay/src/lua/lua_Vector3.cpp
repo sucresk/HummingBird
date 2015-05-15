@@ -3,7 +3,7 @@
 #include "ScriptController.h"
 #include "lua_Vector3.h"
 #include "Base.h"
-#include "MathUtil.h"
+//#include "MathUtil.h"
 #include "kazmath/vec3.h"
 
 namespace egret

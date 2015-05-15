@@ -2,15 +2,6 @@ scene
 {
 	path = res/common/physics.gpb
 	
-	node duck
-	{
-		url = res/common/duck.gpb#duck
-		material = res/common/duck.material
-		translate = 1, -4, 0
-		rotate = 0.0, 1.0, 0.0, 180
-		collisionObject = res/common/physics.physics#duck
-	}
-	
 	node floor
 	{
 		material = res/common/physics.material#floor
@@ -41,23 +32,14 @@ scene
 		collisionObject = res/common/physics.physics#staticBox
 	}
 	
-	node box
-	{
-		material = res/common/physics.material#green
-		collisionObject = res/common/physics.physics#box
-	}
-	
+
 	node sphere
 	{
 		material = res/common/physics.material#red
-		collisionObject = res/common/physics.physics#ball
+		//collisionObject = res/common/physics.physics#ball
 	}
 	
-	node capsule
-	{
-		material = res/common/physics.material#blue
-		collisionObject = res/common/physics.physics#capsule
-	}
+
 	
 	physics
 	{

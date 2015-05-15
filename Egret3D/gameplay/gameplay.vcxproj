@@ -64,7 +64,6 @@
     <ClCompile Include="src\kazmath\GL\matrix.c" />
     <ClCompile Include="src\kazmath\mat3.c" />
     <ClCompile Include="src\kazmath\mat4.c" />
-    <ClCompile Include="src\kazmath\MathUtil.cpp" />
     <ClCompile Include="src\kazmath\neon_matrix_impl.c" />
     <ClCompile Include="src\kazmath\kmplane.c" />
     <ClCompile Include="src\kazmath\quaternion.c" />
@@ -132,7 +131,6 @@
     <ClCompile Include="src\lua\lua_Logger.cpp" />
     <ClCompile Include="src\lua\lua_Material.cpp" />
     <ClCompile Include="src\lua\lua_MaterialParameter.cpp" />
-    <ClCompile Include="src\lua\lua_MathUtil.cpp" />
     <ClCompile Include="src\lua\lua_Matrix.cpp" />
     <ClCompile Include="src\lua\lua_Mesh.cpp" />
     <ClCompile Include="src\lua\lua_MeshBatch.cpp" />
@@ -323,7 +321,6 @@
     <ClInclude Include="src\kazmath\kazmath.h" />
     <ClInclude Include="src\kazmath\mat3.h" />
     <ClInclude Include="src\kazmath\mat4.h" />
-    <ClInclude Include="src\kazmath\MathUtil.h" />
     <ClInclude Include="src\kazmath\neon_matrix_impl.h" />
     <ClInclude Include="src\kazmath\kmplane.h" />
     <ClInclude Include="src\kazmath\quaternion.h" />
@@ -392,7 +389,6 @@
     <ClInclude Include="src\lua\lua_Logger.h" />
     <ClInclude Include="src\lua\lua_Material.h" />
     <ClInclude Include="src\lua\lua_MaterialParameter.h" />
-    <ClInclude Include="src\lua\lua_MathUtil.h" />
     <ClInclude Include="src\lua\lua_Matrix.h" />
     <ClInclude Include="src\lua\lua_Mesh.h" />
     <ClInclude Include="src\lua\lua_MeshBatch.h" />
@@ -558,7 +554,6 @@
     <None Include="src\BoundingSphere.inl" />
     <None Include="src\Game.inl" />
     <None Include="src\Image.inl" />
-    <None Include="src\kazmath\MathUtil.inl" />
     <None Include="src\MeshBatch.inl" />
     <None Include="src\Physics\PhysicsConstraint.inl" />
     <None Include="src\Physics\PhysicsFixedConstraint.inl" />

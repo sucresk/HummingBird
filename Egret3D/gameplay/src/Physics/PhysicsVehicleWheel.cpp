@@ -2,7 +2,7 @@
 #include "Node.h"
 #include "PhysicsVehicle.h"
 #include "PhysicsVehicleWheel.h"
-#include "kazmath/MathUtil.h"
+//#include "kazmath/MathUtil.h"
 
 namespace egret
 {
@@ -246,9 +246,11 @@ void PhysicsVehicleWheel::update(float elapsedTime)
     float threshold = getStrutRestLength() * 2.0f;
     float responseTime = (kmVec3LengthSq( &delta ) > threshold*threshold) ? 0 : 60;
     //_positionDelta.smooth(commandedPosition, elapsedTime, responseTime);
-	MathUtil::smooth(&_positionDelta.x, commandedPosition.x, elapsedTime, responseTime);
-	MathUtil::smooth(&_positionDelta.y, commandedPosition.y, elapsedTime, responseTime);
-	MathUtil::smooth(&_positionDelta.z, commandedPosition.z, elapsedTime, responseTime);
+	kmVec3Smooth(&_positionDelta, &_positionDelta, &commandedPosition, elapsedTime, responseTime);
+
+	//MathUtil::smooth(&_positionDelta.x, commandedPosition.x, elapsedTime, responseTime);
+	//MathUtil::smooth(&_positionDelta.y, commandedPosition.y, elapsedTime, responseTime);
+	//MathUtil::smooth(&_positionDelta.z, commandedPosition.z, elapsedTime, responseTime);
 	return;
 }
 

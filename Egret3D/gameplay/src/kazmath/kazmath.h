@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/mat4.h"
 #include "kazmath/utility.h"
 #include "kazmath/quaternion.h"
-#include "kazmath/plane.h"
+#include "kazmath/kmplane.h"
 #include "kazmath/aabb.h"
 #include "kazmath/ray2.h"
 

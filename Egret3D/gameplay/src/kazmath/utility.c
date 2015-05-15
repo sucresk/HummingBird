@@ -57,3 +57,13 @@ kmScalar kmMax(kmScalar lhs, kmScalar rhs) {
 kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs) {
     return (lhs + kmEpsilon > rhs && lhs - kmEpsilon < rhs);
 }
+
+kmScalar kmSmooth(float* x, float target, float elapsedTime, float riseTime, float fallTime)
+{
+	if (elapsedTime > 0)
+	{
+		float delta = target - *x;
+		*x += delta * elapsedTime / (elapsedTime + (delta > 0 ? riseTime : fallTime));
+	}
+	return *x;
+}

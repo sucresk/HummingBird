@@ -4,7 +4,7 @@
 #include "lua_PhysicsVehicle.h"
 #include "Base.h"
 #include "Game.h"
-#include "MathUtil.h"
+//#include "MathUtil.h"
 #include "Node.h"
 #include "PhysicsCharacter.h"
 #include "PhysicsCollisionObject.h"

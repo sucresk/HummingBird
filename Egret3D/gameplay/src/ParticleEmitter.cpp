@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "kazmath/quaternion.h"
 #include "Properties.h"
-#include "kazmath/MathUtil.h"
+//#include "kazmath/MathUtil.h"
 
 
 #define PARTICLE_COUNT_MAX                       100

@@ -27,29 +27,7 @@ material floor : colored
     {
         pass
         {
-            u_diffuseColor = 0.5, 0.5, 0.5, 1
-        }
-    }
-}
-
-material green : colored
-{
-    technique
-    {
-        pass
-        {
-            u_diffuseColor = 0.1, 0.6, 0.1, 1
-        }
-    }
-}
-
-material blue : colored
-{
-    technique
-    {
-        pass
-        {
-            u_diffuseColor = 0, 0, 1, 1
+            u_diffuseColor = 1, 0.5, 0.5, 1
         }
     }
 }
@@ -60,7 +38,7 @@ material red : colored
     {
         pass
         {
-            u_diffuseColor = 1, 0, 0, 1
+            u_diffuseColor = 1, 1, 0, 1
         }
     }
 }

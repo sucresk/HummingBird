@@ -66,6 +66,8 @@ extern "C" {
  kmScalar kmMin(kmScalar lhs, kmScalar rhs);
  kmScalar kmMax(kmScalar lhs, kmScalar rhs);
  kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs);
+ kmScalar kmSmooth(float* x, float target, float elapsedTime, float riseTime, float fallTime);
+
 
 #ifdef __cplusplus
 }
