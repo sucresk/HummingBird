@@ -297,7 +297,7 @@ void BoundingSphere::transform(const kmMat4& matrix)
 	kmMat3Transform(&center, &matrix, center.x, center.y, center.z, 1.0f);
 
     // Scale the sphere's radius by the scale fo the matrix
-    kmVec3 scale;
+    kmVec3 scale = vec3Zero;
     //matrix.decompose(&scale, NULL, NULL);
 	kmMat4Decompose(&matrix, &scale, NULL, NULL);
     float r = radius * scale.x;

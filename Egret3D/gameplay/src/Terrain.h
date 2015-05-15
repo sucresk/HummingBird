@@ -331,7 +331,7 @@ private:
 
     std::string _materialPath;
     HeightField* _heightfield;
-    kmVec3 _localScale;
+    kmVec3 _localScale = vec3Zero;
     std::vector<TerrainPatch*> _patches;
     Texture::Sampler* _normalMap;
     unsigned int _flags;

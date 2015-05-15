@@ -100,7 +100,7 @@ Light* Light::create(Properties* properties)
     }
 
     // Read common parameters
-    kmVec3 color;
+    kmVec3 color = vec3Zero;
     if (!properties->getVector3("color", &color))
     {
         GP_ERROR("Missing valid 'color' parameter for light definition.");

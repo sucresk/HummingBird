@@ -225,7 +225,7 @@ bool PhysicsController::rayTest(const Ray& ray, float distance, PhysicsControlle
     GP_ASSERT(_world);
 
     btVector3 rayFromWorld(BV(ray.getOrigin()));
-	kmVec3 temp;
+	kmVec3 temp = vec3Zero;
 	kmVec3Scale(&temp, &ray.getDirection(), distance);
 	btVector3 rayToWorld(rayFromWorld + BV(temp));
 
@@ -310,7 +310,7 @@ bool PhysicsController::sweepTest(PhysicsCollisionObject* object, const kmVec3& 
     start.setIdentity();
     if (object->getNode())
     {
-        kmVec3 translation;
+        kmVec3 translation = vec3Zero;
         kmQuaternion rotation;
         const kmMat4& m = object->getNode()->getWorldMatrix();
         //m.getTranslation(&translation);
@@ -793,7 +793,7 @@ PhysicsCollisionShape* PhysicsController::createShape(Node* node, const PhysicsC
     PhysicsCollisionShape* collisionShape = NULL;
 
     // Get the node's world scale (we need to apply this during creation since rigid bodies don't scale dynamically).
-    kmVec3 scale;
+    kmVec3 scale = vec3Zero;
     //node->getWorldMatrix().getScale(&scale);
 	kmMat4Decompose(&node->getWorldMatrix(), &scale, NULL, NULL);
 
@@ -1053,7 +1053,7 @@ PhysicsCollisionShape* PhysicsController::createHeightfield(Node* node, HeightFi
     }
 
     // Compute initial heightfield scale by pulling the current world scale out of the node
-    kmVec3 scale;
+    kmVec3 scale = vec3Zero;
     //node->getWorldMatrix().getScale(&scale);
 	kmMat4Decompose(&node->getWorldMatrix(), &scale, NULL, NULL);
 
@@ -1152,7 +1152,7 @@ PhysicsCollisionShape* PhysicsController::createMesh(Mesh* mesh, const kmVec3& s
 	kmMat4CreateScalNum(&m, scale.x, scale.y, scale.z);
     unsigned int vertexCount = data->vertexCount;
     shapeMeshData->vertexData = new float[vertexCount * 3];
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     int vertexStride = data->vertexFormat.getVertexSize();
     for (unsigned int i = 0; i < data->vertexCount; i++)
     {

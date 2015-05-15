@@ -140,7 +140,8 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::Definition::create(Node
 
     // Set values to their defaults.
     PhysicsCollisionShape::Type type = PhysicsCollisionShape::SHAPE_BOX;
-    kmVec3 extents, center;
+	kmVec3 extents = vec3Zero;
+	kmVec3 center = vec3Zero;
     bool extentsSpecified = false;
     bool centerSpecified = false;
     float radius = -1.0f;

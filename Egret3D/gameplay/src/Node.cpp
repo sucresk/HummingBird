@@ -559,7 +559,7 @@ const kmMat4& Node::getWorldViewProjectionMatrix() const
 
 kmVec3 Node::getTranslationWorld() const
 {
-    kmVec3 translation;
+    kmVec3 translation = vec3Zero;
     //getWorldMatrix().getTranslation(&translation);
 	kmMat4Decompose(&getWorldMatrix(), NULL, NULL, &translation);
     return translation;
@@ -567,7 +567,7 @@ kmVec3 Node::getTranslationWorld() const
 
 kmVec3 Node::getTranslationView() const
 {
-    kmVec3 translation;
+    kmVec3 translation = vec3Zero;
     //getWorldMatrix().getTranslation(&translation);
     //getViewMatrix().transformPoint(&translation);
 	kmMat4Decompose(&getWorldMatrix(), NULL, NULL, &translation);
@@ -577,7 +577,7 @@ kmVec3 Node::getTranslationView() const
 
 kmVec3 Node::getForwardVectorWorld() const
 {
-    kmVec3 vector;
+    kmVec3 vector = vec3Zero;
     //getWorldMatrix().getForwardVector(&vector);
 	kmMat4GetForwrad(&vector, &getWorldMatrix());
     return vector;
@@ -595,7 +595,7 @@ kmVec3 Node::getForwardVectorView() const
 
 kmVec3 Node::getRightVectorWorld() const
 {
-    kmVec3 vector;
+    kmVec3 vector = vec3Zero;
     //getWorldMatrix().getRightVector(&vector);
 	kmMat4GetRight(&vector, &getWorldMatrix());
     return vector;
@@ -603,7 +603,7 @@ kmVec3 Node::getRightVectorWorld() const
 
 kmVec3 Node::getUpVectorWorld() const
 {
-    kmVec3 vector;
+    kmVec3 vector = vec3Zero;
     //getWorldMatrix().getUpVector(&vector);
 	kmMat4GetUp(&vector, &getWorldMatrix());
     return vector;

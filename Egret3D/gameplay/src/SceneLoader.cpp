@@ -119,7 +119,7 @@ Scene* SceneLoader::loadInternal(const char* url)
     }
 
     // Set ambient and light properties
-    kmVec3 vec3;
+    kmVec3 vec3 = vec3Zero;
     if (sceneProperties->getVector3("ambientColor", &vec3))
         _scene->setAmbientColor(vec3.x, vec3.y, vec3.z);
 
@@ -418,7 +418,7 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
         {
 		case SceneNodeProperty::TRANSLATE:
 		{
-			kmVec3 t;
+			kmVec3 t = vec3Zero;
 			if (Properties::parseVector3(snp._value.c_str(), &t))
 				node->translate(t);
 			break;
@@ -432,7 +432,7 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
 		}
 		case SceneNodeProperty::SCALE:
 		{
-			kmVec3 s;
+			kmVec3 s = vec3Zero;
 			if (Properties::parseVector3(snp._value.c_str(), &s))
 				node->scale(s);
 			break;
@@ -903,7 +903,7 @@ PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constrai
 
     // Create the constraint from the specified properties.
     kmQuaternion roA;
-    kmVec3 toA;
+    kmVec3 toA = vec3Zero;
     bool offsetSpecified = constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     offsetSpecified |= constraint->getVector3("translationOffsetA", &toA);
 
@@ -912,7 +912,7 @@ PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constrai
         if (rbB)
         {
             kmQuaternion roB;
-            kmVec3 toB;
+            kmVec3 toB = vec3Zero;
             constraint->getQuaternionFromAxisAngle("rotationOffsetB", &roB);
             constraint->getVector3("translationOffsetB", &toB);
 
@@ -930,7 +930,7 @@ PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constrai
     GP_ASSERT(physicsConstraint);
 
     // Set the optional parameters that were specified.
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     if (constraint->getVector3("angularLowerLimit", &v))
         physicsConstraint->setAngularLowerLimit(v);
     if (constraint->getVector3("angularUpperLimit", &v))
@@ -952,13 +952,13 @@ PhysicsConstraint* SceneLoader::loadHingeConstraint(const Properties* constraint
 
     // Create the constraint from the specified properties.
     kmQuaternion roA;
-    kmVec3 toA;
+    kmVec3 toA = vec3Zero;
     constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     constraint->getVector3("translationOffsetA", &toA);
     if (rbB)
     {
         kmQuaternion roB;
-        kmVec3 toB;
+        kmVec3 toB = vec3Zero;
         constraint->getQuaternionFromAxisAngle("rotationOffsetB", &roB);
         constraint->getVector3("translationOffsetB", &toB);
 
@@ -1029,7 +1029,7 @@ void SceneLoader::loadPhysics(Properties* physics)
     GP_ASSERT(Game::getInstance()->getPhysicsController());
 
     // Go through the supported global physics properties and apply them.
-    kmVec3 gravity;
+    kmVec3 gravity = vec3Zero;
     if (physics->getVector3("gravity", &gravity))
         Game::getInstance()->getPhysicsController()->setGravity(gravity);
 
@@ -1181,14 +1181,14 @@ PhysicsConstraint* SceneLoader::loadSocketConstraint(const Properties* constrain
     GP_ASSERT(Game::getInstance()->getPhysicsController());
 
     PhysicsSocketConstraint* physicsConstraint = NULL;
-    kmVec3 toA;
+    kmVec3 toA = vec3Zero;
     bool offsetSpecified = constraint->getVector3("translationOffsetA", &toA);
 
     if (offsetSpecified)
     {
         if (rbB)
         {
-            kmVec3 toB;
+            kmVec3 toB = vec3Zero;
             constraint->getVector3("translationOffsetB", &toB);
 
             physicsConstraint = Game::getInstance()->getPhysicsController()->createSocketConstraint(rbA, toA, rbB, toB);
@@ -1222,7 +1222,8 @@ PhysicsConstraint* SceneLoader::loadSpringConstraint(const Properties* constrain
 
     // Create the constraint from the specified properties.
     kmQuaternion roA, roB;
-    kmVec3 toA, toB;
+	kmVec3 toA = vec3Zero;
+	kmVec3 toB = vec3Zero;
     bool offsetsSpecified = constraint->getQuaternionFromAxisAngle("rotationOffsetA", &roA);
     offsetsSpecified |= constraint->getVector3("translationOffsetA", &toA);
     offsetsSpecified |= constraint->getQuaternionFromAxisAngle("rotationOffsetB", &roB);
@@ -1239,7 +1240,7 @@ PhysicsConstraint* SceneLoader::loadSpringConstraint(const Properties* constrain
     GP_ASSERT(physicsConstraint);
 
     // Set the optional parameters that were specified.
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     if (constraint->getVector3("angularLowerLimit", &v))
         physicsConstraint->setAngularLowerLimit(v);
     if (constraint->getVector3("angularUpperLimit", &v))

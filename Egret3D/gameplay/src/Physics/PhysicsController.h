@@ -78,6 +78,7 @@ public:
      */
     struct HitResult
     {
+		HitResult() { point = vec3Zero; normal = vec3Zero; };
         /**
          * The collision object that was hit.
          */

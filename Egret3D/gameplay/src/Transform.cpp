@@ -239,7 +239,7 @@ float Transform::getTranslationZ() const
 
 kmVec3 Transform::getForwardVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getForwardVector(&v);
     return v;
 }
@@ -252,7 +252,7 @@ void Transform::getForwardVector(kmVec3* dst) const
 
 kmVec3 Transform::getBackVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getBackVector(&v);
     return v;
 }
@@ -265,7 +265,7 @@ void Transform::getBackVector(kmVec3* dst) const
 
 kmVec3 Transform::getUpVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getUpVector(&v);
     return v;
 }
@@ -278,7 +278,7 @@ void Transform::getUpVector(kmVec3* dst) const
 
 kmVec3 Transform::getDownVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getDownVector(&v);
     return v;
 }
@@ -291,7 +291,7 @@ void Transform::getDownVector(kmVec3* dst) const
 
 kmVec3 Transform::getLeftVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getLeftVector(&v);
     return v;
 }
@@ -304,7 +304,7 @@ void Transform::getLeftVector(kmVec3* dst) const
 
 kmVec3 Transform::getRightVector() const
 {
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     getRightVector(&v);
     return v;
 }
@@ -718,7 +718,7 @@ void Transform::translateLeft(float amount)
     // Force the current transform kmMat4 to be updated.
     getMatrix();
 
-    kmVec3 left;
+    kmVec3 left = vec3Zero;
     //_matrix.getLeftVector(&left);
 	kmMat4GetLeft(&left, &_matrix);
 	kmVec3Normalize(&left, &left);
@@ -737,7 +737,7 @@ void Transform::translateUp(float amount)
     // Force the current transform kmMat4 to be updated.
     getMatrix();
 
-    kmVec3 up;
+    kmVec3 up = vec3Zero;
     //_matrix.getUpVector(&up);
 	kmMat4GetUp(&up, &_matrix);
 	kmVec3Normalize(&up, &up );
@@ -756,7 +756,7 @@ void Transform::translateForward(float amount)
     // Force the current transform kmMat4 to be updated.
     getMatrix();
 
-    kmVec3 forward;
+    kmVec3 forward = vec3Zero;
     //_matrix.getForwardVector(&forward);
     //forward.normalize();
     //forward.scale(amount);
@@ -774,7 +774,7 @@ void Transform::translateSmooth(const kmVec3& target, float elapsedTime, float r
 
     if (elapsedTime > 0)
     {
-		kmVec3 temp;
+		kmVec3 temp = vec3Zero;
 		kmVec3Subtract(&temp, &target, &_translation);
 		kmVec3Scale(&temp, &temp, elapsedTime / (elapsedTime + responseTime));
 		kmVec3Add(&_translation, &_translation, &temp);

@@ -325,7 +325,7 @@ bool Form::screenToForm(Control* ctrl, int* x, int* y)
         {
             // Form is attached to a scene node, so project the screen space point into the
             // form's coordinate space (which may be transformed by the node).
-            kmVec3 point;
+            kmVec3 point = vec3Zero;
             if (form->projectPoint(*x, *y, &point))
             {
                 *x = (int)point.x;
@@ -1028,7 +1028,7 @@ bool Form::projectPoint(int x, int y, kmVec3* point)
 
         // Find the quad's plane.  We know its normal is the quad's forward vector.
         //kmVec3 normal = _node->getForwardVectorWorld().normalize();
-		kmVec3 normal;
+		kmVec3 normal = vec3Zero;
 		kmVec3Normalize(&normal, &_node->getForwardVectorView());
 
         // To get the plane's distance from the origin, we project a point on the
@@ -1042,7 +1042,7 @@ bool Form::projectPoint(int x, int y, kmVec3* point)
         if (collisionDistance != Ray::INTERSECTS_NONE)
         {
             // Multiply the ray's direction vector by collision distance and add that to the ray's origin.
-			kmVec3 scale;
+			kmVec3 scale = vec3Zero;
 			kmVec3Scale(&scale, &ray.getDirection(), collisionDistance);
 			kmVec3Add(point, &ray.getOrigin(), &scale);
 			//point = ray.getOrigin() + collisionDistance*ray.getDirection();

@@ -31,7 +31,8 @@ kmVec3 PhysicsConstraint::centerOfMassMidpoint(const Node* a, const Node* b)
     GP_ASSERT(a);
     GP_ASSERT(b);
 
-    kmVec3 tA, tB;
+	kmVec3 tA = vec3Zero;
+	kmVec3 tB = vec3Zero;
     //a->getWorldMatrix().getTranslation(&tA);
     //b->getWorldMatrix().getTranslation(&tB);
 	kmMat4Decompose(&a->getWorldMatrix(), NULL, NULL, &tA);
@@ -45,7 +46,7 @@ kmVec3 PhysicsConstraint::centerOfMassMidpoint(const Node* a, const Node* b)
     //kmVec3 c(tA);
     //c.add(d);
 
-	kmVec3 d;
+	kmVec3 d = vec3Zero;
 	kmVec3Subtract(&d, &tA, &tB);
 	kmVec3Scale(&d, &d, 0.5f);
 	kmVec3 c = tA;
@@ -96,11 +97,11 @@ kmVec3 PhysicsConstraint::getTranslationOffset(const Node* node, const kmVec3& p
 	kmMat4Inverse(&mi, &node->getWorldMatrix());
 	kmMat4Multiply( &mi, &mi, &m );
     
-    kmVec3 t;
+    kmVec3 t = vec3Zero;
     //mi.getTranslation(&t);
 	kmMat4Decompose(&mi, NULL, NULL, &t);
 
-    kmVec3 s;
+    kmVec3 s = vec3Zero;
     //node->getWorldMatrix().getScale(&s);
 	kmMat4Decompose(&node->getWorldMatrix(), &s, NULL, NULL);
 
@@ -134,11 +135,11 @@ btTransform PhysicsConstraint::getTransformOffset(const Node* node, const kmVec3
     //mi.getRotation(&r);
 	kmMat4Decompose(&mi, NULL, &r, NULL);
     
-    kmVec3 t;
+    kmVec3 t = vec3Zero;
     //mi.getTranslation(&t);
 	kmMat4Decompose(&mi, NULL, NULL, &t);
 
-    kmVec3 s;
+    kmVec3 s = vec3Zero;
     //node->getWorldMatrix().getScale(&s);
 	kmMat4Decompose(&node->getWorldMatrix(), &s, NULL, NULL);
 
@@ -165,7 +166,7 @@ kmVec3 PhysicsConstraint::getWorldCenterOfMass(const Node* node)
     // Warn the user that the node has no bounding volume.
     GP_WARN("Node %s' has no bounding volume - center of mass is defaulting to local coordinate origin.", node->getId());
 
-    kmVec3 center;
+    kmVec3 center = vec3Zero;
     //node->getWorldMatrix().transformPoint(&center);
 	kmMat3Transform(&center, &node->getWorldMatrix(), 0.0f, 0.0f, 0.0, 1.0f);
     return center;

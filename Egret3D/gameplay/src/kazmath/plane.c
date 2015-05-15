@@ -87,7 +87,9 @@ kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* 
     Outd = −n⋅A
     */
 
-    kmVec3 n, v1, v2;
+	kmVec3 n = vec3Zero;
+	kmVec3 v1 = vec3Zero;
+	kmVec3 v2 = vec3Zero;
     kmVec3Subtract(&v1, p2, p1); //Create the vectors for the 2 sides of the triangle
     kmVec3Subtract(&v2, p3, p1);
     kmVec3Cross(&n, &v1, &v2); //Use the cross product to get the normal
@@ -109,7 +111,7 @@ kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3
         d = V − U
         Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
     */
-    kmVec3 d;
+    kmVec3 d = vec3Zero;
     assert(0 && "Not implemented");
 
 

@@ -139,7 +139,7 @@ void AudioListener::cameraChanged(Camera* camera)
         if (node)
         {
             setPosition(node->getTranslationWorld());
-            kmVec3 up;
+            kmVec3 up = vec3Zero;
             //node->getWorldMatrix().getUpVector(&up);
 			kmMat4GetUpVec3( &up, &node->getWorldMatrix());
             setOrientation(node->getForwardVectorWorld(), up);

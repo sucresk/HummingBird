@@ -63,7 +63,7 @@ Terrain* Terrain::create(const char* path, Properties* properties)
     Properties* pTerrain = NULL;
     bool externalProperties = (p != NULL);
     HeightField* heightfield = NULL;
-    kmVec3 terrainSize;
+    kmVec3 terrainSize = vec3Zero;
     int patchSize = 0;
     int detailLevels = 1;
     float skirtScale = 0;
@@ -513,7 +513,7 @@ float Terrain::getHeight(float x, float z) const
     // inverse of our world kmMat4 to transform the world x,z coords back into
     // local heightfield coordinates for indexing into the height array.
     //kmVec3 v = getInverseWorldMatrix() * Vector3(x, 0.0f, z);
-	kmVec3 v;
+	kmVec3 v = vec3Zero;
 	kmMat3Transform(&v, &getInverseWorldMatrix(), x, 0.0f, z, 0.0f);
     x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
@@ -524,7 +524,7 @@ float Terrain::getHeight(float x, float z) const
     // Apply world scale to the height value
     if (_node)
     {
-        kmVec3 worldScale;
+        kmVec3 worldScale = vec3Zero;
         //_node->getWorldMatrix().getScale(&worldScale);
 		kmMat4Decompose(&_node->getWorldMatrix(), &worldScale, NULL, NULL);
         height *= worldScale.y;

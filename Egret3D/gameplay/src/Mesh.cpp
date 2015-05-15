@@ -116,7 +116,9 @@ Mesh* Mesh::createQuadFullscreen()
 Mesh* Mesh::createQuad(const kmVec3& p1, const kmVec3& p2, const kmVec3& p3, const kmVec3& p4)
 {
     // Calculate the normal vector of the plane.
-    kmVec3 v1, v2, n;
+	kmVec3 v1 = vec3Zero;
+	kmVec3 v2 = vec3Zero;
+	kmVec3 n = vec3Zero;
     //Vector3::subtract(p2, p1, &v1);
     //Vector3::subtract(p3, p2, &v2);
     //Vector3::cross(v1, v2, &n);

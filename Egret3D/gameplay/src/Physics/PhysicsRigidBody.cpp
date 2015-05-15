@@ -316,7 +316,7 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     GP_ASSERT(rows > 0);
 
     //kmVec3 v = _collisionShape->_shapeData.heightfieldData->inverse * Vector3(x, 0.0f, z);
-	kmVec3 v;
+	kmVec3 v = vec3Zero;
 	kmMat3Transform(&v, &_collisionShape->_shapeData.heightfieldData->inverse, x, 0.0f, z, 0.0f);
 	x = v.x + (cols - 1) * 0.5f;
     z = v.z + (rows - 1) * 0.5f;
@@ -325,7 +325,7 @@ float PhysicsRigidBody::getHeight(float x, float z) const
     float height = _collisionShape->_shapeData.heightfieldData->heightfield->getHeight(x, z);
 
     // Apply scale back to height
-    kmVec3 worldScale;
+    kmVec3 worldScale = vec3Zero;
     //_node->getWorldMatrix().getScale(&worldScale);
 	kmMat4Decompose(&_node->getWorldMatrix(), &worldScale, NULL, NULL);
     height *= worldScale.y;
@@ -375,7 +375,7 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
         _collisionShape->_shapeData.heightfieldData->inverseIsDirty = true;
 
         // Update local scaling for the heightfield.
-        kmVec3 scale;
+        kmVec3 scale = vec3Zero;
         //_node->getWorldMatrix().getScale(&scale);
 		kmMat4Decompose(&_node->getWorldMatrix(), &scale, NULL, NULL);
 

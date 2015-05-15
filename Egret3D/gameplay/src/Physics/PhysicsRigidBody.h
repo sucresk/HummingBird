@@ -96,7 +96,8 @@ public:
         Parameters() : mass(0.0f), friction(0.5f), restitution(0.0f),
             linearDamping(0.0f), angularDamping(0.0f),
 			kinematic(false), 
-			anisotropicFriction(vec3One), linearFactor( vec3One ), angularFactor( vec3One )
+			anisotropicFriction(vec3One), linearFactor( vec3One ), 
+			angularFactor( vec3One )
         {
 
         }

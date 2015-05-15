@@ -34,7 +34,7 @@ PhysicsVehicleWheel* PhysicsVehicleWheel::create(Node* node, Properties* propert
 
     // Load the defined wheel parameters.
     properties->rewind();
-    kmVec3 v;
+    kmVec3 v = vec3Zero;
     const char* name;
     while ((name = properties->getNextProperty()) != NULL)
     {
@@ -208,15 +208,15 @@ void PhysicsVehicleWheel::transform(Node* node) const
     node->setRotation(_orientation);
 
     // Use only the component parallel to the defined strut line
-    kmVec3 strutLine;
+    kmVec3 strutLine = vec3Zero;
     getWheelDirection(&strutLine);
     //_host->_node->getMatrix().transformVector(&strutLine);
 	kmMat3Transform(&strutLine, &_host->_node->getMatrix(), 
 		strutLine.x, strutLine.y, strutLine.z, 0.0f );
-    kmVec3 wheelPos;
+    kmVec3 wheelPos  = vec3Zero;
     getWheelPos(&wheelPos);
 	float scale = kmVec3Dot(&strutLine, &_positionDelta) / kmVec3LengthSq(&strutLine);
-	kmVec3 temp;
+	kmVec3 temp = vec3Zero;
 	kmVec3Scale(&temp, &strutLine, scale);
 	kmVec3Add(&wheelPos, &wheelPos, &temp);
 	node->setTranslation(wheelPos);
@@ -234,14 +234,14 @@ void PhysicsVehicleWheel::update(float elapsedTime)
 	_orientation = { rot.x(), rot.y(), rot.z(), rot.w() };
 
 	kmVec3 commandedPosition = { pos.x(), pos.y(), pos.z() };
-    kmVec3 wheelPos;
+    kmVec3 wheelPos = vec3Zero;
     getWheelPos(&wheelPos);
     //commandedPosition -= wheelPos;
 	kmVec3Subtract(&commandedPosition, &commandedPosition, &wheelPos);
 
     // Filter out noise from Bullet
     //kmVec3 delta(_positionDelta, commandedPosition);
-	kmVec3 delta;
+	kmVec3 delta = vec3Zero;
 	kmVec3Subtract(&delta, &commandedPosition, &_positionDelta);
     float threshold = getStrutRestLength() * 2.0f;
     float responseTime = (kmVec3LengthSq( &delta ) > threshold*threshold) ? 0 : 60;
@@ -263,7 +263,7 @@ void PhysicsVehicleWheel::getConnectionDefault(kmVec3* result) const
 	kmVec3Scale(result, result, -length);
 
     // nudge wheel contact point to outer edge of tire for stability
-    kmVec3 nudge;
+    kmVec3 nudge = vec3Zero;
     getWheelAxle(&nudge);
 	float scale = kmVec3Dot(&nudge, &_initialOffset);
 	kmVec3Scale(&nudge, &nudge, scale);

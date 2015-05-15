@@ -73,7 +73,7 @@ void BoundingBox::getCorners(kmVec3* dst) const
 
 kmVec3 BoundingBox::getCenter() const
 {
-    kmVec3 center;
+    kmVec3 center = vec3Zero;
     getCenter(&center);
     return center;
 }

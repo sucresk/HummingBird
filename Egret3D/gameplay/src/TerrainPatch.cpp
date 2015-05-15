@@ -182,10 +182,10 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
                 //kmVec3 e(Vector3(x<width-step ? v[0]+stepXScaled : v[0], computeHeight(heights, width, x<width-step ? x+step : x, z), v[2]), p);
                 //kmVec3 s(Vector3(v[0], computeHeight(heights, width, x, z>=step ? z-step : z), z>=step ? v[2]-stepZScaled : v[2]), p);
                 //kmVec3 n(Vector3(v[0], computeHeight(heights, width, x, z<height-step ? z+step : z), z<height-step ? v[2]+stepZScaled : v[2]), p);
-				kmVec3 w;
-				kmVec3 e;
-				kmVec3 s;
-				kmVec3 n;
+				kmVec3 w = vec3Zero;
+				kmVec3 e = vec3Zero;
+				kmVec3 s = vec3Zero;
+				kmVec3 n = vec3Zero;
 				kmVec3Fill(&w, p.x - (x >= step ? v[0] - stepXScaled : v[0]),
 					p.y - computeHeight(heights, width, x >= step ? x - step : x, z),
 					p.z - v[2]);
@@ -278,10 +278,10 @@ void TerrainPatch::addLOD(float* heights, unsigned int width, unsigned int heigh
     GP_ASSERT(index == vertexCount);
 
 	//kmVec3 center = { min + ((max - min) * 0.5f) };
-	kmVec3 temp;
+	kmVec3 temp = vec3Zero;
 	kmVec3Subtract(&temp, &max, &min);
 	kmVec3Scale(&temp, &temp, 0.5f);
-	kmVec3 center;
+	kmVec3 center = vec3Zero;
 	kmVec3Add(&center, &min, &temp);
 	
 

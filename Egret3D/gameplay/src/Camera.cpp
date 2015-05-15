@@ -441,15 +441,15 @@ void Camera::pickRay(const Rectangle& viewport, float x, float y, Ray* dst) cons
     GP_ASSERT(dst);
 
     // Get the world-space position at the near clip plane.
-    kmVec3 nearPoint;
+    kmVec3 nearPoint = vec3Zero;
     unproject(viewport, x, y, 0.0f, &nearPoint);
 
     // Get the world-space position at the far clip plane.
-    kmVec3 farPoint;
+    kmVec3 farPoint = vec3Zero;
     unproject(viewport, x, y, 1.0f, &farPoint);
 
     // Set the direction of the ray.
-    kmVec3 direction;
+    kmVec3 direction = vec3Zero;
     //Vector3::subtract(farPoint, nearPoint, &direction);
 	kmVec3Subtract(&direction, &farPoint, &nearPoint);
     //direction.normalize();

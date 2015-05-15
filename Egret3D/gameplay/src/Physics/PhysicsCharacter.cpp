@@ -272,7 +272,7 @@ void PhysicsCharacter::updateCurrentVelocity()
 {
     GP_ASSERT(_node);
     
-    kmVec3 temp;
+    kmVec3 temp = vec3Zero;
     btScalar velocity2 = 0;
 
     // Reset velocity vector.
@@ -599,7 +599,7 @@ bool PhysicsCharacter::fixCollision(btCollisionWorld* world)
     world->getDispatcher()->dispatchAllCollisionPairs(pairCache, world->getDispatchInfo(), world->getDispatcher());
 
     // Store our current world position.
-    kmVec3 startPosition;
+    kmVec3 startPosition =vec3Zero;
     //_node->getWorldMatrix().getTranslation(&startPosition);
 	kmMat4Decompose(&_node->getWorldMatrix(), NULL, NULL, &startPosition);
     btVector3 currentPosition = BV(startPosition);

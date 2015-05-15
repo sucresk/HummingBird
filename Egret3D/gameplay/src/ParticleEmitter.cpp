@@ -159,14 +159,14 @@ ParticleEmitter* ParticleEmitter::create(Properties* properties)
     properties->getVector4("colorEnd", &colorEnd);
     properties->getVector4("colorEndVar", &colorEndVar);
 
-    kmVec3 position;
-    kmVec3 positionVar;
-    kmVec3 velocity;
-    kmVec3 velocityVar;
-    kmVec3 acceleration;
-    kmVec3 accelerationVar;
-    kmVec3 rotationAxis;
-    kmVec3 rotationAxisVar;
+    kmVec3 position = vec3Zero;
+    kmVec3 positionVar = vec3Zero;
+    kmVec3 velocity = vec3Zero;
+    kmVec3 velocityVar = vec3Zero;
+    kmVec3 acceleration = vec3Zero;
+    kmVec3 accelerationVar = vec3Zero;
+    kmVec3 rotationAxis = vec3Zero;
+    kmVec3 rotationAxisVar = vec3Zero;
     properties->getVector3("position", &position);
     properties->getVector3("positionVar", &positionVar);
     properties->getVector3("velocity", &velocity);
@@ -315,7 +315,7 @@ void ParticleEmitter::emitOnce(unsigned int particleCount)
         particleCount = _particleCountMax - _particleCount;
     }
 
-    kmVec3 translation;
+    kmVec3 translation = vec3Zero;
     kmMat4 world = _node->getWorldMatrix();
     //world.getTranslation(&translation);
 	kmMat4Decompose(&world, NULL, NULL, &translation);
@@ -1026,9 +1026,9 @@ unsigned int ParticleEmitter::draw(bool wireframe)
         GP_ASSERT(_node && _node->getScene() && _node->getScene()->getActiveCamera() && _node->getScene()->getActiveCamera()->getNode());
         const kmMat4& cameraWorldMatrix = _node->getScene()->getActiveCamera()->getNode()->getWorldMatrix();
 
-        kmVec3 right;
+        kmVec3 right = vec3Zero;
         //cameraWorldMatrix.getRightVector(&right);
-        kmVec3 up;
+        kmVec3 up = vec3Zero;
         //cameraWorldMatrix.getUpVector(&up);
 		kmMat4GetRight(&right, &cameraWorldMatrix);
 		kmMat4GetUp(&up, &cameraWorldMatrix);

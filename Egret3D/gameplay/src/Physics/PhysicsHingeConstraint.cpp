@@ -19,7 +19,7 @@ PhysicsHingeConstraint::PhysicsHingeConstraint(PhysicsRigidBody* a, const kmQuat
     GP_ASSERT(a && a->_body && a->getNode());
 
     // Take scale into account for the first node's translation offset.
-    kmVec3 sA;
+    kmVec3 sA = vec3Zero;
     //a->getNode()->getWorldMatrix().getScale(&sA);
 	kmMat4Decompose(&a->getNode()->getWorldMatrix(), &sA, NULL, NULL);
 	kmVec3 tA = { translationOffsetA.x * sA.x, translationOffsetA.y * sA.y, translationOffsetA.z * sA.z };
@@ -29,7 +29,7 @@ PhysicsHingeConstraint::PhysicsHingeConstraint(PhysicsRigidBody* a, const kmQuat
         GP_ASSERT(b->_body && b->getNode());
 
         // Take scale into account for the second node's translation offset.
-        kmVec3 sB;
+        kmVec3 sB = vec3Zero;
         //b->getNode()->getWorldMatrix().getScale(&sB);
 		kmMat4Decompose(&b->getNode()->getWorldMatrix(), &sB, NULL, NULL);
 		kmVec3 tB = { translationOffsetB.x * sB.x, translationOffsetB.y * sB.y, translationOffsetB.z * sB.z };

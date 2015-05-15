@@ -771,6 +771,26 @@ private:
     {
 
     public:
+		Particle()
+		{
+			_position = vec3Zero;
+			_velocity = vec3Zero;
+			_acceleration = vec3Zero;
+			_colorStart = vec4Zero;
+			_colorEnd = vec4Zero;
+			_color = vec4Zero;
+			_rotationPerParticleSpeed = 0.0f;
+			_rotationAxis = vec3Zero;
+			_rotationSpeed = 0.0f;
+			_angle = 0.0f;
+			_energyStart = 0;
+			_energy =0;
+			_sizeStart = 0.0f;
+			_sizeEnd = 0.0f;
+			_size = 0.0f;
+			_frame= 0;
+			_timeOnCurrentFrame =0.0f;
+		}
         kmVec3 _position;
         kmVec3 _velocity;
         kmVec3 _acceleration;
