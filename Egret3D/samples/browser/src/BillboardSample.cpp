@@ -142,7 +142,7 @@ void BillboardSample::render(float elapsedTime)
 {
     // Clear the color and depth buffers
     //clear(CLEAR_COLOR_DEPTH, Vector4::fromColor(0x355D90FF), 1.0f, 0);
-	kmVec4 color;
+	kmVec4 color = vec4Zero;
 	kmVec4FromColor(&color, 0x355D90FF),
 	clear(CLEAR_COLOR_DEPTH, color, 1.0f, 0);
 

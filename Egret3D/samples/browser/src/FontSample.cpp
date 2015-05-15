@@ -113,7 +113,7 @@ void FontSample::render(float elapsedTime)
         // Sample simple versions of measureText, drawText.
         unsigned int w, h;
         _font->measureText(_sampleString.c_str(), _size, &w, &h);
-		kmVec4 color;
+		kmVec4 color = vec4Zero;
 		kmVec4FromColor(&color, 0xff0000ff);
         _font->drawText(_sampleString.c_str(), _viewport.x, _viewport.y, color, _size, _rightToLeft);
 
@@ -131,7 +131,7 @@ void FontSample::render(float elapsedTime)
         // Sample viewport versions.
         egret::Rectangle area;
         _font->measureText(_sampleString.c_str(), _viewport, _size, &area, _alignment, _wrap, _ignoreClip);
-		kmVec4 color;
+		kmVec4 color = vec4Zero;
 		kmVec4FromColor(&color, 0xffffffff);
         _font->drawText(_sampleString.c_str(), _useViewport? _viewport : area, color, _size, _alignment, _wrap, _rightToLeft);
     

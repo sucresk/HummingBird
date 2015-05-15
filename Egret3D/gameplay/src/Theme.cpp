@@ -177,7 +177,7 @@ Theme* Theme::create(const char* url)
                 }
             }
 
-            kmVec4 regionVector;
+            kmVec4 regionVector = vec4Zero;
             space->getVector4("region", &regionVector);
             const Rectangle region(regionVector.x, regionVector.y, regionVector.z, regionVector.w);
 
@@ -305,7 +305,7 @@ Theme* Theme::create(const char* url)
                 {
                     // Either OVERLAY_FOCUS or OVERLAY_ACTIVE.
                     // If a property isn't specified, it inherits from OVERLAY_NORMAL.
-                    kmVec4 textColor;
+                    kmVec4 textColor = vec4Zero;
                     if (!innerSpace->getColor("textColor", &textColor))
                     {
                         textColor = normal->getTextColor();
@@ -597,11 +597,11 @@ Theme::ThemeImage* Theme::ThemeImage::create(float tw, float th, Properties* pro
 {
     GP_ASSERT(properties);
 
-    kmVec4 regionVector;                
+    kmVec4 regionVector = vec4Zero;                
     properties->getVector4("region", &regionVector);
     const Rectangle region(regionVector.x, regionVector.y, regionVector.z, regionVector.w);
 
-    kmVec4 color;
+    kmVec4 color = vec4Zero;
     if (properties->exists("color"))
     {
         properties->getColor("color", &color);

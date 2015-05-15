@@ -50,7 +50,7 @@ void SpriteBatchSample::render(float elapsedTime)
     _spriteBatch->draw(dst, src);
 
     // Color tint
-	kmVec4 temp;
+	kmVec4 temp = vec4Zero;
 	kmVec4FromColor(&temp, 0xF68B28FF);
     _spriteBatch->draw(Rectangle( 64, 0, 64, 64), src, temp);
 	kmVec4FromColor(&temp, 0xDA2128FF);

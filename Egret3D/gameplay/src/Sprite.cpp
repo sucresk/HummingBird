@@ -313,7 +313,7 @@ Sprite* Sprite::create(Properties* properties)
     }
 
     // Get anchor
-    kmVec4 vect;
+    kmVec4 vect = vec4Zero;
     if (properties->getVector2("anchor", (kmVec2*)&vect))
     {
         sprite->setAnchor(*((kmVec2*)&vect));

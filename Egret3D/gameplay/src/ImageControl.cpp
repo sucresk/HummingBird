@@ -44,14 +44,14 @@ void ImageControl::initialize(const char* typeName, Theme::Style* style, Propert
 
 		if (properties->exists("srcRegion"))
 		{
-			kmVec4 region;
+			kmVec4 region = vec4Zero;
 			properties->getVector4("srcRegion", &region);
 			setRegionSrc(region.x, region.y, region.z, region.w);
 		}
 
 		if (properties->exists("dstRegion"))
 		{
-			kmVec4 region;
+			kmVec4 region = vec4Zero;
 			properties->getVector4("dstRegion", &region);
 			setRegionDst(region.x, region.y, region.z, region.w);
 		}

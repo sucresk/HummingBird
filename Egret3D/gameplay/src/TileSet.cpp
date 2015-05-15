@@ -101,7 +101,7 @@ TileSet* TileSet::create(Properties* properties)
     // Get color
     if (properties->exists("color"))
     {
-        kmVec4 color;
+        kmVec4 color = vec4Zero;
         switch (properties->getType("color"))
         {
         case Properties::VECTOR3:

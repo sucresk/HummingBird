@@ -70,6 +70,7 @@ Game::Game()
     GP_ASSERT(__gameInstance == NULL);
 
     __gameInstance = this;
+	_clearColor = vec4Zero;
     _timeEvents = new std::priority_queue<TimeEvent, std::vector<TimeEvent>, std::less<TimeEvent> >();
 }
 

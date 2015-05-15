@@ -150,10 +150,10 @@ ParticleEmitter* ParticleEmitter::create(Properties* properties)
     long energyMin = properties->getLong("energyMin");
     long energyMax = properties->getLong("energyMax");
 
-    kmVec4 colorStart;
-    kmVec4 colorStartVar;
-    kmVec4 colorEnd;
-    kmVec4 colorEndVar;
+    kmVec4 colorStart = vec4Zero;
+    kmVec4 colorStartVar = vec4Zero;
+    kmVec4 colorEnd = vec4Zero;
+    kmVec4 colorEndVar = vec4Zero;
     properties->getVector4("colorStart", &colorStart);
     properties->getVector4("colorStartVar", &colorStartVar);
     properties->getVector4("colorEnd", &colorEnd);

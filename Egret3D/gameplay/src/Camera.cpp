@@ -369,7 +369,7 @@ void Camera::project(const Rectangle& viewport, const kmVec3& position, float* x
     GP_ASSERT(y);
 
     // Transform the point to clip-space.
-    kmVec4 clipPos;
+    kmVec4 clipPos = vec4Zero;
     //getViewProjectionMatrix().transformVector(Vector4(position.x, position.y, position.z, 1.0f), &clipPos);
 	kmMat4Transform(&clipPos, &getViewProjectionMatrix(), position.x, position.y, position.z, 1.0f);
 
