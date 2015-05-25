@@ -301,7 +301,7 @@ void CharacterGame::update(float elapsedTime)
     }
     else
     {
-        bool running = (kmVec2LengthSq( &_currentDirection ) > 0.75f);
+        bool running = (kmVec2LengthSquared( &_currentDirection ) > 0.75f);
         float speed = running ? RUN_SPEED : WALK_SPEED;
 
         play(running ? "running" : "walking", true, 1.0f);
@@ -382,19 +382,24 @@ void CharacterGame::update(float elapsedTime)
 
         // Calculates rotation to be applied to the basketball.
 		kmVec3 rotationVector = { 0.0f, -_basketballNode->getBoundingSphere().radius, 0.0f };
-		kmVec3 temp;
+		kmVec3Fill(&temp, 0, 0, 0);
 		kmVec3Subtract(&temp, &_oldBallPosition, &translation);
 		kmVec3Cross(&rotationVector, &temp, &rotationVector);
         //Vector3::cross(rotationVector, _oldBallPosition - translation, &rotationVector);
         if (! kmVec3IsZero( & rotationVector))
         {
             kmMat4 m;
-            _basketballNode->getWorldMatrix().transpose(&m);
+            //_basketballNode->getWorldMatrix().transpose(&m);
+			kmMat4Transpose(&m, &_basketballNode->getWorldMatrix());
 
             kmVec3 rotNorm;
-            m.transformVector(rotationVector, &rotNorm);
-            rotNorm.normalize();
-            _basketballNode->rotate(rotNorm, rotationVector.length());
+            //m.transformVector(rotationVector, &rotNorm);
+            //rotNorm.normalize();
+			kmMat3Transform(&rotNorm, &m, rotationVector.x,
+				rotationVector.y, rotationVector.z, 0.0f);
+			kmVec3Normalize(&rotNorm, &rotNorm);
+            //_basketballNode->rotate(rotNorm, rotationVector.length());
+			_basketballNode->rotate(rotNorm, kmVec3Length(&rotationVector));
         }
         _basketballNode->setTranslation(translation.x, _floorLevel, translation.z);
     }
@@ -595,7 +600,7 @@ void CharacterGame::adjustCamera(float elapsedTime)
             // Without this check, it's possible for the camera to fly past the character
             // and essentially end up in an infinite loop here.
             //if (cameraNode->getTranslationWorld().distanceSquared(focalPoint) <= 2.0f)
-			if ( kmVec3DistanceSq( &cameraNode->getTranslationWorld(), &focalPoint ) <= 2.0f )
+			if ( kmVec3DistanceSquared( &cameraNode->getTranslationWorld(), &focalPoint ) <= 2.0f )
 			{
 				return;
 			}

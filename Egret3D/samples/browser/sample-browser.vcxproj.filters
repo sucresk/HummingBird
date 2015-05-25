@@ -348,9 +348,6 @@
     <ClInclude Include="src\SpriteSample.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\SamplesGame.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\MeshBatchSample.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -395,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="src\PostProcessSample.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SamplesGame.h">
+      <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

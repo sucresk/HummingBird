@@ -35,13 +35,13 @@ void PhysicsCollisionObjectSample::initialize()
     _lightNode = _scene->findNode("directionalLight");
     _scene->visit(this, &PhysicsCollisionObjectSample::bindLights);
 
-    _form = Form::create("res/common/physics.form");
-    static_cast<Button*>(_form->getControl("wireframeButton"))->addListener(this, Control::Listener::CLICK);
-    static_cast<Button*>(_form->getControl("drawDebugButton"))->addListener(this, Control::Listener::CLICK);
-    static_cast<Button*>(_form->getControl("throwButton"))->addListener(this, Control::Listener::CLICK);
-    Button* shapeButton = static_cast<Button*>(_form->getControl("shapeButton"));
-    shapeButton->addListener(this, Control::Listener::CLICK);
-    shapeButton->setTextColor(_colors[_objectType]);
+    //_form = Form::create("res/common/physics.form");
+    //static_cast<Button*>(_form->getControl("wireframeButton"))->addListener(this, Control::Listener::CLICK);
+    //static_cast<Button*>(_form->getControl("drawDebugButton"))->addListener(this, Control::Listener::CLICK);
+    //static_cast<Button*>(_form->getControl("throwButton"))->addListener(this, Control::Listener::CLICK);
+    //Button* shapeButton = static_cast<Button*>(_form->getControl("shapeButton"));
+    //shapeButton->addListener(this, Control::Listener::CLICK);
+    //shapeButton->setTextColor(_colors[_objectType]);
 }
 
 void PhysicsCollisionObjectSample::finalize()
@@ -71,7 +71,7 @@ void PhysicsCollisionObjectSample::render(float elapsedTime)
 
 	drawFrameRate(_font, { 0, 0.5f, 1, 1 }, 5, 1, getFrameRate());
 
-    _form->draw();
+    //_form->draw();
 }
 
 void PhysicsCollisionObjectSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
@@ -88,8 +88,8 @@ void PhysicsCollisionObjectSample::touchEvent(Touch::TouchEvent evt, int x, int 
         {
             // Fire a physics object into the scene.
             Ray ray;
-            Camera* camera = _scene->getActiveCamera();
-            camera->pickRay(getViewport(), x, y, &ray);
+            //Camera* camera = _scene->getActiveCamera();
+            //camera->pickRay(getViewport(), x, y, &ray);
             fireProjectile(ray);
         }
         break;
@@ -161,7 +161,7 @@ bool PhysicsCollisionObjectSample::bindLights(Node* node)
 void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
 {
     Node* clone = _scene->findNode(_nodeIds[_objectType])->clone();
-    clone->setRotation( 0.0f, 0.0f, 0.0f, 1.0f );
+    clone->setRotation( quaIdentity );
     if (_throw)
     {
         clone->setTranslation(ray.getOrigin());
@@ -185,16 +185,16 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
     // Once the non-kinematic rigid body is attached, you should only move the object using forces.
     PhysicsCollisionObject* collisionObject = clone->setCollisionObject(_collisionObjectPaths[_objectType]);
     _scene->addNode(clone);
-    if (_throw)
-    {
-        PhysicsRigidBody* rigidBody = static_cast<PhysicsRigidBody*>(collisionObject);
-        kmVec3 impulse = ray.getDirection();
-		kmVec3Normalize(&impulse, &impulse );
-		kmVec3Scale(&impulse, &impulse, 50.0f * rigidBody->getMass());
-        //impulse.normalize();
-        //impulse.scale(50.0f * rigidBody->getMass());
-        rigidBody->applyImpulse(impulse);
-    }
+  //  if (_throw)
+  //  {
+  //      PhysicsRigidBody* rigidBody = static_cast<PhysicsRigidBody*>(collisionObject);
+  //      kmVec3 impulse = ray.getDirection();
+		//kmVec3Normalize(&impulse, &impulse );
+		//kmVec3Scale(&impulse, &impulse, 50.0f * rigidBody->getMass());
+  //      //impulse.normalize();
+  //      //impulse.scale(50.0f * rigidBody->getMass());
+  //      rigidBody->applyImpulse(impulse);
+  //  }
     // Release the new cloned node because the scene now holds the reference to it.
     clone->release();
 }
@@ -202,13 +202,13 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
 void PhysicsCollisionObjectSample::incrementDebugDraw()
 {
     _drawDebug = (_drawDebug + 1) % 2;
-    static_cast<Button*>(_form->getControl("drawDebugButton"))->setText(_drawDebug == 0 ? "Normal" : "Debug");
+    //static_cast<Button*>(_form->getControl("drawDebugButton"))->setText(_drawDebug == 0 ? "Normal" : "Debug");
 }
 
 void PhysicsCollisionObjectSample::toggleWireframe()
 {
     _wireFrame = !_wireFrame;
-    static_cast<Button*>(_form->getControl("wireframeButton"))->setText(_wireFrame ? "Wireframe" : "Solid");
+    //static_cast<Button*>(_form->getControl("wireframeButton"))->setText(_wireFrame ? "Wireframe" : "Solid");
 }
 
 void PhysicsCollisionObjectSample::controlEvent(Control* control, EventType evt)
