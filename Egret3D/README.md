@@ -1,1 +1,0 @@
-目前 windows，android，ios平台能够实现绘制简单的3D人物，基于该模型，实现stage3d的功能
