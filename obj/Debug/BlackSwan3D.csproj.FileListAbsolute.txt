@@ -1,6 +1,0 @@
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\bin\BlackSwan3D.dll.config
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\bin\BlackSwan3D.dll
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\bin\BlackSwan3D.pdb
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\obj\Debug\BlackSwan3D.dll
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\obj\Debug\BlackSwan3D.pdb
-C:\Users\BKSwan\Desktop\svn\CodeBase\程序\BlackSwan3D - 副本\BlackSwan3D\obj\Debug\BlackSwan3D.csprojResolveAssemblyReference.cache
