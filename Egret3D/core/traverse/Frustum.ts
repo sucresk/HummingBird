@@ -67,12 +67,12 @@
 
         make(camera: Camera3D) {
 
-            this.makeFrustum(camera.cameraMatrix.fieldOfView, camera.cameraMatrix.aspectRatio, camera.cameraMatrix.near, 3000.0);
+            //this.makeFrustum(camera.cameraMatrix.fieldOfView, camera.cameraMatrix.aspectRatio, camera.cameraMatrix.near, 3000.0);
 
             // 摄像机变化之后的顶点也变化;
             var vtx: Array<Vector3D> = new Array<Vector3D>();
             var mat: Matrix4_4 = new Matrix4_4();
-            mat.copyFrom(camera.transform);
+            //mat.copyFrom(camera.transform);
 
             for (var i: number = 0; i < this._vtxNum; ++i) {
                 vtx.push(mat.transformVector(this._vertex[i]));
@@ -100,33 +100,6 @@
                 }
             }
 
-            //var pos: Vector3D = this._vtx[0].add(this._vtx[5]);
-            //pos.scaleBy(0.5);
-            //this._pos.copyFrom(pos);
-
-            //var rawData: Float32Array = camera.viewProjection.rawData;
-            //var col0: Vector3D = new Vector3D(rawData[0], rawData[4], rawData[8], rawData[12]);
-            //var col1: Vector3D = new Vector3D(rawData[1], rawData[5], rawData[9], rawData[13]);
-            //var col2: Vector3D = new Vector3D(rawData[2], rawData[6], rawData[0], rawData[14]);
-            //var col3: Vector3D = new Vector3D(rawData[3], rawData[7], rawData[11], rawData[15]);
-
-            //this._plane[0] = new Plane3D(col2.x, col2.y, col2.z, col2.w);
-
-            //var tmp: Vector3D = col3.subtract(col2);
-            //this._plane[1] = new Plane3D(tmp.x, tmp.y, tmp.z, tmp.w);
-
-            //tmp = col3.add(col0);
-            //this._plane[2] = new Plane3D(tmp.x, tmp.y, tmp.z, tmp.w);
-
-            //tmp = col3.subtract(col0);
-            //this._plane[3] = new Plane3D(tmp.x, tmp.y, tmp.z, tmp.w);
-
-            //tmp = col3.subtract(col1);
-            //this._plane[4] = new Plane3D(tmp.x, tmp.y, tmp.z, tmp.w);
-
-            //tmp = col3.add(col1);
-            //this._plane[5] = new Plane3D(tmp.x, tmp.y, tmp.z, tmp.w);
-
             this._plane[0].fromPoints(vtx[4], vtx[5], vtx[6]);        // 远平面(far);
             this._plane[1].fromPoints(vtx[1], vtx[6], vtx[5]);        // 左平面(left);
             this._plane[2].fromPoints(vtx[0], vtx[4], vtx[7]);        // 右平面(right);
@@ -137,8 +110,6 @@
             for (var i: number = 0; i < this._planeNum; i++) {
                 this._plane[i].normalize();
             }
-            //var bb: boolean = this.inPoint(new Vector3D(-0, -0, 100));
-            //var b2: boolean = bb;
         }
 
         inPoint(pos: Vector3D): boolean {

@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\xunian\Desktop\白鹭3D项目\web</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="app.css">
+      <publishTime>08/24/2015 11:47:06</publishTime>
+    </File>
+    <File Include="app.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="bin/BlackSwan3D.dll">
+      <publishTime>08/29/2015 10:48:44</publishTime>
+    </File>
+    <File Include="BlackSwan/animation/IAnimation.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/animation/StandAnimation.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/BlackSwan3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/BlackSwan3DLib.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/camera/Camera3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/IndexBuffer3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/IProgram3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/Shader.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/Texture2D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/Texture3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/base/VertexBuffer3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/Context3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/IndexBuffer3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/Program3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/Shader.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/Texture2D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/Texture3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/context/openGLES2/VertexBuffer3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/controller/ctl/CameraControllerBase.ts">
+      <publishTime>08/23/2015 13:37:34</publishTime>
+    </File>
+    <File Include="BlackSwan/controller/ctl/RoundControl.ts">
+      <publishTime>08/23/2015 02:06:11</publishTime>
+    </File>
+    <File Include="BlackSwan/core/node/Entity.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/core/node/Mesh.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/core/node/Object3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Matrix44Utils.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Matrix4_4.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Orientation3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/PerspectiveMatrix.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Plane3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/PlaneClassification.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Point.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Quaternion.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Rectangle.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/UV.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geom/Vector3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geomtry/CubeGeomtry.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geomtry/FaceData.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geomtry/GeomtryBase.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geomtry/GeomtryData.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/geomtry/SubGeomtry.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/layer/Layerfilter.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/ColorMaterial.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/mapPass/DepthMapPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/mapPass/MapPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/mapPass/NormalMapPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/mapPass/PositionMapPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/mapPass/StandMapPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/MaterialBase.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/pass/ColorPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/material/pass/ShaderPass.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/render/Render.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/render/StandRender.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/shader/fs/DiffuseShader.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/shader/ShaderSystem.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/shader/vs/StandVertexShader.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/Util/DeviceUtil.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="BlackSwan/View3D.js">
+      <publishTime>08/17/2015 00:24:30</publishTime>
+    </File>
+    <File Include="Egret3D/animation/IAnimation.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/animation/StandAnimation.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/camera/Camera3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/IndexBuffer3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/IProgram3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/Shader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/Texture2D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/Texture3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/base/VertexBuffer3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/Context3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/IndexBuffer3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/Program3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/Shader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/Texture2D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/Texture3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/context/openGLES2/VertexBuffer3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/Camera3DController.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/Camera3DManager.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/CameraControllerBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/ctl/ControllerBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/ctl/FreeCameraControl.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/ctl/HoverController.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/ctl/LookAtController.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/controller/ctl/RoundControl.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/node/Entity.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/node/Mesh.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/node/Object3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/node/RenderableItem.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/render/DefaultRender.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/render/RenderBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/traverse/CollectBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/traverse/EntityCollect.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/traverse/Layerfilter.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/core/traverse/LayerfilterSystem.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Egret3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Matrix44Utils.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Matrix4_4.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Orientation3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/PerspectiveMatrix.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Plane3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/PlaneClassification.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Point.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Quaternion.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Rectangle.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/UV.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geom/Vector3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/CubeGeomtry.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/CylinderGeomtry.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/FaceData.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/GeomtryBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/GeomtryData.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/SphereGeomtry.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/geomtry/SubGeomtry.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/loader/BinModelLoader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/loader/URLLoader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/ColorMaterial.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/DepthMaterial.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/mapPass/DepthMapPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/mapPass/MapPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/mapPass/NormalMapPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/mapPass/PositionMapPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/mapPass/StandMapPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/MaterialBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/pass/ColorPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/pass/DepthPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/pass/DiffuseTexturePass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/pass/ShaderPass.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/material/TextureMaterial.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/samples/SamplesBase.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/fs/ColorShader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/fs/DepthFragmentShader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/fs/DiffuseShader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/ShaderSystem.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/vs/DepthVertexShader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/shader/vs/StandVertexShader.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/texture/ImageTexture.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/ByteArray.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/DeviceUtil.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/BitTreeDecoder.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/LenDecoder.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/LZMA.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/LzmaDecoder.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/LZMAHelper.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/LZMAWorker.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/MEMORY.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/OutWindow.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/Util/lzma/RangeDecoder.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="Egret3D/View3D.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="index.html">
+      <publishTime>08/29/2015 11:06:42</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>08/29/2015 11:06:56</publishTime>
+    </File>
+    <File Include="samplers/Sample_Base.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="samplers/Sample_Base_Depth.js">
+      <publishTime>08/29/2015 11:05:40</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>08/29/2015 10:51:10</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

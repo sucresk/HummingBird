@@ -1,20 +1,25 @@
 ﻿module BlackSwan {
     export class MaterialBase {
 
-        protected diffusePass  : DiffuseMapPass;
+        protected diffusePass  : MaterialPassBase;
         protected normalPass   : MaterialPassBase;
         protected positionPass : MaterialPassBase;
         protected depthPass    : MaterialPassBase;
 
+        
         constructor() {
-            this.diffusePass = new DiffuseMapPass();
+
+        }
+
+        public set lightGroup(lightGroup: LightGroup) {
+            this.diffusePass.lightGroup = lightGroup.lights ;
         }
 
         public initShader(context3D:Context3D, geomtry: GeomtryBase, animation: IAnimation) {
             this.diffusePass.initShader(context3D, geomtry ,animation );
         }
 
-        public set diffuseTexture(texture: ImageTexture) {
+        public set diffuseTexture(texture: TextureBase) {
             (<DiffuseMapPass>this.diffusePass).diffuseTexture = texture;
         }
 

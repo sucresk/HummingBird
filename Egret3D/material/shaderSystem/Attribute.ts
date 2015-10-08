@@ -3,7 +3,8 @@
         constructor(name: string, valueType: string) {
             super();
             this.name = name;
-            this.varType = "attribute";
+            this.computeVarName();
+            this.key = "attribute";
             this.valueType = valueType;
         }
     }

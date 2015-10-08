@@ -6,12 +6,12 @@
     private _cameraCtl: BlackSwan.FreeCameraControl;
     constructor() {
 
-        this.init3D();
+        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 256, 256), () => this.init3D());
     }
 
     private init3D() {
 
-        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 1440, 800));
+        //BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 1440, 800));
 
         var viewPort: BlackSwan.Rectangle = new BlackSwan.Rectangle(0, 0, 1024, 768);
         this._view3D = new BlackSwan.View3D(viewPort);
@@ -33,7 +33,7 @@
     }
 
     public textureLoadingComplete(urlLoader: xxq.URLLoader) {
-        var tmpMesh: BlackSwan.Mesh = new BlackSwan.Mesh(new BlackSwan.CubeGeomtry(), new BlackSwan.TextureMaterial(new BlackSwan.DDSTexture(urlLoader.data)));
+        var tmpMesh: BlackSwan.Mesh = new BlackSwan.Mesh(new BlackSwan.CubeGeomtry(), new BlackSwan.TextureMaterial(urlLoader.data));
         tmpMesh.x = 40;
         this._meshList.push(tmpMesh);
         this._view3D.addChild3D(tmpMesh);

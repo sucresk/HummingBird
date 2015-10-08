@@ -1,11 +1,11 @@
 ﻿module BlackSwan {
-   export class Matrix4_4 {
+    export class Matrix4_4 {
 
         public rawData: Float32Array;
 
         /**
-         * Creat a Matrix4_4 object.
-         */
+            * Creat a Matrix4_4 object.
+            */
         constructor(datas: Float32Array = null) {
             if (datas)
             {
@@ -13,6 +13,60 @@
             }
             else
                 this.rawData = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+        }
+
+        public lookAt(eye: Vector3D, at: Vector3D, up: Vector3D) {
+            var zaxis: Vector3D = at.subtract(eye);
+            zaxis.normalize();
+            var xaxis: Vector3D = up.crossProduct(zaxis);
+            xaxis.normalize();
+            var yaxis = zaxis.crossProduct(xaxis);
+
+            this.rawData[0] = xaxis.x;
+            this.rawData[1] = yaxis.x;
+            this.rawData[2] = zaxis.x;
+            this.rawData[3] = 0;
+
+            this.rawData[4] = xaxis.y;
+            this.rawData[5] = yaxis.y;
+            this.rawData[6] = zaxis.y;
+            this.rawData[7] = 0;
+
+            this.rawData[8] = xaxis.z;
+            this.rawData[9] = yaxis.z;
+            this.rawData[10] = zaxis.z;
+            this.rawData[11] = 0;
+
+            this.rawData[12] = -xaxis.dotProduct(eye);
+            this.rawData[13] = -yaxis.dotProduct(eye);
+            this.rawData[14] = -zaxis.dotProduct(eye);
+            this.rawData[15] = 1;
+        }
+
+        public perspective(fovy: number, aspect: number, zn: number, zf: number) {
+            var angle: number = fovy * (Math.PI / 180.0);
+            var yScale: number = Math.tan((Math.PI  - angle) / 2.0);
+            var xScale: number = yScale / aspect;
+
+            this.rawData[0] = xScale;
+            this.rawData[1] = 0;
+            this.rawData[2] = 0;
+            this.rawData[3] = 0;
+
+            this.rawData[4] = 0;
+            this.rawData[5] = yScale;
+            this.rawData[6] = 0;
+            this.rawData[7] = 0;
+
+            this.rawData[8] = 0;
+            this.rawData[9] = 0;
+            this.rawData[10] = zf / (zf - zn);
+            this.rawData[11] = 1;
+
+            this.rawData[12] = 0;
+            this.rawData[13] = 0;
+            this.rawData[14] = -zn * zf / (zf - zn);
+            this.rawData[15] = 0;
         }
 
         public append(lhs: Matrix4_4) {
@@ -38,6 +92,12 @@
             this.rawData[14] = m141 * m213 + m142 * m223 + m143 * m233 + m144 * m243;
             this.rawData[15] = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244;
         }
+        
+        public rotation(x: number, y: number, z: number) {
+            this.appendRotation(x, Vector3D.Z_AXIS);
+            this.appendRotation(y, Vector3D.Z_AXIS);
+            this.appendRotation(z, Vector3D.Z_AXIS);
+        }
 
         public appendRotation(degrees: number, axis: Vector3D): void //, pivot:Vector3D = null )
         {
@@ -47,25 +107,29 @@
             var tmp: Matrix4_4 = new Matrix4_4();
             var s: number, c: number;
 
-            s = Math.sin(degrees / (180 / Math.PI));
-            c = Math.cos(degrees / (180 / Math.PI));
+            var angle: number = degrees * Matrix3DUtils.DEGREES_TO_RADIANS;
+            s = Math.sin(angle);
+            c = Math.cos(angle);
 
             if (axis.x == 1) {
-                tmp.rawData[0] = 1.0; tmp.rawData[1] = 0.0; tmp.rawData[2] = 0.0;
-                tmp.rawData[4] = 0.0; tmp.rawData[5] = c; tmp.rawData[6] = s;
-                tmp.rawData[8] = 0.0; tmp.rawData[9] = -s; tmp.rawData[10] = c;
+                tmp.rawData[0] = 1.0; tmp.rawData[1] = 0.0; tmp.rawData[2] = 0.0; tmp.rawData[3] = 0.0;
+                tmp.rawData[4] = 0.0; tmp.rawData[5] = c; tmp.rawData[6] = s; tmp.rawData[7] = 0.0;
+                tmp.rawData[8] = 0.0; tmp.rawData[9] = -s; tmp.rawData[10] = c; tmp.rawData[7] = 0.0;
+                tmp.rawData[12] = 0.0; tmp.rawData[13] = 0.0; tmp.rawData[14] = 0.0; tmp.rawData[15] = 1.0;
             }
 
             if (axis.y == 1) {
-                tmp.rawData[0] = c; tmp.rawData[1] = 0.0; tmp.rawData[2] = -s;
-                tmp.rawData[0] = 0.0; tmp.rawData[5] = 1.0; tmp.rawData[6] = 0.0;
-                tmp.rawData[0] = s; tmp.rawData[9] = 0.0; tmp.rawData[10] = c;
+                tmp.rawData[0] = c; tmp.rawData[1] = 0.0; tmp.rawData[2] = -s; tmp.rawData[3] = 0.0;
+                tmp.rawData[4] = 0.0; tmp.rawData[5] = 1.0; tmp.rawData[6] = 0.0; tmp.rawData[7] = 0.0;
+                tmp.rawData[8] = s; tmp.rawData[9] = 0.0; tmp.rawData[10] = c; tmp.rawData[11] = 0.0;
+                tmp.rawData[12] = 0.0; tmp.rawData[13] = 0.0; tmp.rawData[14] = 0.0; tmp.rawData[15] = 1.0;
             }
 
             if (axis.z == 1) {
-                tmp.rawData[0] = c; tmp.rawData[1] = s; tmp.rawData[2] = 0.0;
-                tmp.rawData[0] = -s; tmp.rawData[5] = c; tmp.rawData[6] = 0.0;
-                tmp.rawData[0] = 0.0; tmp.rawData[9] = 0.0; tmp.rawData[10] = 1.0;
+                tmp.rawData[0] = c; tmp.rawData[1] = s; tmp.rawData[2] = 0.0; tmp.rawData[3] = 0.0;
+                tmp.rawData[4] = -s; tmp.rawData[5] = c; tmp.rawData[6] = 0.0; tmp.rawData[7] = 0.0;
+                tmp.rawData[8] = 0.0; tmp.rawData[9] = 0.0; tmp.rawData[10] = 1.0; tmp.rawData[11] = 0.0;
+                tmp.rawData[12] = 0.0; tmp.rawData[13] = 0.0; tmp.rawData[14] = 0.0; tmp.rawData[15] = 1.0;
             }
 
             this.append(tmp);
@@ -405,6 +469,40 @@
                 this.rawData[i] = this.rawData[i] + (toMat.rawData[i] - this.rawData[i]) * percent;
         }
 
+        public invers33() {
+            // Invert a 3x3 using cofactors.  This is about 8 times faster than
+            // the Numerical Recipes code which uses Gaussian elimination.
+
+           var rkInverse_00 = this.rawData[5] * this.rawData[10] - this.rawData[9] * this.rawData[6];
+           var rkInverse_01 = this.rawData[8] * this.rawData[6] - this.rawData[4] * this.rawData[10];
+           var rkInverse_02 = this.rawData[4] * this.rawData[9] - this.rawData[8] * this.rawData[5];
+           var rkInverse_10 = this.rawData[9] * this.rawData[2] - this.rawData[1] * this.rawData[10];
+           var rkInverse_11 = this.rawData[0] * this.rawData[10] - this.rawData[8] * this.rawData[2];
+           var rkInverse_12 = this.rawData[8] * this.rawData[1] - this.rawData[0] * this.rawData[9];
+           var rkInverse_20 = this.rawData[1] * this.rawData[6] - this.rawData[5] * this.rawData[2];
+           var rkInverse_21 = this.rawData[4] * this.rawData[2] - this.rawData[0] * this.rawData[6];
+           var rkInverse_22 = this.rawData[0] * this.rawData[5] - this.rawData[4] * this.rawData[1];
+
+           var fDet: number =
+               this.rawData[0] * rkInverse_00 +
+               this.rawData[4] * rkInverse_10 +
+               this.rawData[8] * rkInverse_20;
+
+            if (Math.abs(fDet) > 0.00000000001) {
+                var fInvDet: number = 1.0 / fDet;
+
+                this.rawData[0] = fInvDet * rkInverse_00;
+                this.rawData[4] = fInvDet * rkInverse_01;
+                this.rawData[8] = fInvDet * rkInverse_02;
+                this.rawData[1] = fInvDet * rkInverse_10;
+                this.rawData[5] = fInvDet * rkInverse_11;
+                this.rawData[9] = fInvDet * rkInverse_12;
+                this.rawData[2] = fInvDet * rkInverse_20;
+                this.rawData[6] = fInvDet * rkInverse_21;
+                this.rawData[10] = fInvDet * rkInverse_22  ;
+            }
+        }
+
         public invert(): boolean {
             var d = this.determinant;
             var invertable = Math.abs(d) > 0.00000000001;
@@ -544,21 +642,25 @@
             }
         }
 
+        private oRawData: Float32Array = new Float32Array(16);
         public transpose() {
-            var oRawData: Float32Array = this.rawData.slice(0);
+           
+            for (var i: number = 0; i < this.oRawData.length; i++ ){
+                this.oRawData[i] = this.rawData[i] ;
+            }
 
-            this.rawData[1] = oRawData[4];
-            this.rawData[2] = oRawData[8];
-            this.rawData[3] = oRawData[12];
-            this.rawData[4] = oRawData[1];
-            this.rawData[6] = oRawData[9];
-            this.rawData[7] = oRawData[13];
-            this.rawData[8] = oRawData[2];
-            this.rawData[9] = oRawData[6];
-            this.rawData[11] = oRawData[14];
-            this.rawData[12] = oRawData[3];
-            this.rawData[13] = oRawData[7];
-            this.rawData[14] = oRawData[11];
+            this.rawData[1] = this.oRawData[4];
+            this.rawData[2] = this.oRawData[8];
+            this.rawData[3] = this.oRawData[12];
+            this.rawData[4] = this.oRawData[1];
+            this.rawData[6] = this.oRawData[9];
+            this.rawData[7] = this.oRawData[13];
+            this.rawData[8] = this.oRawData[2];
+            this.rawData[9] = this.oRawData[6];
+            this.rawData[11] = this.oRawData[14];
+            this.rawData[12] = this.oRawData[3];
+            this.rawData[13] = this.oRawData[7];
+            this.rawData[14] = this.oRawData[11];
         }
 
         static getAxisRotation(x: number, y: number, z: number, degrees: number): Matrix4_4 {
@@ -613,5 +715,4 @@
             return "matrix3d(" + Math.round(this.rawData[0] * 1000) / 1000 + "," + Math.round(this.rawData[1] * 1000) / 1000 + "," + Math.round(this.rawData[2] * 1000) / 1000 + "," + Math.round(this.rawData[3] * 1000) / 1000 + "," + Math.round(this.rawData[4] * 1000) / 1000 + "," + Math.round(this.rawData[5] * 1000) / 1000 + "," + Math.round(this.rawData[6] * 1000) / 1000 + "," + Math.round(this.rawData[7] * 1000) / 1000 + "," + Math.round(this.rawData[8] * 1000) / 1000 + "," + Math.round(this.rawData[9] * 1000) / 1000 + "," + Math.round(this.rawData[10] * 1000) / 1000 + "," + Math.round(this.rawData[11] * 1000) / 1000 + "," + Math.round(this.rawData[12] * 1000) / 1000 + "," + Math.round(this.rawData[13] * 1000) / 1000 + "," + Math.round(this.rawData[14] * 1000) / 1000 + "," + Math.round(this.rawData[15] * 1000) / 1000 + ")";
         }
     }
-
 }

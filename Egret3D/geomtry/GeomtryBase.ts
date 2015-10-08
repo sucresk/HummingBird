@@ -1,5 +1,9 @@
 ﻿module BlackSwan {
+    export enum GeomtryType { Static, Skin, Particle, Billbord, VertexAnim, Grass, Ribbon , wrieFrame }
+
     export class GeomtryBase {
+
+        public geomtryType: number = 0;
 
         public verticesData: Array<number>;
         public indexData: Array<number>;

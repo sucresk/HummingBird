@@ -31,7 +31,7 @@
         * get GPU Context3D 
         * 获取GPU交换链表程序
         **/
-        static requstContext3D(GPU_CONFIG: string, canvasRec: Rectangle) {
+        static requstContext3D(GPU_CONFIG: string, canvasRec: Rectangle , call:Function ) {
             console.log("requst GPU Config", GPU_CONFIG );
             if (!this.context3D || (this.context3D && !this.context3D.isLost)) {
                 switch (GPU_CONFIG) {
@@ -39,9 +39,11 @@
                         var tapContext3D: WebGLRenderingContext = Egret3D.requstWEBGL(canvasRec)
                         Egret3D.context3D = new Context3DChild_OpenGLES_2_0(tapContext3D);
 
-                     
+                        var ext: any = tapContext3D.getExtension('WEBGL_compressed_texture_s3tc');
 
                         Egret3D.BLEND = tapContext3D.BLEND;
+
+
 
                         Egret3D.TRIANGLES = tapContext3D.TRIANGLES;
                         Egret3D.POINTS = tapContext3D.POINTS;
@@ -55,7 +57,8 @@
                         break;
                 }
             }
-            console.log("requst GPU Config", Egret3D.context3D );
+            console.log("requst GPU Config", Egret3D.context3D);
+            ShaderSystemTool.regist(call);
         }
 
         private static requstWEBGL(viewPort: Rectangle): WebGLRenderingContext {
@@ -70,6 +73,10 @@
             document.body.appendChild(canvas);
             canvas.getContext("experimental-webgl");
             Egret3D.clientRect = canvas.getBoundingClientRect();
+
+            canvas.oncontextmenu = function () {
+                return false;
+            };
 
             try {
                 gl = canvas.getContext("experimental-webgl");

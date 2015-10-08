@@ -15,9 +15,9 @@
 
         private _projectionCenter: Vector3D;
 
-        private _near: number = 1;
+        private _near: number = 50 ;
 
-        private _far: number = 300000;
+        private _far: number = 10000;
 
         private _aspectRatio: number = 1;
 
@@ -117,7 +117,7 @@
 
         private notifyUpdateMatrix(): void {
            
-            this._matrix.rawData = Matrix3DUtils.RAW_DATA_CONTAINER;
+            this._matrix.copyRawDataFrom(Matrix3DUtils.RAW_DATA_CONTAINER);
 
             this._yMax = this._near * this._focalLengthInv;
 

@@ -1,10 +1,11 @@
 ﻿module BlackSwan.GLSL {
     export class Sampler3D extends VarRegister {
-        public texture: BlackSwan.ImageTexture;
+        public texture: BlackSwan.TextureBase;
         constructor(name: string) {
             super();
             this.name = name;
-            this.varType = "sampler3D";
+            this.computeVarName();
+            this.key = "sampler3D";
             //this.valueType = valueType;
         }
     }

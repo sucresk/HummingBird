@@ -11,7 +11,5 @@
         constructor( pg3D:WebGLProgram ) {
             this.program = pg3D; 
         }
-
-       
     }
 }

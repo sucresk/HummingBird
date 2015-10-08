@@ -14,6 +14,7 @@
         }
 
         private initView() {
+
         }
 
         public start(angle: number, distance: number, wide: number, locked: boolean, lockRect: Rectangle) {
@@ -65,8 +66,8 @@
                 this._screenMoveDelay.x = e.screenX - this._screenMoveStartDetail.x;
                 this._screenMoveDelay.y = e.screenY - this._screenMoveStartDetail.y;
 
-                this._view3d.camera3D.rotationY += this._screenMoveDelay.x * 0.005
-                this._view3d.camera3D.rotationX += this._screenMoveDelay.y * 0.005;
+                this._view3d.camera3D.rotationY -= this._screenMoveDelay.x * 0.005
+                this._view3d.camera3D.rotationX -= this._screenMoveDelay.y * 0.005;
 
                 this._screenMoveStartDetail.x = e.screenX;
                 this._screenMoveStartDetail.y = e.screenY;
@@ -108,12 +109,12 @@
         }
 
         public mouseWheel(e: MouseWheelEvent) {
-            this._view3d.camera3D.rotationY += e.wheelDelta * 0.0001 ;
+            this._view3d.camera3D.rotationY += (e.wheelDelta * 0.0001) ;
             //this._view3d.camera3D.z += e.wheelDelta;
         }
 
         public update(timer: number, elapsed: number): void {
-            this._view3d.camera3D.moveLeft(this._moveDetail.x);
+            this._view3d.camera3D.moveLeft(-this._moveDetail.x);
             this._view3d.camera3D.moveForward(this._moveDetail.z);
         }
     }

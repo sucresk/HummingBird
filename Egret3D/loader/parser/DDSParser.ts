@@ -9,7 +9,7 @@
 
         }
 
-        public static parse(buffer: ArrayBuffer, loadMipmaps:boolean = true):DDS {
+        public static parse(buffer: ArrayBuffer, loadMipmaps:boolean = true):TextureBase {
             var dds: DDS = new DDS();
             var headerLengthInt = 31; // The header length in 32 bit ints
             var off_magic = 0;
@@ -75,11 +75,11 @@
 
             if (header[off_magic] !== DDS_MAGIC) {
                 console.error('DDSParser.parse: Invalid magic number in DDS header.');
-                return dds;
+                return null;
             }
             if (!(header[off_pfFlags] & DDPF_FOURCC)) {
                 console.error('DDSParser.parse: Unsupported format, must contain a FourCC code.');
-                return dds;
+                return null;
             }
 
             var blockBytes: number;
@@ -110,7 +110,7 @@
                         dds.format = RGBA_FORMAT;
                     } else {
                         console.error('DDSParser.parse: Unsupported FourCC code ', DDSParser.int32ToFourCC(fourCC));
-                        return dds;
+                        return null;
                     }
             }
 
@@ -141,7 +141,7 @@
                         var byteArray = new Uint8Array(buffer, dataOffset, dataLength);
                     }
 
-                    var mipmap: Mipmap = new Mipmap(byteArray, width, height);
+                    var mipmap: MipmapData = new MipmapData(byteArray, width, height);
                     dds.mipmaps.push(mipmap);
                     dataOffset += dataLength;
                     width = Math.max(width * 0.5, 1);
@@ -150,9 +150,19 @@
                 width = dds.width;
                 height = dds.height;
             }
-            return dds;
+
+            var texture: TextureBase = new TextureBase();
+            texture.internalFormat = InternalFormat.CompressData;
+            if (FOURCC_DXT1 = fourCC)
+                texture.colorFormat = ColorFormat.DXT1_RGB;
+            else if (FOURCC_DXT3 = fourCC)
+                texture.colorFormat = ColorFormat.DXT3_RGBA;
+            else if (FOURCC_DXT5 = fourCC)
+                texture.colorFormat = ColorFormat.DXT5_RGBA;
+            texture.mimapData = dds.mipmaps;
+            return texture;
         }
-        
+       
         private static loadARGBMip(buffer: ArrayBuffer, dataOffset: number, width: number, height: number) {
             var dataLength: number = width * height * 4;
             var srcBuffer: Uint8Array = new Uint8Array(buffer, dataOffset, dataLength);
@@ -185,5 +195,19 @@
 
     }
 
-
+    class DDS {
+        public mipmaps: Array<BlackSwan.MipmapData>;
+        public width: number;
+        public height: number;
+        public format: number;
+        public mipmapCount: number;
+        public isCubemap: boolean;
+        constructor() {
+            this.mipmaps = new Array<BlackSwan.MipmapData>();
+            this.width = 0;
+            this.height = 0;
+            this.format = null;
+            this.mipmapCount = 1;
+        }
+    }
 }

@@ -28,6 +28,9 @@
             if (datas.readUnsignedInt() != E3DParser.FILE_FLAG)
                 return null;
 
+            // read version;
+            //var version:number = datas.readUnsignedInt();
+
             // read data count;
             var modelCount: number = datas.readUnsignedInt();
 

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{A447CC11-5022-48D9-8E45-24D875B52F9C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="app.css" />
+    <Content Include="index.html" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\AnimationState.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\AnimationStateSet.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\Joint.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\JointPose.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\Skeleton.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\skeletonAnimation\SkeletonPose.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\StandAnimation.ts" />
+    <TypeScriptCompile Include="Egret3D\animation\IAnimation.ts" />
+    <TypeScriptCompile Include="Egret3D\context\contextType\ContextSamplerType.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\MipmapData.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\Texture2D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\Texture3D.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\Frustum.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\Octree.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\Picker.ts" />
+    <TypeScriptCompile Include="Egret3D\Egret3D.ts" />
+    <TypeScriptCompile Include="Egret3D\camera\Camera3D.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\ctl\ControllerBase.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\ctl\FreeCameraControl.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\ctl\HoverController.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\ctl\LookAtController.ts" />
+    <TypeScriptCompile Include="Egret3D\core\node\Mesh.ts" />
+    <TypeScriptCompile Include="Egret3D\core\node\Object3D.ts" />
+    <TypeScriptCompile Include="Egret3D\core\node\RenderableItem.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\PlaneGeomtry.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\CubeGeomtry.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\CylinderGeomtry.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\FaceData.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\GeomtryBase.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\SphereGeomtry.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\SubGeomtry.ts" />
+    <TypeScriptCompile Include="Egret3D\geomtry\GeomtryData.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\IndexBuffer3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\IProgram3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\Shader.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\Texture2D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\Texture3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\base\VertexBuffer3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\Context3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\IndexBuffer3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\Program3D.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\Shader.ts" />
+    <TypeScriptCompile Include="Egret3D\context\openGLES2\VertexBuffer3D.ts" />
+    <TypeScriptCompile Include="Egret3D\core\node\Entity.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\CollectBase.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\EntityCollect.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\Layerfilter.ts" />
+    <TypeScriptCompile Include="Egret3D\core\traverse\LayerfilterSystem.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Color.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\CubeBoxBound.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Ray.ts" />
+    <TypeScriptCompile Include="Egret3D\lights\DirectLight.ts" />
+    <TypeScriptCompile Include="Egret3D\lights\LightBase.ts" />
+    <TypeScriptCompile Include="Egret3D\lights\LightGroup.ts" />
+    <TypeScriptCompile Include="Egret3D\lights\PointLight.ts" />
+    <TypeScriptCompile Include="Egret3D\lights\SportLight.ts" />
+    <TypeScriptCompile Include="Egret3D\lineFrame\LineFrame.ts" />
+    <TypeScriptCompile Include="Egret3D\loader\BinModelLoader.ts" />
+    <Content Include="Egret3D\material\shaderSystem\shader\Color_fragment.glsl" />
+    <TypeScriptCompile Include="Egret3D\material\ColorMaterial.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\fs\ColorMethod.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\fs\LightingMethod.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\PixelShader.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\VertexShader.ts" />
+    <TypeScriptCompile Include="Egret3D\material\pass\ColorPass.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\StructData.ts" />
+    <TypeScriptCompile Include="Egret3D\texture\ImageTexture.ts" />
+    <TypeScriptCompile Include="Egret3D\texture\TextureBase.ts" />
+    <TypeScriptCompile Include="Egret3D\loader\parser\DDSParser.ts" />
+    <TypeScriptCompile Include="Egret3D\loader\parser\E3DParser.ts" />
+    <TypeScriptCompile Include="Egret3D\loader\parser\TGAParser.ts" />
+    <TypeScriptCompile Include="Egret3D\loader\URLLoader.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\fs\DiffuseMethod.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\MethodBase.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\MethodUsageData.ts" />
+    <TypeScriptCompile Include="Egret3D\material\method\vs\StaticVertexMethod.ts" />
+    <TypeScriptCompile Include="Egret3D\material\pass\DiffuseMapPass.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Matrix44Utils.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Matrix4_4.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Orientation3D.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\PerspectiveMatrix.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Plane3D.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\PlaneClassification.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Point.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Quaternion.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Rectangle.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\UV.ts" />
+    <TypeScriptCompile Include="Egret3D\geom\Vector3D.ts" />
+    <TypeScriptCompile Include="Egret3D\core\render\DefaultRender.ts" />
+    <TypeScriptCompile Include="Egret3D\core\render\RenderBase.ts" />
+    <TypeScriptCompile Include="Egret3D\material\MaterialBase.ts" />
+    <TypeScriptCompile Include="Egret3D\material\pass\MaterialPassBase.ts" />
+    <None Include="Egret3D\material\shaderSystem\shader\default_vertex.glsl" />
+    <TypeScriptCompile Include="Egret3D\controller\Camera3DManager.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\Camera3DController.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\CameraControllerBase.ts" />
+    <TypeScriptCompile Include="Egret3D\controller\ctl\RoundControl.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\Attribute.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\AttributeType.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\ConstVar.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\Sampler2D.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\Sampler3D.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\ShaderBase.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\shader\ShaderContent.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\shader\ShaderSystemTool.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\TmpVar.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\UniformType.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\Uniform.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\VarConfig.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\VarRegister.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\Varying.ts" />
+    <TypeScriptCompile Include="Egret3D\material\shaderSystem\VaryingType.ts" />
+    <TypeScriptCompile Include="Egret3D\material\TextureMaterial.ts" />
+    <TypeScriptCompile Include="Egret3D\texture\CheckerboardTexture.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\ByteArray.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\BitTreeDecoder.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LenDecoder.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LZMA.d.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LZMA.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LzmaDecoder.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LZMAHelper.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\LZMAWorker.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\MEMORY.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\OutWindow.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\lzma\RangeDecoder.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\StringUtil.ts" />
+    <TypeScriptCompile Include="samplers\Sample_Base.ts" />
+    <TypeScriptCompile Include="Egret3D\Util\DeviceUtil.ts" />
+    <TypeScriptCompile Include="Egret3D\View3D.ts" />
+    <TypeScriptCompile Include="samplers\Sample_Base_Depth.ts" />
+    <TypeScriptCompile Include="samplers\Sample_Base_Egret_3D_Model.ts" />
+    <TypeScriptCompile Include="samplers\Sample_Base_Egret_3D_Model_Anim.ts" />
+    <TypeScriptCompile Include="samplers\Sample_Base_Texture.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BlackSwan.pubxml" />
+    <Content Include="Egret3D\material\shaderSystem\shader\SkyLightShader.glsl" />
+    <Content Include="Egret3D\material\shaderSystem\shader\LightDiffuse_fragment.glsl" />
+    <Content Include="Egret3D\material\shaderSystem\shader\diffuse_fragment.glsl" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>BlackSwan3D</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3092</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3092/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>

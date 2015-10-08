@@ -4,7 +4,7 @@
 
         }
 
-        public static parse(buffer:ArrayBuffer):TGA {
+        public static parse(buffer:ArrayBuffer):TextureBase {
             var TGA_TYPE_NO_DATA = 0,
                 TGA_TYPE_INDEXED = 1,
                 TGA_TYPE_RGB = 2,
@@ -407,11 +407,11 @@
             var result = tgaParse(use_rle, use_pal, header, offset, content);
             var rgbaData = getTgaRGBA(header.width, header.height, result.pixel_data, result.palettes);
 
-            var tga:TGA = new TGA(rgbaData, header.width, header.height);
-            return tga;
-
+            var texture: TextureBase = new TextureBase();
+            texture.internalFormat = InternalFormat.PixelArray;
+            texture.colorFormat = ColorFormat.RGBA8888;
+            texture.mimapData.push(new MipmapData(rgbaData, header.width, header.height));
+            return texture;
         }
-
     }
-
 }

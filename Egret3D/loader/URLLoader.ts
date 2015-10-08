@@ -101,18 +101,14 @@
                 case URLLoader.DATAFORMAT_BITMAP:
                     var img = document.createElement("img");
                     img.src = window["URL"].createObjectURL(this._xhr.response);
-                    this._data = img;
+
+                    this._data = new BlackSwan.ImageTexture(img);
                     break;
                 case URLLoader.DATAFORMAT_DDS:
-                    var dds: BlackSwan.DDS = BlackSwan.DDSParser.parse(this._xhr.response);
-
-                    this._data = new BlackSwan.BitmapTexture(dds.width, dds.height, dds.mipmaps[0]);
-
-                    //this._data = dds;
+                    this._data = BlackSwan.DDSParser.parse(this._xhr.response);
                     break;
                 case URLLoader.DATAFORMAT_TGA:
-                    var tga: BlackSwan.TGA = BlackSwan.TGAParser.parse(this._xhr.response);
-                    this._data = tga;
+                    this._data = BlackSwan.TGAParser.parse(this._xhr.response);
                     break;
                 case URLLoader.DATAFORMAT_E3D:
                     var e3dModel: BlackSwan.GeomtryBase = BlackSwan.E3DParser.parse(this._xhr.response);

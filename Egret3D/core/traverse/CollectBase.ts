@@ -28,39 +28,35 @@
         public update(camera: Camera3D) {
 
             this._renderList = this._nodes;
-            var t1: number = Date.now();
-            this._frustum.make(camera);
+            //this._frustum.make(camera);
 
-            this._layerSystem.clear();
+            //this._layerSystem.clear();
 
-            for (var i: number = 0; i < this._nocutList.length; ++i) {
-                this._layerSystem.addObject3D(this._nocutList[i]);
-            }
+            //for (var i: number = 0; i < this._nocutList.length; ++i) {
+            //    this._layerSystem.addObject3D(this._nocutList[i]);
+            //}
 
-            var octreeNodes: Array<OctreeNode> = this._octree.getFrustumNodes(this._frustum);
+            //var octreeNodes: Array<OctreeNode> = this._octree.getFrustumNodes(this._frustum);
 
-            for (var i: number = 0; i < octreeNodes.length; ++i) {
-                for (var j: number = 0; j < octreeNodes[i].objList.length; ++j) {
-                    var box: CubeBoxBound = octreeNodes[i].objList[j].box.Transform(octreeNodes[i].objList[j].transform);
+            //for (var i: number = 0; i < octreeNodes.length; ++i) {
+            //    for (var j: number = 0; j < octreeNodes[i].objList.length; ++j) {
+            //        var box: CubeBoxBound = octreeNodes[i].objList[j].box.Transform(octreeNodes[i].objList[j].transform);
 
-                    if (this._frustum.inBox(box)) {
-                        this._layerSystem.addObject3D(octreeNodes[i].objList[j]);
-                    }
-                }
-            }
+            //        if (this._frustum.inBox(box)) {
+            //            this._layerSystem.addObject3D(octreeNodes[i].objList[j]);
+            //        }
+            //    }
+            //}
 
-            this._layerSystem.update();
+            //this._layerSystem.update();
 
-            this._renderList = this._layerSystem.getRenderList();
+            //this._renderList = this._layerSystem.getRenderList();
 
             //var pickList: Array<PickResult> = null;
             //pickList = Picker.pickObject3DList(camera, this._renderList);
             //for (var i: number = 0; i < pickList.length; ++i) {
             //    pickList[i].target.rotationY++;
             //}
-
-            var t2: number = Date.now();
-            var t3: number = t2 - t1;
         }
 
         public addObject3D(obj: Object3D ) {

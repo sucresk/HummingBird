@@ -1,0 +1,23 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+span {
+    font-style: italic;
+}
+
+canvas {
+   position:absolute;
+   z-index: -1 ;
+}
+input {
+   position:absolute;
+   z-index: 1 ;
+}
+
+select {
+   position:absolute;
+   z-index: 1 ;
+}
+
+

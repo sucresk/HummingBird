@@ -33,7 +33,11 @@
 			this._distance = distance;
 			this._wide = wide;
 			this._locked = locked;
-			this._lockRect = lockRect;
+            this._lockRect = lockRect;
+
+            this._view3d.camera3D.rotationX = angle * Matrix3DUtils.DEGREES_TO_RADIANS ;
+            this._view3d.camera3D.y = Math.acos(angle* Matrix3DUtils.DEGREES_TO_RADIANS) * distance;
+            this._view3d.camera3D.z = -Math.asin(angle * Matrix3DUtils.DEGREES_TO_RADIANS) * distance;
 		}
 		
         public update(timer: number, elapsed: number):void

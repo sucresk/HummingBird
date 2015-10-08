@@ -2,7 +2,7 @@
     
     export class Matrix3DUtils {
 
-        public static  RADIANS_TO_DEGREES:number = 180 / Math.PI;
+        public static RADIANS_TO_DEGREES: number = 180 / Math.PI;
         public static DEGREES_TO_RADIANS: number = Math.PI / 180;
         public static RAW_DATA_CONTAINER: Float32Array = new Float32Array(16);
         public static CALCULATION_MATRIX: Matrix4_4 = new Matrix4_4();

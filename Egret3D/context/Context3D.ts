@@ -227,9 +227,10 @@
             this.gl.attachShader(shaderProgram, vsShader.shader);
             this.gl.attachShader(shaderProgram, fsShader.shader);
             this.gl.linkProgram(shaderProgram);
-
-            if (!this.gl.getProgramParameter(shaderProgram, this.gl.LINK_STATUS)) {
-                alert("Could not initialise shaders");
+            var p = this.gl.getProgramParameter(shaderProgram, this.gl.LINK_STATUS);
+            if ( !p ) {
+                alert("Could not initialise shaders error" + this.gl.getShaderInfoLog(vsShader.shader) );
+                alert("Could not initialise shaders error" + this.gl.getShaderInfoLog(fsShader.shader) );
             }
             var program: BlackSwan.openGLES.Program3D = new BlackSwan.openGLES.Program3D(shaderProgram);
             return program;
@@ -375,6 +376,7 @@
         * 获取矩阵变量ID
         **/
         public getUniformLocation(programe3D: IProgram3D, name: string): any {
+
             return this.gl.getUniformLocation(programe3D.program, name);
         }
         public uniform1f(location: any, x: number): void {
@@ -433,6 +435,7 @@
         }
         public uniformMatrix4fv(location: any, transpose: boolean, value: any): void {
             this.gl.uniformMatrix4fv(location, transpose, value);
+
         }
 
         /**

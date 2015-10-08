@@ -22,9 +22,8 @@
         private _scissorRectDirty: Boolean = true;
         private _viewportDirty: Boolean = true;
 
+        private _viewPortMatrix: Matrix4_4 = new Matrix4_4(); 
         constructor(viewPort: Rectangle) {
-
-            Egret3D.requstContext3D(DeviceUtil.getGPUMode, viewPort );
 
             this._context3D = Egret3D.context3D;
             this._camera = new Camera3D();
@@ -113,8 +112,6 @@
         public addChild3D(child3D: Object3D) {
             this._collect.addObject3D(child3D);
             //child3D.parent = this._root;
-            child3D.context3D = this._context3D;
-          
         }
 
         public renden() {
@@ -152,19 +149,19 @@
         }
 
         public onMouseEvent(e: MouseEventType) {
-            var ray: Ray = new Ray();
-            ray.CalculateAndTransformRay(Egret3D.canvasRectangle.width, Egret3D.canvasRectangle.height, this._camera.transform, this._camera.cameraMatrix.matrix, Egret3D.mouseX, Egret3D.mouseY);
-            for (var i: number = 0; i < this._collect.renderList.length; ++i) {
-                var mesh: BlackSwan.Mesh = <BlackSwan.Mesh>this._collect.renderList[i];
-                var inPos: Vector3D = new Vector3D();
-                if (mesh.isCheckBox) {
-                    if (mesh.isMouseEvent(e)) {
-                        if (ray.IntersectMesh(mesh.box.vexData, mesh.box.indexData, 3, mesh.geomtry.indexData.length / 3, inPos, mesh.transform)) {
-                            mesh.onMouseEvent(e);
-                        }
-                    }
-                }
-            }
+            //var ray: Ray = new Ray();
+            //ray.CalculateAndTransformRay(Egret3D.canvasRectangle.width, Egret3D.canvasRectangle.height, this._camera.transform, this._camera.cameraMatrix.matrix, Egret3D.mouseX, Egret3D.mouseY);
+            //for (var i: number = 0; i < this._collect.renderList.length; ++i) {
+            //    var mesh: BlackSwan.Mesh = <BlackSwan.Mesh>this._collect.renderList[i];
+            //    var inPos: Vector3D = new Vector3D();
+            //    if (mesh.isCheckBox) {
+            //        if (mesh.isMouseEvent(e)) {
+            //            if (ray.IntersectMesh(mesh.box.vexData, mesh.box.indexData, 3, mesh.geomtry.indexData.length / 3, inPos, mesh.transform)) {
+            //                mesh.onMouseEvent(e);
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }

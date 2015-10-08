@@ -1,14 +1,85 @@
 ﻿module BlackSwan.GLSL {
     export class ShaderBase {
 
+
+        protected useage: MethodUsageData;
+        protected index: number = 0;
         protected source: string = "precision mediump float;            \t\n";
-
-        protected initShaderSource() {
-
+        constructor() {
         }
 
         public getShaderSource(): string {
-            this.initShaderSource();
+            return this.source;
+        }
+
+        public activate(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
+            for (this.index = 0; this.index < this.useage.vsMethodList.length; this.index++) {
+                this.useage.vsMethodList[this.index].activate(context3D, program3D, modeltransform, camera3D);
+            }
+            for (this.index = 0; this.index < this.useage.fsMethodList.length; this.index++) {
+                this.useage.fsMethodList[this.index].activate(context3D, program3D, modeltransform, camera3D);
+            }
+        }
+
+        public updata(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
+            for (this.index = 0; this.index < this.useage.vsMethodList.length; this.index++) {
+                this.useage.vsMethodList[this.index].updata(context3D, program3D, modeltransform, camera3D);
+            }
+            for (this.index = 0; this.index < this.useage.fsMethodList.length; this.index++) {
+                this.useage.fsMethodList[this.index].updata(context3D, program3D, modeltransform, camera3D);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        protected getShader(methods: Array<string>): string {
+            var shaderContent = ShaderSystemTool.instance.getShader(methods, this.useage);
+
+            var i: number; 
+            //var attribute
+            for (var key in shaderContent.attributeList) {
+                this.connectAtt(shaderContent.attributeList[key]);
+            }
+            //var struct
+            for (var key in shaderContent.structDict) {
+                this.connectStruct(shaderContent.structDict[key]);
+            }
+            //var varying
+            for (i = 0; i < shaderContent.varyingList.length; i++) {
+                this.connectVarying(shaderContent.varyingList[i]);
+            }
+            //temp
+            for (i = 0; i < shaderContent.tempList.length; i++) {
+                this.connectTemp(shaderContent.tempList[i]);
+            }
+            //const
+            for (i = 0; i < shaderContent.constList.length; i++) {
+                if (shaderContent.constList[i].varName == "maxLight") {
+                    shaderContent.constList[i].value = this.useage.lights.length.toString();
+                }
+                this.connectConst(shaderContent.constList[i]);
+            }
+            //uniform
+            for (i = 0; i < shaderContent.uniformList.length; i++) {
+                this.connectUniform(shaderContent.uniformList[i]);
+            }
+            //sampler
+            for (i = 0; i < shaderContent.sampler2DList.length; i++) {
+                this.connectSampler(shaderContent.sampler2DList[i]);
+            }
+            //---------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------
+            for (i = 0; i < shaderContent.funcList.length; i++) {
+                this.source += shaderContent.funcList[i].func;
+            }
             return this.source;
         }
 
@@ -20,41 +91,43 @@
             this.source += "} \r\n";
         }
 
-        public varTemp(tempName: string, valueType: string): GLSL.Attribute {
-            this.source += valueType + " " + tempName + "; \r\n";
-            var tmp: GLSL.Attribute = new GLSL.Attribute(tempName, valueType);
-            return tmp;
+        public connectAtt(att: GLSL.Attribute) {
+            this.source += "attribute " + att.valueType + " " + att.name + "; \r\n";
         }
 
-        public varAttribute(attributeName: string, valueType: string): GLSL.Attribute {
-            this.source += "attribute " + valueType + " " + attributeName + "; \r\n";
-            var tmp: GLSL.Attribute = new GLSL.Attribute(attributeName, valueType);
-            return tmp;
+        public connectTemp(tempVar: GLSL.TmpVar) {
+            this.source += tempVar.valueType + " " + tempVar.name + "; \r\n";
         }
 
-        public varVarying(varyingName: string, valueType: string): GLSL.Varying {
-            this.source += "varying " + valueType + " " + varyingName + "; \r\n";
-            var tmp: GLSL.Varying = new GLSL.Varying(varyingName, valueType);
-            return tmp;
+        public connectStruct(struct: string) {
+            this.source += struct + " \r\n";
         }
 
-        public varUnifrom(unifromName: string, valueType: string): GLSL.Unifrom {
-            this.source += "uniform " + valueType + " " + unifromName +  "; \r\n";
-            var tmp: GLSL.Unifrom = new GLSL.Unifrom(unifromName, valueType);
-            return tmp;
-        }
-        //uniform sampler2D depthSampler
-        public connectSampler(sampler: GLSL.Sampler2D) {
-            this.source += "uniform sampler2D " + sampler.name + "; \r\n";
+        public connectConst(constVar: GLSL.ConstVar) {
+            this.source += "const " + constVar.valueType + " " + constVar.name + " = " + constVar.value + "; \r\n";
         }
 
         public connectVarying(varying: GLSL.Varying) {
             this.source += "varying " + varying.valueType + " " + varying.name + "; \r\n";
         }
 
-        public connectUniform(unifrom: GLSL.Unifrom) {
+        public connectUniform(unifrom: GLSL.Uniform) {
             this.source += "uniform " + unifrom.valueType + " " + unifrom.name + "; \r\n";
         }
+        //uniform sampler2D depthSampler
+        public connectSampler(sampler: GLSL.Sampler2D) {
+            this.source += "uniform sampler2D " + sampler.name + "; \r\n";
+        }
+
+    
+
+     
+
+ 
+
+        //public connectUniformStruct(structVar: GLSL.StructVar) {
+        //    this.source += "uniform " + structVar.valueType + " " + structVar.name + "; \r\n";
+        //}
 
         public if(conditions: string) {
             this.source += "if(" + conditions + "){ ; \r\n";

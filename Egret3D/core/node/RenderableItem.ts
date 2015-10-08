@@ -5,6 +5,7 @@
         protected _geomtry: GeomtryBase;
         protected _material: MaterialBase;
 
+        protected _active: boolean = false;
         constructor() {
             super();
         }

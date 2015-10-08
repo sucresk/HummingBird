@@ -9,15 +9,17 @@
     private _cameraCtl: BlackSwan.FreeCameraControl;
     constructor() {
 
-        this._stateLabel = document.getElementById('label');
-        document.body.appendChild(this._stateLabel);
+        //this._stateLabel = document.getElementById('label');
+        //document.body.appendChild(this._stateLabel);
 
-        this.init3D();
+        //this.init3D();
+
+        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0,0,256,256) , ()=> this.init3D() );
     }
 
     private init3D() {
 
-        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 1440, 800));
+        //BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 1440, 800));
 
         var viewPort: BlackSwan.Rectangle = new BlackSwan.Rectangle(0, 0, 1024, 768);
         this._view3D = new BlackSwan.View3D(viewPort);
@@ -35,8 +37,8 @@
             this._view3D.addChild3D(tmpMesh);
         }*/
 
-        var binModelLoader : BlackSwan.BinModelLoader = new BlackSwan.BinModelLoader();
-        binModelLoader.loadBinModelFromFile("resource/jingjichang_1/MyModel/jingjichang_1_1_1_Model.bin", (loader: BlackSwan.BinModelLoader) => this.complete(loader))
+        //var binModelLoader : BlackSwan.BinModelLoader = new BlackSwan.BinModelLoader();
+        //binModelLoader.loadBinModelFromFile("resource/jingjichang_1/MyModel/jingjichang_1_1_1_Model.bin", (loader: BlackSwan.BinModelLoader) => this.complete(loader))
 
         //binModelLoader = new BlackSwan.BinModelLoader();
         //binModelLoader.loadBinModelFromFile("resource/jingjichang_1/MyModel/jingjichang_1_2_1_Model.bin", (loader: BlackSwan.BinModelLoader) => this.complete(loader))

@@ -1,153 +1,117 @@
 ﻿module BlackSwan {
     export class MaterialPassBase {
-
+        
+        protected shaderChange: boolean = false;
+        protected context3DChange: boolean = false;
         protected useageData: MethodUsageData;
-        protected program3D: IProgram3D;
-        protected context3D: Context3D;
-        protected vs_shader: Shader;
-        protected fs_shader: Shader;
 
-        protected geomtryBase: GeomtryBase;
-        protected animation: IAnimation;
-
-
-        protected mainVsMethod: StaticVertexMethod;
-        protected mainFsMethod: DiffuseMethod;
-
-        protected otherVsMethods: Array<MethodBase> = new Array<MethodBase>(0);
-        protected otherFsMethods: Array<MethodBase> = new Array<MethodBase>(0);
+        protected vertexShader: VertexShader;
+        protected pixelShader: PixelShader;
 
         private count: number = 0;
-        private context3DChange: boolean = false;
-        constructor() {
-            //this.mainVsMethod = new StaticVertexMethod();
-            //this.mainFsMethod = new DiffuseMethod();
+        private num_light: number = 0;
+
+        private castShadow: boolean = false;
+        private castLightNumber: number = 8;
+
+        constructor(usage: MethodUsageData = null) {
+            if (usage)
+                this.useageData = usage; 
+            else
+                this.useageData = new MethodUsageData();
+
+            this.vertexShader = new VertexShader();
+            this.pixelShader = new PixelShader();
         }
 
-        public addVertexMethod(index: number, method: MethodBase) {
-            this.otherVsMethods[index] = method;
+        public set lightGroup(lights: Array<LightBase> ) {
+            if (this.useageData.lights.length < 8) {
+                this.useageData.lights = lights;
+
+                if (this.useageData.lightData) {
+                    delete this.useageData.lightData;
+                }
+
+                this.useageData.lightData = new Float32Array(lights.length * 24);
+                for (var i: number = 0; i < this.num_light; i++) {
+                    this.useageData.lightData[i] = 0 ;
+                }
+
+                if (this.num_light != this.useageData.lights.length) {
+                    this.shaderChange = true;
+                }
+                this.num_light = this.useageData.lights.length; 
+            } else {
+                alert( "请检查，同一个材质有了超过８个灯光，上限为８个"　);
+            }
         }
 
-        public addMaterialMethod(index: number, method: MethodBase) {
-            this.otherFsMethods[index] = method;
+        public addVertexMethod(method: MethodBase) {
+            this.useageData.vsMethodList.push(method);
         }
 
+        public addFragmentMethod( method: MethodBase) {
+            this.useageData.fsMethodList.push(method);
+        }
+
+        /**
+        * 初始化 shader 的地方
+        **/
         public initShader(context3D: Context3D, geomtry: GeomtryBase, animation: IAnimation) {
 
-            this.context3D = context3D;
-            this.useageData = new MethodUsageData();
+            this.useageData.context3D = context3D;
+            this.useageData.geomtryBase = geomtry;
 
-            this.geomtryBase = geomtry;
-            //this.mainVsMethod += otherVsMethods;
-            //this.mainFsMethod += otherFsMethods;
+            this.buildShader(context3D);
 
-            this.mainVsMethod.setData(this.useageData, this.geomtryBase, this.animation);
-            this.mainFsMethod.setData(this.useageData, this.geomtryBase, this.animation);
-
-            var vs: string = this.mainVsMethod.getShaderSource();
-            var fs: string = this.mainFsMethod.getShaderSource();
-          
-            this.vs_shader = this.context3D.creatVertexShader(vs);
-            this.fs_shader = this.context3D.creatFragmentShader(fs);
-
-            this.program3D = this.context3D.creatProgram(this.vs_shader, this.fs_shader);
             this.context3DChange = true;
         }
 
+        private buildShader(context3D: Context3D) {
+            if (this.shaderChange) {
+                this.shaderChange = false;
+
+                this.vertexShader.setUsage(this.useageData);
+                this.pixelShader.setUsage(this.useageData);
+
+                var vs: string = this.vertexShader.getShaderSource();
+                var fs: string = this.pixelShader.getShaderSource();
+
+                var vs_shader: Shader = context3D.creatVertexShader(vs);
+                var fs_shader: Shader = context3D.creatFragmentShader(fs);
+
+                this.useageData.program3D = context3D.creatProgram(vs_shader, fs_shader);
+            }
+        }
+         
         public activate(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
-
-            this.mainVsMethod.activate(context3D, this.program3D, modeltransform, camera3D);
-            this.mainFsMethod.activate(context3D, this.program3D, modeltransform, camera3D);
-
-            this.count = 0;
-            while (this.count < this.otherVsMethods.length) {
-                this.otherVsMethods[this.count++].activate(context3D, this.program3D, modeltransform, camera3D);
-            }
-
-            this.count = 0;
-            while (this.count < this.otherFsMethods.length) {
-                this.otherFsMethods[this.count++].activate(context3D, this.program3D, modeltransform, camera3D);
-            }
+           
+            this.vertexShader.activate(context3D, this.useageData.program3D, modeltransform, camera3D );
+            this.pixelShader.activate(context3D, this.useageData.program3D, modeltransform, camera3D);
         }
 
         public updata(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
+
+            if (this.num_light > 0) {
+                for (var i: number = 0; i < this.num_light;i++ ){
+                    this.useageData.lights[i].updata( i , this.useageData.lightData ); 
+                }
+            }
+
 
             if (this.context3DChange) {
                 this.activate(context3D, modeltransform, camera3D);
                 this.context3DChange = false;
             }
 
-            this.context3D.setProgram(this.program3D);
-            this.context3D.enableDepthTest(true, 0);
-            this.context3D.enbable(Egret3D.BLEND);
+            context3D.setProgram(this.useageData.program3D);
+            context3D.enableDepthTest(true, 0);
+            context3D.enbable(Egret3D.BLEND);
 
-            this.mainVsMethod.updata(context3D, this.program3D, modeltransform, camera3D);
-            this.mainFsMethod.updata(context3D, this.program3D, modeltransform, camera3D);
+            this.vertexShader.updata(context3D, this.useageData.program3D, modeltransform, camera3D);
+            this.pixelShader.updata(context3D, this.useageData.program3D, modeltransform, camera3D);
 
-            this.context3D.drawElement(Egret3D.TRIANGLES,this.geomtryBase.sharedIndexBuffer,0,this.geomtryBase.numItems);
-            return;
-            //active geomtry
-            //active material
-            //this.count = 0;
-            //while (this.count < this.otherVsMethods.length) {
-            //    this.otherVsMethods[this.count++].updata(context3D, this.program3D, modeltransform, camera3D);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.otherFsMethods.length) {
-            //    this.otherFsMethods[this.count++].updata(context3D, this.program3D, modeltransform, camera3D);
-            //}
-
-            //if (this.useageData.uniformEyeMatrix)
-            //    this.context3D.uniform4fv(this.useageData.uniformEyeMatrix.index, this.useageData.uniformEyeMatrix);
-
-            //this.context3D.uniform4fv(this.useageData.uniformProjectionMatrix.index, this.useageData.uniformProjectionMatrix);
-            //this.context3D.uniform4fv(this.useageData.uniformModelMatrix.index, this.useageData.uniformModelMatrix);
-
-            //this.count = 0;
-            //while (this.count < this.useageData.textures2Ds.length) {
-            //    this.context3D.setTextureAt(this.useageData.textures2Ds[this.count].index, this.useageData.textures2Ds[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_1fvs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_1fvs[this.count++].index, this.useageData.uniform_1fvs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_1ivs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_1ivs[this.count++].index, this.useageData.uniform_1ivs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_2fvs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_2fvs[this.count++].index, this.useageData.uniform_2fvs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_2ivs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_2ivs[this.count++].index, this.useageData.uniform_2ivs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_3fvs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_3fvs[this.count++].index, this.useageData.uniform_3fvs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_3ivs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_3ivs[this.count++].index, this.useageData.uniform_3ivs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_4fvs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_4fvs[this.count++].index, this.useageData.uniform_4fvs[this.count].data);
-            //}
-
-            //this.count = 0;
-            //while (this.count < this.useageData.uniform_4ivs.length) {
-            //    this.context3D.uniform1fv(this.useageData.uniform_4ivs[this.count++].index, this.useageData.uniform_4ivs[this.count].data);
-            //}
+            context3D.drawElement(Egret3D.TRIANGLES, this.useageData.geomtryBase.sharedIndexBuffer, 0, this.useageData.geomtryBase.numItems);
         }
 
         public unActive(context3D: Context3D, camera3D: Camera3D) {
