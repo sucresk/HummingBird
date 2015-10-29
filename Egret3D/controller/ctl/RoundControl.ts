@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class RoundControl extends CameraControllerBase {
 
         private m_firlst: HoverController;
@@ -32,7 +32,7 @@
             window.onmousewheel = (e: MouseWheelEvent) => this.__WHEELHandler(e);
             window.onmousedown = (e: MouseEvent) => this.__rightDownHandler(e);
             window.onmouseup = (e: MouseEvent) => this.__rightUpHandler(e);
-            //window.onmousemove = (e: MouseEvent) => this.__upDataHandler(e);
+            ///window.onmousemove = (e: MouseEvent) => this.__upDataHandler(e);
         }
 
         public stop() {
@@ -42,24 +42,24 @@
             window.onmousemove = null;
         }
 
-        //private  checkZoon():boolean {
-        //    this.m_rec.x = this._view3d.x;
-        //    this.m_rec.y = this._view3d.y;
-        //    this.m_rec.width = this._view3d.width;
-        //    this.m_rec.height = this._view3d.height;
-        //    return this.m_rec.contains(_stage.mouseX, _stage.mouseY);
-        //}
+        ///private  checkZoon():boolean {
+        ///    this.m_rec.x = this._view3d.x;
+        ///    this.m_rec.y = this._view3d.y;
+        ///    this.m_rec.width = this._view3d.width;
+        ///    this.m_rec.height = this._view3d.height;
+        ///    return this.m_rec.contains(_stage.mouseX, _stage.mouseY);
+        ///}
 
         protected  __WHEELHandler(event: MouseWheelEvent) {
-            //			if( UICanvas.mouse2D ) return ;
+            ///			if( UICanvas.mouse2D ) return ;
 			
             this._far -= event.wheelDelta*0.1;
-            //			if( _far > 150 )
-            //				_far = 150 ;
-            //			else if( _far < 35 )
-            //				_far = 35 ;
+            ///			if( _far > 150 )
+            ///				_far = 150 ;
+            ///			else if( _far < 35 )
+            ///				_far = 35 ;
 			
-            //			TweenMax.to( m_firlst , 0.2 , {distance:_far} );
+            ///			TweenMax.to( m_firlst , 0.2 , {distance:_far} );
             this.m_firlst.distance = this._far;
         }
 
@@ -68,8 +68,8 @@
         }
 
         protected  __upDataHandler(event: MouseEvent) {
-            //			if( m_mouseDown )
-            //				m_firlst.update()
+            ///			if( m_mouseDown )
+            ///				m_firlst.update()
             if (this.m_mouseDown) {
                 this.m_firlst.panAngle = 0.3 * (event.screenX - this.lastMouseX) + this.lastPanAngle;
                 this.m_firlst.tiltAngle = 0.3 * (event.screenY - this.lastMouseY) + this.lastTiltAngle;
@@ -79,8 +79,8 @@
 
 
         protected  __rightDownHandler(event: MouseEvent) {
-            //if (!checkZoon()) return;
-            //			if( !m_rec.contains( _stage.mouseX , _stage.mouseY ) || UICanvas.mouse2D ) return ;
+            ///if (!checkZoon()) return;
+            ///			if( !m_rec.contains( _stage.mouseX , _stage.mouseY ) || UICanvas.mouse2D ) return ;
             if (event.button==2){
                 this.lastPanAngle = this.m_firlst.panAngle;
                 this.lastTiltAngle = this.m_firlst.tiltAngle;

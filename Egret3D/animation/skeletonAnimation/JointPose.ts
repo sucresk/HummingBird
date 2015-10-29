@@ -1,10 +1,18 @@
-module BlackSwan{
+module Egret3D{
     export class JointPose{
 
-        public name:string;
-        public orientation:Quaternion;
+        public name: string;
+        public parent: string;
+        public orientation: Quaternion;
         public translation:Vector3D;
-        public scale:Vector3D;
+        public scale: Vector3D;
+
+        public localMatrix: Matrix4_4;
+        public worldMatrix: Matrix4_4 = new Matrix4_4();
+        public worldMatrixValid: boolean = false;
+
+        public jointMatrix: Matrix4_4 = new Matrix4_4();
+        public jointMatrixValid: boolean = false;
 
         constructor(){
 

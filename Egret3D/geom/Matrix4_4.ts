@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class Matrix4_4 {
 
         public rawData: Float32Array;
@@ -40,6 +40,7 @@
             this.rawData[12] = -xaxis.dotProduct(eye);
             this.rawData[13] = -yaxis.dotProduct(eye);
             this.rawData[14] = -zaxis.dotProduct(eye);
+
             this.rawData[15] = 1;
         }
 
@@ -69,6 +70,50 @@
             this.rawData[15] = 0;
         }
 
+        public ortho(w: number, h: number, zn: number, zf: number) {
+            this.rawData[0] = 2 / w;
+            this.rawData[1] = 0;
+            this.rawData[2] = 0;
+            this.rawData[3] = 0;
+
+            this.rawData[4] = 0;
+            this.rawData[5] = 2 / h;
+            this.rawData[6] = 0;
+            this.rawData[7] = 0;
+
+            this.rawData[8] = 0;
+            this.rawData[9] = 0;
+            this.rawData[10] = 1 / (zf - zn);
+            this.rawData[11] = 0;
+
+            this.rawData[12] = 0;
+            this.rawData[13] = 0;
+            this.rawData[14] = zn / (zn - zf);
+            this.rawData[15] = 1;
+        }
+
+        public orthoOffCenter(l: number, r: number, b: number, t: number, zn: number, zf: number) {
+            this.rawData[0] = 2 / (r - 1);
+            this.rawData[1] = 0;
+            this.rawData[2] = 0;
+            this.rawData[3] = 0;
+
+            this.rawData[4] = 0;
+            this.rawData[5] = 2 / (t - b);
+            this.rawData[6] = 0;
+            this.rawData[7] = 0;
+
+            this.rawData[8] = 0;
+            this.rawData[9] = 0;
+            this.rawData[10] = 1 / (zf - zn);
+            this.rawData[11] = 0;
+
+            this.rawData[12] = (1 + r) / (1 - r);
+            this.rawData[13] = (t + b) / (b - t);
+            this.rawData[14] = zn / (zn - zf);
+            this.rawData[15] = 1;
+        }
+
         public append(lhs: Matrix4_4) {
             var m111: number = this.rawData[0], m121: number = this.rawData[4], m131: number = this.rawData[8], m141: number = this.rawData[12], m112: number = this.rawData[1], m122: number = this.rawData[5], m132: number = this.rawData[9], m142: number = this.rawData[13], m113: number = this.rawData[2], m123: number = this.rawData[6], m133: number = this.rawData[10], m143: number = this.rawData[14], m114: number = this.rawData[3], m124: number = this.rawData[7], m134: number = this.rawData[11], m144: number = this.rawData[15], m211: number = lhs.rawData[0], m221: number = lhs.rawData[4], m231: number = lhs.rawData[8], m241: number = lhs.rawData[12], m212: number = lhs.rawData[1], m222: number = lhs.rawData[5], m232: number = lhs.rawData[9], m242: number = lhs.rawData[13], m213: number = lhs.rawData[2], m223: number = lhs.rawData[6], m233: number = lhs.rawData[10], m243: number = lhs.rawData[14], m214: number = lhs.rawData[3], m224: number = lhs.rawData[7], m234: number = lhs.rawData[11], m244: number = lhs.rawData[15];
 
@@ -92,17 +137,90 @@
             this.rawData[14] = m141 * m213 + m142 * m223 + m143 * m233 + m144 * m243;
             this.rawData[15] = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244;
         }
+
+        public add(lhs: Matrix4_4): Matrix4_4 {
+            var m111: number = this.rawData[0], m121: number = this.rawData[4], m131: number = this.rawData[8], m141: number = this.rawData[12], m112: number = this.rawData[1], m122: number = this.rawData[5], m132: number = this.rawData[9], m142: number = this.rawData[13], m113: number = this.rawData[2], m123: number = this.rawData[6], m133: number = this.rawData[10], m143: number = this.rawData[14], m114: number = this.rawData[3], m124: number = this.rawData[7], m134: number = this.rawData[11], m144: number = this.rawData[15], m211: number = lhs.rawData[0], m221: number = lhs.rawData[4], m231: number = lhs.rawData[8], m241: number = lhs.rawData[12], m212: number = lhs.rawData[1], m222: number = lhs.rawData[5], m232: number = lhs.rawData[9], m242: number = lhs.rawData[13], m213: number = lhs.rawData[2], m223: number = lhs.rawData[6], m233: number = lhs.rawData[10], m243: number = lhs.rawData[14], m214: number = lhs.rawData[3], m224: number = lhs.rawData[7], m234: number = lhs.rawData[11], m244: number = lhs.rawData[15];
+
+            this.rawData[0] = m111 + m211;
+            this.rawData[1] = m112 + m212;
+            this.rawData[2] = m113 + m213;
+            this.rawData[3] = m114 + m214;
+
+            this.rawData[4] = m121 + m221;
+            this.rawData[5] = m122 + m222;
+            this.rawData[6] = m123 + m223;
+            this.rawData[7] = m124 + m224;
+
+            this.rawData[8] =  m131 + m231;
+            this.rawData[9] =  m132 + m232;
+            this.rawData[10] = m133 + m233;
+            this.rawData[11] = m134 + m234;
+
+            this.rawData[12] = m141 + m241;
+            this.rawData[13] = m142 + m242;
+            this.rawData[14] = m143 + m243;
+            this.rawData[15] = m144 + m244;
+            return this;
+        }
+
+        public sub(lhs: Matrix4_4): Matrix4_4 {
+            var m111: number = this.rawData[0], m121: number = this.rawData[4], m131: number = this.rawData[8], m141: number = this.rawData[12], m112: number = this.rawData[1], m122: number = this.rawData[5], m132: number = this.rawData[9], m142: number = this.rawData[13], m113: number = this.rawData[2], m123: number = this.rawData[6], m133: number = this.rawData[10], m143: number = this.rawData[14], m114: number = this.rawData[3], m124: number = this.rawData[7], m134: number = this.rawData[11], m144: number = this.rawData[15], m211: number = lhs.rawData[0], m221: number = lhs.rawData[4], m231: number = lhs.rawData[8], m241: number = lhs.rawData[12], m212: number = lhs.rawData[1], m222: number = lhs.rawData[5], m232: number = lhs.rawData[9], m242: number = lhs.rawData[13], m213: number = lhs.rawData[2], m223: number = lhs.rawData[6], m233: number = lhs.rawData[10], m243: number = lhs.rawData[14], m214: number = lhs.rawData[3], m224: number = lhs.rawData[7], m234: number = lhs.rawData[11], m244: number = lhs.rawData[15];
+
+            this.rawData[0] = m111 - m211;
+            this.rawData[1] = m112 - m212;
+            this.rawData[2] = m113 - m213;
+            this.rawData[3] = m114 - m214;
+
+            this.rawData[4] = m121 - m221;
+            this.rawData[5] = m122 - m222;
+            this.rawData[6] = m123 - m223;
+            this.rawData[7] = m124 - m224;
+
+            this.rawData[8] = m131 - m231;
+            this.rawData[9] = m132 - m232;
+            this.rawData[10] = m133 - m233;
+            this.rawData[11] = m134 - m234;
+
+            this.rawData[12] = m141 - m241;
+            this.rawData[13] = m142 - m242;
+            this.rawData[14] = m143 - m243;
+            this.rawData[15] = m144 - m244;
+            return this;
+        }
+
+        public mult(v:number): Matrix4_4 {
+            this.rawData[0] *= v;
+            this.rawData[1] *= v;
+            this.rawData[2] *= v;
+            this.rawData[3] *= v;
+
+            this.rawData[4] *= v;
+            this.rawData[5] *= v;
+            this.rawData[6] *= v;
+            this.rawData[7] *= v;
+
+            this.rawData[8] *= v;
+            this.rawData[9] *= v;
+            this.rawData[10] *= v;
+            this.rawData[11] *= v;
+
+            this.rawData[12] *= v;
+            this.rawData[13] *= v;
+            this.rawData[14] *= v;
+            this.rawData[15] *= v;
+            return this;
+        }
         
         public rotation(x: number, y: number, z: number) {
-            this.appendRotation(x, Vector3D.Z_AXIS);
-            this.appendRotation(y, Vector3D.Z_AXIS);
+            this.appendRotation(x, Vector3D.X_AXIS);
+            this.appendRotation(y, Vector3D.Y_AXIS);
             this.appendRotation(z, Vector3D.Z_AXIS);
         }
 
-        public appendRotation(degrees: number, axis: Vector3D): void //, pivot:Vector3D = null )
+        public appendRotation(degrees: number, axis: Vector3D): void ///, pivot:Vector3D = null )
         {
             var m: Matrix4_4 = Matrix4_4.getAxisRotation(axis.x, axis.y, axis.z, degrees);
-            //this.append(m);
+            ///this.append(m);
 
             var tmp: Matrix4_4 = new Matrix4_4();
             var s: number, c: number;
@@ -136,7 +254,7 @@
         }
 
         public appendScale(xScale: number, yScale: number, zScale: number) {
-            //this.append(new Matrix4_4(new Float32Array([xScale, 0.0, 0.0, 0.0, 0.0, yScale, 0.0, 0.0, 0.0, 0.0, zScale, 0.0, 0.0, 0.0, 0.0, 1.0])));
+            ///this.append(new Matrix4_4(new Float32Array([xScale, 0.0, 0.0, 0.0, 0.0, yScale, 0.0, 0.0, 0.0, 0.0, zScale, 0.0, 0.0, 0.0, 0.0, 1.0])));
             this.rawData[0] = xScale; this.rawData[1] = 0.0; this.rawData[2] = 0.0;
             this.rawData[4] = 0.0; this.rawData[5] = yScale; this.rawData[6] = 0.0;
             this.rawData[8] = 0.0; this.rawData[9] = 0.0; this.rawData[10] = zScale;
@@ -149,7 +267,12 @@
         }
 
         public clone(): Matrix4_4 {
-            return new Matrix4_4(this.rawData.slice(0));
+            ///return new Matrix4_4(this.rawData.slice(0));
+            var ret: Matrix4_4 = new Matrix4_4();
+
+            ret.copyFrom(this);
+
+            return ret;
         }
 
         public copyColumnFrom(column: number, vector3D: Vector3D) {
@@ -179,7 +302,7 @@
                     this.rawData[15] = vector3D.w;
                     break;
                 default:
-                    //throw new ArgumentError("ArgumentError, Column " + column + " out of bounds [0, ..., 3]");
+                    ///throw new ArgumentError("ArgumentError, Column " + column + " out of bounds [0, ..., 3]");
             }
         }
 
@@ -210,14 +333,15 @@
                     vector3D.w = this.rawData[15];
                     break;
                 default:
-                   // throw new ArgumentError("ArgumentError, Column " + column + " out of bounds [0, ..., 3]");
+                   /// throw new ArgumentError("ArgumentError, Column " + column + " out of bounds [0, ..., 3]");
             }
         }
 
-        public copyFrom(sourceMatrix3D: Matrix4_4) {
+        public copyFrom(sourceMatrix3D: Matrix4_4): Matrix4_4 {
             var len: number = sourceMatrix3D.rawData.length;
             for (var c: number = 0; c < len; c++)
                 this.rawData[c] = sourceMatrix3D.rawData[c];
+            return this;
         }
 
         public copyRawDataFrom(vector: Float32Array, index: number = 0, transpose: boolean = false): void {
@@ -291,6 +415,7 @@
                     break;
                 case 2:
                     vector3D.x = this.rawData[2];
+
                     vector3D.y = this.rawData[6];
                     vector3D.z = this.rawData[10];
                     vector3D.w = this.rawData[14];
@@ -470,8 +595,8 @@
         }
 
         public invers33() {
-            // Invert a 3x3 using cofactors.  This is about 8 times faster than
-            // the Numerical Recipes code which uses Gaussian elimination.
+            /// Invert a 3x3 using cofactors.  This is about 8 times faster than
+            /// the Numerical Recipes code which uses Gaussian elimination.
 
            var rkInverse_00 = this.rawData[5] * this.rawData[10] - this.rawData[9] * this.rawData[6];
            var rkInverse_01 = this.rawData[8] * this.rawData[6] - this.rawData[4] * this.rawData[10];
@@ -547,9 +672,9 @@
         }
 
        
-         //public pointAt( pos:Vector3D, at:Vector3D = null, up:Vector3D = null )
-         //{
-         //}
+         ///public pointAt( pos:Vector3D, at:Vector3D = null, up:Vector3D = null )
+         ///{
+         ///}
 
         public prepend(rhs: Matrix4_4) {
             var m111: number = rhs.rawData[0], m121: number = rhs.rawData[4], m131: number = rhs.rawData[8], m141: number = rhs.rawData[12], m112: number = rhs.rawData[1], m122: number = rhs.rawData[5], m132: number = rhs.rawData[9], m142: number = rhs.rawData[13], m113: number = rhs.rawData[2], m123: number = rhs.rawData[6], m133: number = rhs.rawData[10], m143: number = rhs.rawData[14], m114: number = rhs.rawData[3], m124: number = rhs.rawData[7], m134: number = rhs.rawData[11], m144: number = rhs.rawData[15], m211: number = this.rawData[0], m221: number = this.rawData[4], m231: number = this.rawData[8], m241: number = this.rawData[12], m212: number = this.rawData[1], m222: number = this.rawData[5], m232: number = this.rawData[9], m242: number = this.rawData[13], m213: number = this.rawData[2], m223: number = this.rawData[6], m233: number = this.rawData[10], m243: number = this.rawData[14], m214: number = this.rawData[3], m224: number = this.rawData[7], m234: number = this.rawData[11], m244: number = this.rawData[15];
@@ -590,6 +715,31 @@
             this.prepend(m);
         }
 
+        public makeTransform(pos: Vector3D, scale: Vector3D, rot: Quaternion) {
+            
+            rot.toMatrix3D(Matrix3DUtils.CALCULATION_MATRIX);
+
+            this.rawData[0] = Matrix3DUtils.CALCULATION_MATRIX.rawData[0] * scale.x;
+            this.rawData[1] = Matrix3DUtils.CALCULATION_MATRIX.rawData[1] * scale.y;
+            this.rawData[2] = Matrix3DUtils.CALCULATION_MATRIX.rawData[2] * scale.z;
+            this.rawData[3] = 0;
+
+            this.rawData[4] = Matrix3DUtils.CALCULATION_MATRIX.rawData[4] * scale.x;
+            this.rawData[5] = Matrix3DUtils.CALCULATION_MATRIX.rawData[5] * scale.y;
+            this.rawData[6] = Matrix3DUtils.CALCULATION_MATRIX.rawData[6] * scale.z;
+            this.rawData[7] = 0;
+
+            this.rawData[8] = Matrix3DUtils.CALCULATION_MATRIX.rawData[8] * scale.x;
+            this.rawData[9] = Matrix3DUtils.CALCULATION_MATRIX.rawData[9] * scale.y;
+            this.rawData[10] = Matrix3DUtils.CALCULATION_MATRIX.rawData[10] * scale.z;
+            this.rawData[11] = 0;
+
+            this.rawData[12] = pos.x;
+            this.rawData[13] = pos.y;
+            this.rawData[14] = pos.z;
+            this.rawData[15] = 1;
+        }
+
         public recompose(components: Vector3D[]): boolean {
 
             if (components.length < 3) return false
@@ -597,14 +747,16 @@
             this.appendScale(components[2].x, components[2].y, components[2].z);
 
             var angle: number;
-            angle = -components[1].x;
+            angle = -components[1].x * Matrix3DUtils.DEGREES_TO_RADIANS;
 
             Matrix3DUtils.CALCULATION_MATRIX.copyRawDataFrom(new Float32Array([1, 0, 0, 0, 0, Math.cos(angle), -Math.sin(angle), 0, 0, Math.sin(angle), Math.cos(angle), 0, 0, 0, 0, 0]));
             this.append(Matrix3DUtils.CALCULATION_MATRIX);
-            angle = -components[1].y;
+            angle = -components[1].y * Matrix3DUtils.DEGREES_TO_RADIANS;
+
             Matrix3DUtils.CALCULATION_MATRIX.copyRawDataFrom(new Float32Array([Math.cos(angle), 0, Math.sin(angle), 0, 0, 1, 0, 0, -Math.sin(angle), 0, Math.cos(angle), 0, 0, 0, 0, 0]));
             this.append(Matrix3DUtils.CALCULATION_MATRIX);
-            angle = -components[1].z;
+            angle = -components[1].z * Matrix3DUtils.DEGREES_TO_RADIANS;
+
             Matrix3DUtils.CALCULATION_MATRIX.copyRawDataFrom(new Float32Array([Math.cos(angle), -Math.sin(angle), 0, 0, Math.sin(angle), Math.cos(angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]));
             this.append(Matrix3DUtils.CALCULATION_MATRIX);
 
@@ -624,7 +776,13 @@
             var y: number = v.y;
             var z: number = v.z;
 
-            return new Vector3D((x * this.rawData[0] + y * this.rawData[4] + z * this.rawData[8] + this.rawData[12]), (x * this.rawData[1] + y * this.rawData[5] + z * this.rawData[9] + this.rawData[13]), (x * this.rawData[2] + y * this.rawData[6] + z * this.rawData[10] + this.rawData[14]), (x * this.rawData[3] + y * this.rawData[7] + z * this.rawData[11] + this.rawData[15]));
+            var out: Vector3D = new Vector3D();
+            out.x = x * this.rawData[0] + y * this.rawData[4] + z * this.rawData[8] + this.rawData[12];
+            out.y = x * this.rawData[1] + y * this.rawData[5] + z * this.rawData[9] + this.rawData[13];
+            out.z = x * this.rawData[2] + y * this.rawData[6] + z * this.rawData[10] + this.rawData[14];
+            out.w = x * this.rawData[3] + y * this.rawData[7] + z * this.rawData[11] + this.rawData[15];
+
+            return out;
         }
 
         public transformVectors(vin: number[], vout: number[]) {
@@ -641,6 +799,23 @@
                 i += 3;
             }
         }
+
+        public transformPlane(plane: Plane3D): Plane3D {
+            var mat: Matrix4_4 = new Matrix4_4();
+            mat.copyFrom(this);
+            mat.invert();
+            mat.transpose();
+            var v: Vector3D = new Vector3D(plane.a, plane.b, plane.c, plane.d);
+            v.copyFrom(mat.transformVector(v));
+            var p: Plane3D = new Plane3D();
+            p.a = v.x;
+            p.b = v.y;
+            p.c = v.z;
+            p.d = v.w / Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+
+            return p;
+        }
+
 
         private oRawData: Float32Array = new Float32Array(16);
         public transpose() {
@@ -706,6 +881,10 @@
             this.rawData[14] = value.z;
         }
 
+        public get scale(): Vector3D {
+            return new Vector3D(this.rawData[0], this.rawData[5], this.rawData[10]);
+        }
+
         public toFixed(decimalPlace: number): string {
             var magnitude: number = Math.pow(10, decimalPlace);
             return "matrix3d(" + Math.round(this.rawData[0] * magnitude) / magnitude + "," + Math.round(this.rawData[1] * magnitude) / magnitude + "," + Math.round(this.rawData[2] * magnitude) / magnitude + "," + Math.round(this.rawData[3] * magnitude) / magnitude + "," + Math.round(this.rawData[4] * magnitude) / magnitude + "," + Math.round(this.rawData[5] * magnitude) / magnitude + "," + Math.round(this.rawData[6] * magnitude) / magnitude + "," + Math.round(this.rawData[7] * magnitude) / magnitude + "," + Math.round(this.rawData[8] * magnitude) / magnitude + "," + Math.round(this.rawData[9] * magnitude) / magnitude + "," + Math.round(this.rawData[10] * magnitude) / magnitude + "," + Math.round(this.rawData[11] * magnitude) / magnitude + "," + Math.round(this.rawData[12] * magnitude) / magnitude + "," + Math.round(this.rawData[13] * magnitude) / magnitude + "," + Math.round(this.rawData[14] * magnitude) / magnitude + "," + Math.round(this.rawData[15] * magnitude) / magnitude + ")";
@@ -713,6 +892,11 @@
 
         public toString(): string {
             return "matrix3d(" + Math.round(this.rawData[0] * 1000) / 1000 + "," + Math.round(this.rawData[1] * 1000) / 1000 + "," + Math.round(this.rawData[2] * 1000) / 1000 + "," + Math.round(this.rawData[3] * 1000) / 1000 + "," + Math.round(this.rawData[4] * 1000) / 1000 + "," + Math.round(this.rawData[5] * 1000) / 1000 + "," + Math.round(this.rawData[6] * 1000) / 1000 + "," + Math.round(this.rawData[7] * 1000) / 1000 + "," + Math.round(this.rawData[8] * 1000) / 1000 + "," + Math.round(this.rawData[9] * 1000) / 1000 + "," + Math.round(this.rawData[10] * 1000) / 1000 + "," + Math.round(this.rawData[11] * 1000) / 1000 + "," + Math.round(this.rawData[12] * 1000) / 1000 + "," + Math.round(this.rawData[13] * 1000) / 1000 + "," + Math.round(this.rawData[14] * 1000) / 1000 + "," + Math.round(this.rawData[15] * 1000) / 1000 + ")";
+        }
+
+        public lerp(m0: Matrix4_4, m1: Matrix4_4, t: number): void {
+            ///t(m1 - m0) + m0
+            this.copyFrom(m1).sub(m0).mult(t).add(m0);
         }
     }
 }

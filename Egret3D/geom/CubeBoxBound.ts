@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class CubeBoxBound {
         public min: Vector3D = new Vector3D();
         public max: Vector3D = new Vector3D();
@@ -41,6 +41,10 @@
             return false;
         }
 
+        public inSphere(center: Vector3D, radius: number): boolean {
+            return true;
+        }
+
         public intersectAABBs(box2: CubeBoxBound, boxIntersect: CubeBoxBound): boolean {
             if (this.min.x > box2.max.x) {
                 return false;
@@ -66,12 +70,14 @@
                 return false;
             }
 
-            boxIntersect.min.x = Math.max(this.min.x, box2.min.x);
-            boxIntersect.max.x = Math.min(this.max.x, box2.max.x);
-            boxIntersect.min.y = Math.max(this.min.y, box2.min.y);
-            boxIntersect.max.y = Math.min(this.max.y, box2.max.y);
-            boxIntersect.min.z = Math.max(this.min.z, box2.min.z);
-            boxIntersect.max.z = Math.min(this.max.z, box2.max.z);
+            if (boxIntersect != null) {
+                boxIntersect.min.x = Math.max(this.min.x, box2.min.x);
+                boxIntersect.max.x = Math.min(this.max.x, box2.max.x);
+                boxIntersect.min.y = Math.max(this.min.y, box2.min.y);
+                boxIntersect.max.y = Math.min(this.max.y, box2.max.y);
+                boxIntersect.min.z = Math.max(this.min.z, box2.min.z);
+                boxIntersect.max.z = Math.min(this.max.z, box2.max.z);
+            }
             return true;
         }
 
@@ -85,7 +91,7 @@
             return "CubeBoxBound [min:(" + this.min.x + ", " + this.min.y + ", " + this.min.z + ") max:(" + this.max.x + ", " + this.max.y + ", " + this.max.z + ")]";
         }
 
-        private computeData() {
+        public computeData() {
             this.vexData.length = 0;
             this.indexData.length = 0;
 
@@ -128,6 +134,7 @@
                 0, 4, 7, 0, 7, 3,
                 2, 6, 5, 2, 5, 1,
                 4, 5, 6, 4, 6, 7,
+                0, 3, 2, 0, 2, 1,
                 0, 1, 5, 0, 5, 4,
                 3, 7, 6, 3, 6, 2
                 );

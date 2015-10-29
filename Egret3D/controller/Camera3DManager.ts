@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class Camera3DManager {
         static  instance: Camera3DManager = new Camera3DManager();
         constructor() {

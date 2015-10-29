@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class Ray {
         public origin: Vector3D = new Vector3D();
         public dir: Vector3D = new Vector3D();
@@ -7,7 +7,7 @@
             this.origin.copyFrom(origin);
             this.dir.copyFrom(direction);
         }
-        box
+        
         /**
         **  计算一个三角形和一个射线的交点;
         **  v0 三角形的第一个顶点;
@@ -78,6 +78,10 @@
             return true;
         }
 
+        public IntersectMeshEx(mesh: Mesh, inPos: Vector3D): boolean {
+            return this.IntersectMesh(mesh.geometry.verticesData, mesh.geometry.indexData, mesh.geometry.vertexAttLength, mesh.geometry.indexData.length / 3, inPos, mesh.modelMatrix);
+        }
+
         public IntersectMesh(verticesData: Array<number>, indexData: Array<number>, offset: number, faces: number, inPos:Vector3D, mMat: Matrix4_4): boolean {
 
             var triangle: Array<Vector3D> = new Array<Vector3D>();
@@ -119,7 +123,7 @@
 
             if (face < faces && face >= 0) {
                 for (var i: number = 0; i < 3; ++i) {
-                    var index: number = 3 * face + i;
+                    var index: number = indexData[3 * face + i];
                     var pos: Vector3D = new Vector3D(verticesData[offset * index + 0], verticesData[offset * index + 1], verticesData[offset * index + 2]);
                     pos = mMat.transformVector(pos);
 
@@ -139,17 +143,27 @@
             return false; 
         }
 
+        private invViewMat: Matrix4_4 = new Matrix4_4();
         public CalculateAndTransformRay(width: number, height: number, viewMat: Matrix4_4, projMat: Matrix4_4, x: number, y: number) {
+            this.reset();
             this.dir.x = (2.0 * x / width - 1.0) / projMat.rawData[0];
             this.dir.y = (-2.0 * y / height + 1.0) / projMat.rawData[5];
             this.dir.z = 1.0;
 
-            var invViewMat: Matrix4_4 = new Matrix4_4();
-            invViewMat.copyFrom(viewMat);
-            //invViewMat.invert();
-            this.origin.copyFrom(invViewMat.transformVector(this.origin));
-            this.dir.copyFrom(invViewMat.deltaTransformVector(this.dir));
+            this.invViewMat.copyFrom(viewMat);
+            this.origin.copyFrom(this.invViewMat.transformVector(this.origin));
+            this.dir.copyFrom(this.invViewMat.deltaTransformVector(this.dir));
             this.dir.normalize();
+        }
+
+        public reset() {
+            this.origin.setTo(0, 0, 0);
+            this.dir.setTo(0, 0, 0);
+        }
+
+        public getIntersectWithTriangle(nearPoint: Vector3D, farPoint: Vector3D, p1: Vector3D, p2: Vector3D, p3: Vector3D):Vector3D{
+            var intersectP: Vector3D = new Vector3D();
+            return intersectP;
         }
     }
 } 

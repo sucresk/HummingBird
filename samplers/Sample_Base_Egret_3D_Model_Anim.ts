@@ -1,132 +1,257 @@
 ﻿class Sample_Base_Egret_3D_Model_Anim {
 
     private _view3D: BlackSwan.View3D;
-    private _view3D2: BlackSwan.View3D;
+    private _cameraCtl: BlackSwan.LookAtController;
     private _meshList: Array<BlackSwan.Mesh> = new Array<BlackSwan.Mesh>();
+    private _currentObj: number = 0;
 
-    private _stFrame: Array<STFrame> = new Array<STFrame>();
-    private _currentFrameIndex: number = -1;
-
-    private _cameraCtl: BlackSwan.FreeCameraControl;
+    private _lightGroup: BlackSwan.LightGroup;
     constructor() {
-
-        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 1024, 800), () => this.init3D());
+        BlackSwan.Egret3D.requstContext3D(DeviceUtil.getGPUMode, new BlackSwan.Rectangle(0, 0, 688, 432), () => this.init3D());
     }
 
     private init3D() {
-        var viewPort: BlackSwan.Rectangle = new BlackSwan.Rectangle(0, 0, 1024, 800);
+        var viewPort: BlackSwan.Rectangle = new BlackSwan.Rectangle(0, 0, 688, 432);
         this._view3D = new BlackSwan.View3D(viewPort);
-        this._view3D.camera3D.z = -0;
+        this.initLights();
 
-        var urlLoader: xxq.URLLoader = new xxq.URLLoader();
-        urlLoader.dataformat = xxq.URLLoader.DATAFORMAT_BINARY;
-        urlLoader.onLoadComplete = (urlLoader: xxq.URLLoader) => this.showAnim(urlLoader);
-        urlLoader.load("resource/1.e3danim");
+        this.loadStaticModel("resource/plane.esm", "resource/b.dds");
+        //this.loadStaticModel("resource/xiaoqiao/npc.esm", "resource/xiaoqiao/MO_OctopusCaptain_LV1.png");
 
+        //this.loadAnimationModel("resource/xiaoqiao/", "xiaoqiao.esm",
+        //    [
+        //       "idle_1.eam",
+        //       "run_1.eam",
+        //       "attack_1.eam",
+        //       "attack_2.eam",
+        //       "death_1.eam",
+        //       "skill_1.eam",
+        //       "skill_2.eam",
+        //       "skill_3.eam",
+        //       "skill_4.eam"
+        //    ]);
+        this.loadAnimationModel("resource/", "zhizhu.esm",
+            [
+                "run.eam"
+            ]);
+
+        BlackSwan.Gui.GuiController.addListener("spotCutoff", this.test);
+        
         window.setInterval(() => this.update());
+        this._view3D.camera3D.position = new BlackSwan.Vector3D(0, 5, -10);
 
-        this._cameraCtl = new BlackSwan.FreeCameraControl(this._view3D);
-        this._cameraCtl.start(45, 1600, 45, false, null);
+      
+
+        this._cameraCtl = new BlackSwan.LookAtController(this._view3D.camera3D, new BlackSwan.Object3D());
+        this._cameraCtl.setEyesLength(1400);
+
+        //window.onkeyup = (e: KeyboardEvent) => this.keyUp(e);
+
+        BlackSwan.Input.instance.addListenerKeyUp((key:number)=>this.onkeyup(key));
+
+        var textureUrlLoader: xxq.URLLoader = new xxq.URLLoader();
+        textureUrlLoader.onLoadComplete = (urlLoader: xxq.URLLoader) => this.__bgComplete(urlLoader);
+        //textureUrlLoader.dataformat = xxq.URLLoader.DATAFORMAT_DDS;
+        textureUrlLoader.load("resource/bg.png");
     }
 
-    private showAnim(urlLoader: xxq.URLLoader): void {
-        var bytes: BlackSwan.ByteArray = urlLoader.data;
+    private onkeyup(key: number) {
 
-        var nFrameCount: number = bytes.readUnsignedInt();
+        if (this._meshList.length <= 0)
+            return;
 
-        var needCreate: boolean = true;
+        var index: number = -1;
 
-        while (nFrameCount--) {
+        switch (key) {
+            case BlackSwan.KeyCode.Key_1:
+            case BlackSwan.KeyCode.Key_2:
+            case BlackSwan.KeyCode.Key_3:
+            case BlackSwan.KeyCode.Key_4:
+            case BlackSwan.KeyCode.Key_5:
+            case BlackSwan.KeyCode.Key_6:
+            case BlackSwan.KeyCode.Key_7:
+            case BlackSwan.KeyCode.Key_8:
+            case BlackSwan.KeyCode.Key_9:
+                index = key - BlackSwan.KeyCode.Key_1;
+                break;
+            case BlackSwan.KeyCode.Key_KP_1:
+            case BlackSwan.KeyCode.Key_KP_2:
+            case BlackSwan.KeyCode.Key_KP_3:
+            case BlackSwan.KeyCode.Key_KP_4:
+            case BlackSwan.KeyCode.Key_KP_5:
+            case BlackSwan.KeyCode.Key_KP_6:
+            case BlackSwan.KeyCode.Key_KP_7:
+            case BlackSwan.KeyCode.Key_KP_8:
+            case BlackSwan.KeyCode.Key_KP_9:
+                index = key - BlackSwan.KeyCode.Key_KP_1;
+                break;
+            case BlackSwan.KeyCode.Key_0:
+            case BlackSwan.KeyCode.Key_KP_0:
+                this._currentObj = (this._currentObj + 1) % this._meshList.length;
+                break;
+        }
 
-            var stFrame = new STFrame();
+        if (index != -1) {
+            var animList: string[] = this._meshList[this._currentObj].animation.getAnimList();
 
-            var nBoneCount: number = bytes.readUnsignedInt();
+            if (index >= animList.length)
+                return;
 
-            while (nBoneCount--) {
+            this._meshList[this._currentObj].animation.change(animList[index]);
 
-                var stBone = new STBone();
+            this._meshList[this._currentObj].animation.play();
+        }
+    }
 
-                //Scaling
-                stBone.scale.x = bytes.readFloat() * 0.5;
-                stBone.scale.y = bytes.readFloat() * 0.5;
-                stBone.scale.z = bytes.readFloat() * 0.5;
+    private __bgComplete(e: xxq.URLLoader) {
+        e.data.upload(BlackSwan.Egret3D.context3D);
 
-                //rotat
-                stBone.rotat.x = bytes.readFloat();
-                stBone.rotat.y = bytes.readFloat();
-                stBone.rotat.z = bytes.readFloat();
+        BlackSwan.CheckerboardTexture.texture.upload(BlackSwan.Egret3D.context3D);
+        this._view3D.backImageTexture = e.data.texture;
+    }
 
-                //translation
-                stBone.position.x = bytes.readFloat();
-                stBone.position.y = bytes.readFloat();
-                stBone.position.z = bytes.readFloat();
+    private pointLight: BlackSwan.PointLight;
+    private directLight: BlackSwan.DirectLight;
+    private initLights() {
+        this._lightGroup = new BlackSwan.LightGroup();
 
-                stFrame.bone.push(stBone);
+        this.directLight = new BlackSwan.DirectLight(new BlackSwan.Vector3D(0.5, 1, 0));
+        this.directLight.intensity = 1.0;
+        this.directLight.castShadow = true;
+        this._lightGroup.addDirectLight(this.directLight);
 
-                if (needCreate) {
-                    var tmpMesh: BlackSwan.Mesh = new BlackSwan.Mesh(new BlackSwan.CubeGeomtry(), new BlackSwan.ColorMaterial(1.0,0.0,0.0,1.0));
-                    tmpMesh.scaleX = stBone.scale.x;
-                    tmpMesh.scaleY = stBone.scale.y;
-                    tmpMesh.scaleZ = stBone.scale.z;
-                    tmpMesh.rotationX = stBone.rotat.x;
-                    tmpMesh.rotationY = stBone.rotat.y;
-                    tmpMesh.rotationZ = stBone.rotat.z;
-                    tmpMesh.position.x = stBone.position.x;
-                    tmpMesh.position.y = stBone.position.y;
-                    tmpMesh.position.z = stBone.position.z;
-                    this._meshList.push(tmpMesh);
-                    this._view3D.addChild3D(tmpMesh);
-                }
+        var directLight1: BlackSwan.DirectLight = new BlackSwan.DirectLight(new BlackSwan.Vector3D(0.5, 1, -1));
+        directLight1.intensity = 1.0;
+        this._lightGroup.addDirectLight(directLight1);
+        
+        
+        this.pointLight = new BlackSwan.PointLight(new BlackSwan.Vector3D(1.0, 1.0, 1.0, 1.0));
+        this.pointLight.y = 100;
+        this.pointLight.intensity = 1.0;
+        //this._lightGroup.addPointLight(this.pointLight);
+
+        var sportLight: BlackSwan.SpotLight = new BlackSwan.SpotLight(new BlackSwan.Vector3D(1.0, 1.0, 1.0));
+        sportLight.y = 50;
+        sportLight.x = 0;
+        sportLight.intensity = 1.0;
+        sportLight.diffuse = 0xffff0000;
+        //this._lightGroup.addSpotLight(sportLight);
+
+    }
+
+    private loadStaticModel(e3dFile: string, texture: string = null, bump: string = null, spec: string = null): void {
+        var urlLoader: xxq.URLLoader = new xxq.URLLoader();
+        //urlLoader.dataformat = xxq.URLLoader.DATAFORMAT_E3D;
+      
+        var mat: BlackSwan.TextureMaterial = new BlackSwan.TextureMaterial(null);
+        mat.normalTexture = BlackSwan.CheckerboardTexture.texture;
+        urlLoader.onLoadComplete = (urlLoader: xxq.URLLoader) => this.addModel(urlLoader.data, mat)
+        var asynLoadingMaterial: AsyncLoadingTexturematerial = new AsyncLoadingTexturematerial(mat);
+        asynLoadingMaterial.loadTexture(texture, bump, spec);
+
+        urlLoader.load(e3dFile);
+    }
+
+    private addModel(geomtry: BlackSwan.GeomtryBase, mat: BlackSwan.MaterialBase) {
+        mat.lightGroup = this._lightGroup;
+        var tmpMesh: BlackSwan.Mesh = new BlackSwan.Mesh(geomtry, mat);
+
+        tmpMesh.x = 0;
+        tmpMesh.y = 0;
+        tmpMesh.z = 0;
+
+        tmpMesh.scaleX = 3;
+        tmpMesh.scaleY = 3;
+        tmpMesh.scaleZ = 3;
+        //tmpMesh.rotationY += 90 * BlackSwan.Matrix3DUtils.DEGREES_TO_RADIANS;
+        
+        tmpMesh.material.castShadow = false;
+        tmpMesh.material.acceptShadow = false;
+        this._view3D.addChild3D(tmpMesh);
+    }
+
+    public test(name:string, value: number): void {
+        console.log("value:" + value);
+    }
+
+    private loadAnimationModel(rootURL:string, e3dGeomFile: string, e3dAnimFiles: string[]): void {
+
+        var urlLoader: xxq.URLLoader = new xxq.URLLoader();
+        urlLoader.onLoadComplete = (loader: xxq.URLLoader) => e3danimation(loader.data,this._lightGroup);
+        urlLoader.load(rootURL + e3dGeomFile);
+
+        var _view3D: BlackSwan.View3D = this._view3D;
+        var _meshList: Array<BlackSwan.Mesh> = this._meshList;
+
+        function e3danimation(geomtry: BlackSwan.GeomtryBase, lightGroup:BlackSwan.LightGroup): void {
+
+            var material: BlackSwan.TextureMaterial = new BlackSwan.TextureMaterial(null);
+            material.lightGroup = lightGroup;
+            material.castShadow = true; 
+            material.acceptShadow = false;
+
+            if (geomtry.textureFile.length > 0) {
+                var asynLoadingMaterial: AsyncLoadingTexturematerial = new AsyncLoadingTexturematerial(material);
+                asynLoadingMaterial.loadTexture(rootURL + "hero_27.dds");
             }
 
-            this._stFrame.push(stFrame);
+            var tmpMesh: BlackSwan.Mesh;
 
-            needCreate = false;
+            if (geomtry.geomtryType == BlackSwan.GeomtryType.Skin) {
+
+                var skinGeomtry: BlackSwan.SkinGeomtry = <BlackSwan.SkinGeomtry>geomtry;
+
+                tmpMesh = new BlackSwan.Mesh(geomtry, material, new BlackSwan.AnimationStateSet(skinGeomtry.initialSkeleton));
+            }
+            else {
+                tmpMesh = new BlackSwan.Mesh(geomtry, material);
+            }
+            
+            for (var i: number = 0; i < 30; i++) {
+                tmpMesh = tmpMesh.clone();
+                tmpMesh.x = -500 + (i / 5) * 100;
+                tmpMesh.z = -500 + (i % 5) * 100;
+                _view3D.addChild3D(tmpMesh);
+                _meshList.push(tmpMesh);
+            }
+
+            if (e3dAnimFiles.length > 0) {
+                loadE3DAnimation(tmpMesh, 0);
+            }
+        }
+
+        function loadE3DAnimation(skinMesh: BlackSwan.Mesh, index:number): void {
+            var urlLoader: xxq.URLLoader = new xxq.URLLoader();
+            urlLoader.onLoadComplete = (loader: xxq.URLLoader) => addAnimationToSkinGeomtry(skinMesh, loader.data, index);
+            urlLoader.load(rootURL + e3dAnimFiles[index]);
+        }
+
+        function addAnimationToSkinGeomtry(skinMesh: BlackSwan.Mesh, animation: BlackSwan.AnimationState, index: number): void {
+
+            (<BlackSwan.AnimationStateSet>skinMesh.animation).addAnimationState(animation);
+
+            if (index + 1 >= e3dAnimFiles.length) {
+
+                for (var i: number = 0; i < _meshList.length; i++) {
+                    _meshList[i].animation.change(_meshList[i].animation.getAnimList()[0]);
+                    _meshList[i].animation.play();
+                }
+
+                return;
+            }
+
+            loadE3DAnimation(skinMesh, index + 1);
         }
     }
 
     private time: number = 0;
+    private delay: number = 0;
     private update() {
+        this.time = new Date().getTime();
+        BlackSwan.Gui.Stats.stats.update();
+        this._cameraCtl.update();
 
-        this.time++;
-
-        if (this._stFrame.length > 0) {
-            var frameIndex: number = Math.round(this.time / 1) % this._stFrame.length;
-
-            if (frameIndex != this._currentFrameIndex) {
-                this._currentFrameIndex = frameIndex;
-
-                var bone: Array<STBone> = this._stFrame[this._currentFrameIndex].bone;
-
-                for (var i: number = 0; i < bone.length; i++) {
-
-                    this._meshList[i].scaleX = bone[i].scale.x;
-                    this._meshList[i].scaleY = bone[i].scale.y;
-                    this._meshList[i].scaleZ = bone[i].scale.z;
-
-                    this._meshList[i].rotationX = bone[i].rotat.x;
-                    this._meshList[i].rotationY = bone[i].rotat.y;
-                    this._meshList[i].rotationZ = bone[i].rotat.z;
-
-                    this._meshList[i].position.x = bone[i].position.x;
-                    this._meshList[i].position.y = bone[i].position.y;
-                    this._meshList[i].position.z = bone[i].position.z;
-                }
-            }
-        }
-
-        this._cameraCtl.update(this.time, 16);
-
-        this._view3D.renden();
+        this._view3D.renden(this.time, this.delay);
+        this.delay = new Date().getTime() - this.time;
     }
 } 
-
-class STBone {
-    public scale: BlackSwan.Vector3D = new BlackSwan.Vector3D();
-    public rotat: BlackSwan.Vector3D = new BlackSwan.Vector3D();
-    public position: BlackSwan.Vector3D = new BlackSwan.Vector3D();
-}
-
-class STFrame {
-    public bone: Array<STBone> = new Array<STBone>();
-}

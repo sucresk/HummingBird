@@ -1,11 +1,11 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class BinModelLoader {
 
         private _callback_complete: Function;
-        private _loader: xxq.URLLoader;
+        private _loader: Egret3D.URLLoader;
         private _data: ByteArray;
-        private _geomtry: SubGeomtry;
-        private _geomtryData: GeomtryData = new GeomtryData();
+        private _geomtry: SubGeometry;
+        private _geomtryData: GeometryData = new GeometryData();
 
         public minPos: Vector3D = new Vector3D();
         public maxPos: Vector3D = new Vector3D();
@@ -13,23 +13,23 @@
         constructor() {
         }
 
-        public get geomtryBase(): SubGeomtry {
+        public get geomtryBase(): SubGeometry {
             return this._geomtry;
         }
 
-        public get geomtryData():GeomtryData {
+        public get geomtryData():GeometryData {
             return this._geomtryData;
         }
 
         public loadBinModelFromFile(file_url: string, callback_complete: Function): void {
             this._callback_complete = callback_complete;
-            this._loader = new xxq.URLLoader();
-            this._loader.dataformat = xxq.URLLoader.DATAFORMAT_BINARY;
-            this._loader.onLoadComplete = (loader: xxq.URLLoader) => this.onLoadComplete(loader);
+            this._loader = new Egret3D.URLLoader();
+            this._loader.dataformat = Egret3D.URLLoader.DATAFORMAT_BINARY;
+            this._loader.onLoadComplete = (loader: Egret3D.URLLoader) => this.onLoadComplete(loader);
             this._loader.load(file_url);
         }
 
-        private onLoadComplete(loader: xxq.URLLoader) {
+        private onLoadComplete(loader: Egret3D.URLLoader) {
             this._data = loader.data;
             this.parserModelData();
             this._callback_complete(this);
@@ -38,7 +38,7 @@
         private parserModelData() {
             //this._geomtry = new SubGeomtry();
             this._data.position = 0;
-            this._data.endian = BlackSwan.Endian.BIG_ENDIAN;
+            this._data.endian = Egret3D.Endian.BIG_ENDIAN;
 
             var version: number = this._data.readInt();
 
@@ -204,9 +204,9 @@
                 this._geomtryData.source_faceData.push(tmpFace);
             }
 
-            this._geomtryData = GeomtryData.translateMaterialGroup(this._geomtryData);
+            this._geomtryData = GeometryData.build(this._geomtryData);
             //this._geomtryData = GeomtryData.translateMaterialGroup(this._geomtryData);
-            this._geomtry = new SubGeomtry();
+            this._geomtry = new SubGeometry();
             this._geomtry.minPos.copyFrom(this.minPos);
             this._geomtry.minPos.copyFrom(this.minPos);
 

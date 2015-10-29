@@ -1,43 +1,157 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class View3D {
 
-        private _root: Object3D = new Object3D();
-        private _context3D: Context3D;
-        private _camera: Camera3D;
-        private _render: RenderBase;
-        private _collect: CollectBase;
-  
-        private _width: number = 0;
-        private _height: number = 0;
-        private _x: number = 0;
-        private _y: number = 0;
+        protected _root: Object3D = new Object3D();
+        protected _context3D: Context3D;
+        protected _camera: Camera3D;
+        protected _collect: CollectBase;
 
-        private _localPos: Point = new Point();
-        private _globalPos: Point = new Point();
-        private _globalPosDirty: Boolean;
+        protected _render: RenderBase;
+        protected _shadowRender: ShadowRender;
+
+        protected _width: number = 0;
+        protected _height: number = 0;
+        protected _x: number = 0;
+        protected _y: number = 0;
+
+        protected _localPos: Point = new Point();
+        protected _globalPos: Point = new Point();
+        protected _globalPosDirty: Boolean;
 
         protected _aspectRatio: number = 1;
         protected _scissorRect: Rectangle;
         protected _viewPort: Rectangle;
-        private _scissorRectDirty: Boolean = true;
-        private _viewportDirty: Boolean = true;
+        protected _scissorRectDirty: Boolean = true;
+        protected _viewportDirty: Boolean = true;
 
-        private _viewPortMatrix: Matrix4_4 = new Matrix4_4(); 
-        constructor(viewPort: Rectangle) {
+        protected _viewPortMatrix: Matrix4_4 = new Matrix4_4();
 
-            this._context3D = Egret3D.context3D;
-            this._camera = new Camera3D();
+        protected _useShadow: boolean = false ;
+        protected _backImg: HUD;
+        protected _postCanvas: PostCanvas;
+        protected _sky: Sky;
+        protected _sphereSky: SphereSky;
+
+        protected _postList: Array<PostEffectBase>;
+
+        protected _isDeferred: boolean = false;
+        protected _defaultFrameBuffer: Texture2D;
+        protected _postNextFrameBuffer: Texture2D;
+
+        protected _resizeFuncs: Array<Function> = new Array<Function>();
+        public get root(): Object3D {
+            return this._root;
+        }
+
+        protected _debugHUDList: Array<HUD> = new Array<HUD>();
+        constructor(viewPort: Rectangle, camera: Camera3D = null, deferredShading: boolean = false) {
+
+            this._context3D = Egret3DDrive.context3D;
+            this._camera = camera || new Camera3D(CameraType.perspective);
             this._scissorRect = new Rectangle();
             this._viewPort = viewPort;
 
-            this._collect = new EntityCollect();
-            this._render = new DefaultRender();
+            this._collect = new EntityCollect(this._root);
+
+            this._render = RenderManager.getRender(RenderType.defaultRender);
+            this._isDeferred = deferredShading;
+
+            //this.requestFrameBuffer();
 
             this.x = viewPort.x;
             this.y = viewPort.y;
             this.width = viewPort.width;
             this.height = viewPort.height;
 
+            window.addEventListener("resize", () => this.resize());
+        }
+
+        private resize() {
+            this.x = this.viewPort.x = 0 ;
+            this.y = this.viewPort.y = 0 ;
+            this.width = this.viewPort.width = window.innerWidth ;
+            this.height = this.viewPort.height = window.innerHeight ;
+            Egret3DDrive.canvas.width = this.viewPort.width;
+            Egret3DDrive.canvas.height = this.viewPort.height;
+            Egret3DDrive.canvasRectangle.x = this.x;
+            Egret3DDrive.canvasRectangle.y = this.y;
+            Egret3DDrive.canvasRectangle.width = this.width;
+            Egret3DDrive.canvasRectangle.height = this.height;
+            this.updateViewSizeData();
+
+            for (var i: number = 0; i < this._resizeFuncs.length; ++i) {
+                this._resizeFuncs[i]();
+            }
+        }
+
+        public set useShadow(flag: boolean) {
+            this._useShadow = flag; 
+            if (flag) {
+                this._shadowRender = new ShadowRender();
+            }
+        }
+
+        public get useShadow(): boolean {
+            return this._useShadow; 
+        }
+
+        protected requestFrameBuffer() {
+            if (this._isDeferred) {
+            }
+            else {
+                this._postCanvas = new PostCanvas(this);
+                //this._defaultFrameBuffer = RttManager.getInstance().creatFrameBuffer(FrameBuffer.defaultFrameBuffer, this._context3D, 1024, 1024);
+            }
+        }
+
+        public addListenerResize(func: Function) {
+            this._resizeFuncs.push(func);
+        }
+
+        public get viewPort(): Rectangle {
+            return this._viewPort;
+        }
+
+        public set sky(value: Sky) {
+            this._sky = value;
+        }
+
+        public set sphereSky(value: SphereSky) {
+            this._sphereSky = value;
+        }
+
+        public get sky(): Sky {
+            return this._sky;
+        }
+
+        public addHUD(hud: HUD) {
+            this._debugHUDList.push(hud);
+        }
+
+        public delHUN(hud: HUD) {
+            var index: number = this._debugHUDList.indexOf(hud);
+            this._debugHUDList.splice(index, 1);
+        }
+
+
+        public set backImageTexture(texture: TextureBase) {
+            if (!this._backImg) {
+                this._backImg = new HUD();
+                this._backImg.x = 0;// viewPort.width * 0.5  ;
+                this._backImg.y = 0;// * 0.5  ;
+                this._backImg.width = this.width;
+                this._backImg.height = this.height;
+            }
+            texture.upload( this._context3D );
+            this._backImg.texture = texture ;
+        }
+
+        public addPostEffect(postEffect: PostEffectBase) {
+            if (!this._postList) {
+                this._postList = new Array<PostEffectBase>();
+                //this._postNextFrameBuffer = RttManager.getInstance().creatFrameBuffer(FrameBuffer.nextFrameBuffer, this._context3D, 1024, 1024);
+            }
+            this._postList.push(postEffect);
         }
 
         public get collect(): CollectBase {
@@ -99,40 +213,87 @@
             this._globalPos.y = value;
             this._globalPosDirty = true;
         }
+        public get x(): number {
+            return this._x;
+        }
 
-        /**
-        * 初始化 GPU 交换程序
-        **/
-        private setContext3D() {
-
-            this._context3D.viewPort(this._viewPort.x, this._viewPort.y, this._viewPort.width, this._viewPort.height);
-
+        public get y(): number {
+            return this._y;
         }
 
         public addChild3D(child3D: Object3D) {
-            this._collect.addObject3D(child3D);
-            //child3D.parent = this._root;
+            this._root.addChild(child3D);
         }
 
-        public renden() {
+        public renden(time: number, delay: number) {
 
             this.updateViewSizeData();
+            this._context3D.gl.enable(Egret3DDrive.BLEND);
+            this._context3D.gl.enable(Egret3DDrive.CULL_FACE)
 
-            this._context3D.clear(0.4, 0.4, 0.6, 1);
+            this._context3D.viewPort(this._viewPort.x, this._viewPort.y, this._viewPort.width, this._viewPort.height);
+
+            this._context3D.clear(0.3, 0.3, 0.3, 1);
+
+            if (this._backImg)
+                this._backImg.draw(this._context3D);
 
             this._context3D.clearDepth(1);
 
-            this._context3D.clearStencil(1);
+            this._context3D.clearStencil(0);
 
             this._collect.update(this._camera);
 
-            this._render.renden(this._context3D , this._collect , this._camera );
+            //----------即时渲染部分-------------------
+            if (!this._isDeferred) {
 
-            this._context3D.flush();
+                //if (this._postList) {
+                //    RttManager.getInstance().drawFrameBuffserStart(time, delay, this._defaultFrameBuffer, this._render, this._context3D, this.collect, this._camera, this._viewPort);
+
+                //    if (this._sky) {
+                //        this._sky.draw(this._context3D, this.camera3D);
+                //    }
+                //    else if (this._sphereSky) {
+                //        this._sphereSky.draw(this._context3D, this.camera3D);
+                //    }
+
+                //    this._context3D.clearDepth(1);
+
+                //    RttManager.getInstance().drawFrameBufferEnd(time, delay, this._render, this._context3D, this.collect, this._camera, this._viewPort);
+
+                //    for (var i: number = 0; i < this._postList.length; i++) {
+                //        this._postList[i].drawToTarget(this._defaultFrameBuffer, this._postNextFrameBuffer, this._context3D);
+                //    }
+                //    this._postCanvas.draw(this._context3D, this._postNextFrameBuffer);
+                //}
+                //else {
+                    if (this._sky) {
+                        this._sky.draw(this._context3D, this.camera3D);
+                    }
+                    else if (this._sphereSky) {
+                        this._sphereSky.draw(this._context3D, this.camera3D);
+                    }
+
+                    if (this._useShadow) {
+                        RttManager.drawToTexture(time, delay, ShadowRender.frameBuffer.texture.texture, this._context3D, this._shadowRender , this.collect, this._camera, this.viewPort);
+                    }
+
+                    this._context3D.clearDepth(1);
+
+                    this._render.draw(time, delay, this._context3D, this.collect, this._camera);
+                //}
+            }
+            //----------延迟渲染部分-------------------
+      
+            for (var i: number = 0; i < this._debugHUDList.length; i++) {
+                this._debugHUDList[i].draw(this._context3D);
+            }
+
+            this._context3D.gl.finish();
 
         }
 
-        private updateViewSizeData() {
+        protected updateViewSizeData() {
 
             this._camera.aspectRatio = this._aspectRatio;
 

@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class CameraControllerBase {
 
         protected  _view3d:View3D;
@@ -10,7 +10,7 @@
         protected  _lockRect:Rectangle;
         protected  _cameraMoveHandler:Function;
         protected  _lockTarget:Boolean;
-        //protected  _cameraAnim:CameraAnim;
+        ///protected  _cameraAnim:CameraAnim;
 
         protected _lookAtPos: Vector3D = new Vector3D;
 
@@ -24,7 +24,7 @@
             this._lockRect = null;
             this._cameraMoveHandler = null;
             this._lockTarget = false;
-            //_cameraAnim = new CameraAnim();
+            ///_cameraAnim = new CameraAnim();
         }
         
         public start(angle: number, distance: number, wide: number, locked:Boolean, lockRect:Rectangle):void

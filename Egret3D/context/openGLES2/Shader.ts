@@ -1,5 +1,5 @@
-﻿module BlackSwan.openGLES {
-    export class Shader implements BlackSwan.Shader {
+﻿module Egret3D.openGLES {
+    export class Shader implements Egret3D.Shader {
         static ID_COUNT: number = 0;
         public id: number;
 

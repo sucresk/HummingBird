@@ -3,21 +3,19 @@
 <html lang="en">
     
 <head>
-    <meta charset="utf-8">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <title>BlackSwan3D test</title>
     <link rel="stylesheet" href="app.css" type="text/css">
-    <link rel="stylesheet" href="//Microsoft.WinJS.2.0.Preview/css/ui-dark.css" />
-    <link rel="stylesheet" href="//Microsoft.WinJS.2.0.Preview/css/ui-light.css" />
 
-    <!-- WinJS code -->
-    <script src="//Microsoft.WinJS.2.0.Preview/js/base.js"></script>
-    <script src="//Microsoft.WinJS.2.0.Preview/js/ui.js"></script> 
+    <script src="Egret3D/Egret3D.js"></script>
     
     <script src="Egret3D/context/base/IProgram3D.js"></script>
     <script src="Egret3D/context/base/IndexBuffer3D.js"></script>
     <script src="Egret3D/context/openGLES2/MipmapData.js"></script>
     <script src="Egret3D/context/base/Texture2D.js"></script>
-    <script src="Egret3D/context/base/Texture3D.js"></script>
+    <script src="Egret3D/context/base/ICubeTexture.js"></script>
     <script src="Egret3D/context/base/VertexBuffer3D.js"></script>
     <script src="Egret3D/context/base/Shader.js"></script>
 
@@ -25,7 +23,7 @@
     <script src="Egret3D/context/openGLES2/Program3D.js"></script>
     <script src="Egret3D/context/openGLES2/Shader.js"></script>
     <script src="Egret3D/context/openGLES2/Texture2D.js"></script>
-    <script src="Egret3D/context/openGLES2/Texture3D.js"></script>
+    <script src="Egret3D/context/openGLES2/CubeTexture.js"></script>
     <script src="Egret3D/context/openGLES2/VertexBuffer3D.js"></script>
     <script src="Egret3D/context/Context3D.js"></script>
     <script src="Egret3D/context/contextType/ContextSamplerType.js"></script>
@@ -39,6 +37,7 @@
     <script src="Egret3D/geom/Plane3D.js"></script>
     <script src="Egret3D/geom/CubeBoxBound.js"></script>
     <script src="Egret3D/geom/Matrix4_4.js"></script>
+    <script src="Egret3D/geom/EyesMatrix.js"></script>
     <script src="Egret3D/geom/PerspectiveMatrix.js"></script>
     <script src="Egret3D/geom/PlaneClassification.js"></script>
     <script src="Egret3D/geom/Matrix44Utils.js"></script>
@@ -46,61 +45,89 @@
     <script src="Egret3D/geom/Color.js"></script>
 
     <script src="Egret3D/texture/TextureBase.js"></script>
+    <script src="Egret3D/texture/SkyTexture.js"></script>
     <script src="Egret3D/texture/ImageTexture.js"></script>
     <script src="Egret3D/texture/CheckerboardTexture.js"></script>
+    <script src="Egret3D/texture/TextureUtil.js"></script>
 
     <script src="Egret3D/animation/IAnimation.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/AnimationHandler.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/Joint.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/JointPose.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/Skeleton.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/SkeletonPose.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/AnimationState.js"></script>
+    <script src="Egret3D/animation/skeletonAnimation/AnimationStateSet.js"></script>
     
-    <script src="Egret3D/material/shaderSystem/VarConfig.js"></script>
-    <script src="Egret3D/material/shaderSystem/AttributeType.js"></script>
-    <script src="Egret3D/material/shaderSystem/UniformType.js"></script>
-    <script src="Egret3D/material/shaderSystem/VaryingType.js"></script>
-    <script src="Egret3D/material/shaderSystem/VarRegister.js"></script>
-    <script src="Egret3D/material/shaderSystem/TmpVar.js"></script>
-    <script src="Egret3D/material/shaderSystem/Attribute.js"></script>
-    <script src="Egret3D/material/shaderSystem/Varying.js"></script>
-    <script src="Egret3D/material/shaderSystem/Uniform.js"></script>
-    <script src="Egret3D/material/shaderSystem/ConstVar.js"></script>
-    <script src="Egret3D/material/shaderSystem/Sampler2D.js"></script>
-    <script src="Egret3D/material/shaderSystem/Sampler3D.js"></script>
-    <script src="Egret3D/material/shaderSystem/ShaderBase.js"></script>
-
-    <script src="Egret3D/material/shaderSystem/shader/ShaderContent.js"></script>
-    <script src="Egret3D/material/shaderSystem/shader/ShaderSystemTool.js"></script>
+    <script src="Egret3D/core/shaderSystem/VarConfig.js"></script>
+    <script src="Egret3D/core/shaderSystem/AttributeType.js"></script>
+    <script src="Egret3D/core/shaderSystem/UniformType.js"></script>
+    <script src="Egret3D/core/shaderSystem/VaryingType.js"></script>
+    <script src="Egret3D/core/shaderSystem/VarRegister.js"></script>
+    <script src="Egret3D/core/shaderSystem/TmpVar.js"></script>
+    <script src="Egret3D/core/shaderSystem/Attribute.js"></script>
+    <script src="Egret3D/core/shaderSystem/Varying.js"></script>
+    <script src="Egret3D/core/shaderSystem/Uniform.js"></script>
+    <script src="Egret3D/core/shaderSystem/ConstVar.js"></script>
+    <script src="Egret3D/core/shaderSystem/Sampler2D.js"></script>
+    <script src="Egret3D/core/shaderSystem/Sampler3D.js"></script>
+    <script src="Egret3D/core/shaderSystem/ShaderBase.js"></script>
+    <script src="Egret3D/core/shaderSystem/shader/ShaderContent.js"></script>
+    <script src="Egret3D/core/shaderSystem/shader/ShaderSystemTool.js"></script>
 
     <script src="Egret3D/material/method/MethodUsageData.js"></script>
+    <script src="Egret3D/material/MaterialData.js"></script>
+    
     <script src="Egret3D/material/method/MethodBase.js"></script>
     <script src="Egret3D/material/method/VertexShader.js"></script>
     <script src="Egret3D/material/method/PixelShader.js"></script>
+    
     <script src="Egret3D/material/method/vs/StaticVertexMethod.js"></script>
-    <script src="Egret3D/material/method/vs/ColorVertexMethod.js"></script>
-    <script src="Egret3D/material/method/fs/ColorMethod.js"></script>
+    <script src="Egret3D/material/method/vs/ShadowVertexMethod.js"></script>
+    <script src="Egret3D/material/method/vs/SkinVertexMethod.js"></script>
+
+    <script src="Egret3D/material/method/fs/ShadowMapMethod.js"></script>
+    <script src="Egret3D/material/method/fs/NormalMethod.js"></script>
+    <script src="Egret3D/material/method/fs/DepthMethod.js"></script>
     <script src="Egret3D/material/method/fs/DiffuseMethod.js"></script>
-    <script src="Egret3D/material/method/fs/LightingMethod.js"></script>
+    <script src="Egret3D/material/method/fs/ShadowMapingMethod.js"></script>
+    
     <script src="Egret3D/material/pass/MaterialPassBase.js"></script>
-    <script src="Egret3D/material/pass/MaterialPassBase.js"></script>
-    <script src="Egret3D/material/pass/ColorPass.js"></script>
+
     <script src="Egret3D/material/pass/DiffuseMapPass.js"></script>
+
+    <script src="Egret3D/material/pass/DepthMapPass.js"></script>
+    <script src="Egret3D/material/pass/NormalMapPass.js"></script>
+    <script src="Egret3D/material/pass/ColorMapPass.js"></script>
+
+    <script src="Egret3D/material/pass/ShadowMapPass.js"></script>
     <script src="Egret3D/material/MaterialBase.js"></script>
     <script src="Egret3D/material/ColorMaterial.js"></script>
     <script src="Egret3D/material/TextureMaterial.js"></script>
 
+    <script src="Egret3D/core/traverse/Frustum.js"></script>
     <script src="Egret3D/core/node/Object3D.js"></script>
+    <script src="Egret3D/core/node/SphereSky.js"></script>
+    <script src="Egret3D/core/node/Sky.js"></script>
     <script src="Egret3D/core/node/Entity.js"></script>
     <script src="Egret3D/camera/Camera3D.js"></script>
-    <script src="Egret3D/core/node/RenderableItem.js"></script>
 
     <script src="Egret3D/lights/LightBase.js"></script>
     <script src="Egret3D/lights/DirectLight.js"></script>
     <script src="Egret3D/lights/PointLight.js"></script>
-    <script src="Egret3D/lights/SportLight.js"></script>
+    <script src="Egret3D/lights/SpotLight.js"></script>
     <script src="Egret3D/lights/LightGroup.js"></script>
 
     <!--<script src="Egret3D/core/render/IRender.js"></script>-->
     <script src="Egret3D/core/render/RenderBase.js"></script>
     <script src="Egret3D/core/render/DefaultRender.js"></script>
+    <script src="Egret3D/core/render/PositionRender.js"></script>
+    <script src="Egret3D/core/render/NormalRender.js"></script>
+    <script src="Egret3D/core/render/DepthRender.js"></script>
+    <script src="Egret3D/core/render/ShadowRender.js"></script>
     <script src="Egret3D/core/traverse/CollectBase.js"></script>
     <script src="Egret3D/core/traverse/EntityCollect.js"></script>
+    <script src="Egret3D/core/rtt/RttManager.js"></script>
     <script src="Egret3D/core/traverse/Layerfilter.js"></script>
     <script src="Egret3D/core/traverse/LayerfilterSystem.js"></script>
 
@@ -113,6 +140,7 @@
     <script src="Egret3D/geomtry/PlaneGeomtry.js"></script>
     <script src="Egret3D/geomtry/CylinderGeomtry.js"></script>
     <script src="Egret3D/geomtry/FaceData.js"></script>
+    <script src="Egret3D/geomtry/SkinGeomtry.js"></script>
 
     <script src="Egret3D/core/node/Mesh.js"></script>
 
@@ -122,8 +150,11 @@
     <script src="Egret3D/loader/parser/DDSParser.js"></script>
     <script src="Egret3D/loader/parser/E3DParser.js"></script>
     <script src="Egret3D/loader/parser/TGAParser.js"></script>
+    <script src="Egret3D/loader/parser/ESMParser.js"></script>
+    <script src="Egret3D/loader/parser/EAMParser.js"></script>
+    <script src="Egret3D/loader/parser/PVR.js"></script>
+    <script src="Egret3D/loader/parser/PVRParser.js"></script>
 
-    <script src="Egret3D/core/traverse/Frustum.js"></script>
     <script src="Egret3D/core/traverse/Octree.js"></script>
     <script src="Egret3D/core/traverse/Picker.js"></script>
 
@@ -155,20 +186,114 @@
     <script src="Egret3D/Util/DeviceUtil.js"></script>
     <script src="Egret3D/Util/ByteArray.js"></script>
     <script src="Egret3D/Util/StringUtil.js"></script>
-    <script src="Egret3D/Egret3D.js"></script>
+    
+    <script src="Egret3D/PostCanvas.js"></script>
+    <script src="Egret3D/DebugHUD.js"></script>
     <script src="Egret3D/View3D.js"></script>
+    <script src="Egret3D/VRView3D.js"></script>
+    <script src="Egret3D/input/Input.js"></script>
 
     <!--<script src="samplers/SampleBase.js"></script>-->
-    <script src="samplers/Sample_Base.js"></script>
-    <script src="samplers/Sample_Base_Depth.js"></script>
-    <script src="samplers/Sample_Base_Texture.js"></script>
+    <script src="samplers/Sample_Base_Egret_3D_VR.js"></script>
     <script src="samplers/Sample_Base_Egret_3D_Model.js"></script>
     <script src="samplers/Sample_Base_Egret_3D_Model_Anim.js"></script>
+    <script src="samplers/Sample_Base_Egret_3D_Pick.js"></script>
+    <script src="samplers/Sample_Base_Egret_3D_PickPlane.js"></script>
+    <script src="samplers/Sample_Base_Egret_3D_Model_FirstCamera.js"></script>
     <script src="app.js"></script>
+    <script src="dat.gui.js"></script>
+    <script src="Stats.js"></script>
+    <style>
+        #light {
+            position:absolute;
+            bottom:20px;
+            right:20px;
+        }
+        #console {
+            position:absolute;
+            top:20px;
+            left:100px;
+        }
+    </style>>
 </head>
-<body> 
-    <img id="myTexture" src="resource/jingjichang_1/MyModel/jingjichang_1_1.png" alt="smile" hidden="hidden">
-    <input id="light" style="z-index:1" width="120" height="25"/>
-  
+<body>
+    <div id="light"></div>
+    <div id="console"></div>
+
+
+    <!--image_front: HTMLImageElement,
+    image_back: HTMLImageElement,
+    image_left: HTMLImageElement,
+    image_right: HTMLImageElement,
+    image_up: HTMLImageElement,
+    image_down: HTMLImageElement
+        cloudy_noon_RT
+        cloudy_noon_LF
+        cloudy_noon_UP
+        cloudy_noon_DN
+        cloudy_noon_BK
+        cloudy_noon_FR
+        -->
+
+    <!--<img id="t1" src="resource/SkyBox/cloudy_noon_FR.png" hidden="false" />
+    <img id="t2" src="resource/SkyBox/cloudy_noon_BK.png" hidden="false" />
+    <img id="t3" src="resource/SkyBox/cloudy_noon_LF.png" hidden="false" />
+    <img id="t4" src="resource/SkyBox/cloudy_noon_RT.png" hidden="false" />
+    <img id="t5" src="resource/SkyBox/cloudy_noon_UP.png" hidden="false" />
+    <img id="t6" src="resource/SkyBox/cloudy_noon_DN.png" hidden="false" />-->  
+    
+    <!--<img id="t1" src="resource/SkyBox/EarthSimple3_b.png" hidden="false" />
+    <img id="t2" src="resource/SkyBox/EarthSimple3_f.png" hidden="false" />
+    <img id="t3" src="resource/SkyBox/EarthSimple3_l.png" hidden="false" />
+    <img id="t4" src="resource/SkyBox/EarthSimple3_r.png" hidden="false" />
+    <img id="t5" src="resource/SkyBox/EarthSimple3_u.png" hidden="false" />
+    <img id="t6" src="resource/SkyBox/EarthSimple3_d.png" hidden="false" />-->    
+
+
+    <img id="t1" src="resource/SkyBox/b.jpg" hidden="false" />
+    <img id="t2" src="resource/SkyBox/f.jpg" hidden="false" />
+    <img id="t3" src="resource/SkyBox/l.jpg" hidden="false" />
+    <img id="t4" src="resource/SkyBox/r.jpg" hidden="false" />
+    <img id="t5" src="resource/SkyBox/u.jpg" hidden="false" />
+    <img id="t6" src="resource/SkyBox/d.jpg" hidden="false" />
+    <!--<img id="skybox_clear" src="resource/SkyBox/skybox_clear.png" hidden="false" />-->
+    <!--<img id="skybox_clear" src="resource/SkyBox/skybox_sunset_3.png" hidden="false" />-->
+    <img id="skybox_clear" src="resource/SkyBox/skybox_night_2.png" hidden="false" />    
+    
+    <script>
+    window.addEventListener("touchmove", function (event) { event.preventDefault(); }, false);
+    if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+        var meta = document.getElementById("viewport");
+        meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+    }
+    </script>
+    <script>
+
+        //var gui = new dat.GUI();
+        //new BlackSwan.Gui.GuiController(gui);
+        //
+
+        var stats = new Stats();
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.top = '0px';
+        stats.domElement.style.zIndex = 100;
+        document.body.appendChild(stats.domElement);
+
+        BlackSwan.Gui.Stats.stats = stats;
+
+    </script>
 </body>
 </html>
+
+<!--2015.10.8
+新增：
+    Egret3D v0.02
+
+    1.Binnarry Geomtry
+    2.DDS dxt1/dxt5 Texture
+    3.Tga Texture
+    4.ShaderSystem
+
+    5.DirectLight
+    6.PointLight
+    7.SportLight-->

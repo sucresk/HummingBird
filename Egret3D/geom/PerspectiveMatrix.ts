@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class PerspectiveMatrix {
 
         private _matrix: Matrix4_4;

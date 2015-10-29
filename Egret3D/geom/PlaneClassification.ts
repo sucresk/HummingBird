@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class PlaneClassification {
         public static BACK: number = 0;
         public static FRONT: number = 1;

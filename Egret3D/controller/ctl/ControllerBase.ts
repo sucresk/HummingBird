@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class ControllerBase {
         protected _autoUpdate:boolean = true;
         protected _target: Object3D;
@@ -23,15 +23,15 @@
             if (this._target == val)
                 return;
 
-            //if (this._target && _autoUpdate)
-            //    this._target._controller = null;
+            ///if (this._target && _autoUpdate)
+            ///    this._target._controller = null;
 
             this._target = val;
 
-            //if (this._target && _autoUpdate)
-            //    this._target._controller = this;
+            ///if (this._target && _autoUpdate)
+            ///    this._target._controller = this;
 
-            //notifyUpdate();
+            ///notifyUpdate();
         }
 		
 		/**
@@ -47,19 +47,19 @@
 
             this._autoUpdate = val;
 
-            //if (this._target) {
-            //    if (_autoUpdate)
-            //        this._target._controller = this;
-            //    else
-            //        this._target._controller = null;
-            //}
+            ///if (this._target) {
+            ///    if (_autoUpdate)
+            ///        this._target._controller = this;
+            ///    else
+            ///        this._target._controller = null;
+            ///}
         }
 
 
         protected  notifyUpdate()
 		{
-            //if (_targetObject && _targetObject.implicitPartition && _autoUpdate)
-            //    _targetObject.implicitPartition.markForUpdate(_targetObject);
+            ///if (_targetObject && _targetObject.implicitPartition && _autoUpdate)
+            ///    _targetObject.implicitPartition.markForUpdate(_targetObject);
         }
 		
 
@@ -68,7 +68,7 @@
          * Manually applies updates to the target 3D object.
          */
         public  update(interpolate: Boolean = true){
-            //throw null ;
+            ///throw null ;
         }
     }
 }

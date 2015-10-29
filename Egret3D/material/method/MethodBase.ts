@@ -1,20 +1,38 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class MethodBase {
+        protected materialData: MaterialData;
         protected usage: MethodUsageData;
-        protected methodName: string = "" ; 
+        protected vsMethodName: string = ""; 
+        protected fsMethodName: string = ""; 
+        protected context3D: Context3D;
+
+        public acceptShadow: boolean = false;
         constructor() {
         }
-        public getMethodName(usage: MethodUsageData): string {
+
+        public setMaterialData(materialData: MaterialData, usage: MethodUsageData ) {
             this.usage = usage;
-            return this.methodName ;
+            this.materialData = materialData;
         }
 
+        public get vertexMethodName(): string {
+            return this.vsMethodName; 
+        }
 
-        public activate(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D ) {
+        public get fragMethodName(): string {
+            return this.fsMethodName;
+        }
+
+        public activate(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D ,geometry:GeometryBase , animation:IAnimation ) {
             //change constData
+            this.context3D = context3D;
         }
 
-        public updata(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D ) {
+        public updata(context3D: Context3D, program3D: IProgram3D, modeltransform: Matrix4_4, camera3D: Camera3D, geometry:GeometryBase , animation: IAnimation ) {
+
+        }
+
+        public dispose() {
         }
     }
 }

@@ -1,29 +1,42 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class PixelShader extends GLSL.ShaderBase {
        
-        constructor() {
-            super();
+        constructor(materialData: MaterialData, usage: MethodUsageData) {
+            super(materialData, usage);
+            this.useage = usage;
+            this.materialData = materialData;
         }
 
-        public setUsage(usage: MethodUsageData) {
-            this.useage = usage;
-            //if (this.skyLight)
-            //    shaderList.push("skyLightShader");
-            //if (this.directLightNumber > 0)
-            //    shaderList.push("directLight");
-            //if (this.pointLightNumber > 0)
-            //    shaderList.push("pointLight");
-            //根据 geomtry 类型 确定用什么 基本的 顶点着色器
-            //拿到 顶点method list
-            var shaderNameList: Array<string> = new Array<string>();
+        public addMethod(method: MethodBase) {
+            this.stateChange = true;
+            this.useage.fsMethodList.push(method);
+        }
 
+        public addEffectMethod(method: EffectMethod) {
+            this.stateChange = true;
+            this.useage.effectMethodList.push(method);
+        }
+
+        public getShaderSource(): string {
+            var shaderSource: string = super.getShaderSource();
+            var index: number = shaderSource.lastIndexOf("}");
+            var endS: string = shaderSource.substr(index, shaderSource.length - index);
+
+            shaderSource = shaderSource.substr(0, index);
+            shaderSource += "   gl_FragColor = diffuse;\r\n";
+            shaderSource += endS;
+            return shaderSource ;
+        }
+
+        public build() {
+            this.stateChange = false;
             for (this.index = 0; this.index < this.useage.fsMethodList.length; this.index++) {
-                var shaderName: string = this.useage.fsMethodList[this.index].getMethodName(usage);
-                shaderNameList.push(shaderName);
+                this.useage.fsMethodList[this.index].setMaterialData(this.materialData, this.useage);
             }
-
-            this.getShader(shaderNameList);
-
+            this.stateChange = false;
+            for (this.index = 0; this.index < this.useage.effectMethodList.length; this.index++) {
+                this.useage.effectMethodList[this.index].setMaterialData(this.materialData, this.useage);
+            }
         }
        
     }

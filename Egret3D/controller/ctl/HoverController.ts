@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class HoverController extends LookAtController{
         private _currentPanAngle: number = 0;
         private _currentTiltAngle: number = 90;
@@ -31,7 +31,7 @@
             this.yFactor = yFactor;
             this.wrapPanAngle = wrapPanAngle;
 			
-            //values passed in contrustor are applied immediately
+            ///values passed in contrustor are applied immediately
             this._currentPanAngle = this.panAngle;
             this._currentTiltAngle = this.tiltAngle;
         }
@@ -253,7 +253,7 @@
                 this._currentTiltAngle = this._tiltAngle;
             }
 				
-            //snap coords if angle differences are close
+            ///snap coords if angle differences are close
             if ((Math.abs(this.tiltAngle - this._currentTiltAngle) < 0.01) && (Math.abs(this._panAngle - this._currentPanAngle) < 0.01)) {
                 this._currentTiltAngle = this._tiltAngle;
                 this._currentPanAngle = this._panAngle;

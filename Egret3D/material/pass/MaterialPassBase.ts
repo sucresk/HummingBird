@@ -1,121 +1,110 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class MaterialPassBase {
         
         protected shaderChange: boolean = false;
         protected context3DChange: boolean = false;
-        protected useageData: MethodUsageData;
+
+        protected materialData: MaterialData;
 
         protected vertexShader: VertexShader;
         protected pixelShader: PixelShader;
 
-        private count: number = 0;
-        private num_light: number = 0;
+        protected methodList: Array<MethodBase>;
+        protected effectMethodList: Array<EffectMethod>;
 
-        private castShadow: boolean = false;
-        private castLightNumber: number = 8;
+        public diffuseMethod: MethodBase;
 
-        constructor(usage: MethodUsageData = null) {
-            if (usage)
-                this.useageData = usage; 
-            else
-                this.useageData = new MethodUsageData();
+        protected animation: IAnimation;
+        constructor(data: MaterialData = null) {
+            this.materialData = data; 
+        }
 
-            this.vertexShader = new VertexShader();
-            this.pixelShader = new PixelShader();
+        public addMethod(method: MethodBase) {
+            this.methodList = this.methodList || new Array<MethodBase>();
+            this.methodList.push(method);
+            this.shaderChange = true;
+        }
+
+        public removeMethod(method: MethodBase) {
+            var index: number = this.methodList.indexOf(method);
+            this.methodList.splice(index, 1);
+            method.dispose();
+        }
+
+        public addEffectMethod(method: EffectMethod) {
+            this.effectMethodList = this.effectMethodList || new Array<EffectMethod>();
+            this.effectMethodList.push(method);
+            this.shaderChange = true;
+        }
+
+        public removeEffectMethod(method: EffectMethod) {
+            var index: number = this.effectMethodList.indexOf(method);
+            this.effectMethodList.splice(index, 1);
+            method.dispose();
+        }
+
+        public set cullMode(value: number) {
+            this.materialData.cullFrontOrBack = value;
+        }
+
+        public get cullMode( ): number {
+            return this.materialData.cullFrontOrBack ;
+        }
+
+        public set bothSides(flag: boolean) {
+            this.materialData.cullFrontOrBack = -1; 
+        }
+
+        public get bothSides( ): boolean {
+            if (this.materialData.cullFrontOrBack == -1)
+                return true
+            return false ;
         }
 
         public set lightGroup(lights: Array<LightBase> ) {
-            if (this.useageData.lights.length < 8) {
-                this.useageData.lights = lights;
-
-                if (this.useageData.lightData) {
-                    delete this.useageData.lightData;
-                }
-
-                this.useageData.lightData = new Float32Array(lights.length * 24);
-                for (var i: number = 0; i < this.num_light; i++) {
-                    this.useageData.lightData[i] = 0 ;
-                }
-
-                if (this.num_light != this.useageData.lights.length) {
-                    this.shaderChange = true;
-                }
-                this.num_light = this.useageData.lights.length; 
-            } else {
-                alert( "请检查，同一个材质有了超过８个灯光，上限为８个"　);
-            }
-        }
-
-        public addVertexMethod(method: MethodBase) {
-            this.useageData.vsMethodList.push(method);
-        }
-
-        public addFragmentMethod( method: MethodBase) {
-            this.useageData.fsMethodList.push(method);
+      
         }
 
         /**
         * 初始化 shader 的地方
         **/
-        public initShader(context3D: Context3D, geomtry: GeomtryBase, animation: IAnimation) {
+        public initShader(context3D: Context3D, geomtry: GeometryBase, animation: IAnimation) {
+            this.animation = animation; 
+        }
 
-            this.useageData.context3D = context3D;
-            this.useageData.geomtryBase = geomtry;
+        protected resetTexture() {
 
-            this.buildShader(context3D);
-
-            this.context3DChange = true;
         }
 
         private buildShader(context3D: Context3D) {
-            if (this.shaderChange) {
-                this.shaderChange = false;
-
-                this.vertexShader.setUsage(this.useageData);
-                this.pixelShader.setUsage(this.useageData);
-
-                var vs: string = this.vertexShader.getShaderSource();
-                var fs: string = this.pixelShader.getShaderSource();
-
-                var vs_shader: Shader = context3D.creatVertexShader(vs);
-                var fs_shader: Shader = context3D.creatFragmentShader(fs);
-
-                this.useageData.program3D = context3D.creatProgram(vs_shader, fs_shader);
-            }
+          
         }
          
-        public activate(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
-           
-            this.vertexShader.activate(context3D, this.useageData.program3D, modeltransform, camera3D );
-            this.pixelShader.activate(context3D, this.useageData.program3D, modeltransform, camera3D);
+        public activate(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D, geometry: GeometryBase, animation: IAnimation ) {
         }
 
-        public updata(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
-
-            if (this.num_light > 0) {
-                for (var i: number = 0; i < this.num_light;i++ ){
-                    this.useageData.lights[i].updata( i , this.useageData.lightData ); 
-                }
+        public draw(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D, geometry: GeometryBase, animation: IAnimation) {
+            var i: number = 0;
+           
+            if (this.materialData.depthTest) {
+                context3D.gl.enable(context3D.gl.DEPTH_TEST);
+                context3D.gl.depthFunc(context3D.gl.LEQUAL);
             }
-
-
-            if (this.context3DChange) {
-                this.activate(context3D, modeltransform, camera3D);
-                this.context3DChange = false;
+            else {
+                context3D.gl.disable(context3D.gl.DEPTH_TEST);
+                context3D.gl.depthFunc(context3D.gl.LEQUAL);
             }
+            //context3D.gl.enable(context3D.gl.POLYGON_OFFSET_FILL);
+            //context3D.gl.polygonOffset(1.0,1.0);
 
-            context3D.setProgram(this.useageData.program3D);
-            context3D.enableDepthTest(true, 0);
-            context3D.enbable(Egret3D.BLEND);
+            context3D.gl.cullFace(this.materialData.cullFrontOrBack);
+            context3D.setBlendFactors(this.materialData.blend_src, this.materialData.blend_dest);
 
-            this.vertexShader.updata(context3D, this.useageData.program3D, modeltransform, camera3D);
-            this.pixelShader.updata(context3D, this.useageData.program3D, modeltransform, camera3D);
-
-            context3D.drawElement(Egret3D.TRIANGLES, this.useageData.geomtryBase.sharedIndexBuffer, 0, this.useageData.geomtryBase.numItems);
+            if (this.materialData.alphaBlending)
+                context3D.gl.depthMask(false);
         }
 
         public unActive(context3D: Context3D, camera3D: Camera3D) {
-
         }
 
     }

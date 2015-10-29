@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class UV {
         public u: number = 0;
         public v: number = 0;

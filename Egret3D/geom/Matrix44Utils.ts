@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     
     export class Matrix3DUtils {
 

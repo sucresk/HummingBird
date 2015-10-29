@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class Point {
         /**
 	 * The horizontal coordinate of the point. The default value is 0.

@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class Frustum {
         public box: CubeBoxBound;
 
@@ -8,6 +8,10 @@
 
         private _pos: Vector3D;
         private _plane: Array<Plane3D>;
+
+        public center: Vector3D;
+
+        private _curVer: Array<Vector3D>;
 
         constructor() {
             this._vertex = new Array<Vector3D>();
@@ -21,58 +25,98 @@
                 this._plane.push(new Plane3D());
             }
             this.box = new CubeBoxBound(new Vector3D(), new Vector3D());
-            //this.box = new CubeBoxBound(new Vector3D(99999.0, 99999.0, 99999.0), new Vector3D(-99999.0, -99999.0, -99999.0));
+            ///this.box = new CubeBoxBound(new Vector3D(99999.0, 99999.0, 99999.0), new Vector3D(-99999.0, -99999.0, -99999.0));
+            this.center = new Vector3D();
         }
 
         public makeFrustum(fovY: number, aspectRatio: number, nearPlane: number, farPlane: number) {
+            ///var tangent: number = Math.tan(fovY / 2.0 * (Math.PI / 180.0));
             var tangent: number = Math.tan(fovY / 2.0 * (Math.PI / 180.0));
+
             var nearHeight: number = nearPlane * tangent;
             var nearWidth: number = nearHeight * aspectRatio;
             var farHeight: number = farPlane * tangent;
             var farWidth: number = farHeight * aspectRatio;
 
-            // near top right
+            /// near top right
             this._vertex[0].x = nearWidth;
             this._vertex[0].y = nearHeight;
             this._vertex[0].z = nearPlane;
-            // near top left
+            /// near top left
             this._vertex[1].x = -nearWidth;
             this._vertex[1].y = nearHeight;
             this._vertex[1].z = nearPlane;
-            // near bottom left
+            /// near bottom left
             this._vertex[2].x = -nearWidth;
             this._vertex[2].y = -nearHeight;
             this._vertex[2].z = nearPlane;
-            // near bottom right
+            /// near bottom right
             this._vertex[3].x = nearWidth;
             this._vertex[3].y = -nearHeight;
             this._vertex[3].z = nearPlane;
-            // far top right
+            /// far top right
             this._vertex[4].x = farWidth;
             this._vertex[4].y = farHeight;
             this._vertex[4].z = farPlane;
-            // far top left
+            /// far top left
             this._vertex[5].x = -farWidth;
             this._vertex[5].y = farHeight;
             this._vertex[5].z = farPlane;
-            // far bottom left
+            /// far bottom left
             this._vertex[6].x = -farWidth;
             this._vertex[6].y = -farHeight;
             this._vertex[6].z = farPlane;
-            // far bottom right
+            /// far bottom right
             this._vertex[7].x = farWidth;
             this._vertex[7].y = -farHeight;
             this._vertex[7].z = farPlane;
+
+
+            ////// near top right
+            ///this._vertex[0].x = 1;
+            ///this._vertex[0].y = 1;
+            ///this._vertex[0].z = 0;
+            ////// near top left
+            ///this._vertex[1].x = -1;
+            ///this._vertex[1].y = 0;
+            ///this._vertex[1].z = 0;
+            ////// near bottom left
+            ///this._vertex[2].x = -1;
+            ///this._vertex[2].y = -1;
+            ///this._vertex[2].z = 0;
+            ////// near bottom right
+            ///this._vertex[3].x = 1;
+            ///this._vertex[3].y = -1;
+            ///this._vertex[3].z = 0;
+            ////// far top right
+            ///this._vertex[4].x = 1;
+            ///this._vertex[4].y = 1;
+            ///this._vertex[4].z = 1;
+            ////// far top left
+            ///this._vertex[5].x = -1;
+            ///this._vertex[5].y = 1;
+            ///this._vertex[5].z = 1;
+            ////// far bottom left
+            ///this._vertex[6].x = -1;
+            ///this._vertex[6].y = -1;
+            ///this._vertex[6].z = 1;
+            ////// far bottom right
+            ///this._vertex[7].x = 1;
+            ///this._vertex[7].y = -1;
+            ///this._vertex[7].z = 1;
         }
 
-        make(camera: Camera3D) {
+        public make(camera: Camera3D) {
 
-            //this.makeFrustum(camera.cameraMatrix.fieldOfView, camera.cameraMatrix.aspectRatio, camera.cameraMatrix.near, 3000.0);
+            this.makeFrustum(camera.fieldOfView, camera.aspectRatio, camera.near, camera.far);
 
-            // 摄像机变化之后的顶点也变化;
+            /// 摄像机变化之后的顶点也变化;
             var vtx: Array<Vector3D> = new Array<Vector3D>();
             var mat: Matrix4_4 = new Matrix4_4();
-            //mat.copyFrom(camera.transform);
+            mat.copyFrom(camera.modelMatrix);
+            ///mat.invert(); /// 眼睛的世界矩阵;
+
+            this._curVer = vtx;
 
             for (var i: number = 0; i < this._vtxNum; ++i) {
                 vtx.push(mat.transformVector(this._vertex[i]));
@@ -100,22 +144,38 @@
                 }
             }
 
-            this._plane[0].fromPoints(vtx[4], vtx[5], vtx[6]);        // 远平面(far);
-            this._plane[1].fromPoints(vtx[1], vtx[6], vtx[5]);        // 左平面(left);
-            this._plane[2].fromPoints(vtx[0], vtx[4], vtx[7]);        // 右平面(right);
+            this.box.computeData();
 
-            this._plane[3].fromPoints(vtx[1], vtx[0], vtx[3]);        // 近平面(near);
-            this._plane[4].fromPoints(vtx[1], vtx[5], vtx[4]);        // 上平面(top);
-            this._plane[5].fromPoints(vtx[3], vtx[7], vtx[6]);        // 下平面(bottom);
+            this._plane[0].fromPoints(vtx[4], vtx[5], vtx[6]);        /// 远平面(far);
+            this._plane[1].fromPoints(vtx[1], vtx[6], vtx[5]);        /// 左平面(left);
+            this._plane[2].fromPoints(vtx[0], vtx[4], vtx[7]);        /// 右平面(right);
+
+            this._plane[3].fromPoints(vtx[1], vtx[0], vtx[3]);        /// 近平面(near);
+            this._plane[4].fromPoints(vtx[1], vtx[5], vtx[4]);        /// 上平面(top);
+            this._plane[5].fromPoints(vtx[3], vtx[7], vtx[6]);        /// 下平面(bottom);
             for (var i: number = 0; i < this._planeNum; i++) {
                 this._plane[i].normalize();
             }
+
+            var nearCenter: Vector3D = new Vector3D();
+            nearCenter.copyFrom(vtx[0].subtract(vtx[2]));
+            nearCenter.scaleBy(0.5);
+            nearCenter.copyFrom(vtx[2].add(nearCenter));
+
+            var farCenter: Vector3D = new Vector3D();
+            farCenter.copyFrom(vtx[4].subtract(vtx[6]));
+            farCenter.scaleBy(0.5);
+            farCenter.copyFrom(vtx[6].add(farCenter));
+
+            this.center.copyFrom(farCenter.subtract(nearCenter));
+            this.center.scaleBy(0.5);
+            this.center.copyFrom(nearCenter.add(this.center));
         }
 
-        inPoint(pos: Vector3D): boolean {
+        public inPoint(pos: Vector3D): boolean {
             var dis: number = 0;
             for (var i: number = 0; i < this._plane.length; ++i) {
-                dis = (this._plane[i].a * pos.x + this._plane[i].b * pos.y + this._plane[i].c * pos.z + this._plane[i].d);
+                dis = this._plane[i].distance(pos);
                 if (dis > 0.0) {
                     return false;
                 }
@@ -123,10 +183,10 @@
             return true;
         }
 
-        inSphere(center: Vector3D, radius: number): boolean {
+        public inSphere(center: Vector3D, radius: number): boolean {
             var dis: number = 0;
             for (var i: number = 0; i < this._plane.length; ++i) {
-                dis = (this._plane[i].a * center.x + this._plane[i].b * center.y + this._plane[i].c * center.z + this._plane[i].d);
+                dis = this._plane[i].distance(center);
                 if (dis > radius) {
                     return false;
                 }
@@ -134,13 +194,16 @@
             return true;
         }
 
-        inBox(box: CubeBoxBound): boolean {
+        public inBox(box: CubeBoxBound): boolean {
             var v: Array<Vector3D> = new Array<Vector3D>();
             var dis: number = 0;
+
+            var temp: Vector3D = new Vector3D();
             for (var i: number = 0; i < this._plane.length; ++i) {
                 var incount: number = box.vexData.length / 3;
                 for (var j: number = 0; j < box.vexData.length; j += 3) {
-                    dis = (this._plane[i].a * box.vexData[j] + this._plane[i].b * box.vexData[j + 1] + this._plane[i].c * box.vexData[j + 2] + this._plane[i].d);
+                    temp.setTo(box.vexData[j], box.vexData[j + 1], box.vexData[j + 2]);
+                    dis = this._plane[i].distance(temp);
                     if (dis > 0) {
                         incount--;
                     }
@@ -154,7 +217,7 @@
             return true;
         }
 
-        getPos(): Vector3D {
+        public getPos(): Vector3D {
             return this._pos;
         }
     }

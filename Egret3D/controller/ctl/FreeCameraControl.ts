@@ -1,4 +1,4 @@
-﻿module BlackSwan {
+﻿module Egret3D {
     export class FreeCameraControl extends CameraControllerBase {
 
         private _moveSpeed: number = 3;
@@ -20,102 +20,76 @@
         public start(angle: number, distance: number, wide: number, locked: boolean, lockRect: Rectangle) {
             super.start(angle, distance, wide, locked, lockRect);
 
-            window.onmousewheel = (e: MouseWheelEvent) => this.mouseWheel(e);
-
-            window.onkeydown = (e: KeyboardEvent) => this.keyDown(e);
-            window.onkeyup = (e: KeyboardEvent) => this.keyUp(e);
-
-            window.onmousedown = (e: MouseEvent) => this.mouseStart(e);
-            window.onmouseup = (e: MouseEvent) => this.mouseEnd(e);
-            window.onmousemove = (e: MouseEvent) => this.mouseMove(e);
+            Input.instance.addListenerKeyDown((key: number) => this.onKeyDown(key));
+            Input.instance.addListenerKeyUp((key: number) => this.onKeyUp(key));
+            Input.instance.addListenerMouseMove(() => this.mouseMove());
+            Input.instance.addListenerMouseWheel(() => this.mouseWheel());
         }
 
         public stop() {
           
         }
 
-        public mouseEnd(e: MouseEvent) {
-            this._mouseDown = false;
-
-            if (e.button == 0) {
-                this._view3d.onMouseEvent(MouseEventType.mouse_LEnd);
-            }
-            else {
-                this._view3d.onMouseEvent(MouseEventType.mouse_REnd);
-            }
-        }
-
-        public mouseStart(e: MouseEvent) {
-            this._mouseDown = true;
-            this._screenMoveStartDetail.x = e.screenX;
-            this._screenMoveStartDetail.y = e.screenY;
-
-            if (e.button == 0) {
-                this._view3d.onMouseEvent(MouseEventType.mouse_LStart);
-            }
-            else {
-                this._view3d.onMouseEvent(MouseEventType.mouse_RStart);
-            }
-        }
-
-        public mouseMove(e: MouseEvent) {
-            BlackSwan.Egret3D.mouseX = e.clientX - BlackSwan.Egret3D.clientRect.left;
-            BlackSwan.Egret3D.mouseY = e.clientY - BlackSwan.Egret3D.clientRect.top;
-            this._view3d.onMouseEvent(MouseEventType.mouse_Move);
-            if (this._mouseDown) {
-                this._screenMoveDelay.x = e.screenX - this._screenMoveStartDetail.x;
-                this._screenMoveDelay.y = e.screenY - this._screenMoveStartDetail.y;
-
-                this._view3d.camera3D.rotationY -= this._screenMoveDelay.x * 0.005
-                this._view3d.camera3D.rotationX -= this._screenMoveDelay.y * 0.005;
-
-                this._screenMoveStartDetail.x = e.screenX;
-                this._screenMoveStartDetail.y = e.screenY;
-            }
-        }
-
-        public keyDown(e: KeyboardEvent) {
-            switch (e.keyCode){
-                case 87://w
+        public onKeyDown(key: number) {
+            switch (key) {
+                case KeyCode.Key_Mouse_Left:
+                    this._mouseDown = true;
+                    break;
+                case KeyCode.Key_W:
                     this._moveDetail.z = this._moveSpeed;
                     break;
-                case 65://a
+                case KeyCode.Key_A:
                     this._moveDetail.x = this._moveSpeed;
+
                     break;
-                case 83://s
+                case KeyCode.Key_S:
                     this._moveDetail.z = -this._moveSpeed;
                     break;
-                case 68://d
+                case KeyCode.Key_D:
                     this._moveDetail.x = -this._moveSpeed;
                     break;
             }
         }
 
-        public keyUp(e: KeyboardEvent) {
-            switch (e.keyCode) {
-                case 87://w
-                    this._moveDetail.z =  0 ;
-                    break;              
-                case 65://a               
-                    this._moveDetail.x =  0 ;
-                    break;                
-                case 83://s              
-                    this._moveDetail.z =  0 ;
-                    break;                
-                case 68://d              
+        public onKeyUp(key: number) {
+            switch (key) {
+                case KeyCode.Key_Mouse_Left:
+                    this._mouseDown = false;
+                    break;
+                case KeyCode.Key_W:///w
+                    this._moveDetail.z = 0;
+                    break;
+                case KeyCode.Key_A:///a               
+                    this._moveDetail.x = 0;
+                    break;
+                case KeyCode.Key_S:///s              
+                    this._moveDetail.z = 0;
+                    break;
+                case KeyCode.Key_D:///d              
                     this._moveDetail.x = 0;
                     break;
             }
         }
 
-        public mouseWheel(e: MouseWheelEvent) {
-            this._view3d.camera3D.rotationY += (e.wheelDelta * 0.0001) ;
-            //this._view3d.camera3D.z += e.wheelDelta;
+
+        public mouseMove() {
+
+            ///this._view3d.onMouseEvent(MouseEventType.mouse_Move);
+            if (this._mouseDown) {
+
+                this._view3d.camera3D.rotationY -= Input.instance.mouseOffsetX * 0.1;
+                this._view3d.camera3D.rotationX -= Input.instance.mouseOffsetY * 0.1;
+            }
+        }
+
+        public mouseWheel() {
+            this._view3d.camera3D.rotationY += (Input.instance.wheelDelta * 0.0001) ;
+            ///this._view3d.camera3D.z += e.wheelDelta;
         }
 
         public update(timer: number, elapsed: number): void {
-            this._view3d.camera3D.moveLeft(-this._moveDetail.x);
-            this._view3d.camera3D.moveForward(this._moveDetail.z);
+            ///this._view3d.camera3D.moveLeft(-this._moveDetail.x);
+            ///this._view3d.camera3D.moveForward(this._moveDetail.z);
         }
     }
 } 
