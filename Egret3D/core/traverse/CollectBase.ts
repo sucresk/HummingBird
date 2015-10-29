@@ -3,104 +3,69 @@
 
         public numObject3D: number = 0;
 
-        protected _renderList: Array<Object3D>;
+        public renderList: Array<Object3D>;
         protected _nodes: Array<Object3D>;
 
-        protected _nocutList: Array<Object3D>;
+        protected _num: number = 0;
 
-        protected _frustum: Frustum;
-        protected _octree: Octree;
-        protected _layerSystem: LayerFilterSystem;
-
-        constructor(t:number = 1) {
-            this._renderList = new Array<Object3D>();
+        private _rootNode: Object3D;
+        private _tempRootNode: Object3D;
+        private _objDict: { [id: number]: number; } = {};
+        constructor(root:Object3D){
+            this.renderList = new Array<Object3D>();
             this._nodes = new Array<Object3D>();
-            this._nocutList = new Array<Object3D>();
+            this._rootNode = root;
 
-            this._frustum = new Frustum();
-            this._octree = new Octree();
-            this._octree.InitOctree(3, new BlackSwan.CubeBoxBound(new BlackSwan.Vector3D(-3000.0, -3000.0, -3000.0), new BlackSwan.Vector3D(3000.0, 3000.0, 3000.0)));
-
-            this._layerSystem = new LayerFilterSystem();
-            this._layerSystem.createLayer(1);
+            Octree.getInstance().InitOctree(3, new BlackSwan.CubeBoxBound(new BlackSwan.Vector3D(-3000.0, -3000.0, -3000.0), new BlackSwan.Vector3D(3000.0, 3000.0, 3000.0)));
         }
         
+        private applyRender(child: Object3D, camera: Camera3D ) {
+            for (var i: number = 0; i < child.childs.length; i++){
+                if (!child.childs[i].isCut) {
+                    this.renderList.push(child.childs[i]);
+                }
+                else {
+                    if (camera.isVisible(child.childs[i])) {
+                        this.renderList.push(child.childs[i]);
+                    }
+                }
+                this.applyRender(child.childs[i], camera);
+            }
+        }
+
         public update(camera: Camera3D) {
+            this.renderList = this._nodes;
+            this.renderList.length = 0;
+            camera._frustum.make(camera);
 
-            this._renderList = this._nodes;
-            //this._frustum.make(camera);
-
-            //this._layerSystem.clear();
-
-            //for (var i: number = 0; i < this._nocutList.length; ++i) {
-            //    this._layerSystem.addObject3D(this._nocutList[i]);
-            //}
-
-            //var octreeNodes: Array<OctreeNode> = this._octree.getFrustumNodes(this._frustum);
-
-            //for (var i: number = 0; i < octreeNodes.length; ++i) {
-            //    for (var j: number = 0; j < octreeNodes[i].objList.length; ++j) {
-            //        var box: CubeBoxBound = octreeNodes[i].objList[j].box.Transform(octreeNodes[i].objList[j].transform);
-
-            //        if (this._frustum.inBox(box)) {
-            //            this._layerSystem.addObject3D(octreeNodes[i].objList[j]);
-            //        }
-            //    }
-            //}
-
-            //this._layerSystem.update();
-
-            //this._renderList = this._layerSystem.getRenderList();
-
-            //var pickList: Array<PickResult> = null;
-            //pickList = Picker.pickObject3DList(camera, this._renderList);
-            //for (var i: number = 0; i < pickList.length; ++i) {
-            //    pickList[i].target.rotationY++;
-            //}
-        }
-
-        public addObject3D(obj: Object3D ) {
-            this._nodes.push(obj);
-            this.numObject3D = this._nodes.length;
-            obj.renderLayer = 1;
-            if (obj.isCut) {
-                this._octree.addObject3D(obj);
+            //this.applyRender(this._rootNode, camera);
+            for (var i: number = 0; i < Octree.getInstance().renderList.length; ++i) {
+                this.renderList.push(Octree.getInstance().renderList[i]);
             }
-            else {
-                this._nocutList.push(obj);
-            }
-        }
 
-        public delObject3D(obj: Object3D) {
-            if (obj.isCut == false) {
-                var idx: number = this.findNocutObject3D(obj);
-                if (idx >= 0) {
-                    this._nocutList.splice(idx, 1);
+            this._objDict = {};
+            var octreeNodes: Array<OctreeNode> = Octree.getInstance().getFrustumNodes(camera._frustum);
+            for (var i: number = 0; i < octreeNodes.length; ++i) {
+                for (var j: number = 0; j < octreeNodes[i].objList.length; ++j) {
+                    //if (this.findRenderObject(octreeNodes[i].objList[j]) != -1) {
+                    //    continue;
+                    //}
+
+                    if (this._objDict[octreeNodes[i].objList[j].id] != undefined) {
+                        continue;
+                    }
+
+                    if (camera.isVisible(octreeNodes[i].objList[j])){
+                        this.renderList.push(octreeNodes[i].objList[j]);
+                        this._objDict[octreeNodes[i].objList[j].id] = octreeNodes[i].objList[j].id;
+                    }
                 }
             }
-            var index: number = this.findObject3D(obj);
-            if (index >= 0) {
-                this._nodes.splice(index, 1);
-                this.numObject3D = this._nodes.length;
-            }
         }
 
-        public findObject3D(obj: Object3D): number {
-            for (var i: number = 0; i < this._nodes.length; ++i) {
-                if (this._nodes[i] === obj) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        public get renderList(): Array<Object3D> {
-            return this._renderList;
-        }
-
-        private findNocutObject3D(obj: Object3D): number {
-            for (var i: number = 0; i < this._nocutList.length; ++i) {
-                if (this._nocutList[i] === obj) {
+        public findRenderObject(obj: Object3D): number {
+            for (var i: number = 0; i < this.renderList.length; ++i) {
+                if (this.renderList[i] === obj) {
                     return i;
                 }
             }

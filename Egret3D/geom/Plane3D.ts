@@ -36,25 +36,13 @@
             this.b = b;
             this.c = c;
             this.d = d;
+        }
 
-            if (a == 0 && b == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XY_AXIS;
-
-            } else if (b == 0 && c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_YZ_AXIS;
-
-            } else if (a == 0 && c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XZ_AXIS;
-
-            } else {
-
-                this._iAlignment = Plane3D.ALIGN_ANY;
-
-            }
-
+        public setTo(a: number = 0, b: number = 0, c: number = 0, d: number = 0) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
         }
 
         /**
@@ -76,26 +64,6 @@
             this.b = d1z * d2x - d1x * d2z;
             this.c = d1x * d2y - d1y * d2x;
             this.d = -(this.a * p0.x + this.b * p0.y + this.c * p0.z);
-
-            // not using epsilon, since a plane is infinite and a small incorrection can grow very large
-            if (this.a == 0 && this.b == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XY_AXIS;
-
-            } else if (this.b == 0 && this.c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_YZ_AXIS;
-
-            } else if (this.a == 0 && this.c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XZ_AXIS;
-
-            } else {
-
-                this._iAlignment = Plane3D.ALIGN_ANY;
-
-            }
-
         }
 
         /**
@@ -107,38 +75,24 @@
             this.a = normal.x;
             this.b = normal.y;
             this.c = normal.z;
-            this.d = this.a * point.x + this.b * point.y + this.c * point.z;
-            if (this.a == 0 && this.b == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XY_AXIS;
-
-            } else if (this.b == 0 && this.c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_YZ_AXIS;
-
-            } else if (this.a == 0 && this.c == 0) {
-
-                this._iAlignment = Plane3D.ALIGN_XZ_AXIS;
-
-            } else {
-
-                this._iAlignment = Plane3D.ALIGN_ANY;
-
-            }
-
+            this.d = -(this.a * point.x + this.b * point.y + this.c * point.z);
         }
 
         /**
          * Normalize this Plane3D
          * @return Plane3D This Plane3D.
          */
-        public normalize(): Plane3D {
-            var len: number = 1 / Math.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
-            this.a *= len;
-            this.b *= len;
-            this.c *= len;
-            this.d *= len;
-            return this;
+        public normalize(): number {
+            var len: number = Math.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
+            if (len > 0.0) {
+                var invLength: number = 1.0 / len;
+                this.a *= invLength;
+                this.b *= invLength;
+                this.c *= invLength;
+                this.d *= invLength;
+            }
+            
+            return len;
         }
 
         /**
@@ -147,25 +101,7 @@
          * @returns Number
          */
         public distance(p: Vector3D): number {
-
-            if (this._iAlignment == Plane3D.ALIGN_YZ_AXIS) {
-
-                return this.a * p.x - this.d;
-
-            } else if (this._iAlignment == Plane3D.ALIGN_XZ_AXIS) {
-                return this.b * p.y - this.d;
-            }
-
-            else if (this._iAlignment == Plane3D.ALIGN_XY_AXIS) {
-
-                return this.c * p.z - this.d;
-
-            } else {
-
-                return this.a * p.x + this.b * p.y + this.c * p.z - this.d;
-
-            }
-
+            return this.a * p.x + this.b * p.y + this.c * p.z + this.d;
         }
 
         /**
@@ -174,21 +110,17 @@
          * @return int Plane3.FRONT or Plane3D.BACK or Plane3D.INTERSECT
          */
         public classifyPoint(p: Vector3D, epsilon: number = 0.01): number {
-            // check NaN
-            if (this.d != this.d)
+
+            var dis: number = this.distance(p);
+
+            if (dis < -epsilon) {
+                return PlaneClassification.BACK;
+            }
+            else if (dis > epsilon) {
                 return PlaneClassification.FRONT;
+            }
 
-            var len: number;
-            if (this._iAlignment == Plane3D.ALIGN_YZ_AXIS)
-                len = this.a * p.x - this.d; else if (this._iAlignment == Plane3D.ALIGN_XZ_AXIS)
-                len = this.b * p.y - this.d; else if (this._iAlignment == Plane3D.ALIGN_XY_AXIS)
-                len = this.c * p.z - this.d; else
-                len = this.a * p.x + this.b * p.y + this.c * p.z - this.d;
-
-            if (len < -epsilon)
-                return PlaneClassification.BACK; else if (len > epsilon)
-                return PlaneClassification.FRONT; else
-                return PlaneClassification.INTERSECT;
+            return PlaneClassification.INTERSECT;
         }
 
         public toString(): string {

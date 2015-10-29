@@ -5,7 +5,7 @@
         public mMatrixUniform: number = -1;
 
         public vertextAttrib: any = {};
-
+        public vertextAttribActive: boolean = false ;
         public program: WebGLProgram;
 
         constructor( pg3D:WebGLProgram ) {

@@ -3,7 +3,7 @@
         private _url: string = "";
         private _data: any = null;
         private _xhr: XMLHttpRequest;
-        public _dataformat: string = "text";
+        public _dataformat: string = null;
         public onLoadComplete: Function = null;
         public onLoadError: Function = null;
         public onLoadProgress: Function = null;
@@ -15,10 +15,15 @@
         public static DATAFORMAT_DDS: string = "dds";
         public static DATAFORMAT_TGA: string = "tga";
         public static DATAFORMAT_E3D: string = "e3d";
+        public static DATAFORMAT_ESM: string = "esm";
+        public static DATAFORMAT_EAM: string = "eam";
+        public static DATAFORMAT_PVR:string = "pvr";
 
-        constructor(url: string = null, dataformat:string = "text") {
+        constructor(url: string = null, dataformat:string = null) {
             if (url) {
-                this.dataformat = dataformat;
+                if (dataformat) {
+                    this.dataformat = dataformat;
+                }
                 this.load(url);
             }
         }
@@ -26,6 +31,25 @@
         public load(url: string) {
             this._data = null;
             this._url = url;
+
+            if (null == this._dataformat) {
+
+                this._dataformat = URLLoader.DATAFORMAT_TEXT;
+
+                if (this._url.length >= 4) switch (this._url.substr(this._url.length - 4, 4).toLowerCase()) {
+                    case ".dds": this._dataformat = URLLoader.DATAFORMAT_DDS; break;
+                    case ".tga": this._dataformat = URLLoader.DATAFORMAT_TGA; break;
+                    //case ".e3d": this._dataformat = URLLoader.DATAFORMAT_E3D; break;
+                    case ".bmp": this._dataformat = URLLoader.DATAFORMAT_BITMAP; break;
+                    case ".png": this._dataformat = URLLoader.DATAFORMAT_BITMAP; break;
+                    case ".jpg": this._dataformat = URLLoader.DATAFORMAT_BITMAP; break;
+                    case "glsl": this._dataformat = URLLoader.DATAFORMAT_TEXT; break;
+                    case ".pvr": this._dataformat = URLLoader.DATAFORMAT_PVR; break;
+                    case ".esm": this._dataformat = URLLoader.DATAFORMAT_ESM; break;
+                    case ".eam": this._dataformat = URLLoader.DATAFORMAT_EAM; break;
+                }
+            }
+
             if (this._xhr == null) {
                 this._xhr = this.getXHR();
             }
@@ -110,11 +134,27 @@
                 case URLLoader.DATAFORMAT_TGA:
                     this._data = BlackSwan.TGAParser.parse(this._xhr.response);
                     break;
-                case URLLoader.DATAFORMAT_E3D:
+                /*case URLLoader.DATAFORMAT_E3D:
                     var e3dModel: BlackSwan.GeomtryBase = BlackSwan.E3DParser.parse(this._xhr.response);
 
                     this._data = e3dModel;
+                    break;*/
+                case URLLoader.DATAFORMAT_ESM:
+                    var geomtry: BlackSwan.GeomtryBase = BlackSwan.ESMParser.parse(this._xhr.response);
+
+                    this._data = geomtry;
                     break;
+                case URLLoader.DATAFORMAT_EAM:
+                    var animation: BlackSwan.AnimationState = BlackSwan.EAMParser.parse(this._xhr.response);
+
+                    this._data = animation;
+                    break;
+
+                case URLLoader.DATAFORMAT_PVR:
+                    var pvr:BlackSwan.PVR = BlackSwan.PVRParser.parse(this._xhr.response);
+                    this._data = pvr;
+                    break;
+
                 default:
                     this._data = this._xhr.responseText;
             }

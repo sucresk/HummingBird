@@ -1,5 +1,5 @@
 ﻿module BlackSwan {
-    export class LineFrame extends RenderableItem {
+    export class LineFrame extends Object3D {
 
         protected _geomtry: GeomtryBase;
         protected _material: MaterialBase;
@@ -17,7 +17,7 @@
         }
 
         public activateDiffusePass(context3D: Context3D, camera3D: Camera3D) {
-            this._material.initShader(context3D, this._geomtry, this._animation);
+            //this._material.ini(context3D, this._geomtry, this._animation);
             //this._geomtry.activate(context3D, this.transform, camera3D);
             //this._material.activateDiffusePass(context3D, this.transform, camera3D);
         }

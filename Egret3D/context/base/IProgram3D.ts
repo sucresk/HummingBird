@@ -7,7 +7,7 @@
         //vertextUVAttrib: number;
         //vertextUV2Attrib: number;  
         vertextAttrib: any;
-
+        vertextAttribActive: boolean;
         pMatrixUniform: any;
         mMatrixUniform: any;
     }

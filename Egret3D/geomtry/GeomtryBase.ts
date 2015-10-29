@@ -1,9 +1,14 @@
 ﻿module BlackSwan {
-    export enum GeomtryType { Static, Skin, Particle, Billbord, VertexAnim, Grass, Ribbon , wrieFrame }
+    export enum GeomtryType {
+        Static, Skin, Particle, Billbord, VertexAnim, Grass, Ribbon, wrieFrame ,
+        Shadow
+    }
 
     export class GeomtryBase {
 
         public geomtryType: number = 0;
+
+        public vertexAttLength: number = 17;
 
         public verticesData: Array<number>;
         public indexData: Array<number>;
@@ -31,16 +36,18 @@
         public minPos: Vector3D = new Vector3D();
         public maxPos: Vector3D = new Vector3D();
 
+        public textureFile: string = "";
+
         constructor() {
         }
 
         public buildGeomtry() {
         }
 
-        public activate(context3D:Context3D , modeltransform:Matrix4_4 ,camera3D: Camera3D) {
-        }
+        //public activate(context3D:Context3D , modeltransform:Matrix4_4 ,camera3D: Camera3D) {
+        //}
          
-        public updata(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
+        public updata(time:number,delay:number) {
         }
 
         public buildBoundBox(offset: number) {

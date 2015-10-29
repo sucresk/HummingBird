@@ -3,7 +3,7 @@ module BlackSwan {
 
         public parentIndex:number = -1;
         public name:string;
-        public inverseBindPose: Array<number>;
+        public inverseBindPose: Matrix4_4;
 
         constructor() {
 

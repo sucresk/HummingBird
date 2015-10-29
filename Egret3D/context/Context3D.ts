@@ -2,7 +2,7 @@
 
     export interface Context3D {
 
-        gl: any;
+        gl: WebGLRenderingContext;
 
         version: string;
 
@@ -45,7 +45,24 @@
         /**
         * 创建 Cube贴图
         **/
-        creatTexture3D(): Texture3D;
+        creatCubeTexture(): ICubeTexture;
+
+        uploadCubetexture(tex:ICubeTexture);
+
+        /**
+       *  创建 离屏渲染缓冲
+       **/
+        createFramebuffer(width: number, height: number): Texture2D;
+
+        /**
+        *  渲染到纹理
+        **/
+        setRenderToTexture(texture: Texture2D, enableDepthAndStencil: Boolean, surfaceSelector: number);
+
+        /**
+        *  恢复渲染
+        **/
+        setRenderToBackBuffer();
 
          /**
         * 创建图形渲染着色器程序
@@ -115,6 +132,8 @@
         **/
         enbable(cap: number);
 
+        disable(cap: number);
+
         /**
         * 开启 深度模式 及 深度测试比较模式
         **/
@@ -143,7 +162,8 @@
         /**
         * 设置贴图采样
         **/
-        setTextureAt(index: number, texture: Texture2D);
+        setTexture2DAt(samplerType: any, index: number, uniLocation: number, texture: Texture2D);
+        setCubeTextureAt(samplerType: any, index:number , uniLocation: number, texture: ICubeTexture);
 
         /**
         * 设置贴图采样模式
@@ -197,6 +217,18 @@
             ContextSamplerType.LINEAR = this.gl.LINEAR;
             ContextSamplerType.NEAREST = this.gl.NEAREST;
             ContextSamplerType.REPEAT = this.gl.REPEAT;
+            
+            //enable necessry extensions.
+            //var OES_texture_float_linear = this.gl.getExtension("OES_texture_float_linear");
+            //var OES_texture_float = this.gl.getExtension("OES_texture_float");
+            //var OES_texture_half_float = this.gl.getExtension("OES_texture_half_float");
+            //var OES_texture_half_float_linear = this.gl.getExtension("OES_texture_half_float_linear");
+            //var OES_standard_derivatives = this.gl.getExtension("OES_standard_derivatives");
+            //var WEBGL_draw_buffers = this.gl.getExtension("WEBGL_draw_buffers");
+            //var WEBGL_depth_texture = this.gl.getExtension("WEBGL_depth_texture");
+            //if (!WEBGL_depth_texture) {
+            //    alert("Depth Texture is not available");
+            //}
         }
 
         public get version(): string {
@@ -285,23 +317,28 @@
             this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, mag_filter);
             this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, wrap_u_filter);
             this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, wrap_v_filter);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         }
 
         /**
         * 提交2D纹理
         */
         public upLoadTextureData( mipLevel: number, texture: Texture2D ) {
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture2D );
+            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture );
 
             if (texture.gpu_internalformat == InternalFormat.ImageData) {
-                this.gl.texImage2D(this.gl.TEXTURE_2D, mipLevel, texture.gpu_colorformat, texture.gpu_colorformat, this.gl.UNSIGNED_BYTE, texture.image );
+
+                this.gl.pixelStorei(this.gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, 1);
+
+                //var tmp = TextureUtil.getTextureData(texture.image);
+                this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, texture.image);
+                this.gl.generateMipmap(this.gl.TEXTURE_2D);
             }
             else if (texture.gpu_internalformat == InternalFormat.CompressData) {
                 this.upLoadCompressedTexture2D(mipLevel, texture);
             }
             else if (texture.gpu_internalformat == InternalFormat.PixelArray) {
                 this.gl.texImage2D(this.gl.TEXTURE_2D, mipLevel, texture.gpu_colorformat, texture.mipmapDatas[mipLevel].width, texture.mipmapDatas[mipLevel].height, texture.gpu_border , texture.gpu_colorformat, this.gl.UNSIGNED_BYTE, texture.mipmapDatas[mipLevel].data );
+                this.gl.generateMipmap(this.gl.TEXTURE_2D);
             }
         }
 
@@ -309,7 +346,7 @@
         * 提交2D压缩纹理
         */
         public upLoadCompressedTexture2D(mipLevel: number, texture: Texture2D ) {
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture2D);
+            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture);
             this.gl.compressedTexImage2D(this.gl.TEXTURE_2D, mipLevel, texture.gpu_colorformat, texture.mipmapDatas[mipLevel].width, texture.mipmapDatas[mipLevel].height, texture.gpu_border, texture.mipmapDatas[mipLevel].data );
         }
 
@@ -324,8 +361,98 @@
         /**
         * 创建 Cube贴图
         **/
-        public creatTexture3D(): Texture3D {
-            return new BlackSwan.openGLES.Texture3D(this.gl.createTexture() ) ;
+        public creatCubeTexture(): ICubeTexture {
+            return new BlackSwan.openGLES.CubeTexture( this.gl.createTexture() ) ;
+        }
+
+        public uploadCubetexture(tex: ICubeTexture) {
+            // 创建纹理并绑定纹理数据
+            this.gl.bindTexture(this.gl.TEXTURE_CUBE_MAP, tex.gpu_texture);
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_POSITIVE_X, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_right ); 
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_NEGATIVE_X, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_left ); 
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_POSITIVE_Y, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_up ); 
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_down ); 
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_POSITIVE_Z, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_back ); 
+            this.gl.texImage2D(this.gl.TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, this.gl.RGB, this.gl.RGB, this.gl.UNSIGNED_BYTE, tex.image_front ); 
+            //this.gl.generateMipmap(this.gl.TEXTURE_CUBE_MAP);
+            //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+            //this.gl.texParameterf(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR_MIPMAP_NEAREST);
+            //this.gl.texParameterf(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR_MIPMAP_NEAREST);
+            //this.gl.texParameterf(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+            //this.gl.texParameterf(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+
+            this.gl.texParameteri(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+            this.gl.texParameteri(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
+            this.gl.texParameteri(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+            this.gl.texParameteri(this.gl.TEXTURE_CUBE_MAP, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+
+            //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, min_filter);
+            //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, mag_filter);
+            //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, wrap_u_filter);
+            //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, wrap_v_filter);
+        }
+
+        public createFramebuffer(width: number, height: number): Texture2D {
+            var rttframeBuffer = this.gl.createFramebuffer();
+            var texture2D: Texture2D = this.creatTexture2D();
+            var depthRenderbuffer = this.gl.createRenderbuffer();
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, rttframeBuffer);
+
+            this.gl.bindTexture(this.gl.TEXTURE_2D, texture2D.gpu_texture);
+            this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGB, width, height, 0, this.gl.RGB, this.gl.UNSIGNED_BYTE, null);
+
+            this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, this.gl.COLOR_ATTACHMENT0, this.gl.TEXTURE_2D, texture2D.gpu_texture, 0);
+
+            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
+            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+            //this.gl.generateMipmap(this.gl.TEXTURE_2D);  
+            //配置渲染缓冲 
+            this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, depthRenderbuffer);
+            this.gl.renderbufferStorage(this.gl.RENDERBUFFER, this.gl.DEPTH_COMPONENT16, width, height);
+
+            texture2D.width = width;
+            texture2D.height = height;
+            texture2D.frameBuffer = rttframeBuffer;
+            texture2D.renderbuffer = depthRenderbuffer;
+
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+            this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+            this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
+            return texture2D;
+        }
+
+        public setRenderToTexture(texture: Texture2D, enableDepthAndStencil: Boolean = false, surfaceSelector: number = 0) {
+
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+            this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+           
+            if (enableDepthAndStencil) {
+                this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, texture.renderbuffer);
+                this.gl.renderbufferStorage(this.gl.RENDERBUFFER, this.gl.DEPTH_COMPONENT16, texture.width, texture.height);
+                //this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, this.gl.DEPTH_ATTACHMENT, this.gl.RENDERBUFFER, texture.renderbuffer);
+            }
+
+            this.gl.viewport(0, 0, texture.width, texture.height);
+           
+            if (this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER) != this.gl.FRAMEBUFFER_COMPLETE)
+            {
+                alert("缓冲失败");
+            }
+
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, texture.frameBuffer);
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+            this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, this.gl.COLOR_ATTACHMENT0, this.gl.TEXTURE_2D, texture.gpu_texture, 0);
+            this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, this.gl.DEPTH_ATTACHMENT, this.gl.RENDERBUFFER, texture.renderbuffer );
+        }
+
+        public setRenderToBackBuffer() {
+
+            this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+            this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
+
         }
 
         public creatVertexShader(source: string): Shader {
@@ -359,6 +486,7 @@
 
         public clearDepth(depth: number) {
             this.gl.clearDepth(depth);
+            this.gl.clear(this.gl.DEPTH_BUFFER_BIT);
         }
 
         public clearStencil(stencil: number) {
@@ -461,6 +589,14 @@
         }
 
         /**
+    * 开启 绘制模式
+    * this.contex3D.DEPTH_TEST);
+    **/
+        public disable(cap: number) {
+            this.gl.disable(cap);
+        }
+
+        /**
         * 开启 深度模式 及 深度测试比较模式
         **/
         public enableDepthTest(flag: boolean, compareMode: number=0) {
@@ -500,11 +636,17 @@
         /**
         * 设置贴图采样
         **/
-        public setTextureAt(index: number, texture: Texture2D) {
-            this.gl.activeTexture(this.gl.TEXTURE0);
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture2D );
-            this.gl.uniform1i(index, 0);
-        }
+        public setTexture2DAt(samplerType: any, index: number, uniLocation: number, texture: Texture2D) {
+            //this.gl.activeTexture(index);
+            this.gl.bindTexture(this.gl.TEXTURE_2D, texture.gpu_texture);
+            this.gl.uniform1i(uniLocation, index);
+        } 
+
+        public setCubeTextureAt(samplerType: any, index: number, uniLocation: number, texture: ICubeTexture) {
+            //this.gl.activeTexture(index);
+            this.gl.bindTexture(this.gl.TEXTURE_CUBE_MAP, texture.gpu_texture);
+            this.gl.uniform1i(uniLocation, index);
+        } 
 
         /**
         * 设置贴图采样模式

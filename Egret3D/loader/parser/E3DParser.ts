@@ -1,19 +1,24 @@
 ﻿module BlackSwan {
+
+    // data format describe;
+    export enum E3DDataFormat {
+        DATA_FORMAT_STATIC_MODEL = 0x00000001,
+        DATA_FORMAT_SKELETAL_ANIM_MODEL = 0x00000002,
+        DATA_FORMAT_EXPORT_MESH = 0x00000004,
+        DATA_FORMAT_EXIST_VERTEX_POS = 0x00000008,
+        DATA_FORMAT_EXIST_VERTEX_NORMAL = 0x00000010,
+        DATA_FORMAT_EXIST_VERTEX_TANGENT = 0x00000020,
+        DATA_FORMAT_EXIST_VERTEX_COLOR = 0x00000040,
+        DATA_FORMAT_EXIST_VERTEX_UV1 = 0x00000080,
+        DATA_FORMAT_EXIST_VERTEX_UV2 = 0x00000100,
+        DATA_FORMAT_EXIST_SKELETAL_DATA = 0x00000200,
+        DATA_FORMAT_EXIST_WEIGHTS_DATA = 0x00000400
+    }
+
+
     export class E3DParser {
 
         private static FILE_FLAG: number = 0x4D443345;
-        // data format describe;
-        private static DATA_FORMAT_STATIC_MODEL:            number = 0x00000001;
-        private static DATA_FORMAT_SKELETAL_ANIM_MODEL:     number = 0x00000002;
-        private static DATA_FORMAT_EXPORT_MESH:             number = 0x00000004;
-        private static DATA_FORMAT_EXIST_VERTEX_POS:        number = 0x00000008;
-        private static DATA_FORMAT_EXIST_VERTEX_NORMAL:     number = 0x00000010;
-        private static DATA_FORMAT_EXIST_VERTEX_TANGENT:    number = 0x00000020;
-        private static DATA_FORMAT_EXIST_VERTEX_COLOR:      number = 0x00000040;
-        private static DATA_FORMAT_EXIST_VERTEX_UV1:        number = 0x00000080;
-        private static DATA_FORMAT_EXIST_VERTEX_UV2:        number = 0x00000100;
-        private static DATA_FORMAT_EXIST_SKELETAL_DATA:     number = 0x00000200;
-        private static DATA_FORMAT_EXIST_WEIGHTS_DATA:      number = 0x00000400;
 
         constructor() {
         }
@@ -71,7 +76,7 @@
             var uintValue: number = 0;
 
             // read vertex position;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_POS) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_POS) {
 
                 // read vertex array length;
                 uintValue = datas.readUnsignedInt();
@@ -86,7 +91,7 @@
             }
 
             // read vertex normal;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_NORMAL) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_NORMAL) {
 
                 // read normal array length;
                 uintValue = datas.readUnsignedInt();
@@ -101,7 +106,7 @@
             }
 
             // read vertex color;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_COLOR) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_COLOR) {
 
                 // read color array length;
                 uintValue = datas.readUnsignedInt();
@@ -117,7 +122,7 @@
             }
 
             // read vertex uv1;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_UV1) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_UV1) {
 
                 // read uv1 array length;
                 uintValue = datas.readUnsignedInt();
@@ -131,7 +136,7 @@
             }
 
             // read vertex uv2;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_UV2) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_UV2) {
 
                 // read uv2 array length;
                 uintValue = datas.readUnsignedInt();
@@ -146,7 +151,7 @@
 
 
             // read face;
-            if (nFormatDescribe & E3DParser.DATA_FORMAT_EXPORT_MESH) {
+            if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXPORT_MESH) {
 
                 var PosIndex1: number, PosIndex2: number, PosIndex3: number;
                 var uv1_1: number, uv1_2: number, uv1_3: number;
@@ -159,7 +164,7 @@
                     var faceData: FaceData = new FaceData();
 
                     // read vertex index;
-                    if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_POS) {
+                    if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_POS) {
 
                         PosIndex1 = datas.readUnsignedInt();
                         PosIndex2 = datas.readUnsignedInt();
@@ -172,7 +177,7 @@
                     }
 
                     // read normal index;
-                    if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_NORMAL) {
+                    if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_NORMAL) {
 
                         faceData.normalIndices.push(
                             datas.readUnsignedInt() + 1,
@@ -182,14 +187,14 @@
                     }
 
                     // read color index;
-                    if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_COLOR) {
+                    if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_COLOR) {
                         datas.readUnsignedInt();
                         datas.readUnsignedInt();
                         datas.readUnsignedInt();
                     }
 
                     // read uv1 index;
-                    if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_UV1) {
+                    if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_UV1) {
 
                         uv1_1 = datas.readUnsignedInt();
                         uv1_2 = datas.readUnsignedInt();
@@ -203,7 +208,7 @@
                     }
 
                     // read uv2 index;
-                    if (nFormatDescribe & E3DParser.DATA_FORMAT_EXIST_VERTEX_UV2) {
+                    if (nFormatDescribe & E3DDataFormat.DATA_FORMAT_EXIST_VERTEX_UV2) {
 
                         faceData.uv2Indices.push(
                             datas.readUnsignedInt() + 1,
@@ -224,7 +229,7 @@
             var model: SubGeomtry = new SubGeomtry();
 
             model.setGeomtryData(geomtryData.indices, geomtryData.vertexDatas);
-            model.buildBoundBox(model.positionSize + model.normalSize + model.colorSize + model.uvSize + model.uv2Size);
+            model.buildBoundBox(model.vertexAttLength);
             return model;
         }
 

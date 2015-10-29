@@ -35,6 +35,7 @@
         }
 
         public mouseEnd(e: MouseEvent) {
+
             this._mouseDown = false;
 
             if (e.button == 0) {
@@ -46,6 +47,7 @@
         }
 
         public mouseStart(e: MouseEvent) {
+
             this._mouseDown = true;
             this._screenMoveStartDetail.x = e.screenX;
             this._screenMoveStartDetail.y = e.screenY;
@@ -59,8 +61,7 @@
         }
 
         public mouseMove(e: MouseEvent) {
-            BlackSwan.Egret3D.mouseX = e.clientX - BlackSwan.Egret3D.clientRect.left;
-            BlackSwan.Egret3D.mouseY = e.clientY - BlackSwan.Egret3D.clientRect.top;
+
             this._view3d.onMouseEvent(MouseEventType.mouse_Move);
             if (this._mouseDown) {
                 this._screenMoveDelay.x = e.screenX - this._screenMoveStartDetail.x;

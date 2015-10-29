@@ -1,6 +1,6 @@
 ﻿module BlackSwan {
     export class SportLight extends LightBase {
-        public intensity: number = 1.0;
+
         constructor(color: Vector3D) {
             super();
             this._diffuse = color;

@@ -24,6 +24,8 @@
         public attribute_color: GLSL.Attribute;
         public attribute_uv0: GLSL.Attribute;
         public attribute_uv1: GLSL.Attribute;
+        public attribute_boneIndex: GLSL.Attribute;
+        public attribute_boneWeight: GLSL.Attribute;
 
         public varying_pos: GLSL.Attribute;
         public varying_normal: GLSL.Attribute;
@@ -32,48 +34,52 @@
         public varying_uv0: GLSL.Attribute;
         public varying_uv1: GLSL.Attribute;
         public varying_eyeNormal: GLSL.Attribute;
-
+        public varying_eyedir: GLSL.Attribute;
+        public TBN: GLSL.Attribute;
+        
+        
         public uniform_ModelMatrix: GLSL.Uniform;
         public uniform_ProjectionMatrix: GLSL.Uniform;
-        public uniform_EyeMatrix: GLSL.Uniform;
-        public uniform_normalEyeSpaceMatrix: GLSL.Uniform;
-         
+        public uniform_normalMatrix: GLSL.Uniform;
+        public uniform_shadowMatrix: GLSL.Uniform;
+        public uniform_eyepos: GLSL.Uniform;
+        
+        public uniform_PoseMatrix: GLSL.Uniform;
 
-        public texture2D_0: GLSL.Sampler2D;
+
+        public diffuseTexture: GLSL.Sampler2D;
+        public normalTexture: GLSL.Sampler2D;
+        public specularTexture: GLSL.Sampler2D;
         public texture2D_1: GLSL.Sampler2D;
-        public texture2D_2: GLSL.Sampler2D;
-        public texture2D_3: GLSL.Sampler2D;
         public texture2D_4: GLSL.Sampler2D;
         public texture2D_5: GLSL.Sampler2D;
-        public texture2D_6: GLSL.Sampler2D;
-        public texture2D_7: GLSL.Sampler2D;
+        public sky_texture: GLSL.Sampler2D;
+        public shadowMapTex: GLSL.Sampler2D;
 
         public uniform_materialSource: GLSL.Uniform;
         public uniform_LightSource: GLSL.Uniform;
         public uniform_lightModelSource: GLSL.Uniform;
 
-        public uniform_pointLightSource:GLSL.Uniform ;
         public uniform_directLightSource:GLSL.Uniform;
+        public uniform_sportLightSource: GLSL.Uniform;
+        public uniform_pointLightSource:GLSL.Uniform ;
         public uniform_skyLightSource: GLSL.Uniform;
 
-
-        //----------------------------------------------
         //----------------------------------------------
         //----------------------------------------------
         public program3D: IProgram3D;
-        public context3D: Context3D;
         public vs_shader: Shader;
         public fs_shader: Shader;
-
-        public lights: Array<LightBase> = new Array<LightBase>();
-        public shadowMaper: any;
-
-        public geomtryBase: GeomtryBase;
-        public animation: IAnimation;
-
+        //----------------------------------------------
+      
         public vsMethodList: Array<MethodBase> = new Array<MethodBase>() ;
         public fsMethodList: Array<MethodBase> = new Array<MethodBase>();
 
-        public lightData: Float32Array = new Float32Array(0) ; 
+        //data
+        public materialSourceData: Float32Array;//12
+        public directLightData  : Float32Array; 
+        public sportLightData   : Float32Array;
+        public pointLightData: Float32Array;
+
     }
 }

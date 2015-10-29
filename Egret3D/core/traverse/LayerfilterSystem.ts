@@ -1,7 +1,7 @@
 ﻿module BlackSwan {
     export class LayerFilterSystem {
 
-        private _mLayer_dict: { [layerType: number]: LayerFilter; } = {}
+        private _mLayer_dict: { [layerType: number]: LayerFilter; } = {};
 
         constructor() {
 

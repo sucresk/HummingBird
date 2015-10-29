@@ -1,43 +1,88 @@
 ﻿module BlackSwan {
     export class View3D {
 
-        private _root: Object3D = new Object3D();
-        private _context3D: Context3D;
-        private _camera: Camera3D;
-        private _render: RenderBase;
-        private _collect: CollectBase;
-  
-        private _width: number = 0;
-        private _height: number = 0;
-        private _x: number = 0;
-        private _y: number = 0;
+        protected _root: Object3D = new Object3D();
+        protected _context3D: Context3D;
+        protected _camera: Camera3D;
+        protected _render: RenderBase;
+        protected _collect: CollectBase;
 
-        private _localPos: Point = new Point();
-        private _globalPos: Point = new Point();
-        private _globalPosDirty: Boolean;
+        protected _width: number = 0;
+        protected _height: number = 0;
+        protected _x: number = 0;
+        protected _y: number = 0;
+
+        protected _localPos: Point = new Point();
+        protected _globalPos: Point = new Point();
+        protected _globalPosDirty: Boolean;
 
         protected _aspectRatio: number = 1;
         protected _scissorRect: Rectangle;
         protected _viewPort: Rectangle;
-        private _scissorRectDirty: Boolean = true;
-        private _viewportDirty: Boolean = true;
+        protected _scissorRectDirty: Boolean = true;
+        protected _viewportDirty: Boolean = true;
 
-        private _viewPortMatrix: Matrix4_4 = new Matrix4_4(); 
-        constructor(viewPort: Rectangle) {
+        protected _viewPortMatrix: Matrix4_4 = new Matrix4_4(); 
+
+        protected _needRtt: boolean = false;
+        protected _backImg: DebugHUD;
+        protected _postCanvas: PostCanvas;
+        protected _sky: Sky;
+        protected _sphereSky: SphereSky;
+        
+
+        private _debugHUDList: Array<DebugHUD> = new Array<DebugHUD>();
+        constructor(viewPort: Rectangle,camera:Camera3D = null ) {
 
             this._context3D = Egret3D.context3D;
             this._camera = new Camera3D();
+            this._camera = camera || new Camera3D() ;
             this._scissorRect = new Rectangle();
             this._viewPort = viewPort;
 
-            this._collect = new EntityCollect();
-            this._render = new DefaultRender();
+            this._collect = new EntityCollect(this._root);
+
+            this._render = new DefaultRender(this._camera);
+            //this._render = new NormalRender(this._camera); 
+            //this._render = new DepthRender(this._camera); 
 
             this.x = viewPort.x;
             this.y = viewPort.y;
             this.width = viewPort.width;
             this.height = viewPort.height;
 
+            this._postCanvas = new PostCanvas(this);
+        }
+
+        public get viewPort(): Rectangle {
+            return this._viewPort;
+        }
+
+        public set sky(value: Sky) {
+            this._sky = value;
+        }
+
+        public set sphereSky(value: SphereSky) {
+            this._sphereSky = value;
+        }
+
+        public get sky(): Sky {
+            return this._sky; 
+        }
+
+        public addHUD(hud: DebugHUD) {
+            this._debugHUDList.push(hud);
+        }
+
+        public set backImageTexture(texture: Texture2D) {
+            if (!this._backImg){
+                this._backImg = new DebugHUD(this.x, this.y, this.width, this.height);
+                this._backImg.x = 0;// viewPort.width * 0.5  ;
+                this._backImg.y = 0;// * 0.5  ;
+                this._backImg.width = this.width;
+                this._backImg.height = this.height;
+            }
+            this._backImg.texture = texture;
         }
 
         public get collect(): CollectBase {
@@ -99,40 +144,67 @@
             this._globalPos.y = value;
             this._globalPosDirty = true;
         }
+        public get x(): number {
+            return this._x;
+        }
 
-        /**
-        * 初始化 GPU 交换程序
-        **/
-        private setContext3D() {
-
-            this._context3D.viewPort(this._viewPort.x, this._viewPort.y, this._viewPort.width, this._viewPort.height);
-
+        public get y(): number {
+            return this._y;
         }
 
         public addChild3D(child3D: Object3D) {
-            this._collect.addObject3D(child3D);
+            //this._collect.addObject3D(child3D);
             //child3D.parent = this._root;
+            this._root.addChild(child3D);
         }
 
-        public renden() {
+        public renden( time:number, delay:number ) {
 
             this.updateViewSizeData();
 
+            this._context3D.viewPort(this._viewPort.x, this._viewPort.y, this._viewPort.width, this._viewPort.height);
+
             this._context3D.clear(0.4, 0.4, 0.6, 1);
+
+            if (this._sky) {
+                this._sky.draw(this._context3D, this.camera3D);
+            }
+            if (this._sphereSky){
+                this._sphereSky.draw(this._context3D, this.camera3D);
+            }
 
             this._context3D.clearDepth(1);
 
-            this._context3D.clearStencil(1);
+            this._context3D.clearStencil(0);
 
-            this._collect.update(this._camera);
 
-            this._render.renden(this._context3D , this._collect , this._camera );
 
-            this._context3D.flush();
+            if (this._needRtt) {
+
+                RttManager.getInstance().draw(time,delay,this._render, this._context3D, this.collect, this._viewPort);
+                this._postCanvas.draw(this._context3D);
+
+            } else {
+               
+               if (this._backImg){
+                   this._backImg.draw(this._context3D);
+               }
+   
+                this._collect.update(this._camera);
+                this._render.draw(time,delay,this._context3D, this._collect);
+
+            }
+
+            for (var i: number = 0; i < this._debugHUDList.length; i++){
+                this._debugHUDList[i].draw(this._context3D);
+            }
+
+           
+            this._context3D.gl.finish();
 
         }
 
-        private updateViewSizeData() {
+        protected updateViewSizeData() {
 
             this._camera.aspectRatio = this._aspectRatio;
 

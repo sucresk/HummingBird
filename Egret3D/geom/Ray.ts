@@ -7,7 +7,7 @@
             this.origin.copyFrom(origin);
             this.dir.copyFrom(direction);
         }
-        box
+        
         /**
         **  计算一个三角形和一个射线的交点;
         **  v0 三角形的第一个顶点;
@@ -119,7 +119,7 @@
 
             if (face < faces && face >= 0) {
                 for (var i: number = 0; i < 3; ++i) {
-                    var index: number = 3 * face + i;
+                    var index: number = indexData[3 * face + i];
                     var pos: Vector3D = new Vector3D(verticesData[offset * index + 0], verticesData[offset * index + 1], verticesData[offset * index + 2]);
                     pos = mMat.transformVector(pos);
 
@@ -146,10 +146,15 @@
 
             var invViewMat: Matrix4_4 = new Matrix4_4();
             invViewMat.copyFrom(viewMat);
-            //invViewMat.invert();
+            invViewMat.invert();
             this.origin.copyFrom(invViewMat.transformVector(this.origin));
             this.dir.copyFrom(invViewMat.deltaTransformVector(this.dir));
             this.dir.normalize();
+        }
+
+        public reset() {
+            this.origin.setTo(0, 0, 0);
+            this.dir.setTo(0, 0, 0);
         }
     }
 } 

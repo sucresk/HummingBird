@@ -454,6 +454,33 @@
         public subtract(a: Vector3D): Vector3D {
             return new Vector3D(this.x - a.x, this.y - a.y, this.z - a.z);
         }
+
+        public multiply(other: Vector3D): Vector3D {
+            return new Vector3D(this.x * other.x, this.y * other.y, this.z * other.z);
+        }
+
+        public lerp(v0: Vector3D, v1: Vector3D, t: number): void {
+            this.x = (v1.x - v0.x) * t + v0.x;
+            this.y = (v1.y - v0.y) * t + v0.y;
+            this.z = (v1.z - v0.z) * t + v0.z;
+            this.w = (v1.w - v0.w) * t + v0.w;
+        }
+
+        public toString(): string {
+            return "<" + this.x + ", " + this.y + ", " + this.z + ">";
+        }
+
+        public parsing(str: string): void {
+
+            var strS: string[] = str.split(" ");
+
+            if (strS.length < 3)
+                return;
+
+            this.x = parseFloat(strS[0]);
+            this.y = parseFloat(strS[1]);
+            this.z = parseFloat(strS[2]);
+        }
     }
 
 }

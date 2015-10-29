@@ -409,7 +409,7 @@
 
             var texture: TextureBase = new TextureBase();
             texture.internalFormat = InternalFormat.PixelArray;
-            texture.colorFormat = ColorFormat.RGBA8888;
+            texture.colorFormat = Egret3D.ColorFormat_RGBA8888;
             texture.mimapData.push(new MipmapData(rgbaData, header.width, header.height));
             return texture;
         }

@@ -1,9 +1,11 @@
 ﻿module BlackSwan {
     export class GeomtryData {
-        public static vertexAttLength: number = 17;
+
+        public vertexAttLength: number = 17;
 
         public length: number;
-
+        public vertLen: number;
+        
 
         public source_indexData: Array<number> = new Array<number>();
         public source_vertexData: Array<Vector3D> = new Array<Vector3D>();
@@ -13,6 +15,7 @@
         public source_uvData: Array<UV> = new Array<UV>();
         public source_uv2Data: Array<UV> = new Array<UV>();
         public source_faceData: Array<FaceData> = new Array<FaceData>();
+        public source_skinData: Array<number> = new Array<number>();
 
         public vertexIndex: number = 0;
         public indices: Array<number> = new Array<number>();
@@ -22,16 +25,13 @@
         public verticesColor: Array<number> = new Array<number>();
         public uvs: Array<number> = new Array<number>();
         public uv2s: Array<number> = new Array<number>();
-
+        public skinMesh: Array<number> = new Array<number>();
 
         public faceNormals: Array<number> = new Array<number>();
         public faceWeights: Array<number> = new Array<number>();
 
         public vertexDatas: Array<number>;
         
-      
-
-
 
         public static translateMaterialGroup(geomtryData: GeomtryData): GeomtryData {
             var faces: Array<FaceData> = geomtryData.source_faceData;
@@ -40,6 +40,8 @@
             var numVerts: number;
 
             var targetGeomtryData: GeomtryData = new GeomtryData();
+
+            targetGeomtryData.vertexAttLength = geomtryData.vertexAttLength;
 
             var j: number;
             for (var i: number = 0; i < numFaces; ++i) {
@@ -52,6 +54,11 @@
                 }
             }
             if (targetGeomtryData.vertices.length > 0) {
+                targetGeomtryData.vertLen = (targetGeomtryData.vertices.length / 3) * geomtryData.vertexAttLength;
+               targetGeomtryData.vertexDatas = new Array<number>(targetGeomtryData.vertLen)
+
+                this.updateFaceTangents(targetGeomtryData);
+                //this.updateFaceNormals(targetGeomtryData);
                 this.combinGeomtryData(targetGeomtryData);
             }
 
@@ -77,6 +84,20 @@
                     color = sourceGeomtryData.source_vertexColorData[face.vertexIndices[vertexIndex] - 1]
 
                     targetGeomtryData.verticesColor.push(color.r, color.g, color.b, color.a);
+                }
+
+                if (sourceGeomtryData.source_skinData != null && sourceGeomtryData.source_skinData.length > 0) {
+
+                    targetGeomtryData.skinMesh.push(
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 0],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 2],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 4],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 6],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 1],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 3],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 5],
+                        sourceGeomtryData.source_skinData[(face.vertexIndices[vertexIndex] - 1) * 8 + 7]
+                        );
                 }
 
                 if (face.normalIndices.length > 0) {
@@ -126,9 +147,6 @@
         * length 15
         **/
         public static combinGeomtryData(geomtrtData: GeomtryData, needTangent:boolean = true ) {
-
-            var vertLen: number = (geomtrtData.vertices.length / 3) * GeomtryData.vertexAttLength;
-
             var index: number = 0;
             var v: number = 0;
             var n: number = 0;
@@ -136,9 +154,10 @@
             var u1: number = 0;
             var u2: number = 0;
             var c: number = 0;
-            var data: Array<number> = geomtrtData.vertexDatas = new Array<number>(vertLen);
+            var skin: number = 0;
+            var data: Array<number> = geomtrtData.vertexDatas ;
 
-            while (index < vertLen) {
+            while (index < geomtrtData.vertLen) {
                 data[index++] = geomtrtData.vertices[v++];
                 data[index++] = geomtrtData.vertices[v++];
                 data[index++] = geomtrtData.vertices[v++];
@@ -153,10 +172,13 @@
                     data[index++] = 0;
                 }
 
-                if (geomtrtData.tangts && geomtrtData.source_tangtData.length) {
-                    data[index++] = geomtrtData.tangts[t++];
-                    data[index++] = geomtrtData.tangts[t++];
-                    data[index++] = geomtrtData.tangts[t++];
+                if (geomtrtData.tangts) {
+                    index++
+                    index++
+                    index++
+                   //data[index++] = geomtrtData.tangts[t++];
+                   //data[index++] = geomtrtData.tangts[t++];
+                   //data[index++] = geomtrtData.tangts[t++];
                 } else {
                     data[index++] = 0;
                     data[index++] = 0;
@@ -192,6 +214,17 @@
                     data[index++] = 0;
                     data[index++] = 0;
                     data[index++] = 0;
+                }
+
+                if (geomtrtData.skinMesh && geomtrtData.skinMesh.length) {
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
+                    data[index++] = geomtrtData.skinMesh[skin++];
                 }
             }
 
@@ -338,7 +371,7 @@
         protected static updateFaceTangents(geomtrtData: GeomtryData) {
             var i: number = 0;
             var index1: number, index2: number, index3: number;
-            var len: number = geomtrtData.indices.length
+            var len: number = geomtrtData.indices.length ;
             var ui: number, vi: number;
             var v0: number;
             var dv1: number, dv2: number;
@@ -347,44 +380,35 @@
             var dx1: number, dy1: number, dz1: number;
             var dx2: number, dy2: number, dz2: number;
             var cx: number, cy: number, cz: number;
-            var vertices: Array<number> = geomtrtData.vertexDatas;
-            var uvs: Array<number> = geomtrtData.vertexDatas;
+            var vertices: Array<number> = geomtrtData.vertices ;
+            var uvs: Array<number> = geomtrtData.uvs;
 
-            var posStride: number = 17;
+            var posStride: number = 3;
             var posOffset: number = 0;
-
-            var texStride: number = 17;
-            var texOffset: number = 15;
-
-            var tangtsStride: number = 17 ;
-            var tangtsOffset: number = 6;
-
-            //geomtrtData.tangts = new Array<number>(len);
-            //if (geomtrtData.tangts.length < len) {
-            //    geomtrtData.tangts.length = len;
-            //}
+            var texStride: number = 2;
+            var texOffset: number = 0;
 
             while (i < len) {
                 index1 = geomtrtData.indices[i];
                 index2 = geomtrtData.indices[i + 1];
                 index3 = geomtrtData.indices[i + 2];
 
-                ui = texOffset + index1 * texStride + 1;
-                v0 = uvs[ui];
-                ui = texOffset + index2 * texStride + 1;
-                dv1 = uvs[ui] - v0;
-                ui = texOffset + index3 * texStride + 1;
-                dv2 = uvs[ui] - v0;
+                ui = index1 * 2 ;
+                v0 =  uvs[ui+1];
+                ui = index2 * 2 ;
+                dv1 = uvs[ui+1] - v0;
+                ui = index3 * 2 ;
+                dv2 = uvs[ui+1] - v0;
 
-                vi = posOffset + index1 * posStride;
+                vi = index1 * 3 ;
                 x0 = vertices[vi];
                 y0 = vertices[vi + 1];
                 z0 = vertices[vi + 2];
-                vi = posOffset + index2 * posStride;
+                vi = index2 * 3 ;
                 dx1 = vertices[vi] - x0;
                 dy1 = vertices[vi + 1] - y0;
                 dz1 = vertices[vi + 2] - z0;
-                vi = posOffset + index3 * posStride;
+                vi = index3 * 3 ;
                 dx2 = vertices[vi] - x0;
                 dy2 = vertices[vi + 1] - y0;
                 dz2 = vertices[vi + 2] - z0;
@@ -393,15 +417,63 @@
                 cy = dv2 * dy1 - dv1 * dy2;
                 cz = dv2 * dz1 - dv1 * dz2;
                 denom = 1 / Math.sqrt(cx * cx + cy * cy + cz * cz);
-
-                vi = tangtsOffset + i++ * tangtsStride;
-                geomtrtData.vertexDatas[vi] = denom * cx;
-                geomtrtData.vertexDatas[vi++] = denom * cy;
-                geomtrtData.vertexDatas[vi++] = denom * cz;
-                //geomtrtData.tangts[i++] = vi;
-                //geomtrtData.tangts[i++] = vi;
-                //geomtrtData.tangts[i++] = vi;
+                geomtrtData.tangts[i++] = denom * cx;
+                geomtrtData.tangts[i++] = denom * cy;
+                geomtrtData.tangts[i++] = denom * cz;
             }
+
+			var i:number;
+            var lenV: number = geomtrtData.vertexDatas.length;
+            var tangentStride: number = geomtrtData.vertexAttLength;
+            var tangentOffset: number = 6;
+            var target: Array<number> = geomtrtData.vertexDatas;
+
+			i = tangentOffset;
+			while (i < lenV) {
+				target[i] = 0.0;
+				target[i + 1] = 0.0;
+				target[i + 2] = 0.0;
+				i += tangentStride;
+			}
+			
+            var k: number;
+            var lenI: number = len ;
+            var index: number;
+            var weight: number;
+            var f1: number = 0, f2: number = 1, f3: number = 2;
+			
+			i = 0;
+           
+			while (i < lenI) {
+				weight = 1;
+                index = tangentOffset + geomtrtData.indices[i++]*tangentStride;
+                target[index++] += -geomtrtData.tangts[f1]*weight;
+                target[index++] += geomtrtData.tangts[f2]*weight;
+                target[index] += geomtrtData.tangts[f3]*weight;
+                index = tangentOffset + geomtrtData.indices[i++]*tangentStride;
+                target[index++] += -geomtrtData.tangts[f1]*weight;
+                target[index++] += geomtrtData.tangts[f2]*weight;
+                target[index] += geomtrtData.tangts[f3]*weight;
+                index = tangentOffset + geomtrtData.indices[i++]*tangentStride;
+                target[index++] += -geomtrtData.tangts[f1]*weight;
+                target[index++] += geomtrtData.tangts[f2]*weight;
+                target[index] += geomtrtData.tangts[f3]*weight;
+				f1 += 3;
+				f2 += 3;
+				f3 += 3;
+			}
+			
+			i = tangentOffset;
+			while (i < lenV) {
+				var vx:number = target[i];
+                var vy: number = target[i + 1];
+                var vz: number = target[i + 2];
+                var d: number = 1.0/Math.sqrt(vx*vx + vy*vy + vz*vz);
+				target[i] = vx*d;
+				target[i + 1] = vy*d;
+				target[i + 2] = vz*d;
+				i += tangentStride;
+			}
         }
     }
 } 

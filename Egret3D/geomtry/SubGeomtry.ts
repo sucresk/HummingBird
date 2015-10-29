@@ -11,10 +11,5 @@
             this.numItems = indexData.length;
         }
 
-        public activate(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
-        }
-
-        public updata(context3D: Context3D, modeltransform: Matrix4_4, camera3D: Camera3D) {
-        }
     }
 } 

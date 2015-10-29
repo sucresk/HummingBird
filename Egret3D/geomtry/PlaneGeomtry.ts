@@ -1,8 +1,8 @@
 ﻿module BlackSwan {
     export class PlaneGeomtry extends SubGeomtry {
         
-        private w: number = 1000.0;
-        private h: number = 1000.0;
+        private w: number = 500.0;
+        private h: number = 500.0;
         constructor() {
             super();
             this.buildGeomtry();
@@ -24,7 +24,7 @@
                 );
 
             this.setGeomtryData(cubeVertexIndices, vertices);
-            this.buildBoundBox(this.positionSize + this.normalSize + this.colorSize + this.uvSize + this.uv2Size);
+            this.buildBoundBox(this.vertexAttLength);
         }
     }
 }
