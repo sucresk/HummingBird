@@ -1,5 +1,5 @@
 # HummingBird
-#Egret engine 3D API #
+#Egret engine 3D Instruction #
 
 ####Egret3D 是白鹭引擎全新打造的基于Html5 标准研发的 3D引擎，内容包含了3D硬件渲染引擎，和未来计划中的游戏功能模块引擎。也就是说，只要浏览器支持webgl的地方，就能运行Egret3D ，在跨平台方面也是极其不错的。
 
