@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0 minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>Egret3D Sample</title>
+    <link rel="stylesheet" href="app.css" type="text/css">
+
+    <script src="js/Egret3D/Egret3DEngine.js"></script>
+
+    <script src="js/Sample_CreateView3D.js"></script>
+    <script src="js/Sample_CreateSky.js"></script>
+    <script src="js/Sample_CreateBox.js"></script>
+    <script src="js/Sample_MousePick.js"></script>
+    <script src="js/Sample_Light.js"></script>
+    
+    <!--<script src="js/jslib/GUI.js"></script>
+    <script src="js/jslib/dat.gui.js"></script>
+    <script src="js/jslib/Stats.js"></script>
+    <script src="js/jslib/hammer.js"></script>
+    <script src="js/jslib/howler.js"></script>-->
+
+    <script src="js/app.js"></script>
+</head>
+<body ondragstart="return false" onselect="return false">
+    <div id="light"></div>
+    <div id="console"></div>
+
+    <img id="t1" src="resource/sky/cloudy_noon_FR.png" hidden="hidden" />
+    <img id="t2" src="resource/sky/cloudy_noon_BK.png" hidden="hidden" />
+    <img id="t3" src="resource/sky/cloudy_noon_LF.png" hidden="hidden" />
+    <img id="t4" src="resource/sky/cloudy_noon_RT.png" hidden="hidden" />
+    <img id="t5" src="resource/sky/cloudy_noon_UP.png" hidden="hidden" />
+    <img id="t6" src="resource/sky/cloudy_noon_DN.png" hidden="hidden" />
+
+    <script>
+        window.addEventListener("touchmove", function (event) { event.preventDefault(); }, false);
+        if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+            var meta = document.getElementById("viewport");
+            meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+        }
+    </script>
+</body>
+</html>
